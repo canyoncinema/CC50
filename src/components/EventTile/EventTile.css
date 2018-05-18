@@ -1,0 +1,26 @@
+.EventTile {
+	font-size: 14px;
+	line-height: 1.57;
+	background-color: #ffffff;
+	margin-bottom: 2em;
+}
+
+.EventTile .banner {
+	display: flex;
+	height: 110px;
+  box-shadow: 0 1px 0 0 #eae8e8, 1px 0 0 0 #eae8e8;
+  box-shadow: 0 1px 0 0 var(--lightest-gray), 1px 0 0 0 var(--lightest-gray);
+}
+
+.EventTile .banner .PhotoFill {
+	flex: 1;
+}
+
+.EventTile .content {
+	padding: 25px 30px;
+}
+
+.EventTile .content h4 {
+	margin-bottom: 10px;
+}
+

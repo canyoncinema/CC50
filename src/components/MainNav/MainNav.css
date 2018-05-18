@@ -1,0 +1,11 @@
+.MainNav .navbar {
+	height: 104px;
+}
+
+.MainNav .nav-link {
+  opacity: 0.6;
+  font-family: Karla;
+  font-size: 18px;
+  font-weight: bold;
+  color: #e6e6e6;
+}

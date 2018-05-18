@@ -1,0 +1,86 @@
+.HomeIntro .divider {
+	width: 71px;
+	height: 2px;
+	background-color: rgba(255, 255, 255, 0.3);
+	display: inline-block;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 24px;
+}
+
+.HomeIntro .logo-wrapper {
+	margin-top: 155.6px;
+}
+
+.HomeIntro .CANYON-CINEMA-50 {
+  width: 541px;
+  height: 61px;
+  transform: rotate(-5deg);
+  font-family: Baskerville;
+  font-size: 54px;
+  font-weight: bold;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.HomeIntro .divider-1 {
+	margin-top: 98px;
+}
+
+.HomeIntro p.intro {
+	max-width: 464px;
+  font-family: Karla;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 74px;
+}
+
+.HomeIntro .browse {
+	font-family: Karla;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: 1.3px;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 38px;
+}
+
+.HomeIntro .search {
+  margin-top: 136.4px;
+	width: 360px;
+  height: 60px;
+	padding-left: 57px;
+	opacity: 0.5;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: solid 2px #ffffff;
+  font-family: inherit;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.HomeIntro .search::placeholder {
+  opacity: 0.6;
+  font-family: Karla;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+
+}

@@ -1,0 +1,23 @@
+.Spotlight {
+	margin-bottom: 80px;
+}
+
+.SpotlightListItem {
+	padding: 28px 40px;
+	background-color: #ffffff;
+	border-bottom: solid 1px #d8d8d8;
+	border-left: solid 6px transparent;
+	box-sizing: border-box;
+}
+
+.SpotlightListItem > * {
+	transition: opacity 0.33s linear, border-left-color 0.33s linear;
+}
+
+.SpotlightListItem:not(.active) > * {
+	opacity: 0.6;
+}
+
+.SpotlightListItem.active {
+	border-left-color: var(--gold);
+}

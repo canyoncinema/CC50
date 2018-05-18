@@ -1,0 +1,519 @@
+{
+	"document": {
+		"@name": "collectionobjects",
+		"ns2:collectionspace_core": {
+			"@xmlns:ns2": "http://collectionspace.org/collectionspace_core/",
+			"@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+			"createdAt": "2018-04-02T22:58:50.015Z",
+			"updatedBy": "maxgoldb@gmail.com",
+			"createdBy": "maxgoldb@gmail.com",
+			"workflowState": "project",
+			"tenantId": "101",
+			"refName": "urn:cspace:cs.cancf.org:collectionobjects:id(81e9109e-c43e-45f1-b33d)'2018.1.4'",
+			"uri": "/collectionobjects/81e9109e-c43e-45f1-b33d",
+			"updatedAt": "2018-04-02T22:58:50.015Z"
+		},
+		"ns2:collectionobjects_common": {
+			"@xmlns:ns2": "http://collectionspace.org/services/collectionobject",
+			"@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+			"fieldCollectionDateGroup": {
+				"scalarValuesComputed": "true",
+				"dateEarliestSingleCertainty": null,
+				"dateEarliestSingleQualifierUnit": null,
+				"dateDisplayDate": null,
+				"dateLatestScalarValue": null,
+				"dateEarliestSingleQualifierValue": null,
+				"datePeriod": null,
+				"dateLatestEra": null,
+				"dateEarliestSingleDay": null,
+				"dateEarliestSingleQualifier": null,
+				"dateEarliestSingleYear": null,
+				"dateLatestCertainty": null,
+				"dateAssociation": null,
+				"dateLatestDay": null,
+				"dateEarliestSingleMonth": null,
+				"dateEarliestSingleEra": null,
+				"dateLatestYear": null,
+				"dateLatestQualifierUnit": null,
+				"dateNote": null,
+				"dateLatestQualifierValue": null,
+				"dateLatestQualifier": null,
+				"dateEarliestScalarValue": null,
+				"dateLatestMonth": null
+			},
+			"owners": {
+				"owner": null
+			},
+			"fieldCollectionMethods": {
+				"fieldCollectionMethod": null
+			},
+			"contentActivities": {
+				"contentActivity": null
+			},
+			"objectProductionDateGroupList": {
+				"objectProductionDateGroup": {
+					"scalarValuesComputed": "true",
+					"dateEarliestSingleCertainty": null,
+					"dateEarliestSingleQualifierUnit": null,
+					"dateDisplayDate": null,
+					"dateLatestScalarValue": null,
+					"dateEarliestSingleQualifierValue": null,
+					"datePeriod": null,
+					"dateLatestEra": null,
+					"dateEarliestSingleDay": null,
+					"dateEarliestSingleQualifier": null,
+					"dateEarliestSingleYear": null,
+					"dateLatestCertainty": null,
+					"dateAssociation": null,
+					"dateLatestDay": null,
+					"dateEarliestSingleMonth": null,
+					"dateEarliestSingleEra": null,
+					"dateLatestYear": null,
+					"dateLatestQualifierUnit": null,
+					"dateNote": null,
+					"dateLatestQualifierValue": null,
+					"dateLatestQualifier": null,
+					"dateEarliestScalarValue": null,
+					"dateLatestMonth": null
+				}
+			},
+			"contentConcepts": {
+				"contentConcept": null
+			},
+			"assocEventPlaces": {
+				"assocEventPlace": null
+			},
+			"assocActivityGroupList": {
+				"assocActivityGroup": {
+					"assocActivity": null,
+					"assocActivityType": null,
+					"assocActivityNote": null
+				}
+			},
+			"objectProductionReasons": {
+				"objectProductionReason": null
+			},
+			"assocPlaceGroupList": {
+				"assocPlaceGroup": {
+					"assocPlaceNote": null,
+					"assocPlace": null,
+					"assocPlaceType": null
+				}
+			},
+			"objectNameList": {
+				"objectNameGroup": {
+					"objectNameType": null,
+					"objectNameSystem": null,
+					"objectName": null,
+					"objectNameCurrency": null,
+					"objectNameNote": null,
+					"objectNameLevel": null,
+					"objectNameLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'"
+				}
+			},
+			"styles": {
+				"style": null
+			},
+			"materialGroupList": {
+				"materialGroup": {
+					"materialName": null,
+					"material": null,
+					"materialComponent": null,
+					"materialComponentNote": null,
+					"materialSource": null
+				}
+			},
+			"assocObjectGroupList": {
+				"assocObjectGroup": {
+					"assocObject": null,
+					"assocObjectNote": null,
+					"assocObjectType": null
+				}
+			},
+			"fieldCollectors": {
+				"fieldCollector": null
+			},
+			"responsibleDepartments": {
+				"responsibleDepartment": null
+			},
+			"textualInscriptionGroupList": {
+				"textualInscriptionGroup": {
+					"inscriptionContentScript": null,
+					"inscriptionContentInscriber": null,
+					"inscriptionContentTransliteration": null,
+					"inscriptionContentType": null,
+					"inscriptionContentDateGroup": {
+						"scalarValuesComputed": "true",
+						"dateEarliestSingleCertainty": null,
+						"dateEarliestSingleQualifierUnit": null,
+						"dateDisplayDate": null,
+						"dateLatestScalarValue": null,
+						"dateEarliestSingleQualifierValue": null,
+						"datePeriod": null,
+						"dateLatestEra": null,
+						"dateEarliestSingleDay": null,
+						"dateEarliestSingleQualifier": null,
+						"dateEarliestSingleYear": null,
+						"dateLatestCertainty": null,
+						"dateAssociation": null,
+						"dateLatestDay": null,
+						"dateEarliestSingleMonth": null,
+						"dateEarliestSingleEra": null,
+						"dateLatestYear": null,
+						"dateLatestQualifierUnit": null,
+						"dateNote": null,
+						"dateLatestQualifierValue": null,
+						"dateLatestQualifier": null,
+						"dateEarliestScalarValue": null,
+						"dateLatestMonth": null
+					},
+					"inscriptionContent": null,
+					"inscriptionContentTranslation": null,
+					"inscriptionContentInterpretation": null,
+					"inscriptionContentPosition": null,
+					"inscriptionContentLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'",
+					"inscriptionContentMethod": null
+				}
+			},
+			"objectNumber": "2018.1.4",
+			"fieldColEventNames": {
+				"fieldColEventName": null
+			},
+			"colors": {
+				"color": null
+			},
+			"contentScripts": {
+				"contentScript": null
+			},
+			"objectProductionPlaceGroupList": {
+				"objectProductionPlaceGroup": {
+					"objectProductionPlaceRole": null,
+					"objectProductionPlace": null
+				}
+			},
+			"referenceGroupList": {
+				"referenceGroup": {
+					"reference": null,
+					"referenceNote": null
+				}
+			},
+			"assocDateGroupList": {
+				"assocDateGroup": {
+					"assocDateNote": null,
+					"assocStructuredDateGroup": {
+						"scalarValuesComputed": "true",
+						"dateEarliestSingleCertainty": null,
+						"dateEarliestSingleQualifierUnit": null,
+						"dateDisplayDate": null,
+						"dateLatestScalarValue": null,
+						"dateEarliestSingleQualifierValue": null,
+						"datePeriod": null,
+						"dateLatestEra": null,
+						"dateEarliestSingleDay": null,
+						"dateEarliestSingleQualifier": null,
+						"dateEarliestSingleYear": null,
+						"dateLatestCertainty": null,
+						"dateAssociation": null,
+						"dateLatestDay": null,
+						"dateEarliestSingleMonth": null,
+						"dateEarliestSingleEra": null,
+						"dateLatestYear": null,
+						"dateLatestQualifierUnit": null,
+						"dateNote": null,
+						"dateLatestQualifierValue": null,
+						"dateLatestQualifier": null,
+						"dateEarliestScalarValue": null,
+						"dateLatestMonth": null
+					},
+					"assocDateType": null
+				}
+			},
+			"briefDescriptions": {
+				"briefDescription": null
+			},
+			"contentLanguages": {
+				"contentLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'"
+			},
+			"recordStatus": "new",
+			"assocPersonGroupList": {
+				"assocPersonGroup": {
+					"assocPersonNote": null,
+					"assocPersonType": null,
+					"assocPerson": null
+				}
+			},
+			"titleGroupList": {
+				"titleGroup": {
+					"titleTranslationSubGroupList": {
+						"titleTranslationSubGroup": {
+							"titleTranslation": null,
+							"titleTranslationLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'"
+						}
+					},
+					"titleType": null,
+					"titleLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'",
+					"title": "\"Girls & Boys Together Film/Video Party\" poster"
+				}
+			},
+			"assocConceptGroupList": {
+				"assocConceptGroup": {
+					"assocConcept": null,
+					"assocConceptNote": null,
+					"assocConceptType": null
+				}
+			},
+			"usageGroupList": {
+				"usageGroup": {
+					"usageNote": null,
+					"usage": null
+				}
+			},
+			"assocCulturalContextGroupList": {
+				"assocCulturalContextGroup": {
+					"assocCulturalContextNote": null,
+					"assocCulturalContext": null,
+					"assocCulturalContextType": null
+				}
+			},
+			"otherNumberList": {
+				"otherNumber": {
+					"numberType": null,
+					"numberValue": null
+				}
+			},
+			"objectProductionPeopleGroupList": {
+				"objectProductionPeopleGroup": {
+					"objectProductionPeople": null,
+					"objectProductionPeopleRole": null
+				}
+			},
+			"assocPeopleGroupList": {
+				"assocPeopleGroup": {
+					"assocPeople": null,
+					"assocPeopleNote": null,
+					"assocPeopleType": null
+				}
+			},
+			"assocEventOrganizations": {
+				"assocEventOrganization": null
+			},
+			"contentPeoples": {
+				"contentPeople": null
+			},
+			"measuredPartGroupList": {
+				"measuredPartGroup": {
+					"dimensionSummary": null,
+					"measuredPart": null,
+					"dimensionSubGroupList": {
+						"dimensionSubGroup": {
+							"dimensionNote": null,
+							"valueQualifier": null,
+							"valueDate": null,
+							"measuredBy": null,
+							"dimension": null,
+							"value": null,
+							"measurementMethod": null,
+							"measurementUnit": null
+						}
+					}
+				}
+			},
+			"contentObjectGroupList": {
+				"contentObjectGroup": {
+					"contentObjectType": null,
+					"contentObject": null
+				}
+			},
+			"ownershipDateGroupList": {
+				"ownershipDateGroup": {
+					"scalarValuesComputed": "true",
+					"dateEarliestSingleCertainty": null,
+					"dateEarliestSingleQualifierUnit": null,
+					"dateDisplayDate": null,
+					"dateLatestScalarValue": null,
+					"dateEarliestSingleQualifierValue": null,
+					"datePeriod": null,
+					"dateLatestEra": null,
+					"dateEarliestSingleDay": null,
+					"dateEarliestSingleQualifier": null,
+					"dateEarliestSingleYear": null,
+					"dateLatestCertainty": null,
+					"dateAssociation": null,
+					"dateLatestDay": null,
+					"dateEarliestSingleMonth": null,
+					"dateEarliestSingleEra": null,
+					"dateLatestYear": null,
+					"dateLatestQualifierUnit": null,
+					"dateNote": null,
+					"dateLatestQualifierValue": null,
+					"dateLatestQualifier": null,
+					"dateEarliestScalarValue": null,
+					"dateLatestMonth": null
+				}
+			},
+			"technicalAttributeGroupList": {
+				"technicalAttributeGroup": {
+					"technicalAttribute": null,
+					"technicalAttributeMeasurementUnit": null,
+					"technicalAttributeMeasurement": null
+				}
+			},
+			"nonTextualInscriptionGroupList": {
+				"nonTextualInscriptionGroup": {
+					"inscriptionDescriptionDateGroup": {
+						"scalarValuesComputed": "true",
+						"dateEarliestSingleCertainty": null,
+						"dateEarliestSingleQualifierUnit": null,
+						"dateDisplayDate": null,
+						"dateLatestScalarValue": null,
+						"dateEarliestSingleQualifierValue": null,
+						"datePeriod": null,
+						"dateLatestEra": null,
+						"dateEarliestSingleDay": null,
+						"dateEarliestSingleQualifier": null,
+						"dateEarliestSingleYear": null,
+						"dateLatestCertainty": null,
+						"dateAssociation": null,
+						"dateLatestDay": null,
+						"dateEarliestSingleMonth": null,
+						"dateEarliestSingleEra": null,
+						"dateLatestYear": null,
+						"dateLatestQualifierUnit": null,
+						"dateNote": null,
+						"dateLatestQualifierValue": null,
+						"dateLatestQualifier": null,
+						"dateEarliestScalarValue": null,
+						"dateLatestMonth": null
+					},
+					"inscriptionDescription": null,
+					"inscriptionDescriptionInscriber": null,
+					"inscriptionDescriptionInterpretation": null,
+					"inscriptionDescriptionPosition": null,
+					"inscriptionDescriptionMethod": null,
+					"inscriptionDescriptionType": null
+				}
+			},
+			"assocEventPersons": {
+				"assocEventPerson": null
+			},
+			"objectProductionPersonGroupList": {
+				"objectProductionPersonGroup": {
+					"objectProductionPerson": null,
+					"objectProductionPersonRole": null
+				}
+			},
+			"contentPersons": {
+				"contentPerson": ["urn:cspace:cs.cancf.org:personauthorities:name(person):item:name(BarbaraHammer1517311927417)'Barbara Hammer'", "urn:cspace:cs.cancf.org:personauthorities:name(person):item:name(MichaelWallin1522709563713)'Michael Wallin'"]
+			},
+			"fieldCollectionSources": {
+				"fieldCollectionSource": null
+			},
+			"contentEventNameGroupList": {
+				"contentEventNameGroup": {
+					"contentEventName": null,
+					"contentEventNameType": null
+				}
+			},
+			"ownersReferences": {
+				"ownersReference": null
+			},
+			"viewersReferences": {
+				"viewersReference": null
+			},
+			"objectProductionOrganizationGroupList": {
+				"objectProductionOrganizationGroup": {
+					"objectProductionOrganizationRole": null,
+					"objectProductionOrganization": null
+				}
+			},
+			"publishToList": {
+				"publishTo": "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'"
+			},
+			"assocOrganizationGroupList": {
+				"assocOrganizationGroup": {
+					"assocOrganization": null,
+					"assocOrganizationType": null,
+					"assocOrganizationNote": null
+				}
+			},
+			"contentOrganizations": {
+				"contentOrganization": null
+			},
+			"contentPlaces": {
+				"contentPlace": null
+			},
+			"contentOtherGroupList": {
+				"contentOtherGroup": {
+					"contentOtherType": null,
+					"contentOther": null
+				}
+			},
+			"ownershipExchangePriceCurrency": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
+			"contentDescription": "Poster advertising screening. ",
+			"contentDateGroup": {
+				"scalarValuesComputed": "true",
+				"dateEarliestSingleCertainty": null,
+				"dateEarliestSingleQualifierUnit": null,
+				"dateDisplayDate": null,
+				"dateLatestScalarValue": null,
+				"dateEarliestSingleQualifierValue": null,
+				"datePeriod": null,
+				"dateLatestEra": null,
+				"dateEarliestSingleDay": null,
+				"dateEarliestSingleQualifier": null,
+				"dateEarliestSingleYear": null,
+				"dateLatestCertainty": null,
+				"dateAssociation": null,
+				"dateLatestDay": null,
+				"dateEarliestSingleMonth": null,
+				"dateEarliestSingleEra": null,
+				"dateLatestYear": null,
+				"dateLatestQualifierUnit": null,
+				"dateNote": null,
+				"dateLatestQualifierValue": null,
+				"dateLatestQualifier": null,
+				"dateEarliestScalarValue": null,
+				"dateLatestMonth": null
+			},
+			"objectStatusList": {
+				"objectStatus": null
+			},
+			"objectComponentGroupList": {
+				"objectComponentGroup": {
+					"objectComponentInformation": null,
+					"objectComponentName": null
+				}
+			},
+			"comments": {
+				"comment": null
+			},
+			"assocEventPeoples": {
+				"assocEventPeople": null
+			},
+			"techniqueGroupList": {
+				"techniqueGroup": {
+					"techniqueType": null,
+					"technique": null
+				}
+			},
+			"inventoryStatusList": {
+				"inventoryStatus": "urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'Unknown'"
+			},
+			"contentPositions": {
+				"contentPosition": null
+			},
+			"forms": {
+				"form": null
+			}
+		},
+		"ns2:account_permission": {
+			"@xmlns:ns2": "http://collectionspace.org/services/authorization",
+			"account": {
+				"accountId": "00f00482-366b-42c1-90d1-9ca66fdc0374",
+				"screenName": "Amy Hua",
+				"userId": "foramyhua@gmail.com",
+				"tenantId": "101"
+			}
+		}
+	}
+}
