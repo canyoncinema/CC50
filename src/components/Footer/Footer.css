@@ -1,0 +1,34 @@
+.Footer {
+	background-color: #231f20;
+  background-color: var(--black);
+  padding: 125px 70px;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+.Footer ul.links {
+	column-count: 2;
+	list-style: none;
+}
+
+.Footer ul.links li {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.25;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.Footer a,
+.Footer a:hover,
+.Footer a:active {
+	color: #ffffff;
+}
+
+.Footer .bio .contact div {
+	margin-bottom: 10px;
+}
+
+.Footer section {
+	margin-bottom: 45px;
+}

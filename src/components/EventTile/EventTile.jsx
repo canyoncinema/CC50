@@ -5,7 +5,7 @@ import './EventTile.css';
 
 import CalDay from '../CalDay/CalDay';
 import PhotoFill from '../PhotoFill/PhotoFill';
-import Time from '../Time/Time';
+import DateTimeString from '../DateTimeString/DateTimeString';
 
 class EventTile extends Component {
 	constructor(props) {
@@ -44,7 +44,7 @@ class EventTile extends Component {
 				<div className="content">
 					<h4 ref={this.eventNameRef}>{name}</h4>
 					<div ref={this.eventLocationRef} className="location">{location.name}</div>
-					<div><Time dateTime={dateTime} /></div>
+					<div><DateTimeString format="time" dateTime={dateTime} /></div>
 					<div>{ticketPriceString}</div>
 				</div>
 			</div>

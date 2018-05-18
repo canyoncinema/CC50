@@ -1,0 +1,22 @@
+.DarkBox {
+  padding: 80px 60px;
+  background-color: #231f20;
+  background-color: var(--black);
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.08);
+}
+
+.DarkBox h3 {
+	font-size: 24px;
+	margin-bottom: 24px;
+	color: #ffffff;
+	text-align: center;
+}
+
+.DarkBox p {
+	font-size: 14px;
+	line-height: 1.57;
+	color: #ffffff;
+	text-align: center;
+	width: 235px;
+	margin: 0 auto;
+}

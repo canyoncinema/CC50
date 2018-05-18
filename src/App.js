@@ -17,14 +17,33 @@ import HomeIntro from './components/HomeIntro/HomeIntro';
 import Spotlight from './components/Spotlight/Spotlight';
 import Button from './components/Button/Button';
 import EventTiles from './components/EventTiles/EventTiles';
-
+import DarkBox from './components/DarkBox/DarkBox';
+import NewsTile from './components/NewsTile/NewsTile';
+import FeaturedPost from './components/FeaturedPost/FeaturedPost';
+import Footer from './components/Footer/Footer';
 
 import './App.css';
+
+const optimalColWidths = (num) => {
+  const widths = []
+  if (num == 1) widths.push(1);
+  if (num == 2) widths.push(2);
+  if (num == 3) widths.push(3);
+  if (num > 3) {
+    while (num > 0) {
+      widths.push(3);
+      num -= 3;
+    }
+  }
+  return widths;
+};
 
 class App extends Component {
   state = {
     films: [],
-    upcomingEvents: []
+    upcomingEvents: [],
+    newsItems: [],
+    featuredPosts: []
   }
 
   componentDidMount() {
@@ -51,10 +70,24 @@ class App extends Component {
           upcomingEvents: data
         });
       });
+
+    axios.get('//localhost:3001/news')
+      .then(response => {
+        this.setState({
+          newsItems: response.data
+        });
+      });
+
+    axios.get('//localhost:3001/featuredPosts')
+      .then(response => {
+        this.setState({
+          featuredPosts: response.data
+        });
+      });
   }
 
   render() {
-    const { upcomingEvents } = this.state;
+    const { upcomingEvents, newsItems, featuredPosts } = this.state;
 
     var spotlightData = [{
       name: 'Portland (1996)',
@@ -100,7 +133,7 @@ class App extends Component {
         <div className="container-fluid padded-container">
           <Row>
             <Col sm="12">
-              <h1 className="lead d-flex">
+              <h1 className="lead upcoming-events d-flex">
                 Upcoming events
                 <span className="p-1 ml-auto">
                   <Button size="default">
@@ -114,19 +147,80 @@ class App extends Component {
         
           <Row>
             <Col sm="12">
-              <h1 className="lead">News</h1>
+              <h1 className="lead discover">Discover something new to teach or share</h1>
             </Col>
+          </Row>
+
+          <Row>
+            <Col sm="4">
+              <DarkBox>
+                <h3>Educators</h3>
+                <p>
+                  Browse curated classroom content and our library of related writings, videos, and other ephemera as it relates to the works and filmmakers in our catalog.
+                </p>
+              </DarkBox>
+            </Col>
+            <Col sm="4">
+              <DarkBox>
+                <h3>Students</h3>
+                <p>
+                  Learn about the history of our collection of films and filmmakers and how it relates the avant-garde and experimental filmmaking movements from 1921 to the present. 
+                </p>
+              </DarkBox>
+            </Col>
+            <Col sm="4">
+              <DarkBox>
+                <h3>Curators</h3>
+                <p>
+                  Browse our curated programs, hand-picked by our staff and board, or explore the collection to curate your own program.
+                </p>
+              </DarkBox>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm="12">
+              <h1 className="lead d-flex news">
+                News
+                <span className="p-1 ml-auto">
+                  <Button size="default">
+                    Read All News
+                  </Button>
+                </span>
+              </h1>
+            </Col>
+          </Row>
+
+          <Row>
+            {
+              optimalColWidths(newsItems.length).map((colWidth) => (
+                newsItems.slice(0, colWidth).map((d, i) => {
+                  return (
+                    <Col sm={12 / colWidth}>
+                      <NewsTile {...d} key={i} />
+                    </Col>
+                  );
+              })))
+            }
+          </Row>
+        </div>
+        <div className="container-fluid">
+          <Row className="featured-posts">
+            {
+              optimalColWidths(featuredPosts.length).map((colWidth) => (
+                featuredPosts.slice(0, colWidth).map((d, i) => {
+                  return (
+                    <Col sm={12 / colWidth}>
+                      <FeaturedPost {...d} key={i} />
+                    </Col>
+                  );
+              })))
+            }
           </Row>
         
           <Row>
             <Col sm="12">
-              <h1 className="lead">Featured</h1>
-            </Col>
-          </Row>
-        
-          <Row>
-            <Col sm="12">
-              <h1 className="lead">Footer</h1>
+              <Footer />
             </Col>
           </Row>
         </div>

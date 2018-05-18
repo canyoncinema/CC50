@@ -2,7 +2,7 @@
 	font-size: 14px;
 	line-height: 1.57;
 	background-color: #ffffff;
-	margin-bottom: 2em;
+	margin-bottom: 40px;
 }
 
 .EventTile .banner {
@@ -22,5 +22,5 @@
 
 .EventTile .content h4 {
 	margin-bottom: 10px;
+	height: 48px;
 }
-

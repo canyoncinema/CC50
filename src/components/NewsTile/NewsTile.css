@@ -1,0 +1,29 @@
+.NewsTile {
+	background-color: #fff;
+	position: relative;
+}
+
+.NewsTile h4 {
+	margin-bottom: 10px;
+}
+
+.NewsTile .content {
+	padding: 25px 30px;
+	background-color: #ffffff;
+	height: 200px;
+	color: #4a4a4a;
+	color: var(--darkest-grey);
+}
+
+.NewsTile .read-more a {
+	font-family: Karla, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  color: #a5721a;
+  color: var(--gold);
+  text-transform: uppercase;
+
+  position: absolute;
+  bottom: 30px;
+}

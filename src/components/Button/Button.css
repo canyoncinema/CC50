@@ -45,8 +45,10 @@
   letter-spacing: 2px;
 }
 
-h1.lead .Button.large {
-  margin-top: -10px;
+h1 .Button.large,
+h1 .Button.default {
+  position: relative;
+  top: -10px;
 }
 
 .Button.large:hover {

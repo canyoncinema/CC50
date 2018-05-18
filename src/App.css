@@ -39,6 +39,23 @@ html {
   padding: 0 70px; 
 }
 
+/* sections */
+.discover {
+  margin-top: 60px !important;
+}
+
+.news,
+.upcoming-events {
+  margin-top: 100px !important;
+}
+
+.featured-posts {
+  margin-top: 100px;
+  padding: 100px 0;
+  background-color: #eae8e8;
+  background-color: var(--lightest-gray);
+}
+
 /* text styles */
 
 a:hover,
@@ -80,6 +97,10 @@ h1.lead {
   color: var(--black);
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+h1.discover {
+  max-width: 736px;
 }
 
 .H2-Black,

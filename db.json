@@ -98,5 +98,37 @@
 		"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
 		"films": []
 	}],
-	"news": []
+	"news": [{
+		"id": 235234,
+		"name": "Canyon Cinema 50 January 2018 Events",
+		"created": "Tue, 15 May 2018 20:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}, {
+		"id": 235235,
+		"name": "2017 was a remarkable year. 2018 will be even better (but only with your help).",
+		"created": "Tue, 8 May 2018 18:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}, {
+		"id": 235236,
+		"name": "Now from Larry Gottheim: Chants and Dances for Hand",
+		"created": "Mon, 7 May 2018 15:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}],
+	"featuredPosts": [{
+		"id": 113,
+		"name": "Canyon Cinema 50 Film Tour",
+		"summary": "Canyon Cinema is delighted to offer a film tour comprising four captivating film programs and two digital packages, set to screen throughout the US, and beyond, from November 1st, 2017 through 2018.",
+		"buttonText": "Tour Info & Dates"
+	}, {
+		"id": 114,
+		"name": "Featured Essays & Writings",
+		"summary": "To celebrate 50 years, we’ve published critical essays and personal reflections about the organization’s impact and history, as well as critical profiles of films and filmmakers from our collection.",
+		"buttonText": "Explore Writings"
+	}]
 }

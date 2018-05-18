@@ -4,7 +4,14 @@ import './Button.css';
 
 export default ({onClick, size, className, children}) => {
 	return (
-		<div className={`Button${size ? ' ' + size : ''}${className ? ' ' + className : ''}`}>
+		<div
+			onClick={onClick}
+			className={size ?
+				'Button ' + size
+				: className ?
+				'Button ' + className :
+				'Button'
+			}>
 			{children}
 		</div>
 	);
