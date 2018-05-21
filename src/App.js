@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Helmet } from "react-helmet";
 import { Row, Col } from 'reactstrap';
+import data from './db.json';
 import {
   BrowserRouter as Router,
   Route,
@@ -38,12 +39,14 @@ const optimalColWidths = (num) => {
   return widths;
 };
 
+const { films, filmmakers, curatedPrograms, ephemera, events, news, featuredPosts } = data.films;
+
 class App extends Component {
   state = {
-    films: [],
-    upcomingEvents: [],
-    newsItems: [],
-    featuredPosts: []
+    films: films || [],
+    upcomingEvents: events || [],
+    newsItems: news || [],
+    featuredPosts: featuredPosts || []
   }
 
   componentDidMount() {

@@ -1,0 +1,134 @@
+{
+	"films": [{
+		"id": 3,
+		"objectType": "film",
+		"year": "1996",
+		"name": "Portland",
+		"about": "The film is a documentary road movie about travel, the fallibility of photographs, and the merging of memory and imagination…",
+		"tags": ["16mm", "1990s", "Color", "Sound"],
+		"photos": ["http://example-image.com/something-goes-on-the-tile.jpeg"],
+		"filmmaker": {
+			"id": 1,
+			"name": "Barbara Hammer"
+		},
+		"ephemera": [],
+		"events": [],
+		"curatedPrograms": [],
+		"rentalPrice": 35,
+		"rentalFormat": "16mm"
+	}],
+	"filmmakers": [{
+		"id": 1,
+		"objectType": "filmmaker",
+		"name": "Barbara Hammer",
+		"locations": ["New York"],
+		"yearsActive": ["1970s", "1980s", "1990s", "2000s", "2010s"],
+		"website": "http://barbarahammer.com",
+		"imageUrl": "http://some-avatar.com/barbara.jpeg",
+		"about": "Barbara Hammer is a visual artist primarily working in film and video. Her work reveals and celebrates marginalized peoples whose stories have not been told. Her cinema is multi-leveled and engages an audience viscerally and intellectually with the goal of activating them to make social change. She has been honored with 5 retrospectives in the last 3 years: The Museum of Modern Art in New York City, Tate Modern in London, Jeu de Paume in Paris, the Toronto International Film Festival and Kunsthalle Oslo in Norway. Her book Hammer! Making Movies Out of Sex and Life was published in 2010 by The Feminist Press at The City University of New York. ",
+		"photos": [
+			"http://example-image.com/something-goes-on-the-tile.jpeg",
+			"http://sdf.com/there-can-be-multiple.jpeg"
+		],
+		"films": [],
+		"ephemera": [],
+		"curatedPrograms": [],
+		"related": [],
+		"events": [],
+		"news": []
+	}],
+	"curatedPrograms": [{
+		"id": 6,
+		"objectType": "curated program",
+		"minutes": 90,
+		"curator": "Canyon Cinema",
+		"name": "Associations",
+		"description": "Program Two: ASSOCIATIONS is titled after John Smith’s 1975 film, a joyfully dense rebus-like image-word construction…",
+		"photos": [
+			"http://example-image.com/something-goes-on-the-tile.jpeg",
+			"http://sdf.com/there-can-be-multiple.jpeg"
+		],
+		"films": [],
+		"filmmakers": [{
+			"id": 36,
+			"name": "Mark Toscano"
+		}, {
+			"id": 11,
+			"name": "Sara Kathryn Arledge"
+		}, {
+			"id": 23,
+			"name": "John Smith"
+		}, {
+			"id": 68,
+			"name": "Robert Nelson"
+		}],
+		"events": [],
+		"ephemera": [],
+		"rentalPrice": 35,
+		"rentalFormat": "16mm"
+	}],
+	"ephemera": [{
+		"id": 643,
+		"objectType": "ephemera",
+		"about": "Experimental filmmaker Nelson (March 1, 1930 - January 9, 2012) send me the following hand-written answers to 81 questions I sent to him in the fall of 2011. He answered 49 of them – much to contemplate. - Gerry Fialka",
+		"name": "Robert Nelson Interview by Gerry Fialka",
+		"tags": ["Interview", "Printed Pieces"],
+		"interviewLink": "http://interview-site.com",
+		"photos": [
+			"http://example-image.com/something-goes-on-the-tile.jpeg",
+			"http://sdf.com/there-can-be-multiple.jpeg"
+		],
+		"relatedFilmmakers": []
+	}],
+	"events": [{
+		"id": 125234,
+		"startDateTime": "Thu, 17 May 2018 20:30:00 GMT",
+		"name": "Red Shift - Gunvor Nelson + Daughters of Chaos - Marjorie Keller",
+		"facebookUrl": "facebook.com/event-page",
+		"location": {
+			"name": "Roxie Theater",
+			"address": "3117 16th Street, San Francisco"
+		},
+		"ticketPrice": 11,
+		"ticketNote": "Day Pass",
+		"ticketUrl": "http://tickets-website.com",
+		"photos": [
+			"https://i.imgur.com/tD0hhz3.png"
+		],
+		"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
+		"films": []
+	}],
+	"news": [{
+		"id": 235234,
+		"name": "Canyon Cinema 50 January 2018 Events",
+		"created": "Tue, 15 May 2018 20:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}, {
+		"id": 235235,
+		"name": "2017 was a remarkable year. 2018 will be even better (but only with your help).",
+		"created": "Tue, 8 May 2018 18:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}, {
+		"id": 235236,
+		"name": "Now from Larry Gottheim: Chants and Dances for Hand",
+		"created": "Mon, 7 May 2018 15:00:00 GMT",
+		"author": "John Schmidt",
+		"link": "/news/23524",
+		"photo": "https://placekitten.com/g/600/500"
+	}],
+	"featuredPosts": [{
+		"id": 113,
+		"name": "Canyon Cinema 50 Film Tour",
+		"summary": "Canyon Cinema is delighted to offer a film tour comprising four captivating film programs and two digital packages, set to screen throughout the US, and beyond, from November 1st, 2017 through 2018.",
+		"buttonText": "Tour Info & Dates"
+	}, {
+		"id": 114,
+		"name": "Featured Essays & Writings",
+		"summary": "To celebrate 50 years, we’ve published critical essays and personal reflections about the organization’s impact and history, as well as critical profiles of films and filmmakers from our collection.",
+		"buttonText": "Explore Writings"
+	}]
+}
