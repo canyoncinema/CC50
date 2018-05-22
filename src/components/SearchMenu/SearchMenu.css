@@ -1,15 +1,43 @@
 .SearchMenu {
-	width: 112px;
-	font-size: 18px;
-	color: #ffffff;
-	line-height: 50px;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
 }
 
-.SearchMenu .text {
-	padding-left: 24px;
+.SearchMenu .label {
+	background-color: #231f20;
+  background-color: var(--black);
+	font-size: 18px;
+	color: #ffffff;
+	line-height: 46px;
+	display: inline-block;
+	padding: 0 24px;
+	border-bottom: solid 2px rgba(255, 255, 255, 0.2);
+}
+
+.SearchMenu .label .text {
 	padding-right: 30px;
 }
 
-.SearchMenu .Caret {
-	height: 50px;
+.SearchMenu .label .Caret {
+	height: 48px;
+}
+
+.SearchMenuOptions {
+	background-color: #231f20;
+  background-color: var(--black);
+	border-top: solid 2px rgba(255, 255, 255, 0.2);
+	border-right: none;
+	line-height: 50px;
+	list-style: none;
+	padding: 0;
+	color: #ffffff;
+	position: absolute;
+	margin-top: 48px;
+
+	display: none;
+}
+
+.SearchMenuOptions.active {
+	display: block !important;
 }
