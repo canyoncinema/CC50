@@ -1,0 +1,41 @@
+.ViewModeButton {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+
+	cursor: pointer;
+	position: relative;
+}
+
+.ViewModeButton img {
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
+
+.ViewModeButton img.active {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.ViewModeButton > img {
+	transition: opacity 0.33s linear;
+}
+
+
+.ViewModeButton.active > img.default,
+.ViewModeButton > img.default:hover {
+	opacity: 0;
+}
+
+.ViewModeButton > img.active {
+	opacity: 0;
+}
+
+.ViewModeButton.active > img.active,
+.ViewModeButton > img.active:hover {
+	opacity: 1;
+}

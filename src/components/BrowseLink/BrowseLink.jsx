@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './BrowseLink.css';
 
 export default ({text, search}) => {
 	const hrefVal = search ? `/collection?s=${search}` : '/collection';
 	return (
-		<a href={hrefVal}>
-			<div className="BrowseLink">
-				{text}<span className="arrow">></span>
-	    </div>
-	   </a>
+		<div className="BrowseLink">
+			<Link className="white" to={hrefVal}>
+					{text}<span className="arrow">></span>
+		  </Link>
+	  </div>
 	);
 };

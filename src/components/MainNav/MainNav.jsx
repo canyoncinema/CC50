@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import './MainNav.css';
 
-export default ({}) => {
+import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
+
+export default ({collapsed, backgroundColor}) => {
 	return (
-		<div className="MainNav">
-			<Navbar>
+		<div className={collapsed ? 'MainNav collapsed' : 'MainNav'}>
+			<Navbar
+				style={{ backgroundColor: backgroundColor }}>
 					<Nav className=" container-fluid d-flex full-nav">
 						<NavItem className="p-2">
-							<NavLink href="#">Logo Here</NavLink>
+							<NavLink className="logo" href="/">
+								<img src="/images/logo.png" />
+							</NavLink>
 						</NavItem>
 						<NavItem className="p-2">
 							<NavLink href="#">Collection</NavLink>
@@ -30,6 +35,11 @@ export default ({}) => {
 						</NavItem>
 					</Nav>
 			</Navbar>
+			{
+				collapsed ?
+			 	<MainNavFilterBar style={{ backgroundColor: backgroundColor }} />
+			 	: null
+			}
 		</div>
 	);
 };

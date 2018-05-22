@@ -6,6 +6,7 @@ import './EventTile.css';
 import CalDay from '../CalDay/CalDay';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
+import TicketPriceString from '../TicketPriceString/TicketPriceString';
 
 class EventTile extends Component {
 	constructor(props) {
@@ -30,11 +31,10 @@ class EventTile extends Component {
 			name,
 			location,
 			ticketPrice,
-			ticketPriceNote
+			ticketNote
 		} = this.props;
 
 		const dateTime = new Date(startDateTime);
-		const ticketPriceString = !isNaN(ticketPrice) ? '$' + ticketPrice : ticketPrice;
 		return (
 			<div className="EventTile">
 				<div className="banner">
@@ -45,7 +45,7 @@ class EventTile extends Component {
 					<h4 ref={this.eventNameRef}>{name}</h4>
 					<div ref={this.eventLocationRef} className="location">{location.name}</div>
 					<div><DateTimeString format="time" dateTime={dateTime} /></div>
-					<div>{ticketPriceString}</div>
+					<div><TicketPriceString price={ticketPrice} note={ticketNote} /></div>
 				</div>
 			</div>
 		);

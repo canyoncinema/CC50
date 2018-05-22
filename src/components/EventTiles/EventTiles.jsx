@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Row, Col } from 'reactstrap';
 
 import EventTile from '../EventTile/EventTile';
@@ -8,9 +8,8 @@ const EventTiles = ({data}) => {
 		<Row className="EventTiles">
 			{
 				data.map((d, i) => {
-					const isActive = i === 0;
 					return (
-						<Col s="4">
+						<Col s="4" key={i}>
 							<EventTile {...d} key={i} />
 						</Col>
 					);

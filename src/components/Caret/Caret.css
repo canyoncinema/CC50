@@ -1,0 +1,14 @@
+.Caret {
+  width: 6px;
+  height: 12px;
+  font-size: 22px;
+  transform: rotate(-270deg);
+  color: #eae8e8;
+  color: var(--lightest-gray);
+  display: inline-block;
+  padding-bottom: 27px;
+  padding-right: 12px;
+
+  position: relative;
+  top: 2px;
+}

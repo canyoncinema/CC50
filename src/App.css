@@ -20,6 +20,7 @@ html {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
+  -webkit-font-smoothing: antialiased;
   /* desktop only */
   min-width: 1000px;
 }
@@ -39,23 +40,6 @@ html {
   padding: 0 70px; 
 }
 
-/* sections */
-.discover {
-  margin-top: 60px !important;
-}
-
-.news,
-.upcoming-events {
-  margin-top: 100px !important;
-}
-
-.featured-posts {
-  margin-top: 100px;
-  padding: 100px 0;
-  background-color: #eae8e8;
-  background-color: var(--lightest-gray);
-}
-
 /* text styles */
 
 a:hover,
@@ -63,6 +47,17 @@ a:active,
 a:focus {
   text-decoration: none !important;
   color: initial !important;
+}
+
+a.white {
+  color: #ffffff !important;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #ffffff !important;
+  text-decoration: underline !important;
 }
 
 .uppercase {
@@ -219,37 +214,4 @@ p.small {
 small > p.white {
   text-align: center;
   color: #ffffff;
-}
-
-/*  button text styles  */
-
-.BUTTON-Text-Dark,
-button {
-  font-family: Karla, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 1.6px;
-  text-align: center;
-  color: #231f20;
-  color: var(--black);
-}
-
-.Button-White {
-  font-family: Karla, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 2px;
-  text-align: left;
-  color: #ffffff;
-}
-
-
-.explore-collection-btn {
-  margin-bottom: 100px;
 }

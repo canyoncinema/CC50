@@ -1,0 +1,32 @@
+.SearchBar {
+	line-height: 50px;
+	color: #ffffff;
+	padding: 0 0 0 17px;
+	display: flex;
+}
+
+.SearchBar .icon {
+	padding-right: 10px;
+	position: relative;
+	top: 2px;
+}
+
+.SearchBar .input {
+	background-color: transparent;
+	border: none;
+	display: inline-block;
+}
+
+.SearchBar form,
+.SearchBar form input,
+.SearchBar form input::placeholder {
+	display: inline-block;
+	width: 100%;
+	color: #ffffff;
+  font-size: 18px;
+}
+
+.SearchBar .input:focus,
+.SearchBar .input:active {
+	outline: none;
+}

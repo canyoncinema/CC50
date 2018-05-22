@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import React from 'react';
 import './Hero.css';
 
 export default ({active, children}) => {

@@ -1,0 +1,28 @@
+.Home {
+	margin-top: -104px;
+}
+
+.Home .Hero {
+	padding-top: 106px;
+}
+
+.Home .discover {
+  margin-top: 60px !important;
+}
+
+.Home .news,
+.Home .upcoming-events {
+  margin-top: 100px !important;
+  margin-bottom: 15px !important;
+}
+
+.Home .featured-posts {
+  margin-top: 100px;
+  padding: 100px 0;
+  background-color: #eae8e8;
+  background-color: var(--lightest-gray);
+}
+
+.Home .explore-collection-btn {
+  margin-bottom: 100px;
+}

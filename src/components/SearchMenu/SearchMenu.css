@@ -1,0 +1,15 @@
+.SearchMenu {
+	width: 112px;
+	font-size: 18px;
+	color: #ffffff;
+	line-height: 50px;
+}
+
+.SearchMenu .text {
+	padding-left: 24px;
+	padding-right: 30px;
+}
+
+.SearchMenu .Caret {
+	height: 50px;
+}

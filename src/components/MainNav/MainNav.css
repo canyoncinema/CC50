@@ -1,5 +1,13 @@
 .MainNav .navbar {
 	height: 104px;
+	padding: 0;
+  border-bottom: solid 2px rgba(255, 255, 255, 0.2);
+  -webkit-font-smoothing: antialiased;
+}
+
+.MainNav .nav-item:first-child {
+  border-right: solid 2px rgba(255, 255, 255, 0.2);
+  padding: 5px !important;
 }
 
 .MainNav .nav-link {
@@ -8,4 +16,42 @@
   font-size: 18px;
   font-weight: bold;
   color: #e6e6e6;
+}
+
+.MainNav .nav-link.logo {
+	opacity: 1;
+	padding: 0;
+}
+
+.MainNav .nav-item a {
+  transition: opacity 0.33s ease-in-out;
+}
+.MainNav .nav-item a:hover,
+.MainNav .nav-item a:active,
+.MainNav .nav-item a:focus {
+  opacity: 1;
+  text-decoration: none !important;
+}
+
+/*  collapsed style  */
+
+.MainNav.collapsed {
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.MainNav.collapsed .navbar {
+  height: 63px;
+}
+
+.MainNav.collapsed .logo img {
+  height: 57px;
+}
+
+.MainNav .nav-item:first-child {
+  padding: 3px !important;
 }

@@ -9,14 +9,14 @@ const Footer = () => {
 		<Row className="Footer">
 			<Col sm="6">
 				<ul className="links">
-					<li><Link to="/catalog">Catalog</Link></li>
-					<li><Link to="/catalog">News</Link></li>
-					<li><Link to="/catalog">About CC50</Link></li>
-					<li><Link to="/catalog">Writings & Essays</Link></li>
-					<li><Link to="/catalog">Tour</Link></li>
-					<li><Link to="/catalog">Press</Link></li>
-					<li><Link to="/catalog">Events</Link></li>
-					<li><Link to="/catalog">Canyon Cinema</Link></li>
+					<li><Link to="//www.canyoncinema.com/catalog">Catalog</Link></li>
+					<li><Link to="/news">News</Link></li>
+					<li><Link to="/about">About CC50</Link></li>
+					<li><Link to="/writings-and-essays">Writings & Essays</Link></li>
+					<li><Link to="/tour">Tour</Link></li>
+					<li><Link to="/press">Press</Link></li>
+					<li><Link to="/events">Events</Link></li>
+					<li><Link target="_blank" to="//www.canyoncinema.com">Canyon Cinema</Link></li>
 				</ul>
 			</Col>
 			<Col sm="6">
@@ -28,10 +28,12 @@ const Footer = () => {
 								<div>1777 Yosemite Ave Suite #210</div>
 								<div>San Francisco, CA 94124</div>
 								<div>+1 415.626.2255</div>
-								<div>www.canyoncinema.com</div>
+								<div><Link target="_blank" to="//www.canyoncinema.com">www.canyoncinema.com</Link></div>
 							</section>
 							<section className="social">
-								Facebook, Twitter, Tumblr
+								<Link target="_blank" to="//www.facebook.com/canyoncinema">Facebook</Link>, 
+								<Link target="_blank" to="//www.canyon-cinema.tumblr.com">Twitter</Link>, 
+								<Link target="_blank" to="//www.twitter.com/canyoncinema">Tumblr</Link>
 							</section>
 						</div>
 					</Col>
@@ -40,10 +42,6 @@ const Footer = () => {
 							<section>
 								<div><strong>General & Title Inquiries</strong></div>
 								<div><Link to="mailto:info@canyoncinema.com">info(at)canyoncinema.com</Link></div>
-							</section>
-							<section>
-								<div><strong>Hours</strong></div>
-								<div>Monday - Friday, 9 - 5</div>
 							</section>
 						</div>
 					</Col>

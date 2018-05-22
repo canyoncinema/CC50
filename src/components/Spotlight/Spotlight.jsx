@@ -64,24 +64,4 @@ class Spotlight extends Component {
 	}
 }
 
-export default ({data}) => {
-	return (
-		<div className="Spotlight">
-			<Row>
-				<Col md="6">
-					{
-						data.map((d, i) => {
-							d.isActive = i === 0;
-							return (
-								<SpotlightListItem {...d} key={i} />
-							);
-						})
-					}
-				</Col>
-				<Col md="6">
-					Photo
-				</Col>
-			</Row>
-		</div>
-	);
-};
+export default Spotlight;

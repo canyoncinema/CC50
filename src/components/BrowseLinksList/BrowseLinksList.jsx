@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import React from 'react';
 import './BrowseLinksList.css';
 
 import BrowseLink from '../BrowseLink/BrowseLink';
