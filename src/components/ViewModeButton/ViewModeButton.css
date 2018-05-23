@@ -23,6 +23,8 @@
 
 .ViewModeButton > img {
 	transition: opacity 0.33s linear;
+	width: 100%;
+	height: 100%;
 }
 
 

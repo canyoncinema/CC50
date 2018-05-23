@@ -3,6 +3,7 @@
 	margin: 0;
 	cursor: pointer;
 	z-index: 99;
+	text-align: right;
 }
 
 .SearchMenu .label {
@@ -13,7 +14,7 @@
 	line-height: 46px;
 	display: inline-block;
 	padding: 0 24px;
-	border-bottom: solid 2px rgba(255, 255, 255, 0.2);
+	white-space: nowrap;
 }
 
 .SearchMenu .label .text {
@@ -35,7 +36,6 @@
 	color: #ffffff;
 	position: absolute;
 	left: 0;
-	margin-top: -26px;
 
 	display: none;
 }

@@ -5,7 +5,9 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
-import Home from './components/Home/Home';
+import Head from './components/Head/Head';
+import HomePage from './components/HomePage/HomePage';
+import CollectionPage from './components/CollectionPage/CollectionPage';
 import MainNav from './components/MainNav/MainNav';
 
 class App extends Component {
@@ -18,8 +20,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+          <Head />
           <MainNav collapsed={true} backgroundColor="#231f20" />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/collection" component={CollectionPage} />
         </div>
       </Router>
     );

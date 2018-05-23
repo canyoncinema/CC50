@@ -4,7 +4,8 @@ import './MainNav.css';
 
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 
-export default ({collapsed, backgroundColor}) => {
+export default ({collapsed, backgroundColor, location}) => {
+	console.log('location', location);
 	return (
 		<div className={collapsed ? 'MainNav collapsed' : 'MainNav'}>
 			<Navbar
@@ -16,7 +17,7 @@ export default ({collapsed, backgroundColor}) => {
 							</NavLink>
 						</NavItem>
 						<NavItem className="p-2">
-							<NavLink href="#">Collection</NavLink>
+							<NavLink href="/collection">Collection</NavLink>
 						</NavItem>
 						<NavItem className="p-2">
 							<NavLink href="#">About CC50</NavLink>

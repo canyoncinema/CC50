@@ -3,10 +3,8 @@ import axios from 'axios';
 import { Row, Col } from 'reactstrap';
 import data from '../../db.json';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import './HomePage.css';
 
-
-import Head from '../Head/Head';
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
 import Spotlight from '../Spotlight/Spotlight';
@@ -41,7 +39,7 @@ const {
   featuredPosts
 } = data;
 
-class Home extends Component {
+class HomePage extends Component {
   state = {
     films: films || [],
     upcomingEvents: events || [],
@@ -109,7 +107,6 @@ class Home extends Component {
     }];
     return (
       <div className="Home">
-        <Head />
         <Hero active={true}>
           <div className="container-fluid padded-container">
             <HomeIntro />
@@ -217,4 +214,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default HomePage;

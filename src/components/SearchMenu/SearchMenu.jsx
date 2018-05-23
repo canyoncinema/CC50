@@ -16,15 +16,16 @@ class SearchMenu extends Component {
 	}
 
 	onOptionSelect(e) {
+		const label = e.target.innerText;
 		this.setState({
-			label: e.target.innerText,
+			label,
 			isOpen: false
 		});
+		if (this.props.onLabelChange) this.props.onLabelChange(label);
 	}
 
 	render() {
 		const { label, isOpen } = this.state;
-		console.log('render isOpen', isOpen);
 		return (
 			<OutsideClickHandler isDisabled={!isOpen}>
 				<div>
@@ -32,7 +33,7 @@ class SearchMenu extends Component {
 						<div className="label">
 							<span className="text">{label}</span><Caret direction={isOpen ? 'up' : 'down'} />
 						</div>
-					</div>,
+					</div>
 					<ul className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
 							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
 							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>

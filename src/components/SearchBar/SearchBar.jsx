@@ -4,6 +4,7 @@ import './SearchBar.css';
 import SearchIcon from './SearchIcon.svg';
 
 export default ({ placeholder, className }) => {
+	console.log('placeholder', placeholder);
 	return (
 		<div className={className ? className + ' SearchBar' : 'SearchBar'}>
 			<form onSubmit={() => null}>

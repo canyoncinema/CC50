@@ -25,11 +25,14 @@ html {
   min-width: 1000px;
 }
 
+body {
+  background-color: #f6f5ec;
+  background-color: var(--offwhite);
+}
+
 .App {
   margin: 0;
   padding: 0;
-  background-color: #f6f5ec;
-  background-color: var(--offwhite);
   
   font-family: Karla, sans-serif;
   color: #231f20;
