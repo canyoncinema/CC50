@@ -27,13 +27,13 @@ class ViewModeButton extends Component {
 				onClick={() => onChangeMode(mode)}>
 				{mode === 'list' ?
 					[
-						<img className="default" src={ViewModeList} />,
-						<img className="active" src={ViewModeListActive} />
+						<img key={0} className="default" src={ViewModeList} />,
+						<img key={1} className="active" src={ViewModeListActive} />
 					]
 					: mode === 'tile' ?
 					[
-						<img className="default" src={ViewModeTile} />,
-						<img className="active" src={ViewModeTileActive} />
+						<img key={0} className="default" src={ViewModeTile} />,
+						<img key={1} className="active" src={ViewModeTileActive} />
 					]
 					: null }
 			</div>

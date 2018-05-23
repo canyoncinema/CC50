@@ -9,7 +9,7 @@ const EventTiles = ({data}) => {
 			{
 				data.map((d, i) => {
 					return (
-						<Col s="4" key={i}>
+						<Col sm="4" key={i}>
 							<EventTile {...d} key={i} />
 						</Col>
 					);

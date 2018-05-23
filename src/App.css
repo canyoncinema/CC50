@@ -45,19 +45,23 @@ html {
 a:hover,
 a:active,
 a:focus {
-  text-decoration: none !important;
-  color: initial !important;
+  text-decoration: none;
 }
 
 a.white {
   color: #ffffff !important;
 }
 
-a:hover,
-a:active,
-a:focus {
+a.white:hover,
+a.white:active,
+a.white:focus {
   color: #ffffff !important;
   text-decoration: underline !important;
+}
+
+input:focus,
+input:active {
+  outline: none;
 }
 
 .uppercase {

@@ -25,6 +25,11 @@
 	color: #ffffff;
 }
 
+.Footer a:hover,
+.Footer a:active {
+  text-decoration: underline;
+}
+
 .Footer .bio .contact div {
 	margin-bottom: 10px;
 }

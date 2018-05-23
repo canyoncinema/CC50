@@ -3,6 +3,7 @@
   background-color: #231f20;
   background-color: var(--black);
   box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .DarkBox h3 {

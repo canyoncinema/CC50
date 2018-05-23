@@ -27,3 +27,13 @@
   position: absolute;
   bottom: 30px;
 }
+
+.NewsTile .read-more a:hover {
+	color: #a5721a;
+	color: var(--gold);
+	text-decoration: underline;
+}
+
+.NewsTile .PhotoFill {
+	transition: background-size 0.33s linear;
+}

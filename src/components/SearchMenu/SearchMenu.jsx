@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './SearchMenu.css';
 
 import Caret from '../Caret/Caret';
+import OutsideClickHandler from '../OutsideClickHandler/OutsideClickHandler';
 import SearchMenuItem from './SearchMenuItem';
 
 class SearchMenu extends Component {
@@ -10,8 +11,8 @@ class SearchMenu extends Component {
 		isOpen: false
 	}
 
-	onOpen() {
-		this.setState({ isOpen: true });
+	toggle() {
+		this.setState({ isOpen: !this.state.isOpen });
 	}
 
 	onOptionSelect(e) {
@@ -23,20 +24,24 @@ class SearchMenu extends Component {
 
 	render() {
 		const { label, isOpen } = this.state;
+		console.log('render isOpen', isOpen);
 		return (
-			[<div className="SearchMenu" onClick={this.onOpen.bind(this)}>
-				<span className="label">
-					<span className="text">{label}</span><Caret />
-				</span>
-			</div>,
-			<ul className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
-				<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
-				<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>
-				<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Filmmakers</SearchMenuItem>
-				<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Curated Programs</SearchMenuItem>
-				<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Ephemera</SearchMenuItem>
-			</ul>
-			]
+			<OutsideClickHandler isDisabled={!isOpen}>
+				<div>
+					<div className="SearchMenu" onClick={this.toggle.bind(this)}>
+						<div className="label">
+							<span className="text">{label}</span><Caret direction={isOpen ? 'up' : 'down'} />
+						</div>
+					</div>,
+					<ul className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
+							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
+							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>
+							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Filmmakers</SearchMenuItem>
+							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Curated Programs</SearchMenuItem>
+							<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Ephemera</SearchMenuItem>
+					</ul>
+				</div>
+			</OutsideClickHandler>
 		);
 	}
 }

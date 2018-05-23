@@ -20,6 +20,8 @@ class EventTile extends Component {
 					eventLocation = this.eventLocationRef.current;
 		// ellipse-overflow rules:
 		// event name ellipses after 2 lines; location ellipses after 1 line
+		// debugger
+		console.log(eventName.lastChild, eventLocation.lastChild);
 		$clamp(eventName, { clamp: 2 });
 		$clamp(eventLocation, { clamp: 1 });
 	}

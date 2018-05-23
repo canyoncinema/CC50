@@ -9,7 +9,7 @@ const Footer = () => {
 		<Row className="Footer">
 			<Col sm="6">
 				<ul className="links">
-					<li><Link to="//www.canyoncinema.com/catalog">Catalog</Link></li>
+					<li><Link target="_blank" to="//www.canyoncinema.com/catalog">Catalog</Link></li>
 					<li><Link to="/news">News</Link></li>
 					<li><Link to="/about">About CC50</Link></li>
 					<li><Link to="/writings-and-essays">Writings & Essays</Link></li>
@@ -27,7 +27,7 @@ const Footer = () => {
 								<div><strong>Canyon Cinema Foundation</strong></div>
 								<div>1777 Yosemite Ave Suite #210</div>
 								<div>San Francisco, CA 94124</div>
-								<div>+1 415.626.2255</div>
+								<div><Link to="tel:1-415-626-2255">+1 415.626.2255</Link></div>
 								<div><Link target="_blank" to="//www.canyoncinema.com">www.canyoncinema.com</Link></div>
 							</section>
 							<section className="social">

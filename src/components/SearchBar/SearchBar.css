@@ -7,8 +7,6 @@
 
 .SearchBar .icon {
 	padding-right: 10px;
-	position: relative;
-	top: 2px;
 }
 
 .SearchBar .input {
@@ -17,11 +15,17 @@
 	display: inline-block;
 }
 
-.SearchBar form,
+.SearchBar form {
+	display: flex;
+	width: 100%;
+}
+
+.SearchBar form input {
+	flex: 1;
+}
+
 .SearchBar form input,
 .SearchBar form input::placeholder {
-	display: inline-block;
-	width: 100%;
 	color: #ffffff;
   font-size: 18px;
 }

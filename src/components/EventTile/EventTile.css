@@ -3,6 +3,13 @@
 	line-height: 1.57;
 	background-color: #ffffff;
 	margin-bottom: 40px;
+
+	cursor: pointer;
+}
+
+.EventTile:hover .content h4 {
+	color: #a5721a;
+	color: var(--gold);
 }
 
 .EventTile .banner {

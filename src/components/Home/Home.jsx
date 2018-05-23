@@ -39,7 +39,7 @@ const {
   events,
   news,
   featuredPosts
-} = data.films;
+} = data;
 
 class Home extends Component {
   state = {
@@ -50,6 +50,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    return
     axios.get('//localhost:3001/films')
       .then(response => {
         for (var i = 0; i <= 100; i++) {
@@ -91,6 +92,7 @@ class Home extends Component {
 
   render() {
     const { upcomingEvents, newsItems, featuredPosts } = this.state;
+    console.log('upcomingEvents', upcomingEvents);
 
     var spotlightData = [{
       name: 'Portland (1996)',
@@ -114,20 +116,22 @@ class Home extends Component {
           </div>
         </Hero>
         <div className="container-fluid padded-container">
-          <Row>
-            <Col sm="12">
-              <h1 className="lead upcoming-events d-flex">
-                Upcoming events
-                <span className="ml-auto">
-                  <Button size="default">
-                    See all Events
-                  </Button>
-                </span>
-              </h1>
-              <EventTiles data={upcomingEvents} />
-            </Col>
-          </Row>
-        
+          { upcomingEvents.length ?
+            <Row>
+              <Col sm="12">
+                <h1 className="lead upcoming-events d-flex">
+                  Upcoming events
+                  <span className="ml-auto">
+                    <Button size="default">
+                      See all Events
+                    </Button>
+                  </span>
+                </h1>
+                <EventTiles data={upcomingEvents} />
+              </Col>
+            </Row>
+          : null }
+
           <Row>
             <Col sm="12">
               <h1 className="lead discover">Discover something new to teach or share</h1>
@@ -161,7 +165,8 @@ class Home extends Component {
             </Col>
           </Row>
 
-          <Row>
+          { newsItems.length ?
+          [<Row key={0}>
             <Col sm="12">
               <h1 className="lead d-flex news">
                 News
@@ -172,9 +177,8 @@ class Home extends Component {
                 </span>
               </h1>
             </Col>
-          </Row>
-
-          <Row>
+          </Row>,
+          <Row key={1}>
             {
               optimalColWidths(newsItems.length).map((colWidth) => (
                 newsItems.slice(0, colWidth).map((d, i) => {
@@ -185,7 +189,8 @@ class Home extends Component {
                   );
               })))
             }
-          </Row>
+          </Row>]
+          : null }
         </div>
         <div className="container-fluid">
           <Row className="featured-posts">

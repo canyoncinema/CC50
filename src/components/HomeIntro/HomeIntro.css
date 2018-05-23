@@ -58,11 +58,18 @@
   margin-bottom: 38px;
 }
 
+.HomeIntro .search-wrapper {
+  position: relative;
+}
+
+.HomeIntro .search-wrapper .icon {
+  position: absolute;
+}
+
 .HomeIntro .search {
   margin-top: 136.4px;
 	width: 360px;
   height: 60px;
-	padding-left: 57px;
 	opacity: 0.5;
   background-color: rgba(0, 0, 0, 0.3);
   border: solid 2px #ffffff;

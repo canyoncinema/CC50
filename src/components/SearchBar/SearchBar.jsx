@@ -3,15 +3,15 @@ import './SearchBar.css';
 
 import SearchIcon from './SearchIcon.svg';
 
-export default () => {
+export default ({ placeholder, className }) => {
 	return (
-		<div className="SearchBar">
-			<img className="icon" src={SearchIcon} />
+		<div className={className ? className + ' SearchBar' : 'SearchBar'}>
 			<form onSubmit={() => null}>
+				<img className="icon" src={SearchIcon} />
 				<input
 					type="text"
 					className="input"
-					placeholder="Search films, filmmakers, curated programs, and ephemera" />
+					placeholder={placeholder} />
 			</form>
 		</div>
 	);

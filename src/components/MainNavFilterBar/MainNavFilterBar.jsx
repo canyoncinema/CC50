@@ -9,7 +9,7 @@ export default ({ style }) => {
 	return (
 		<div className="MainNavFilterBar" style={style}>
 			<SearchMenu />
-			<SearchBar />
+			<SearchBar placeholder="Search films, filmmakers, curated programs, and ephemera" />
 			<div className="view-bar">
 				View:
 			</div>
