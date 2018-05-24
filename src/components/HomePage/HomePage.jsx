@@ -137,28 +137,22 @@ class HomePage extends Component {
 
           <Row>
             <Col sm="4">
-              <DarkBox>
-                <h3>Educators</h3>
-                <p>
-                  Browse curated classroom content and our library of related writings, videos, and other ephemera as it relates to the works and filmmakers in our catalog.
-                </p>
-              </DarkBox>
+              <DarkBox
+                header="Educator"
+                description="Browse curated classroom content and our library of related writings, videos, and other ephemera as it relates to the works and filmmakers in our catalog."
+              />
             </Col>
             <Col sm="4">
-              <DarkBox>
-                <h3>Students</h3>
-                <p>
-                  Learn about the history of our collection of films and filmmakers and how it relates the avant-garde and experimental filmmaking movements from 1921 to the present. 
-                </p>
-              </DarkBox>
+              <DarkBox
+                header="Students"
+                description="Learn about the history of our collection of films and filmmakers and how it relates the avant-garde and experimental filmmaking movements from 1921 to the present."
+              />
             </Col>
             <Col sm="4">
-              <DarkBox>
-                <h3>Curators</h3>
-                <p>
-                  Browse our curated programs, hand-picked by our staff and board, or explore the collection to curate your own program.
-                </p>
-              </DarkBox>
+              <DarkBox
+                header="Curators"
+                description="Browse our curated programs, hand-picked by our staff and board, or explore the collection to curate your own program."
+              />
             </Col>
           </Row>
 

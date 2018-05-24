@@ -3,7 +3,9 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+
 import './App.css';
+import './utils/OnHover.css';
 
 import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';

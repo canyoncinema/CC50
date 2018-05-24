@@ -20,10 +20,10 @@ class NewsTile extends Component {
 		const { name, created, photo, author, link } = this.props;
 		const authorByline = author ? ` by ${author}` : null;
 		return (
-			<div className="NewsTile">
+			<div className="NewsTile on-hover">
 				<PhotoFill src={photo} height="202px" />
 				<div className="content">
-					<h4 ref={this.newsNameRef}>{name}</h4>
+					<h4 className="hover-effect" ref={this.newsNameRef}>{name}</h4>
 					<div>
 						<DateTimeString dateTime={created} format="long-date" />
 						{authorByline}
