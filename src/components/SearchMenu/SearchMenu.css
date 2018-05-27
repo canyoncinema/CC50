@@ -1,10 +1,16 @@
 .SearchMenu {
+	border: solid 1px #6a6a6a;
+  border: solid 1px var(--dark-grey);	
 	padding: 0;
 	margin: 0;
 	cursor: pointer;
-	z-index: 99;
-	text-align: right;
 }
+
+.SearchMenu:not(.open):hover {
+	border-color: #ffffff;
+	z-index: 50;
+}
+
 
 .SearchMenu .label {
 	background-color: #231f20;
@@ -12,13 +18,8 @@
 	font-size: 18px;
 	color: #ffffff;
 	line-height: 46px;
-	display: inline-block;
-	padding: 0 24px;
+	padding: 0 20px;
 	white-space: nowrap;
-}
-
-.SearchMenu .label .text {
-	padding-right: 30px;
 }
 
 .SearchMenu .label .Caret {
@@ -28,7 +29,6 @@
 .SearchMenuOptions {
 	background-color: #231f20;
   background-color: var(--black);
-	border-top: solid 2px rgba(255, 255, 255, 0.2);
 	border-right: none;
 	line-height: 50px;
 	list-style: none;
@@ -36,6 +36,8 @@
 	color: #ffffff;
 	position: absolute;
 	left: 0;
+	z-index: 101;
+	margin-top: 50px;
 
 	display: none;
 }

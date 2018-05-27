@@ -6,7 +6,8 @@ import SearchBar from '../SearchBar/SearchBar';
 
 class Search extends Component {
 	state = {
-		placeholder: 'Search films, filmmakers, curated programs, ephemera'
+		placeholder: 'Search films, filmmakers, curated programs, ephemera',
+		clearPlaceholder: false
 	}
 
 	onLabelChange(label) {
@@ -20,13 +21,11 @@ class Search extends Component {
 	}
 
 	render() {
-		const { placeholder } = this.state;
-		return (
-			<div className="Search">
-				<SearchMenu onLabelChange={this.onLabelChange.bind(this)} />
-				<SearchBar placeholder={placeholder} />
-			</div>
-		);
+		const { placeholder, clearPlaceholder } = this.state;
+		return [
+			<SearchMenu key={0} onLabelChange={this.onLabelChange.bind(this)} />,
+			<SearchBar key={1} placeholder={placeholder} />
+		];
 	}
 }
 

@@ -2,14 +2,19 @@
 	margin-top: 113px;
 }
 
-.CollectionPage header {
+.CollectionPage header.search-sort {
 	padding-top: 63px;
 	background-color: var(--black);
-	padding: 70px 70px 40px 70px;
+	padding: 70px 70px 43px 70px;
+}
+
+.CollectionPage header.search-sort h1 {
+	margin-bottom: 40px;
 }
 
 .CollectionPage .filters {
 	position: relative;
+	height: 50px;
 }
 
 .CollectionPage .change-view {
@@ -30,13 +35,17 @@
 }
 
 .CollectionPage .ViewModeButton {
-	border-top: solid 2px rgba(255, 255, 255, 0.2);
-	border-bottom: solid 2px rgba(255, 255, 255, 0.2);
-	border-left: solid 2px rgba(255, 255, 255, 0.2);
+	border-top: solid 1px #6a6a6a;
+	border-bottom: solid 1px #6a6a6a;
+	border-left: solid 1px #6a6a6a;
+	border-top: solid 1px var(--dark-grey);
+	border-bottom: solid 1px var(--dark-grey);
+	border-left: solid 1px var(--dark-grey);
 }
 
 .CollectionPage .ViewModeButton:last-child {
-	border-right: solid 2px rgba(255, 255, 255, 0.2);	
+	border-right: solid 1px #6a6a6a;
+	border-right: solid 1px var(--dark-grey);
 }
 
 .CollectionPage .Search {
@@ -46,14 +55,43 @@
 }
 
 .CollectionPage .SearchMenu {
-	border: solid 2px rgba(255, 255, 255, 0.2);
-	width: 200px;
+	width: 205px;
 	height: 50px;
 	overflow: hidden;
+	position: absolute;
+}
+
+.CollectionPage .SearchMenuOptions {
+	margin-top: 50px;
 }
 
 .CollectionPage .SearchBar {
-	border: solid 2px rgba(255, 255, 255, 0.2);
-	border-left: none;
-	max-width: 555px;
+	width: 561px;
+	position: absolute;
+	left: 204px;
+}
+
+.CollectionPage .SearchMenuItem {
+	margin-top: -1px;
+}
+
+.CollectionPage .SearchMenu:not(.open):hover + .SearchBar {
+	border-left-color: #ffffff;
+}
+
+/*  Contents  */
+.CollectionPage section {
+	padding: 60px 70px;
+}
+.CollectionPage section header .Button {
+	position: relative;
+	top: -10px;
+}
+
+.CollectionPage section header p {
+	margin-bottom: 0;
+}
+
+.CollectionPage section header {
+	margin-bottom: 35px;
 }

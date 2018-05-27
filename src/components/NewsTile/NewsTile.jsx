@@ -29,7 +29,7 @@ class NewsTile extends Component {
 						{authorByline}
 					</div>
 					<div className="read-more">
-						<a href={link}>Read More →</a>
+						Read More →
 					</div>
 				</div>
 			</div>

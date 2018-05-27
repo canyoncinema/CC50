@@ -1,33 +1,45 @@
 .SearchBar {
+	border: solid 1px #6a6a6a;
+  border: solid 1px var(--dark-grey);
 	line-height: 50px;
 	color: #ffffff;
-	padding: 0 0 0 17px;
+	padding: 0 0 0 16px;
 	display: flex;
 	width: 100%;
 	height: 50px;
+	cursor: pointer;
+}
+
+.SearchBar:hover,
+.SearchBar.active {
+	border-color: #ffffff;
+	z-index: 100;
+	cursor: pointer;
+	z-index: 2;
 }
 
 .SearchBar .icon {
 	padding-right: 10px;
 }
 
+form.SearchBar {
+	display: flex;
+	width: 100%;
+}
+
 .SearchBar .input {
+	flex: 1;
 	background-color: transparent;
 	border: none;
 	display: inline-block;
 }
 
-.SearchBar form {
-	display: flex;
-	width: 100%;
+.SearchBar .input:disabled {
+	cursor: pointer;
 }
 
-.SearchBar form input {
-	flex: 1;
-}
-
-.SearchBar form input,
-.SearchBar form input::placeholder {
+.SearchBar .input,
+.SearchBar .input::placeholder {
 	color: #ffffff;
   font-size: 18px;
 }

@@ -1,0 +1,27 @@
+.Tag {
+	line-height: 14px;
+	font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: normal;
+  font-weight: bold;
+  color: #ffffff;
+
+	padding: 3px 7px;
+	border-radius: 10px;
+	background-color: #a5721a;
+	background-color: var(--gold);
+
+	margin-right: 6px;
+	margin-bottom: 6px;
+
+	display: inline-block;
+	cursor: pointer;
+}
+
+.Tag:hover {
+	background-color: rgba(165, 114, 26, 0.8);
+}
+
+.Tag:disabled {
+
+}

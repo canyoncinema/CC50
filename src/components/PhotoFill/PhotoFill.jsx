@@ -5,8 +5,8 @@ const PhotoFill = ({src, width, height}) => {
 	return (
 		<div className="PhotoFill" style={{
 			backgroundImage: `url(${src})`,
-			width,
-			height
+			width: width,
+			height: height
 		}}></div>
 	)
 };

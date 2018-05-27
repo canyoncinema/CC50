@@ -1,6 +1,6 @@
 .Button {
 	display: inline-block;
-	padding: 25px 35px;
+	padding: 25px 30px;
 	border: solid 2px #231f20;
   border: solid 2px var(--black);
   cursor: pointer;
@@ -54,6 +54,13 @@ h1 .Button.default {
 .Button.large:hover {
 	background-color: rgba(35, 31, 32, 0.8);
 	border-color: rgba(35, 31, 32, 0.8);
+}
+
+.Button.large:disabled {
+  opacity: 0.5;
+  background-color: #231f20;
+  background-color: var(--black);
+  cursor: disabled;
 }
 
 .Button.small {

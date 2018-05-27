@@ -3,24 +3,18 @@
 	display: flex;
 }
 
-.MainNavFilterBar > * {
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-	border-bottom: solid 2px rgba(255, 255, 255, 0.2);
-	border-right: solid 2px rgba(255, 255, 255, 0.2);
-}
-
-.MainNavFilterBar > *:last-child {
-	border-right: none;
-}
-
-.MainNavFilterBar .SearchBar .label {
-	border-bottom: solid 2px rgba(255, 255, 255, 0.2);
-}
-
 .MainNavFilterBar .SearchBar {
 	flex: 3;
+	border-left-color: transparent;
+}
+
+.MainNavFilterBar .SearchBar:hover,
+.MainNavFilterBar .SearchBar.active {
+	border-left-color: white;
+}
+
+.MainNavFilterBar .SearchMenu .label .text {
+	padding-right: 30px;
 }
 
 
@@ -30,4 +24,14 @@
 	line-height: 50px;
 	padding-right: 24px;
 	color: #ffffff;
+	border: solid 1px #6a6a6a;
+	border: solid 1px var(--dark-grey);
+	border-left: none;
+	border-right: none;
+}
+
+.MainNavFilterBar > .ViewModeButton {
+	border: solid 1px #6a6a6a;
+	border: solid 1px var(--dark-grey);
+	border-right: none;
 }

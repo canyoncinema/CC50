@@ -1,0 +1,57 @@
+.SearchCard {
+	margin-bottom: 40px;
+	font-size: 14px;
+}
+
+.SearchCard .media {
+	height: 223px;
+}
+
+.SearchCard .content {
+	background-color: #ffffff;
+	padding: 30px 35px;
+	height: 277px;
+}
+
+.SearchCard a {
+	color: #a5721a;
+	color: var(--gold);
+}
+
+.SearchCard h4 {
+	height: 48px;
+	margin-bottom: 12px;
+}
+
+.SearchCard h6 {
+  color: #888888;
+  color: var(--light-grey);
+  text-transform: uppercase;
+}
+
+.SearchCard .creator {
+	margin-bottom: 10px;
+}
+
+.SearchCard .year {
+	display: inline-block;
+  font-weight: normal;
+}
+
+.SearchCard .avatar {
+	margin-right: 25px;
+}
+
+.SearchCard .tags {
+	margin-top: 20px;
+}
+
+.SearchCard .filmmakers-label {
+	color: #4a4a4a;
+  color: var(--darkest-gray);
+  line-height: 1.64;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 5px;
+  margin: 0;
+}

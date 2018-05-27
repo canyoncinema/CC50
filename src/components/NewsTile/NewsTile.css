@@ -1,6 +1,7 @@
 .NewsTile {
 	background-color: #fff;
 	position: relative;
+	cursor: pointer;
 }
 
 .NewsTile h4 {
@@ -15,7 +16,7 @@
 	color: var(--darkest-grey);
 }
 
-.NewsTile .read-more a {
+.NewsTile .read-more {
 	font-family: Karla, sans-serif;
   font-size: 16px;
   font-weight: bold;
@@ -26,12 +27,6 @@
 
   position: absolute;
   bottom: 30px;
-}
-
-.NewsTile .read-more a:hover {
-	color: #a5721a;
-	color: var(--gold);
-	text-decoration: underline;
 }
 
 .NewsTile .PhotoFill {

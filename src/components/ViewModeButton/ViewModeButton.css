@@ -9,6 +9,27 @@
 	position: relative;
 }
 
+
+/* White Border Effects */
+.search-sort .ViewModeButton.active,
+.search-sort .ViewModeButton:hover {
+	border-top-color: #ffffff !important;
+	border-bottom-color: #ffffff !important;
+	border-left-color: #ffffff !important;
+}
+
+.search-sort .ViewModeButton.active,
+.search-sort .ViewModeButton.active + .ViewModeButton,
+.search-sort .ViewModeButton:hover,
+.search-sort .ViewModeButton:hover + .ViewModeButton {
+	border-left-color: #ffffff !important;
+}
+
+.search-sort .ViewModeButton.active:last-child,
+.search-sort .ViewModeButton:last-child:hover {
+	border-right-color: #ffffff !important;	
+}
+
 .ViewModeButton img {
 	width: 50px;
 	height: 50px;
@@ -28,8 +49,7 @@
 }
 
 
-.ViewModeButton.active > img.default,
-.ViewModeButton > img.default:hover {
+.ViewModeButton.active > img.default {
 	opacity: 0;
 }
 
@@ -37,7 +57,6 @@
 	opacity: 0;
 }
 
-.ViewModeButton.active > img.active,
-.ViewModeButton > img.active:hover {
+.ViewModeButton.active > img.active {
 	opacity: 1;
 }

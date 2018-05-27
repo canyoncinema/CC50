@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 /**
  * Component that alerts if you click outside of it
  */
-export default class OutsideClickHandler extends Component {
+class OutsideClickHandler extends Component {
   constructor(props) {
     super(props);
 
     this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.onOutsideClick = this.onOutsideClick.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.onOutsideClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.onOutsideClick);
   }
 
   /**
@@ -25,26 +25,35 @@ export default class OutsideClickHandler extends Component {
    */
   setWrapperRef(node) {
     this.wrapperRef = node;
+    return node;
   }
 
   /**
    * Alert if clicked on outside of element
    */
-  handleClickOutside(event) {
+  onOutsideClick(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      alert('You clicked outside of me!');
+      this.props.onOutsideClick(event);
     }
   }
 
   render() {
-  	const { isDisabled, children } = this.props;
-    return isDisabled ?
-    	children
-    	: <div ref={this.setWrapperRef}>{children}</div>;
+  	const { className, onClick, isDisabled, children } = this.props;
+    
+    if (isDisabled) {
+      return <div
+        className={className}
+        onClick={onClick}>{children}</div>;
+    } else {
+      return (
+        <div
+          className={className}
+          onClick={onClick}
+          ref={this.setWrapperRef}>{children}</div>
+      );
+    }
   }
 }
 
-OutsideClickHandler.propTypes = {
-  children: PropTypes.element.isRequired,
-  isDisabled: PropTypes.bool
-};
+
+export default OutsideClickHandler;
