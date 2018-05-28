@@ -18,9 +18,17 @@
 	color: var(--gold);
 }
 
+.SearchCard a:hover {
+	color: rgba(165, 114, 26, 0.8);
+}
+
 .SearchCard h4 {
 	height: 48px;
 	margin-bottom: 12px;
+}
+
+.SearchCard.ephemera h4 {
+	
 }
 
 .SearchCard h6 {

@@ -80,7 +80,7 @@ class SearchCard extends Component {
 					{
 						creator ?
 						<div className="creator">
-							<Link to="filmmaker/">{creator}</Link>
+							<Link to="filmmaker/" className="gold">{creator}</Link>
 						</div>
 						: null
 					}

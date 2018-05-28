@@ -32,7 +32,15 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 			itemType: 'Curated Program',
 			title: 'Between Pop Culture and the Avant-Garde: Little-Seen Thing that has ever seen!',
 			description: 'Between Pop Culture and the Avant-Garde: Little-Seen Films by Women from the Collection of Canyon Cinema. Ranging from...',
-			photos: [],
+			photos: [
+				'https://placekitten.com/500/500',
+				'https://placekitten.com/g/500/500',
+				'https://placekitten.com/500/500',
+				'https://placekitten.com/g/500/500',
+				'https://placekitten.com/500/500',
+				'https://placekitten.com/g/500/500',
+				'https://placekitten.com/500/500',
+			],
 			filmmakers: [{
 				id: 234,
 				name: 'Coni Beeson'

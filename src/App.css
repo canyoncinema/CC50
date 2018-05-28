@@ -62,6 +62,16 @@ a.white:focus {
   text-decoration: underline !important;
 }
 
+a.gold {
+  color: #a5721a !important;
+  color: var(--gold) !important;
+}
+
+a.gold:hover {
+  color: rgba(165, 114, 26, 0.8) !important;
+}
+
+
 input:focus,
 input:active {
   outline: none;
