@@ -1,13 +1,16 @@
 import React from 'react';
 import './PhotoFill.css';
 
-const PhotoFill = ({src, width, height}) => {
+const PhotoFill = ({src, className, width, children, height}) => {
 	return (
-		<div className="PhotoFill" style={{
+		<div className={className ? 'PhotoFill ' + className : 'PhotoFill'}
+			style={{
 			backgroundImage: `url(${src})`,
 			width: width,
 			height: height
-		}}></div>
+		}}>
+			{children}
+		</div>
 	)
 };
 

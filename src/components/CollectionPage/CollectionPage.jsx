@@ -13,6 +13,7 @@ class CollectionPage extends Component {
 	}
 	render() {
 		const searchData = [{
+			id: 1232,
 			itemType: 'film',
 			title: 'Dyketactics',
 			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
@@ -20,6 +21,7 @@ class CollectionPage extends Component {
 			creator: 'Barbara Hammer',
 			year: '1974'
 		}, {
+			id: 1232,
 			itemType: 'filmmaker',
 			title: 'Barbara Hammer',
 			description: `Barbara Hammer is a visual artist primarily working in film and video. Her work reveals and celebrates marginalized peoples whose stories have not been told. Her cinema is multi-leveled and engages an audience viscerally and intellectually with the goal of activating them to make social change. She has been honored with 5 retrospectives in the last 3 years: The Museum of Modern Art in New York City, Tate Modern in London, Jeu de Paume in Paris, the Toronto International Film Festival and Kunsthalle Oslo in Norway. Her book Hammer! Making Movies Out of Sex and Life was published in 2010 by The Feminist Press at The City University of New York. 
@@ -29,6 +31,7 @@ Welcome To This House, her new feature documentary on the poet Elizabeth Bishop,
 Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 			avatar: null
 		}, {
+			id: 1232,
 			itemType: 'Curated Program',
 			title: 'Between Pop Culture and the Avant-Garde: Little-Seen Thing that has ever seen!',
 			description: 'Between Pop Culture and the Avant-Garde: Little-Seen Films by Women from the Collection of Canyon Cinema. Ranging from...',
@@ -45,23 +48,40 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 				id: 234,
 				name: 'Coni Beeson'
 			}, {
+				id: 234,
 				name: 'Dana Plays'
 			}, {
+				id: 234,
 				name: 'Alice Anne Parker Severson'
 			}, {
+				id: 234,
 				name: 'Elizabeth Sherry'
+			}, {
+				id: 234,
+				name: 'Bob Smithy Jonesy'
 			}]
 		}, {
+			id: 1232,
 			itemType: 'Ephemera',
 			title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines',
 			photos: [],
 			tags: ['Printed Pieces'],
 			related: [{
 				id: 32,
-				name: 'Barbara Hammer'
+				title: 'Barbara Hammer',
+				itemType: 'filmmaker'
 			}, {
 				id: 64,
-				name: 'Michael Wallin'
+				title: 'Michael Wallin',
+				itemType: 'filmmaker'
+			}, {
+				id: 32,
+				title: 'Karry Fisher',
+				itemType: 'filmmaker'
+			}, {
+				id: 64,
+				title: 'Wes Andersen',
+				itemType: 'filmmaker'
 			}]
 		}]
 

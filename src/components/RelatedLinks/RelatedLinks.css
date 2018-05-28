@@ -1,0 +1,9 @@
+.RelatedLinks label {
+	color: #4a4a4a;
+  color: var(--darkest-gray);
+  line-height: 1.64;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 5px;
+  margin: 0;
+}

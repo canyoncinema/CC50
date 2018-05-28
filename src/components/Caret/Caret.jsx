@@ -7,8 +7,8 @@ export default ({ className, onClick, direction, width, height }) => {
 		<span className={['Caret', className, direction].join(' ')}
 			onClick={onClick}>
 			<svg width={width || '8px'} height={ height || '14px'} viewBox="0 0 15 28" version="1.1">
-		    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.8">
-	        <g fill="#FFFFFF" fill-rule="nonzero">
+		    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" fillOpacity="0.8">
+	        <g fill="#FFFFFF" fillRule="nonzero">
             <polygon id="Shape" points="0.175 2.85833333 3.44166667 0.145833333 14.9916667 14 3.44166667 27.8541667 0.175 25.1416667 9.47916667 14"></polygon>
 	        </g>
 		    </g>

@@ -13,6 +13,11 @@
 	height: 277px;
 }
 
+.SearchCard .content:hover {
+	box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.08);
+	cursor: pointer;
+}
+
 .SearchCard a {
 	color: #a5721a;
 	color: var(--gold);
@@ -28,7 +33,13 @@
 }
 
 .SearchCard.ephemera h4 {
-	
+	height: 72px;
+	margin-bottom: 25px;
+}
+
+.SearchCard.ephemera .tags {
+	margin: 0;
+	height: 50px;
 }
 
 .SearchCard h6 {
@@ -52,14 +63,4 @@
 
 .SearchCard .tags {
 	margin-top: 20px;
-}
-
-.SearchCard .filmmakers-label {
-	color: #4a4a4a;
-  color: var(--darkest-gray);
-  line-height: 1.64;
-  font-size: 14px;
-  font-weight: bold;
-  padding-right: 5px;
-  margin: 0;
 }
