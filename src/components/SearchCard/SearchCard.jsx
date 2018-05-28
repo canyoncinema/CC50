@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './SearchCard.css';
 import $clamp from 'clamp-js';
@@ -63,99 +64,102 @@ class SearchCard extends Component {
 			related
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
+		const listView = true;
 		return (
-			<div className={'SearchCard ' + itemTypeClassName}>
-				<div className="media">
-					<Carousel
-						photos={(photos || []).slice(0, 5)}
-						id={id}
-						title={title}
-						itemType={itemType} />
-				</div>
-				<div className="content">
-					<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
+			<Col sm={ listView ? 4 : 4 }>
+				<div className={'SearchCard ' + itemTypeClassName}>
+					<div className="media">
+						<Carousel
+							photos={(photos || []).slice(0, 5)}
+							id={id}
+							title={title}
+							itemType={itemType} />
+					</div>
+					<div className="content">
+						<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
+							{
+								itemType === 'filmmaker' ?
+								<div className="avatar">
+									<FilmmakerAvatar url={avatar} />
+								</div>
+								: null
+							}
+							<div>
+								<h6>{itemType}</h6>
+								<h4 className="d-flex">
+									<span className="title"
+										ref={this.titleRef}>
+										{title}
+									</span>
+									{
+										year ?
+										<span className="year ml-auto">{year}</span>
+										: null
+									}
+								</h4>
+							</div>
+						</div>
 						{
-							itemType === 'filmmaker' ?
-							<div className="avatar">
-								<FilmmakerAvatar url={avatar} />
+							creator ?
+							<div className="creator">
+								<Link to="filmmaker/" className="gold">{creator}</Link>
 							</div>
 							: null
 						}
-						<div>
-							<h6>{itemType}</h6>
-							<h4 className="d-flex">
-								<span className="title"
-									ref={this.titleRef}>
-									{title}
-								</span>
+						{
+							description ?
+							<p className="small"
+								ref={this.descriptionRef}>
+								{description}
+							</p>
+							: null
+						}
+						{
+							filmmakers && filmmakers.length ?
+							<div ref={this.filmmakersRef}>
+								<RelatedLinks
+									label="Filmmakers">
+									{filmmakers.map((filmmaker, i) =>
+										<RelatedLink
+											key={i}
+											isLast={i === filmmakers.length - 1}
+											to={`/filmmaker/${filmmaker.id}`}>
+											{filmmaker.name}
+										</RelatedLink>
+									)}
+								</RelatedLinks>
+							</div>
+							: null
+						}
+						{
+							tags && tags.length ?
+							<div className="tags">
 								{
-									year ?
-									<span className="year ml-auto">{year}</span>
-									: null
+									tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)
 								}
-							</h4>
-						</div>
+							</div>
+							: null
+						}
+						{
+							related && related.length ?
+							<div ref={this.relatedRef}>
+								<RelatedLinks
+									label="Related">
+									{related.map((rel, i) =>
+										<RelatedLink
+											key={i}
+											isLast={i === related.length - 1}
+											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
+											{rel.title}
+										</RelatedLink>
+									)}
+								</RelatedLinks>
+							</div>
+							: null
+						}
 					</div>
-					{
-						creator ?
-						<div className="creator">
-							<Link to="filmmaker/" className="gold">{creator}</Link>
-						</div>
-						: null
-					}
-					{
-						description ?
-						<p className="small"
-							ref={this.descriptionRef}>
-							{description}
-						</p>
-						: null
-					}
-					{
-						filmmakers && filmmakers.length ?
-						<div ref={this.filmmakersRef}>
-							<RelatedLinks
-								label="Filmmakers">
-								{filmmakers.map((filmmaker, i) =>
-									<RelatedLink
-										key={i}
-										isLast={i === filmmakers.length - 1}
-										to={`/filmmaker/${filmmaker.id}`}>
-										{filmmaker.name}
-									</RelatedLink>
-								)}
-							</RelatedLinks>
-						</div>
-						: null
-					}
-					{
-						tags && tags.length ?
-						<div className="tags">
-							{
-								tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)
-							}
-						</div>
-						: null
-					}
-					{
-						related && related.length ?
-						<div ref={this.relatedRef}>
-							<RelatedLinks
-								label="Related">
-								{related.map((rel, i) =>
-									<RelatedLink
-										key={i}
-										isLast={i === related.length - 1}
-										to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-										{rel.title}
-									</RelatedLink>
-								)}
-							</RelatedLinks>
-						</div>
-						: null
-					}
 				</div>
-			</div>
+			</Col>
 		);
 	}
 }

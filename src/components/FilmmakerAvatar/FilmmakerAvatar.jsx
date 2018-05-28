@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PhotoFill from '../PhotoFill/PhotoFill';
 
 export default ({ url }) => {
+	// TODO: optimize empty still res size
 	return (
 		<PhotoFill
 			width="50px"

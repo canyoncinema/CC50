@@ -36,13 +36,13 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 			title: 'Between Pop Culture and the Avant-Garde: Little-Seen Thing that has ever seen!',
 			description: 'Between Pop Culture and the Avant-Garde: Little-Seen Films by Women from the Collection of Canyon Cinema. Ranging from...',
 			photos: [
-				'https://placekitten.com/500/500',
-				'https://placekitten.com/g/500/500',
-				'https://placekitten.com/500/500',
-				'https://placekitten.com/g/500/500',
-				'https://placekitten.com/500/500',
-				'https://placekitten.com/g/500/500',
-				'https://placekitten.com/500/500',
+				'https://placeimg.com/640/480/any',
+				'https://placeimg.com/940/480/any',
+				'https://placeimg.com/340/480/any',
+				'https://placeimg.com/740/480/any',
+				'https://placeimg.com/840/480/any',
+				'https://placeimg.com/240/480/any',
+				'https://placeimg.com/140/480/any',
 			],
 			filmmakers: [{
 				id: 234,
@@ -111,9 +111,7 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 							searchData && searchData.length ?
 							searchData.map((data, i) => {
 							return (
-								<Col sm="4">
 									<SearchCard {...data} />
-								</Col>
 								);
 							})
 							: null

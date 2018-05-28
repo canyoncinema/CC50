@@ -41,6 +41,8 @@ class Carousel extends Component {
 			throw new Error('Invalid number of photos. Cannot exceed 5 in carousel. Got ' +
 					props.photos.length);
 		}
+
+		this.nextPhotoState = this.nextPhotoState.bind(this);
 	}
 
 	state = {
@@ -72,30 +74,34 @@ class Carousel extends Component {
 		}
 	}
 
-	onNextPhoto() {
+	nextPhotoState(state) {
 		// on clicking left caret when multiple photos exist
 		// (loop) go to first photo if on last photo
-		if (this.state.showViewMore) {
-			this.setState({
+		if (state.showViewMore) {
+			return {
 				activePhotoIndex: 0,
 				showViewMore: false
-			});
+			};
 		} else {
-			const newIndex = this.state.activePhotoIndex + 1;
+			const newIndex = state.activePhotoIndex + 1;
 			if (newIndex >= 5) {
 				// spec: loop to first (does not show more than 5)
 				// and prompt user to click item to show more
-				this.setState({
+				return {
 					activePhotoIndex: 4,
 					showViewMore: true
-				});	
+				};
 			} else {
-				this.setState({
+				return {
 					activePhotoIndex: newIndex,
 					showViewMore: false
-				});
+				};
 			}
 		}
+	}
+
+	onNextPhoto() {
+		this.setState(this.nextPhotoState(this.state));
 	}
 
 	render() {
