@@ -47,7 +47,15 @@ class HomePage extends Component {
     featuredPosts: featuredPosts || []
   }
 
+  componentWillUnmount() {
+    console.log('unmount');
+    // this.props.changeMainNavBg('#231f20'); 
+  }
+
   componentDidMount() {
+    if (this.props.changeMainNavBg) {
+      this.props.changeMainNavBg('transparent');
+    }
     return
     axios.get('//localhost:3001/films')
       .then(response => {
@@ -106,7 +114,7 @@ class HomePage extends Component {
       description: 'Intimate documentary about young women who make papier mache fruit and vegetables in a small factory in Mexico. They have a gringo boss, but the factory is owned by his Mexican wife lorem ipsum and stuff'      
     }];
     return (
-      <div className="Home">
+      <div className="HomePage page">
         <Hero active={true}>
           <div className="container-fluid padded-container">
             <HomeIntro />
@@ -183,26 +191,24 @@ class HomePage extends Component {
           </Row>]
           : null }
         </div>
-        <div className="container-fluid">
-          <Row className="featured-posts">
-            {
-              optimalColWidths(featuredPosts.length).map((colWidth) => (
-                featuredPosts.slice(0, colWidth).map((d, i) => {
-                  return (
-                    <Col sm={12 / colWidth} key={i}>
-                      <FeaturedPost {...d} key={i} />
-                    </Col>
-                  );
-              })))
-            }
-          </Row>
-        
-          <Row>
-            <Col sm="12">
-              <Footer />
-            </Col>
-          </Row>
-        </div>
+        <Row className="featured-posts">
+          {
+            optimalColWidths(featuredPosts.length).map((colWidth) => (
+              featuredPosts.slice(0, colWidth).map((d, i) => {
+                return (
+                  <Col sm={12 / colWidth} key={i}>
+                    <FeaturedPost {...d} key={i} />
+                  </Col>
+                );
+            })))
+          }
+        </Row>
+      
+        <Row>
+          <Col sm="12">
+            <Footer />
+          </Col>
+        </Row>
       </div>
     );
   }

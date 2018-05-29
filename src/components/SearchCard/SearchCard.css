@@ -10,6 +10,9 @@
 .SearchCard .content {
 	background-color: #ffffff;
 	padding: 30px 35px;
+}
+
+.SearchCard.tile .content {
 	height: 277px;
 }
 
@@ -63,4 +66,51 @@
 
 .SearchCard .tags {
 	margin-top: 20px;
+}
+
+.SearchCard .Carousel {
+	height: 223px;
+}
+
+/*  List View  */
+.SearchCard.list {
+	font-size: 0;
+	height: 105px;
+}
+
+.SearchCard.list > * {
+	font-size: 14px;
+}
+
+
+.SearchCard.list .media {
+	height: 100%;
+}
+
+.SearchCard.list .media .Carousel {
+	height: 100%;
+}
+
+.SearchCard.list .content {
+	padding: 16px 20px;
+}
+
+.SearchCard.list h4 {
+	height: auto;
+	margin-bottom: 12px;
+}
+
+.SearchCard.list .creator {
+	margin: 0;
+}
+
+.SearchCard.list .content .main {
+}
+
+.SearchCard.list .content .descriptive {
+}
+
+.SearchCard.list .content .tags {
+	margin: 0;
+	padding: 0;
 }

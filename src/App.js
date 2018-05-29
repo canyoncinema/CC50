@@ -6,27 +6,25 @@ import {
 
 import './App.css';
 import './utils/OnHover.css';
-
+import CollectionContext from './collection-context';
 import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import MainNav from './components/MainNav/MainNav';
 
 class App extends Component {
-  componentDidMount() {
-    window.addEventListener('scroll', (e) => {
-      console.log('scroll', e);
-    });
-  }
   render() {
     return (
       <Router>
         <div className="App">
           <Head />
-          <MainNav collapsed={true} backgroundColor="#231f20" />
+          <MainNav />
           <Route exact path="/" component={HomePage} />
 
-          <Route exact path="/collection" component={CollectionPage} />
+          <Route exact path="/collection">
+            <CollectionPage>
+            </CollectionPage>
+          </Route>
           
           <Route exact path="/collection/programs" component={CollectionPage} />
           <Route exact path="/collection/programs/:id" component={CollectionPage} />

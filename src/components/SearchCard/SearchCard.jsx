@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './SearchCard.css';
 import $clamp from 'clamp-js';
 
+import CollectionContext from '../../collection-context';
 import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import Carousel from '../Carousel/Carousel';
@@ -61,105 +62,126 @@ class SearchCard extends Component {
 			avatar,
 			year,
 			tags,
-			related
+			related,
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
-		const listView = true;
 		return (
-			<Col sm={ listView ? 4 : 4 }>
-				<div className={'SearchCard ' + itemTypeClassName}>
-					<div className="media">
-						<Carousel
-							photos={(photos || []).slice(0, 5)}
-							id={id}
-							title={title}
-							itemType={itemType} />
-					</div>
-					<div className="content">
-						<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
-							{
-								itemType === 'filmmaker' ?
-								<div className="avatar">
-									<FilmmakerAvatar url={avatar} />
-								</div>
-								: null
-							}
-							<div>
-								<h6>{itemType}</h6>
-								<h4 className="d-flex">
-									<span className="title"
-										ref={this.titleRef}>
-										{title}
-									</span>
+			<CollectionContext.Consumer>
+			{
+				context => {
+				const listView = context.viewMode === 'list';
+				return (
+					<Col sm={ listView ? 12 : 4 }
+						className={[
+							'SearchCard',
+							'no-gutters',
+							itemTypeClassName,
+							listView ? 'list' : 'tile'
+							].join(' ')}>
+						<Row className="no-gutters">
+						<Col sm={listView ? 2 : 12}>
+							<div className="media">
+								<Carousel
+									photos={(photos || []).slice(0, 5)}
+									id={id}
+									title={title}
+									itemType={itemType} />
+							</div>
+						</Col>
+						<Col sm={listView ? 10 : 12}>
+							<Row className="no-gutters content">
+								<Col sm={listView ? 4 : 12} className={listView ? 'main' : null}>
+									<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
+										{
+											itemType === 'filmmaker' ?
+											<div className="avatar">
+												<FilmmakerAvatar url={avatar} />
+											</div>
+											: null
+										}
+										<div>
+											<h6>{itemType}</h6>
+											<h4 className="d-flex">
+												<span className="title"
+													ref={this.titleRef}>
+													{listView ? title + (year ? ` (${year})` : '') : title}
+												</span>
+												{
+													year && !listView ?
+													<span className="year ml-auto">{year}</span>
+													: null
+												}
+											</h4>
+										</div>
+									</div>
 									{
-										year ?
-										<span className="year ml-auto">{year}</span>
+										creator ?
+										<div className="creator">
+											<Link to="filmmaker/" className="gold">{creator}</Link>
+										</div>
 										: null
 									}
-								</h4>
-							</div>
-						</div>
-						{
-							creator ?
-							<div className="creator">
-								<Link to="filmmaker/" className="gold">{creator}</Link>
-							</div>
-							: null
-						}
-						{
-							description ?
-							<p className="small"
-								ref={this.descriptionRef}>
-								{description}
-							</p>
-							: null
-						}
-						{
-							filmmakers && filmmakers.length ?
-							<div ref={this.filmmakersRef}>
-								<RelatedLinks
-									label="Filmmakers">
-									{filmmakers.map((filmmaker, i) =>
-										<RelatedLink
-											key={i}
-											isLast={i === filmmakers.length - 1}
-											to={`/filmmaker/${filmmaker.id}`}>
-											{filmmaker.name}
-										</RelatedLink>
-									)}
-								</RelatedLinks>
-							</div>
-							: null
-						}
-						{
-							tags && tags.length ?
-							<div className="tags">
+								</Col>
+									{
+										description ?
+										<Col sm={listView ? 4 : 12} className="descriptive">
+											<p className="small"
+												ref={this.descriptionRef}>
+												{description}
+											</p>
+										</Col>
+										: null
+									}
 								{
-									tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)
+									filmmakers && filmmakers.length ?
+									<Col sm={listView ? 4 : 12} ref={this.filmmakersRef}>
+										<RelatedLinks
+											label="Filmmakers">
+											{filmmakers.map((filmmaker, i) =>
+												<RelatedLink
+													key={i}
+													isLast={i === filmmakers.length - 1}
+													to={`/filmmaker/${filmmaker.id}`}>
+													{filmmaker.name}
+												</RelatedLink>
+											)}
+										</RelatedLinks>
+									</Col>
+									: null
 								}
-							</div>
-							: null
-						}
-						{
-							related && related.length ?
-							<div ref={this.relatedRef}>
-								<RelatedLinks
-									label="Related">
-									{related.map((rel, i) =>
-										<RelatedLink
-											key={i}
-											isLast={i === related.length - 1}
-											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-											{rel.title}
-										</RelatedLink>
-									)}
-								</RelatedLinks>
-							</div>
-							: null
-						}
-					</div>
-				</div>
-			</Col>
+								{
+									related && related.length ?
+									<Col sm={listView ? 4 : 12} ref={this.relatedRef}>
+										<RelatedLinks
+											label="Related">
+											{related.map((rel, i) =>
+												<RelatedLink
+													key={i}
+													isLast={i === related.length - 1}
+													to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
+													{rel.title}
+												</RelatedLink>
+											)}
+										</RelatedLinks>
+									</Col>
+									: null
+								}
+								{
+									tags && tags.length ?
+									<Col sm={listView ? 4 : 12} className="tags">
+										{
+											tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)
+										}
+									</Col>
+									: null
+								}
+							</Row>
+						</Col>
+						</Row>
+					</Col>
+				)}
+			}
+			</CollectionContext.Consumer>
 		);
 	}
 }

@@ -1,6 +1,7 @@
 .MainNavFilterBar {
 	height: 50px;
 	display: flex;
+	background-color: var(--black);
 }
 
 .MainNavFilterBar .SearchBar {

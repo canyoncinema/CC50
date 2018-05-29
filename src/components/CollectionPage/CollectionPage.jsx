@@ -1,17 +1,60 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Row, Col } from 'reactstrap';
 import './CollectionPage.css';
+import CollectionContext from '../../collection-context';
 
+import MainNav from '../MainNav/MainNav';
+import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import Search from '../Search/Search';
 import SearchCard from '../SearchCard/SearchCard';
 import ViewModeButtons from '../ViewModeButtons/ViewModeButtons';
 import Button from '../Button/Button';
 
 class CollectionPage extends Component {
-	state = {
-		searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera'
+	constructor(props) {
+		super(props);
+		this.onViewModeChange = this.onViewModeChange.bind(this);
+		this.changeViewMode = this.changeViewMode.bind(this);
 	}
+
+	changeViewMode(mode) {
+		this.setState({
+			viewMode: mode
+		});
+	}
+
+	state = {
+		searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
+		viewMode: 'tile',
+		changeViewMode: this.changeViewMode.bind(this),
+		isCollapsedNav: false
+	}
+
+	componentDidMount() {
+    window.addEventListener('scroll', (e) => {
+      if (window.scrollY >= 245 &&
+      		!this.state.isCollapsedNav) {
+      	this.setState({
+      		isCollapsedNav: true
+      	});
+      } else if (window.scrollY < 245 &&
+      		this.state.isCollapsedNav) {
+      	this.setState({
+      		isCollapsedNav: false
+      	});
+      }
+    });
+  }
+
+	onViewModeChange(mode) {
+		this.setState({
+			viewMode: mode
+		});
+	}
+
 	render() {
+		const isCollapsible = true;
 		const searchData = [{
 			id: 1232,
 			itemType: 'film',
@@ -84,20 +127,29 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 				itemType: 'filmmaker'
 			}]
 		}]
-
+		const {
+			isCollapsedNav
+		} = this.state;
 		return (
+			<CollectionContext.Provider value={this.state}>
+			<div className={isCollapsedNav ? 'collapsed-nav active' : 'collapsed-nav'}>
+				<MainNav isCollapsed={true} />
+				<MainNavFilterBar />
+			</div>
 			<div className="CollectionPage">
 				<header className="search-sort">
 					<h1 className="white">Explore the collection</h1>
 					<div className="filters">
 						<Search />
 						<div className="change-view">
-							<label>View:</label><ViewModeButtons />
+							<label>View:</label>
+							
+								<ViewModeButtons />
 						</div>
 					</div>
 				</header>
-				<section>
-					<header className="d-flex">
+				<div className="section">
+					<header className="section-header d-flex">
 						<div>
 							<h3>Recently Added Films</h3>
 							<p>New acquisitions to the Canyon Cinema collection</p>
@@ -117,10 +169,11 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 							: null
 						}
 					</Row>
-				</section>
+				</div>
 			</div>
+			</CollectionContext.Provider>
 		);
 	}
 }
 
-export default CollectionPage;
+export default withRouter(CollectionPage);

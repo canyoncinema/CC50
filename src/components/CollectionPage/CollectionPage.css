@@ -1,5 +1,21 @@
+.collapsed-nav {
+	position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+	display: none;
+}
+.collapsed-nav.active {
+	display: block;
+}
+.collapsed-nav .MainNav .logo-nav-item {
+	padding: 4px !important;
+}
+
 .CollectionPage {
-	margin-top: 113px;
+	border-top: solid 1px var(--dark-grey);
 }
 
 .CollectionPage header.search-sort {
@@ -80,18 +96,24 @@
 }
 
 /*  Contents  */
-.CollectionPage section {
+.CollectionPage .section {
 	padding: 60px 70px;
+	background-color: var(--offwhite);
 }
-.CollectionPage section header .Button {
+.CollectionPage .section-header .Button {
 	position: relative;
 	top: -10px;
 }
 
-.CollectionPage section header p {
+.CollectionPage .section-header p {
 	margin-bottom: 0;
 }
 
-.CollectionPage section header {
+.CollectionPage .section-header {
 	margin-bottom: 35px;
+}
+
+.CollectionPage .container-fluid {
+	padding-left: 0;
+	padding-right: 0;
 }

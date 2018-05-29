@@ -4,10 +4,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.MainNav .nav-item:first-child {
+.MainNav .logo-nav-item {
   border-right: solid 1px #6a6a6a;
   border-right: solid 1px var(--dark-grey);
-  padding: 5px !important;
+  padding: 7px !important;
 }
 
 .MainNav .nav-link {
@@ -33,15 +33,14 @@
   text-decoration: none !important;
 }
 
+.MainNav .nav-item.active a {
+  opacity: 1 !important;
+}
+
 /*  collapsed style  */
 
 .MainNav.collapsed {
-  background: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
+  background: var(--black);
 }
 
 .MainNav.collapsed .navbar {
@@ -50,8 +49,4 @@
 
 .MainNav.collapsed .logo img {
   height: 57px;
-}
-
-.MainNav .nav-item:first-child {
-  padding: 3px !important;
 }
