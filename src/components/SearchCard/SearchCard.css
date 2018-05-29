@@ -116,6 +116,45 @@
 	padding: 16px 20px;
 }
 
+.SearchCard.list .main {
+	padding-right: 1em;
+}
+
+.SearchCard.list .avatar {
+	margin-right: 16px;
+}
+
+/* TODO: hack the one-line clamp */
+.SearchCard.list.film .title,
+.SearchCard.film .creator,
+.SearchCard.list.filmmaker .title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block !important;
+}
+
+.SearchCard.film .creator,
+.SearchCard.list .related {
+	width: 295px;
+}
+
+.SearchCard.tile.filmmaker .title,
+.SearchCard.list.filmmaker .title {
+	width: 225px;
+	display: inline-block !important;
+}
+
+.SearchCard.list .related-links-wrapper {
+	display: table !important;
+	height: 100%;
+}
+
+.SearchCard.list .RelatedLinks {
+	display: table-cell;
+	vertical-align: middle;
+}
+
 .SearchCard.list h4 {
 	height: auto;
 	margin-bottom: 12px;

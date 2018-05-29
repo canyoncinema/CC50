@@ -31,18 +31,23 @@ class SearchCard extends Component {
 			var maxTitleLines = 1,
 					maxDescriptionLines = listView ? 3 : 6;
 		} else if (itemType === 'ephemera') {
-			var maxTitleLines = 3,
+			var maxTitleLines = listView ? 2 : 3,
 					maxDescriptionLines = 3;
 		} else {
-			var maxTitleLines = 2,
+			var maxTitleLines = listView && itemType === 'film' ? 1 : 2,
 					maxDescriptionLines = 3;
 		}
 
 		// TODO: debug line clamp lib (removes title if clamps 1 line)
 		// TODO: debug hack with 2 line clamp libs :(
-		if (this.titleRef && this.titleRef.current && maxTitleLines > 1) {
-			// $clamp(this.titleRef.current, { clamp: maxTitleLines });
-			lineClamp(this.titleRef.current, maxTitleLines);
+		if (this.titleRef && this.titleRef.current) {
+			console.log('CLAMP TITLE', maxTitleLines, this.titleRef.current);
+			// TODO: HACK -- lineClamp does not behave well with 1 line clamps
+			if (maxTitleLines > 1) {
+				lineClamp(this.titleRef.current, maxTitleLines);
+			} else {
+				$clamp(this.titleRef.current, { clamp: maxTitleLines });
+			}
 		}
 
 		if (this.descriptionRef && this.descriptionRef.current) {
@@ -51,7 +56,7 @@ class SearchCard extends Component {
 		}
 
 		if (this.filmmakersRef && this.filmmakersRef.current) {
-			$clamp(this.filmmakersRef.current, { clamp: 2 });	
+			$clamp(this.filmmakersRef.current, { clamp: listView ? 3 : 2 });	
 			// lineClamp(this.filmmakersRef.current, 2);
 		}
 
@@ -59,7 +64,7 @@ class SearchCard extends Component {
 		// const related = document.querySelectorAll('.RelatedLinks');
 		if (this.relatedRef && this.relatedRef.current) {
 			// $clamp(this.relatedRef.current, { clamp: 2 });	
-			lineClamp(this.relatedRef.current, 2);
+			$clamp(this.relatedRef.current, { clamp: listView ? 3 : 2 });
 		}
 
 		if (this.tagsRef && this.tagsRef.current) {
@@ -89,6 +94,7 @@ class SearchCard extends Component {
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
+		console.log(itemType, listView);
 		return (
 			<Col sm={ listView ? 12 : 4 }
 				className={[
@@ -123,7 +129,7 @@ class SearchCard extends Component {
 									<h4 className="d-flex">
 										<div className="title"
 											ref={this.titleRef}>
-											<div>{listView ? title + (year ? ` (${year})` : '') : title}</div>
+											{listView ? title + (year ? ` (${year})` : '') : title}
 										</div>
 										{
 											year && !listView ?
@@ -153,8 +159,8 @@ class SearchCard extends Component {
 							}
 						{
 							filmmakers && filmmakers.length ?
-							<div className="no-gutters" ref={this.filmmakersRef}>
 							<Col sm={listView ? 4 : 12}>
+								<div className="no-gutters" ref={this.filmmakersRef}>
 								<RelatedLinks
 									label="Filmmakers">
 									{filmmakers.map((filmmaker, i) =>
@@ -166,23 +172,24 @@ class SearchCard extends Component {
 										</RelatedLink>
 									)}
 								</RelatedLinks>
+								</div>
 							</Col>
-							</div>
 							: null
 						}
 						{
 							tags && tags.length ?
-							<Col sm={listView ? 4 : 12} className="tags">
+							<Col sm={listView ? 4 : 12}
+								className={listView && itemTypeClassName === 'ephemera' ? 'tags order-3' : 'tags'}>
 								<div ref={this.tagsRef}>
 									{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
 								</div>
 							</Col>
 							: null
 						}
-						<div className="no-gutters" ref={this.relatedRef}>
 						{
 							related && related.length ?
 							<Col sm={listView ? 4 : 12}>
+								<div className="related-links-wrapper no-gutters" ref={this.relatedRef}>
 								<RelatedLinks
 									label="Related">
 									{related.map((rel, i) =>
@@ -194,10 +201,10 @@ class SearchCard extends Component {
 										</RelatedLink>
 									)}
 								</RelatedLinks>
+								</div>
 							</Col>
 							: null
 						}
-						</div>
 					</Row>
 				</Col>
 				</Row>

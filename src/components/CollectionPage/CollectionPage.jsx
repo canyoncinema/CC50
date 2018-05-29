@@ -70,12 +70,12 @@ class CollectionPage extends Component {
 			title: 'Dyketactics and some very long long long long long long title goes here and here and here and here',
 			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
 			tags: ['16mm', '1970s', 'Color', 'Sound', '16mm', '16mm', '16mm', '16mm', '16mm', '16mm'],
-			creator: 'Barbara Hammer',
+			creator: 'Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer',
 			year: '1974'
 		}, {
 			id: 1232,
 			itemType: 'filmmaker',
-			title: 'Barbara Hammer',
+			title: 'Barbara Hammer has a very long name here',
 			description: `Barbara Hammer is a visual artist primarily working in film and video. Her work reveals and celebrates marginalized peoples whose stories have not been told. Her cinema is multi-leveled and engages an audience viscerally and intellectually with the goal of activating them to make social change. She has been honored with 5 retrospectives in the last 3 years: The Museum of Modern Art in New York City, Tate Modern in London, Jeu de Paume in Paris, the Toronto International Film Festival and Kunsthalle Oslo in Norway. Her book Hammer! Making Movies Out of Sex and Life was published in 2010 by The Feminist Press at The City University of New York. 
 She is most well-known for making the first explicit lesbian film in 1974, Dyketactics, and for her trilogy of documentary film essays on queer history Nitrate Kisses (1992), Tender Fictions (1995), History Lessons, (2000). 
 She teaches at The European Graduate School in Saas-Fee, Switzerland. Her work is represented by the gallery KOW in Berlin, Germany. Company (formerly Capricious88) will exhibit her drawings and paintings in a one-woman show in NYC opening September 11, 2015.
