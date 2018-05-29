@@ -1,3 +1,4 @@
+/* TODO: collapsed nav -> component */
 .collapsed-nav {
 	position: fixed;
   top: 0;
@@ -5,17 +6,20 @@
   right: 0;
   z-index: 99;
 
-	display: none;
+	/*display: none;*/
+	margin-top: -200px;
+	/*transition: margin-top 0.15s linear;*/
 }
 .collapsed-nav.active {
-	display: block;
+	/*display: block;*/
+	margin-top: 0;
 }
 .collapsed-nav .MainNav .logo-nav-item {
 	padding: 4px !important;
 }
 
-.CollectionPage {
-	border-top: solid 1px var(--dark-grey);
+.collapsed-nav .MainNav .navbar {
+  border-bottom: none;
 }
 
 .CollectionPage header.search-sort {

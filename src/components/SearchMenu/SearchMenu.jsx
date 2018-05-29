@@ -76,11 +76,11 @@ class SearchMenu extends Component {
 			</div>,
 			<ul ref={this.wrapperRef}
 					className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
-					<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
-					<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>
-					<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Filmmakers</SearchMenuItem>
-					<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Curated Programs</SearchMenuItem>
-					<SearchMenuItem onClick={this.onOptionSelect.bind(this)}>Ephemera</SearchMenuItem>
+					<SearchMenuItem key="0" onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
+					<SearchMenuItem key="1" onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>
+					<SearchMenuItem key="2" onClick={this.onOptionSelect.bind(this)}>Filmmakers</SearchMenuItem>
+					<SearchMenuItem key="3" onClick={this.onOptionSelect.bind(this)}>Curated Programs</SearchMenuItem>
+					<SearchMenuItem key="4" onClick={this.onOptionSelect.bind(this)}>Ephemera</SearchMenuItem>
 			</ul>
 		];
 	}

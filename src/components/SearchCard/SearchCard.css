@@ -1,10 +1,30 @@
 .SearchCard {
 	margin-bottom: 40px;
 	font-size: 14px;
+	line-height: 22px;
 }
 
 .SearchCard .media {
 	height: 223px;
+}
+
+.SearchCard .title {
+	display: inline-block;
+}
+
+.SearchCard.filmmaker .title {
+	width: 225px;
+}
+
+.SearchCard.filmmaker .title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.SearchCard p.small {
+	line-height: 22px;
+	width: 297px;
 }
 
 .SearchCard .content {
@@ -32,6 +52,7 @@
 
 .SearchCard h4 {
 	height: 48px;
+	line-height: 24px;
 	margin-bottom: 12px;
 }
 
@@ -65,7 +86,7 @@
 }
 
 .SearchCard .tags {
-	margin-top: 20px;
+	margin-top: 0;
 }
 
 .SearchCard .Carousel {
@@ -104,13 +125,15 @@
 	margin: 0;
 }
 
-.SearchCard.list .content .main {
+.SearchCard.list p.small {
+	margin-bottom: 0;
+	margin-top: 3px;
 }
 
 .SearchCard.list .content .descriptive {
 }
 
-.SearchCard.list .content .tags {
+.SearchCard.list .tags {
 	margin: 0;
-	padding: 0;
+	padding: 26px;
 }

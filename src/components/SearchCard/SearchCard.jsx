@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './SearchCard.css';
 import $clamp from 'clamp-js';
+import lineClamp from 'line-clamp';
 
 import CollectionContext from '../../collection-context';
 import Tag from '../Tag/Tag';
@@ -17,13 +18,18 @@ class SearchCard extends Component {
 		this.titleRef = React.createRef();
 		this.descriptionRef = React.createRef();
 		this.filmmakersRef = React.createRef();
+		this.relatedRef = React.createRef();
+		this.tagsRef = React.createRef();
+
+		this.clampLines = this.clampLines.bind(this);
 	}
 
-	componentDidMount() {
-		const itemType = this.props.itemType.toLowerCase();
+	clampLines() {
+		const itemType = this.props.itemType.toLowerCase(),
+					listView = this.props.viewMode === 'list';
 		if (itemType === 'filmmaker') {
 			var maxTitleLines = 1,
-					maxDescriptionLines = 6;
+					maxDescriptionLines = listView ? 3 : 6;
 		} else if (itemType === 'ephemera') {
 			var maxTitleLines = 3,
 					maxDescriptionLines = 3;
@@ -31,23 +37,39 @@ class SearchCard extends Component {
 			var maxTitleLines = 2,
 					maxDescriptionLines = 3;
 		}
-		console.log(itemType, maxTitleLines);
 
-		if (this.titleRef && this.titleRef.current) {
-			$clamp(this.titleRef.current, { clamp: maxTitleLines });
+		// TODO: debug line clamp lib (removes title if clamps 1 line)
+		// TODO: debug hack with 2 line clamp libs :(
+		if (this.titleRef && this.titleRef.current && maxTitleLines > 1) {
+			// $clamp(this.titleRef.current, { clamp: maxTitleLines });
+			lineClamp(this.titleRef.current, maxTitleLines);
 		}
 
 		if (this.descriptionRef && this.descriptionRef.current) {
 			$clamp(this.descriptionRef.current, { clamp: maxDescriptionLines });
+			// lineClamp(this.descriptionRef.current, maxDescriptionLines);
 		}
 
 		if (this.filmmakersRef && this.filmmakersRef.current) {
 			$clamp(this.filmmakersRef.current, { clamp: 2 });	
+			// lineClamp(this.filmmakersRef.current, 2);
 		}
 
+		// HACK: stupid refs on stateless components
+		// const related = document.querySelectorAll('.RelatedLinks');
 		if (this.relatedRef && this.relatedRef.current) {
-			$clamp(this.relatedRef.current, { clamp: 2 });	
+			// $clamp(this.relatedRef.current, { clamp: 2 });	
+			lineClamp(this.relatedRef.current, 2);
 		}
+
+		if (this.tagsRef && this.tagsRef.current) {
+			$clamp(this.tagsRef.current, { clamp: 1 });	
+			// lineClamp(this.tagsRef.current, 1);
+		}
+	}
+
+	componentDidUpdate() {
+		this.clampLines();
 	}
 
 	render() {
@@ -63,125 +85,123 @@ class SearchCard extends Component {
 			year,
 			tags,
 			related,
+			viewMode
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
+		const listView = viewMode === 'list';
 		return (
-			<CollectionContext.Consumer>
-			{
-				context => {
-				const listView = context.viewMode === 'list';
-				return (
-					<Col sm={ listView ? 12 : 4 }
-						className={[
-							'SearchCard',
-							'no-gutters',
-							itemTypeClassName,
-							listView ? 'list' : 'tile'
-							].join(' ')}>
-						<Row className="no-gutters">
-						<Col sm={listView ? 2 : 12}>
-							<div className="media">
-								<Carousel
-									photos={(photos || []).slice(0, 5)}
-									id={id}
-									title={title}
-									itemType={itemType} />
-							</div>
-						</Col>
-						<Col sm={listView ? 10 : 12}>
-							<Row className="no-gutters content">
-								<Col sm={listView ? 4 : 12} className={listView ? 'main' : null}>
-									<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
+			<Col sm={ listView ? 12 : 4 }
+				className={[
+					'SearchCard',
+					'no-gutters',
+					itemTypeClassName,
+					listView ? 'list' : 'tile'
+					].join(' ')}>
+				<Row className="no-gutters">
+				<Col sm={listView ? 2 : 12}>
+					<div className="media">
+						<Carousel
+							photos={(photos || []).slice(0, 5)}
+							id={id}
+							title={title}
+							itemType={itemType} />
+					</div>
+				</Col>
+				<Col sm={listView ? 10 : 12}>
+					<Row className="no-gutters content">
+						<Col sm={listView ? 4 : 12} className={listView ? 'main' : null}>
+							<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
+								{
+									itemType === 'filmmaker' ?
+									<div className="avatar">
+										<FilmmakerAvatar url={avatar} />
+									</div>
+									: null
+								}
+								<div>
+									<h6>{itemType}</h6>
+									<h4 className="d-flex">
+										<div className="title"
+											ref={this.titleRef}>
+											<div>{listView ? title + (year ? ` (${year})` : '') : title}</div>
+										</div>
 										{
-											itemType === 'filmmaker' ?
-											<div className="avatar">
-												<FilmmakerAvatar url={avatar} />
-											</div>
+											year && !listView ?
+											<span className="year ml-auto">{year}</span>
 											: null
 										}
-										<div>
-											<h6>{itemType}</h6>
-											<h4 className="d-flex">
-												<span className="title"
-													ref={this.titleRef}>
-													{listView ? title + (year ? ` (${year})` : '') : title}
-												</span>
-												{
-													year && !listView ?
-													<span className="year ml-auto">{year}</span>
-													: null
-												}
-											</h4>
-										</div>
-									</div>
-									{
-										creator ?
-										<div className="creator">
-											<Link to="filmmaker/" className="gold">{creator}</Link>
-										</div>
-										: null
-									}
-								</Col>
-									{
-										description ?
-										<Col sm={listView ? 4 : 12} className="descriptive">
-											<p className="small"
-												ref={this.descriptionRef}>
-												{description}
-											</p>
-										</Col>
-										: null
-									}
-								{
-									filmmakers && filmmakers.length ?
-									<Col sm={listView ? 4 : 12} ref={this.filmmakersRef}>
-										<RelatedLinks
-											label="Filmmakers">
-											{filmmakers.map((filmmaker, i) =>
-												<RelatedLink
-													key={i}
-													isLast={i === filmmakers.length - 1}
-													to={`/filmmaker/${filmmaker.id}`}>
-													{filmmaker.name}
-												</RelatedLink>
-											)}
-										</RelatedLinks>
-									</Col>
-									: null
-								}
-								{
-									related && related.length ?
-									<Col sm={listView ? 4 : 12} ref={this.relatedRef}>
-										<RelatedLinks
-											label="Related">
-											{related.map((rel, i) =>
-												<RelatedLink
-													key={i}
-													isLast={i === related.length - 1}
-													to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-													{rel.title}
-												</RelatedLink>
-											)}
-										</RelatedLinks>
-									</Col>
-									: null
-								}
-								{
-									tags && tags.length ?
-									<Col sm={listView ? 4 : 12} className="tags">
-										{
-											tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)
-										}
-									</Col>
-									: null
-								}
-							</Row>
+									</h4>
+								</div>
+							</div>
+							{
+								creator ?
+								<div className="creator">
+									<Link to="filmmaker/" className="gold">{creator}</Link>
+								</div>
+								: null
+							}
 						</Col>
-						</Row>
-					</Col>
-				)}
-			}
-			</CollectionContext.Consumer>
+							{
+								description ?
+								<Col sm={listView ? 4 : 12} className="descriptive">
+									<p className="small"
+										ref={this.descriptionRef}>
+										{description}
+									</p>
+								</Col>
+								: null
+							}
+						{
+							filmmakers && filmmakers.length ?
+							<div className="no-gutters" ref={this.filmmakersRef}>
+							<Col sm={listView ? 4 : 12}>
+								<RelatedLinks
+									label="Filmmakers">
+									{filmmakers.map((filmmaker, i) =>
+										<RelatedLink
+											key={i}
+											isLast={i === filmmakers.length - 1}
+											to={`/filmmaker/${filmmaker.id}`}>
+											{filmmaker.name}
+										</RelatedLink>
+									)}
+								</RelatedLinks>
+							</Col>
+							</div>
+							: null
+						}
+						{
+							tags && tags.length ?
+							<Col sm={listView ? 4 : 12} className="tags">
+								<div ref={this.tagsRef}>
+									{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
+								</div>
+							</Col>
+							: null
+						}
+						<div className="no-gutters" ref={this.relatedRef}>
+						{
+							related && related.length ?
+							<Col sm={listView ? 4 : 12}>
+								<RelatedLinks
+									label="Related">
+									{related.map((rel, i) =>
+										<RelatedLink
+											key={i}
+											isLast={i === related.length - 1}
+											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
+											{rel.title}
+										</RelatedLink>
+									)}
+								</RelatedLinks>
+							</Col>
+							: null
+						}
+						</div>
+					</Row>
+				</Col>
+				</Row>
+			</Col>
 		);
 	}
 }

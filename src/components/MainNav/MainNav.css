@@ -2,6 +2,8 @@
 	height: 104px;
 	padding: 0;
   -webkit-font-smoothing: antialiased;
+  border-bottom: solid 1px #6a6a6a;
+  border-bottom: solid 1px var(--dark-grey);
 }
 
 .MainNav .logo-nav-item {

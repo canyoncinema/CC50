@@ -23,8 +23,8 @@ class Search extends Component {
 	render() {
 		const { placeholder, clearPlaceholder } = this.state;
 		return [
-			<SearchMenu key={0} onLabelChange={this.onLabelChange.bind(this)} />,
-			<SearchBar key={1} placeholder={placeholder} />
+			<SearchMenu key="1" onLabelChange={this.onLabelChange.bind(this)} />,
+			<SearchBar key="2" placeholder={placeholder} />
 		];
 	}
 }

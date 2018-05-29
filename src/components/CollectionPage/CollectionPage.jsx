@@ -7,7 +7,7 @@ import CollectionContext from '../../collection-context';
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import Search from '../Search/Search';
-import SearchCard from '../SearchCard/SearchCard';
+import SearchCards from '../SearchCards/SearchCards';
 import ViewModeButtons from '../ViewModeButtons/ViewModeButtons';
 import Button from '../Button/Button';
 
@@ -32,13 +32,14 @@ class CollectionPage extends Component {
 	}
 
 	componentDidMount() {
+		const headerHeight = 361;
     window.addEventListener('scroll', (e) => {
-      if (window.scrollY >= 245 &&
+      if (window.scrollY >= headerHeight &&
       		!this.state.isCollapsedNav) {
       	this.setState({
       		isCollapsedNav: true
       	});
-      } else if (window.scrollY < 245 &&
+      } else if (window.scrollY < headerHeight &&
       		this.state.isCollapsedNav) {
       	this.setState({
       		isCollapsedNav: false
@@ -61,6 +62,14 @@ class CollectionPage extends Component {
 			title: 'Dyketactics',
 			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
 			tags: ['16mm', '1970s', 'Color', 'Sound'],
+			creator: 'Barbara Hammer',
+			year: '1974'
+		}, {
+			id: 1232,
+			itemType: 'film',
+			title: 'Dyketactics and some very long long long long long long title goes here and here and here and here',
+			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
+			tags: ['16mm', '1970s', 'Color', 'Sound', '16mm', '16mm', '16mm', '16mm', '16mm', '16mm'],
 			creator: 'Barbara Hammer',
 			year: '1974'
 		}, {
@@ -106,7 +115,7 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 		}, {
 			id: 1232,
 			itemType: 'Ephemera',
-			title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines',
+			title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
 			photos: [],
 			tags: ['Printed Pieces'],
 			related: [{
@@ -161,11 +170,7 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 					<Row>
 						{
 							searchData && searchData.length ?
-							searchData.map((data, i) => {
-							return (
-									<SearchCard {...data} />
-								);
-							})
+							<SearchCards data={searchData} />
 							: null
 						}
 					</Row>
