@@ -5,7 +5,7 @@ import './HomeIntro.css';
 import BrowseLinksList from '../BrowseLinksList/BrowseLinksList';
 import SearchBar from '../SearchBar/SearchBar';
 
-export default ({}) => {
+export default () => {
 	return (
 		<Row className="HomeIntro">
       <Col m="6" className="left">

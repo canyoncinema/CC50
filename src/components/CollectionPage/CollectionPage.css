@@ -8,7 +8,7 @@
 
 	/*display: none;*/
 	margin-top: -200px;
-	/*transition: margin-top 0.15s linear;*/
+	transition: margin-top 0.33s linear;
 }
 .collapsed-nav.active {
 	/*display: block;*/

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Row, Col } from 'reactstrap';
 import data from '../../db.json';
-import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
-import Spotlight from '../Spotlight/Spotlight';
+// import Spotlight from '../Spotlight/Spotlight';
 import Button from '../Button/Button';
 import EventTiles from '../EventTiles/EventTiles';
 import DarkBox from '../DarkBox/DarkBox';
@@ -17,9 +16,9 @@ import Footer from '../Footer/Footer';
 
 const optimalColWidths = (num) => {
   const widths = []
-  if (num == 1) widths.push(1);
-  if (num == 2) widths.push(2);
-  if (num == 3) widths.push(3);
+  if (num === 1) widths.push(1);
+  if (num === 2) widths.push(2);
+  if (num === 3) widths.push(3);
   if (num > 3) {
     while (num > 0) {
       widths.push(3);
@@ -31,9 +30,6 @@ const optimalColWidths = (num) => {
 
 const {
   films,
-  filmmakers,
-  curatedPrograms,
-  ephemera,
   events,
   news,
   featuredPosts
@@ -56,44 +52,45 @@ class HomePage extends Component {
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
-    return
-    axios.get('//localhost:3001/films')
-      .then(response => {
-        for (var i = 0; i <= 100; i++) {
-          var spoofData = response.data.concat(response.data);
-        }
-        return response.data;
-      })
-      .then(data => {
-        this.setState({
-          films: data
-        });
-      });
+    return;
+    // TODO: spoof data sophisticate? Neccesary?
+    // axios.get('//localhost:3001/films')
+    //   .then(response => {
+    //     for (var i = 0; i <= 100; i++) {
+    //       var spoofData = response.data.concat(response.data);
+    //     }
+    //     return spoofData;
+    //   })
+    //   .then(data => {
+    //     this.setState({
+    //       films: data
+    //     });
+    //   });
 
-    axios.get('//localhost:3001/events')
-      .then(response => {
-        var spoofData = response.data.concat(response.data).concat(response.data);
-        return spoofData;
-      })
-      .then(data => {
-        this.setState({
-          upcomingEvents: data
-        });
-      });
+    // axios.get('//localhost:3001/events')
+    //   .then(response => {
+    //     var spoofData = response.data.concat(response.data).concat(response.data);
+    //     return spoofData;
+    //   })
+    //   .then(data => {
+    //     this.setState({
+    //       upcomingEvents: data
+    //     });
+    //   });
 
-    axios.get('//localhost:3001/news')
-      .then(response => {
-        this.setState({
-          newsItems: response.data
-        });
-      });
+    // axios.get('//localhost:3001/news')
+    //   .then(response => {
+    //     this.setState({
+    //       newsItems: response.data
+    //     });
+    //   });
 
-    axios.get('//localhost:3001/featuredPosts')
-      .then(response => {
-        this.setState({
-          featuredPosts: response.data
-        });
-      });
+    // axios.get('//localhost:3001/featuredPosts')
+    //   .then(response => {
+    //     this.setState({
+    //       featuredPosts: response.data
+    //     });
+    //   });
   }
 
   render() {

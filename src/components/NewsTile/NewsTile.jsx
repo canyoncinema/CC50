@@ -17,7 +17,7 @@ class NewsTile extends Component {
 	}
 
 	render() {
-		const { name, created, photo, author, link } = this.props;
+		const { name, created, photo, author } = this.props;
 		const authorByline = author ? ` by ${author}` : null;
 		return (
 			<div className="NewsTile on-hover">

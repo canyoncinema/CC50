@@ -6,7 +6,6 @@ import {
 
 import './App.css';
 import './utils/OnHover.css';
-import CollectionContext from './collection-context';
 import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';
 import CollectionPage from './components/CollectionPage/CollectionPage';

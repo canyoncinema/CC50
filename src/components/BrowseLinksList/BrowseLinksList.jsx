@@ -3,7 +3,7 @@ import './BrowseLinksList.css';
 
 import BrowseLink from '../BrowseLink/BrowseLink';
 
-export default ({}) => {
+export default () => {
 	return (
 		<div className="BrowseLinksList">
 			<BrowseLink text="Films" search="films" />

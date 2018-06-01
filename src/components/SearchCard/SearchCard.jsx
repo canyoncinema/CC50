@@ -5,10 +5,9 @@ import './SearchCard.css';
 import $clamp from 'clamp-js';
 import lineClamp from 'line-clamp';
 
-import CollectionContext from '../../collection-context';
 import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
-import Carousel from '../Carousel/Carousel';
+import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
 import RelatedLinks from '../RelatedLinks/RelatedLinks';
 import RelatedLink from '../RelatedLink/RelatedLink';
 
@@ -27,21 +26,21 @@ class SearchCard extends Component {
 	clampLines() {
 		const itemType = this.props.itemType.toLowerCase(),
 					listView = this.props.viewMode === 'list';
+		let maxTitleLines, maxDescriptionLines;
 		if (itemType === 'filmmaker') {
-			var maxTitleLines = 1,
-					maxDescriptionLines = listView ? 3 : 6;
+			maxTitleLines = 1;
+			maxDescriptionLines = listView ? 3 : 6;
 		} else if (itemType === 'ephemera') {
-			var maxTitleLines = listView ? 2 : 3,
-					maxDescriptionLines = 3;
+			maxTitleLines = listView ? 2 : 3;
+			maxDescriptionLines = 3;
 		} else {
-			var maxTitleLines = listView && itemType === 'film' ? 1 : 2,
-					maxDescriptionLines = 3;
+			maxTitleLines = listView && itemType === 'film' ? 1 : 2;
+			maxDescriptionLines = 3;
 		}
 
 		// TODO: debug line clamp lib (removes title if clamps 1 line)
 		// TODO: debug hack with 2 line clamp libs :(
 		if (this.titleRef && this.titleRef.current) {
-			console.log('CLAMP TITLE', maxTitleLines, this.titleRef.current);
 			// TODO: HACK -- lineClamp does not behave well with 1 line clamps
 			if (maxTitleLines > 1) {
 				lineClamp(this.titleRef.current, maxTitleLines);
@@ -73,6 +72,16 @@ class SearchCard extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		// all content should stay the same, unless
+		// clamping diff length lines depending on switched view mode
+		return nextProps.viewMode !== this.props.viewMode;
+  }
+
+  componentDidMount() {
+  	this.clampLines();
+  }
+
 	componentDidUpdate() {
 		this.clampLines();
 	}
@@ -94,7 +103,6 @@ class SearchCard extends Component {
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
-		console.log(itemType, listView);
 		return (
 			<Col sm={ listView ? 12 : 4 }
 				className={[
@@ -107,7 +115,7 @@ class SearchCard extends Component {
 				<Col sm={listView ? 2 : 12}>
 					<div className="media">
 						<Carousel
-							photos={(photos || []).slice(0, 5)}
+							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
 							id={id}
 							title={title}
 							itemType={itemType} />

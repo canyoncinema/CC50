@@ -2,9 +2,12 @@ import React from 'react';
 
 const CollectionContext = React.createContext({
 	searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
-	viewMode: 'tile',
+	searchLabel: 'All',
+	searchText: '',
 	isCollapsedNav: false,
-	changeViewMode: () => {}
+	viewMode: 'tile',
+	setViewMode: () => {},
+	onOptionSelect: () => {}
 });
 
 export default CollectionContext;

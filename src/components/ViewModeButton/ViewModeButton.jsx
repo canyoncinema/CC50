@@ -7,20 +7,9 @@ import ViewModeTile from './ViewModeTile.png';
 import ViewModeListActive from './ViewModeListActive.png';
 import ViewModeTileActive from './ViewModeTileActive.png';
 
-function getImgSrc (mode, isActive) {
-	switch (mode) {
-		case 'list':
-			return isActive ? ViewModeListActive : ViewModeList;
-		case 'tile':
-			return isActive ? ViewModeTileActive : ViewModeTile;
-		default:
-			throw new Error(`Unknown view mode ${mode}`);
-	}
-}
-
 class ViewModeButton extends Component {
 	render() {
-		const { mode, onClick } = this.props;
+		const { mode } = this.props;
 		
 		return (
 			<CollectionContext.Consumer>
@@ -29,17 +18,33 @@ class ViewModeButton extends Component {
 					const isActive = context.viewMode === mode;
 					return (
 						<div
-							onClick={() => context.changeViewMode(mode)}
+							onClick={() => context.setViewMode(mode)}
 							className={isActive ? 'ViewModeButton active' : 'ViewModeButton'}>
 							{mode === 'list' ?
 								[
-									<img key={0} className="default" src={ViewModeList} />,
-									<img key={1} className="active" src={ViewModeListActive} />
+									<img
+										key={0}
+										alt="View as List"
+										className="default"
+										src={ViewModeList} />,
+									<img
+										key={1}
+										alt="View as List - Active"
+										className="active"
+										src={ViewModeListActive} />
 								]
 								: mode === 'tile' ?
 								[
-									<img key={0} className="default" src={ViewModeTile} />,
-									<img key={1} className="active" src={ViewModeTileActive} />
+									<img
+										key={0}
+										alt="View as Tiles"
+										className="default"
+										src={ViewModeTile} />,
+									<img
+										key={1}
+										alt="View as Tiles - Active"
+										className="active"
+										src={ViewModeTileActive} />
 								]
 								: null }
 						</div>

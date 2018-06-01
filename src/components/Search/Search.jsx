@@ -4,27 +4,14 @@ import './Search.css';
 import SearchMenu from '../SearchMenu/SearchMenu';
 import SearchBar from '../SearchBar/SearchBar';
 
+// TODO: rename to SearchCollection
 class Search extends Component {
-	state = {
-		placeholder: 'Search films, filmmakers, curated programs, ephemera',
-		clearPlaceholder: false
-	}
-
-	onLabelChange(label) {
-		this.setState({
-			placeholder: 'Search ' +
-				(label === 'All' ?
-					'films, filmmakers, curated programs, ephemera'
-					: label.toLowerCase()
-				) 
-		});
-	}
-
 	render() {
-		const { placeholder, clearPlaceholder } = this.state;
+		const { id } = this.props;
 		return [
-			<SearchMenu key="1" onLabelChange={this.onLabelChange.bind(this)} />,
-			<SearchBar key="2" placeholder={placeholder} />
+			<SearchMenu key={id + '-0'} />
+			,
+			<SearchBar key={id + '-1'} />
 		];
 	}
 }

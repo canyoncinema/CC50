@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Row, Col } from 'reactstrap';
+import { Row } from 'reactstrap';
 import './CollectionPage.css';
 import CollectionContext from '../../collection-context';
 
@@ -15,10 +15,17 @@ class CollectionPage extends Component {
 	constructor(props) {
 		super(props);
 		this.onViewModeChange = this.onViewModeChange.bind(this);
-		this.changeViewMode = this.changeViewMode.bind(this);
+		this.setViewMode = this.setViewMode.bind(this);
 	}
 
-	changeViewMode(mode) {
+	setSearchText(e) {
+		const searchText = e.target.value;
+		this.setState({
+			searchText
+		});
+	}
+
+	setViewMode(mode) {
 		this.setState({
 			viewMode: mode
 		});
@@ -26,9 +33,22 @@ class CollectionPage extends Component {
 
 	state = {
 		searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
+		searchLabel: 'All',
+		searchText: '',
+		setSearchText: this.setSearchText.bind(this),
+		isCollapsedNav: false,
 		viewMode: 'tile',
-		changeViewMode: this.changeViewMode.bind(this),
-		isCollapsedNav: false
+		setViewMode: this.setViewMode.bind(this),
+		onOptionSelect: label => {
+			this.setState({
+	  		searchLabel: label,
+				searchPlaceholder: 'Search ' +
+					(label === 'All' ?
+						'films, filmmakers, curated programs, ephemera'
+						: label.toLowerCase()
+					) 
+			});
+		}
 	}
 
 	componentDidMount() {
@@ -55,7 +75,6 @@ class CollectionPage extends Component {
 	}
 
 	render() {
-		const isCollapsible = true;
 		const searchData = [{
 			id: 1232,
 			itemType: 'film',
@@ -149,7 +168,7 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 				<header className="search-sort">
 					<h1 className="white">Explore the collection</h1>
 					<div className="filters">
-						<Search />
+						<Search id={0} />
 						<div className="change-view">
 							<label>View:</label>
 							

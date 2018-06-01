@@ -2,6 +2,11 @@
 	margin-bottom: 40px;
 	font-size: 14px;
 	line-height: 22px;
+
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */  
 }
 
 .SearchCard .media {
@@ -104,8 +109,9 @@
 }
 
 
-.SearchCard.list .media {
-	height: 100%;
+.SearchCard.list .media,
+.SearchCard.list .content {
+	height: 105px;
 }
 
 .SearchCard.list .media .Carousel {
@@ -117,7 +123,7 @@
 }
 
 .SearchCard.list .main {
-	padding-right: 1em;
+	padding-right: 1rem;
 }
 
 .SearchCard.list .avatar {
@@ -148,6 +154,7 @@
 .SearchCard.list .related-links-wrapper {
 	display: table !important;
 	height: 100%;
+	padding-left: 26px;
 }
 
 .SearchCard.list .RelatedLinks {
@@ -169,10 +176,28 @@
 	margin-top: 3px;
 }
 
-.SearchCard.list .content .descriptive {
-}
-
 .SearchCard.list .tags {
 	margin: 0;
 	padding: 26px;
+	padding-left: 1rem;
+}
+
+.SearchCard.list .CarouselPhotoFiller .foreground {
+   padding: 21px 38px;
+}
+
+.SearchCard.list .Carousel .Caret {
+   padding: 0 8.5px;
+}
+
+.SearchCard.list .CarouselPhotoFiller .foreground h4 {
+    white-space: nowrap;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.SearchCard.list .col-sm-4 + .col-sm-4:not(.order-3) + .col-sm-4 .RelatedLinks {
+    padding-left: 1rem;
 }

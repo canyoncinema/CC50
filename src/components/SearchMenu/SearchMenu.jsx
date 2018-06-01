@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './SearchMenu.css';
 
+import CollectionContext from '../../collection-context';
 import Caret from '../Caret/Caret';
-import OutsideClickHandler from '../OutsideClickHandler/OutsideClickHandler';
 import SearchMenuItem from './SearchMenuItem';
 
 class SearchMenu extends Component {
@@ -14,9 +14,16 @@ class SearchMenu extends Component {
 	}
 
 	state = {
-		label: 'All',
 		isOpen: false
 	}
+
+	static labels = [
+		'All',
+		'Films',
+		'Filmmakers',
+		'Curated Programs',
+		'Ephemera'
+	]
 
 	componentDidMount() {
 		// TODO: make outside click handling reusable
@@ -53,36 +60,49 @@ class SearchMenu extends Component {
 		});
 	}
 
-	onOptionSelect(e) {
+	onOptionSelect(e, labelCb) {
 		const label = e.target.innerText;
 		this.setState({
-			label,
 			isOpen: false
 		});
-		if (this.props.onLabelChange) this.props.onLabelChange(label);
+		labelCb(label);
 	}
 
 	render() {
-		const { label, isOpen } = this.state;
-		return [
-			<div
-				ref={this.labelRef}
-				className={isOpen ? 'SearchMenu open' : 'SearchMenu'}
-				onClick={this.toggle.bind(this)}>
-				<div className="d-flex label">
-					<span className="text">{label}</span>
-					<Caret className="ml-auto" direction="down" />
-				</div>
-			</div>,
-			<ul ref={this.wrapperRef}
-					className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
-					<SearchMenuItem key="0" onClick={this.onOptionSelect.bind(this)}>All</SearchMenuItem>
-					<SearchMenuItem key="1" onClick={this.onOptionSelect.bind(this)}>Films</SearchMenuItem>
-					<SearchMenuItem key="2" onClick={this.onOptionSelect.bind(this)}>Filmmakers</SearchMenuItem>
-					<SearchMenuItem key="3" onClick={this.onOptionSelect.bind(this)}>Curated Programs</SearchMenuItem>
-					<SearchMenuItem key="4" onClick={this.onOptionSelect.bind(this)}>Ephemera</SearchMenuItem>
-			</ul>
-		];
+		const { isOpen } = this.state;
+		return (
+			<CollectionContext.Consumer>
+				{
+					context => [
+						<div
+							key={0}
+							ref={this.labelRef}
+							className={isOpen ? 'SearchMenu open' : 'SearchMenu'}
+							onClick={this.toggle.bind(this)}>
+							<div className="d-flex label">
+								<span className="text">{context.searchLabel}</span>
+								<Caret className="ml-auto" direction="down" />
+							</div>
+						</div>,
+						<ul key={1} ref={this.wrapperRef}
+								className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
+								{
+									SearchMenu.labels.map((label, i) => {
+										return (
+											<SearchMenuItem
+												key={i}
+												onClick={(e) =>
+													this.onOptionSelect.call(this, e, context.onOptionSelect)}>
+												{label}
+											</SearchMenuItem>
+										);
+									})
+								}
+						</ul>
+					]
+				}
+			</CollectionContext.Consumer>
+		);
 	}
 }
 

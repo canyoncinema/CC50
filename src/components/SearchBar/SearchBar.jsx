@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './SearchBar.css';
 
+import CollectionContext from '../../collection-context';
 import SearchIcon from './SearchIcon.svg';
-import OutsideClickHandler from '../OutsideClickHandler/OutsideClickHandler';
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -16,12 +16,6 @@ class SearchBar extends Component {
 
 	state = {
 		clearPlaceholder: false
-	}
-
-	onClick() {
-		this.setState({
-			clearPlaceholder: true
-		});
 	}
 
 	componentDidMount() {
@@ -56,25 +50,37 @@ class SearchBar extends Component {
 	}
 
 	render() {
-		const { placeholder, className } = this.props;
+		const { className } = this.props;
 		const { clearPlaceholder } = this.state;
+		// TODO: handle submit
 		return (
-			<form
-				className={[
-					'SearchBar',
-					className,
-					clearPlaceholder ? 'active' : null
-				].join(' ')}
-				ref={this.wrapperRef} onSubmit={() => null}
-				onClick={this.onInsideClick}>
-				<img className="icon" src={SearchIcon} />
-				<input
-					ref={this.inputRef}
-					type="text"
-					className="input"
-					disabled={!clearPlaceholder}
-					placeholder={clearPlaceholder ? '' : placeholder} />
-			</form>
+			<CollectionContext.Consumer>
+				{
+					context => {
+					const { searchPlaceholder, searchText, setSearchText } = context;
+					return (
+						<form
+							className={[
+								'SearchBar',
+								className,
+								clearPlaceholder ? 'active' : null
+							].join(' ')}
+							ref={this.wrapperRef} onSubmit={() => null}
+							onClick={this.onInsideClick}>
+							<img alt="Search Icon" className="icon" src={SearchIcon} />
+							<input
+								ref={this.inputRef}
+								type="text"
+								className="input"
+								value={searchText}
+								onChange={setSearchText}
+								disabled={!clearPlaceholder}
+								placeholder={clearPlaceholder ? '' : searchPlaceholder} />
+						</form>
+						)
+					}
+				}
+			</CollectionContext.Consumer>
 		);
 	}
 }

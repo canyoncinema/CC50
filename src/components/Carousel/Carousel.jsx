@@ -33,13 +33,15 @@ CarouselPhotoFiller.propTypes = {
 	bgPhotoSrc: PropTypes.string.isRequired
 };
 
+export const MAX_CAROUSEL_IMAGES = 3;
+
 class Carousel extends Component {
 	constructor(props) {
 		super(props);
 
-		if (props.photos && props.photos.length > 5) {
-			throw new Error('Invalid number of photos. Cannot exceed 5 in carousel. Got ' +
-					props.photos.length);
+		if (props.photos && props.photos.length > MAX_CAROUSEL_IMAGES) {
+			throw new Error(`Invalid number of photos. Cannot exceed ${MAX_CAROUSEL_IMAGES} in carousel.
+					Got ${props.photos.length}`);
 		}
 
 		this.nextPhotoState = this.nextPhotoState.bind(this);
@@ -84,8 +86,8 @@ class Carousel extends Component {
 			};
 		} else {
 			const newIndex = state.activePhotoIndex + 1;
-			if (newIndex >= 5) {
-				// spec: loop to first (does not show more than 5)
+			if (newIndex >= MAX_CAROUSEL_IMAGES) {
+				// spec: loop to first (does not show more than MAX_CAROUSEL_IMAGES)
 				// and prompt user to click item to show more
 				return {
 					activePhotoIndex: 4,
@@ -109,32 +111,29 @@ class Carousel extends Component {
 		const { showViewMore, activePhotoIndex } = this.state;
 		const activePhotoSrc = (photos || [])[activePhotoIndex]
 			|| require('./empty-still.png');
-		console.log(this.state.activePhotoIndex, this.state.showViewMore)
 		return (
 			<div className="Carousel">
 			{
 				photos && photos.length > 1 ?
-				<Caret
-					onClick={this.onPrevPhoto.bind(this)}
-					width="14px" height="28px" direction="left" />
+				<div className="nav">
+					<Caret
+						onClick={this.onPrevPhoto.bind(this)}
+						width="14px" height="28px" direction="left" />
+					<Caret
+						onClick={this.onNextPhoto.bind(this)}
+						width="14px" height="28px" direction="right" />
+				</div>
 				: null
 			}
 			{
 				showViewMore ?
 					<CarouselPhotoFiller
-						id={id}
+						id={String(id)}
 						itemType={itemType}
 						title={title}
 						bgPhotoSrc={activePhotoSrc} />
 					: <PhotoFill width="100%" height="100%"
 					src={activePhotoSrc} />
-			}
-			{
-				photos && photos.length > 1 ?
-				<Caret
-					onClick={this.onNextPhoto.bind(this)}
-					width="14px" height="28px" direction="right" />
-				: null
 			}
 			</div>
 		);

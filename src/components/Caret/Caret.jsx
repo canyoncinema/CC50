@@ -1,6 +1,5 @@
 import React from 'react';
 import './Caret.css';
-import CaretSvg from './Caret.svg';
 
 export default ({ className, onClick, direction, width, height }) => {
 	return (

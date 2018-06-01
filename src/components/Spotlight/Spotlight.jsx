@@ -23,10 +23,6 @@ const SpotlightListItem = ({isActive, name, note, description}) => {
 };
 
 class Spotlight extends Component {
-	constructor(props) {
-		super(props);
-
-	}
 	render() {
 		const { data } = this.props;
 
