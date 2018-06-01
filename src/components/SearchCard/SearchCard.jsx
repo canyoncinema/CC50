@@ -157,11 +157,15 @@ class SearchCard extends Component {
 						</Col>
 							{
 								description ?
-								<Col sm={listView ? 4 : 12} className="descriptive">
-									<p className="small"
-										ref={this.descriptionRef}>
-										{description}
-									</p>
+								<Col sm={listView ? itemTypeClassName === 'filmmaker' ? 8 : 4 : 12}>
+									<div className="list-center-wrapper">
+										<div className="descriptive">
+											<p className="small"
+												ref={this.descriptionRef}>
+												{description}
+											</p>
+										</div>
+									</div>
 								</Col>
 								: null
 							}
@@ -187,9 +191,13 @@ class SearchCard extends Component {
 						{
 							tags && tags.length ?
 							<Col sm={listView ? 4 : 12}
-								className={listView && itemTypeClassName === 'ephemera' ? 'tags order-3' : 'tags'}>
-								<div ref={this.tagsRef}>
-									{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
+								className={listView && itemTypeClassName === 'ephemera' ? 'order-3' : null}>
+								<div className="list-center-wrapper">
+									<div className="tags-wrapper">
+										<div className="tags" ref={this.tagsRef}>
+											{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
+										</div>
+									</div>
 								</div>
 							</Col>
 							: null
@@ -197,7 +205,7 @@ class SearchCard extends Component {
 						{
 							related && related.length ?
 							<Col sm={listView ? 4 : 12}>
-								<div className="related-links-wrapper no-gutters" ref={this.relatedRef}>
+								<div className="list-center-wrapper no-gutters" ref={this.relatedRef}>
 								<RelatedLinks
 									label="Related">
 									{related.map((rel, i) =>
