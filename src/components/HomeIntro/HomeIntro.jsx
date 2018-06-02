@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import './HomeIntro.css';
 
+// import CollectonContext from '../../collection-context';
 import BrowseLinksList from '../BrowseLinksList/BrowseLinksList';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -10,7 +11,9 @@ export default () => {
 		<Row className="HomeIntro">
       <Col m="6" className="left">
         <div className="logo-wrapper"><div className="CANYON-CINEMA-50">CANYON CINEMA 50</div></div>
-        <SearchBar className="search" placeholder="Search the collection" />
+        <SearchBar
+          className="search"
+          placeholder="Search the collection" />
       </Col>
       <Col m="6">
         <div className="divider divider-1" />

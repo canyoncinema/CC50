@@ -24,6 +24,7 @@
 
 .SearchMenu .label .Caret {
 	height: 48px;
+	margin-right: -5px;
 }
 
 .SearchMenuOptions {

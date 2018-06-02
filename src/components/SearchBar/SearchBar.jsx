@@ -12,10 +12,12 @@ class SearchBar extends Component {
 
 		this.onOutsideClick = this.onOutsideClick.bind(this);
 		this.onInsideClick = this.onInsideClick.bind(this);
+		this.setSearchText = this.setSearchText.bind(this);
 	}
 
 	state = {
-		clearPlaceholder: false
+		clearPlaceholder: false,
+		searchText: ''
 	}
 
 	componentDidMount() {
@@ -49,8 +51,15 @@ class SearchBar extends Component {
 		});
 	}
 
+	setSearchText(e) {
+		const searchText = e.target.value;
+		this.setState({
+			searchText
+		});
+	}
+
 	render() {
-		const { className } = this.props;
+		const { placeholder, onChange, className } = this.props;
 		const { clearPlaceholder } = this.state;
 		// TODO: handle submit
 		return (
@@ -58,6 +67,7 @@ class SearchBar extends Component {
 				{
 					context => {
 					const { searchPlaceholder, searchText, setSearchText } = context;
+					console.log('context', context);
 					return (
 						<form
 							className={[
@@ -73,9 +83,9 @@ class SearchBar extends Component {
 								type="text"
 								className="input"
 								value={searchText}
-								onChange={setSearchText}
+								onChange={setSearchText || this.setSearchText}
 								disabled={!clearPlaceholder}
-								placeholder={clearPlaceholder ? '' : searchPlaceholder} />
+								placeholder={clearPlaceholder ? '' : (placeholder || searchPlaceholder)} />
 						</form>
 						)
 					}
