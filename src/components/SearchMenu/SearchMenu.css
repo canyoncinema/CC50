@@ -8,6 +8,8 @@
 
 .SearchMenu:not(.open):hover {
 	border-color: #ffffff;
+	border-left-color: #ffffff;
+	border-right-color: #ffffff;
 	z-index: 50;
 }
 

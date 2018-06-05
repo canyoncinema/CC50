@@ -18,7 +18,7 @@
 
 .Carousel .Caret.right {
 	right: 0;
-	margin-top: -7px;
+	margin-top: -14px;
 }
 
 .CarouselPhotoFiller {
@@ -47,5 +47,5 @@
 	margin-top: -14px;
 }
 .list .Carousel .Caret.left {
-	margin-top: -21px;	
+	margin-top: -14px;
 }

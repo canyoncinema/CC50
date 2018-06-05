@@ -36,7 +36,7 @@
 	padding: 30px 35px;
 }
 
-.SearchCard.tile .content {
+.SearchCard.grid .content {
 	height: 277px;
 }
 
@@ -65,7 +65,7 @@
 	margin-bottom: 25px;
 }
 
-.SearchCard.tile.ephemera .tags {
+.SearchCard.grid.ephemera .tags {
 	margin: 0;
 	height: 50px;
 }
@@ -144,7 +144,7 @@
 	width: 295px;
 }
 
-.SearchCard.tile.filmmaker .title,
+.SearchCard.grid.filmmaker .title,
 .SearchCard.list.filmmaker .title {
 	width: 225px;
 	display: inline-block !important;

@@ -109,7 +109,7 @@ class SearchCard extends Component {
 					'SearchCard',
 					'no-gutters',
 					itemTypeClassName,
-					listView ? 'list' : 'tile'
+					listView ? 'list' : 'grid'
 					].join(' ')}>
 				<Row className="no-gutters">
 				<Col sm={listView ? 2 : 12}>

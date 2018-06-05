@@ -43,6 +43,10 @@ body {
   padding: 0 70px; 
 }
 
+.single-line {
+  white-space: nowrap;
+}
+
 /* text styles */
 
 a:hover,

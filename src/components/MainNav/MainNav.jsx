@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import './MainNav.css';
 
+import Logo from '../Logo/Logo';
+
 const MainNav = ({isCollapsed, location}) => {
 	const isTransparent = location.pathname === '/';
 	const isActive = pathname => location.pathname.indexOf(pathname) === 0;
@@ -14,7 +16,7 @@ const MainNav = ({isCollapsed, location}) => {
 					<Nav className=" container-fluid d-flex full-nav">
 						<NavItem className="p-2 logo-nav-item">
 							<NavLink className="logo" href="/">
-								<img alt="Logo" src="/images/logo.png" />
+								<Logo />
 							</NavLink>
 						</NavItem>
 						<NavItem className={isActive('/collection') ? 'p-2 active' : 'p-2'}>

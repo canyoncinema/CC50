@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ViewModeButton from '../ViewModeButton/ViewModeButton';
 
 class ViewModeButtons extends Component {
-	defaultMode = 'tile'
+	defaultMode = 'grid'
 
-	modes = ['tile', 'list']
+	modes = ['grid', 'list']
 
 	render() {
 		return (

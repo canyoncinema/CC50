@@ -1,25 +1,11 @@
 .SearchBar {
-	border: solid 1px #6a6a6a;
-  border: solid 1px var(--dark-grey);
-	line-height: 50px;
 	color: #ffffff;
-	padding: 0 0 0 16px;
 	display: flex;
 	width: 100%;
 	height: 50px;
 	cursor: pointer;
-}
-
-.SearchBar:hover,
-.SearchBar.active {
-	border-color: #ffffff;
-	z-index: 100;
-	cursor: pointer;
-	z-index: 2;
-}
-
-.SearchBar .icon {
-	padding-right: 10px;
+	padding: 0;
+	position: relative;
 }
 
 form.SearchBar {
@@ -27,24 +13,43 @@ form.SearchBar {
 	width: 100%;
 }
 
-.SearchBar .input {
+.SearchBar .input-wrapper {
 	flex: 1;
+}
+.SearchBar input {
+	width: 100%;
+	height: 100%;
+	border: solid 1px #6a6a6a;
+	border: solid 1px var(--dark-grey);
+	padding-left: 48px;
 	background-color: transparent;
-	border: none;
 	display: inline-block;
 }
 
-.SearchBar .input:disabled {
+.SearchBar .IconSearch {
+	padding: 17px 10px 17px 17px;
+	position: absolute;
+}
+
+.SearchBar input:hover,
+.SearchBar.active input {
+	border-color: #ffffff;
+	z-index: 100;
+	cursor: pointer;
+	z-index: 2;
+}
+
+.SearchBar input:disabled {
 	cursor: pointer;
 }
 
-.SearchBar .input,
-.SearchBar .input::placeholder {
+.SearchBar input,
+.SearchBar input::placeholder {
 	color: #ffffff;
   font-size: 18px;
 }
 
-.SearchBar .input:focus,
-.SearchBar .input:active {
+.SearchBar input:focus,
+.SearchBar input:active {
 	outline: none;
 }

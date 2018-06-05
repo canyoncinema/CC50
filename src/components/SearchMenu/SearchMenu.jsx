@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchMenu.css';
 
-import CollectionContext from '../../collection-context';
 import Caret from '../Caret/Caret';
 import SearchMenuItem from './SearchMenuItem';
 
@@ -11,6 +11,7 @@ class SearchMenu extends Component {
 		this.wrapperRef = React.createRef();
 		this.labelRef = React.createRef();
 		this.onOutsideClick = this.onOutsideClick.bind(this);
+		this.onClickLabel = this.onClickLabel.bind(this);
 	}
 
 	state = {
@@ -60,50 +61,47 @@ class SearchMenu extends Component {
 		});
 	}
 
-	onOptionSelect(e, labelCb) {
-		const label = e.target.innerText;
+	onClickLabel(e, label) {
 		this.setState({
 			isOpen: false
 		});
-		labelCb(label);
+		this.props.onOptionSelect(label);
 	}
 
 	render() {
 		const { isOpen } = this.state;
-		return (
-			<CollectionContext.Consumer>
-				{
-					context => [
-						<div
-							key={0}
-							ref={this.labelRef}
-							className={isOpen ? 'SearchMenu open' : 'SearchMenu'}
-							onClick={this.toggle.bind(this)}>
-							<div className="d-flex label">
-								<span className="text">{context.searchLabel}</span>
-								<Caret className="ml-auto" direction="down" />
-							</div>
-						</div>,
-						<ul key={1} ref={this.wrapperRef}
-								className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
-								{
-									SearchMenu.labels.map((label, i) => {
-										return (
-											<SearchMenuItem
-												key={i}
-												onClick={(e) =>
-													this.onOptionSelect.call(this, e, context.onOptionSelect)}>
-												{label}
-											</SearchMenuItem>
-										);
-									})
-								}
-						</ul>
-					]
-				}
-			</CollectionContext.Consumer>
-		);
+		const { searchLabel } = this.props;
+		return [
+				<div
+					key={0}
+					ref={this.labelRef}
+					className={isOpen ? 'SearchMenu open' : 'SearchMenu'}
+					onClick={this.toggle.bind(this)}>
+					<div className="d-flex label">
+						<span className="text">{searchLabel}</span>
+						<Caret className="ml-auto" direction="down" />
+					</div>
+				</div>,
+				<ul key={1} ref={this.wrapperRef}
+						className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
+						{
+							SearchMenu.labels.map((label, i) => {
+								return (
+									<SearchMenuItem
+										key={i}
+										onClick={e => this.onClickLabel(e, label)}>
+										{label}
+									</SearchMenuItem>
+								);
+							})
+						}
+				</ul>
+			];
 	}
+}
+
+SearchMenu.propTypes = {
+	onOptionSelect: PropTypes.func.isRequired
 }
 
 export default SearchMenu;

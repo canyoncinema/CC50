@@ -37,7 +37,7 @@ class CollectionPage extends Component {
 		searchText: '',
 		setSearchText: this.setSearchText.bind(this),
 		isCollapsedNav: false,
-		viewMode: 'tile',
+		viewMode: 'grid',
 		setViewMode: this.setViewMode.bind(this),
 		onOptionSelect: label => {
 			this.setState({

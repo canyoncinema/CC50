@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import CollectionContext from '../../collection-context';
 import './ViewModeButton.css';
 
-import ViewModeList from './ViewModeList.png';
-import ViewModeTile from './ViewModeTile.png';
-import ViewModeListActive from './ViewModeListActive.png';
-import ViewModeTileActive from './ViewModeTileActive.png';
+import ViewModeList from './list-view-inactive.svg';
+import ViewModeListActive from './list-view-active.svg';
+import ViewModeGrid from './grid-view-inactive.svg';
+import ViewModeGridActive from './grid-view-active.svg';
 
 class ViewModeButton extends Component {
 	render() {
@@ -33,18 +33,18 @@ class ViewModeButton extends Component {
 										className="active"
 										src={ViewModeListActive} />
 								]
-								: mode === 'tile' ?
+								: mode === 'grid' ?
 								[
 									<img
 										key={0}
-										alt="View as Tiles"
+										alt="View as Grid"
 										className="default"
-										src={ViewModeTile} />,
+										src={ViewModeGrid} />,
 									<img
 										key={1}
-										alt="View as Tiles - Active"
+										alt="View as Grid - Active"
 										className="active"
-										src={ViewModeTileActive} />
+										src={ViewModeGridActive} />
 								]
 								: null }
 						</div>

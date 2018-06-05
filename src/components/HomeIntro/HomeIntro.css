@@ -78,6 +78,10 @@
   font-size: 20px;
 }
 
+.HomeIntro .search.active {
+  opacity: 1;
+}
+
 .HomeIntro .search::placeholder {
   opacity: 0.6;
   font-family: Karla;
