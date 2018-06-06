@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Row } from 'reactstrap';
 import './CollectionPage.css';
-import CollectionContext from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
 
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import Search from '../Search/Search';
-import SearchCards from '../SearchCards/SearchCards';
 import ViewModeButtons from '../ViewModeButtons/ViewModeButtons';
-import Button from '../Button/Button';
+import CollectionSection from '../CollectionSection/CollectionSection';
 
 class CollectionPage extends Component {
 	constructor(props) {
@@ -18,10 +17,16 @@ class CollectionPage extends Component {
 		this.setViewMode = this.setViewMode.bind(this);
 	}
 
-	setSearchText(e) {
-		const searchText = e.target.value;
+	setSearchText(e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) {
+		// TODO: simplify
+		const searchText = searchTextVal || e.target.value;
+		console.log('setSearchText', arguments)
 		this.setState({
-			searchText
+			searchText,
+			searchLabel: searchLabelVal ?
+				toCollectionSearchLabel(searchLabelVal)
+				: this.state.searchLabel,
+			searchTextAutocompleted
 		});
 	}
 
@@ -35,6 +40,7 @@ class CollectionPage extends Component {
 		searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
 		searchLabel: 'All',
 		searchText: '',
+		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText.bind(this),
 		isCollapsedNav: false,
 		viewMode: 'grid',
@@ -75,23 +81,7 @@ class CollectionPage extends Component {
 	}
 
 	render() {
-		const searchData = [{
-			id: 1232,
-			itemType: 'film',
-			title: 'Dyketactics',
-			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
-			tags: ['16mm', '1970s', 'Color', 'Sound'],
-			creator: 'Barbara Hammer',
-			year: '1974'
-		}, {
-			id: 1232,
-			itemType: 'film',
-			title: 'Dyketactics and some very long long long long long long title goes here and here and here and here',
-			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
-			tags: ['16mm', '1970s', 'Color', 'Sound', '16mm', '16mm', '16mm', '16mm', '16mm', '16mm'],
-			creator: 'Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer',
-			year: '1974'
-		}, {
+		const filmmakerData = [{
 			id: 1232,
 			itemType: 'filmmaker',
 			title: 'Barbara Hammer has a very long name here',
@@ -101,7 +91,8 @@ She teaches at The European Graduate School in Saas-Fee, Switzerland. Her work i
 Welcome To This House, her new feature documentary on the poet Elizabeth Bishop, was funded by a Guggenheim Fellowship (2013-14) Welcome To This House premieres at The Museum of Fine Art, Boston and The Museum of Modern Art, New York, 2015.
 Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 			avatar: null
-		}, {
+		}];
+		const programData = [{
 			id: 1232,
 			itemType: 'Curated Program',
 			title: 'Between Pop Culture and the Avant-Garde: Little-Seen Thing that has ever seen!',
@@ -131,7 +122,25 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 				id: 234,
 				name: 'Bob Smithy Jonesy'
 			}]
+		}]
+		const filmData = [{
+			id: 1232,
+			itemType: 'film',
+			title: 'Dyketactics',
+			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
+			tags: ['16mm', '1970s', 'Color', 'Sound'],
+			creator: 'Barbara Hammer',
+			year: '1974'
 		}, {
+			id: 1232,
+			itemType: 'film',
+			title: 'Dyketactics and some very long long long long long long title goes here and here and here and here',
+			description: 'Popular lesbian "commercial," 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.',
+			tags: ['16mm', '1970s', 'Color', 'Sound', '16mm', '16mm', '16mm', '16mm', '16mm', '16mm'],
+			creator: 'Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer',
+			year: '1974'
+		}];
+		const ephemeraData = [{
 			id: 1232,
 			itemType: 'Ephemera',
 			title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
@@ -154,47 +163,53 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 				title: 'Wes Andersen',
 				itemType: 'filmmaker'
 			}]
-		}]
+		}];
 		const {
 			isCollapsedNav
 		} = this.state;
 		return (
 			<CollectionContext.Provider value={this.state}>
-			<div className={isCollapsedNav ? 'collapsed-nav active' : 'collapsed-nav'}>
-				<MainNav isCollapsed={true} />
-				<MainNavFilterBar />
-			</div>
-			<div className="CollectionPage">
-				<header className="search-sort">
-					<h1 className="white">Explore the collection</h1>
-					<div className="filters">
-						<Search id={0} />
-						<div className="change-view">
-							<label>View:</label>
-							
-								<ViewModeButtons />
-						</div>
-					</div>
-				</header>
-				<div className="section">
-					<header className="section-header d-flex">
-						<div>
-							<h3>Recently Added Films</h3>
-							<p>New acquisitions to the Canyon Cinema collection</p>
-						</div>
-            <Button className="ml-auto" size="default">
-              See all films
-            </Button>
-					</header>
-					<Row>
-						{
-							searchData && searchData.length ?
-							<SearchCards data={searchData} />
-							: null
-						}
-					</Row>
+				<div className={isCollapsedNav ? 'collapsed-nav active' : 'collapsed-nav'}>
+					<MainNav isCollapsed={true} />
+					<MainNavFilterBar />
 				</div>
-			</div>
+				<div className="CollectionPage">
+					<header className="search-sort">
+						<h1 className="white">Explore the collection</h1>
+						<div className="filters">
+							<Search id={0} />
+							<div className="change-view">
+								<label>View:</label>
+								
+									<ViewModeButtons />
+							</div>
+						</div>
+					</header>
+					<CollectionSection
+						header="Recently Added Films"
+						description="New acquisitions to the Canyon Cinema collection"
+						buttonText="See all films"
+						searchData={filmData}
+					/>
+					<CollectionSection
+						header="Recently Added Filmmakers"
+						description="Spotlight on some of Canyon Cinema’s filmmakers"
+						buttonText="See all filmmakers"
+						searchData={filmmakerData}
+					/>
+					<CollectionSection
+						header="Recently Added Curated Programs"
+						description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
+						buttonText="See all curated programs"
+						searchData={programData}
+					/>
+					<CollectionSection
+						header="Recently Added Ephemera"
+						description="Printed pieces, photos, stills, videos, and other related materials"
+						buttonText="See all ephemera"
+						searchData={ephemeraData}
+					/>
+				</div>
 			</CollectionContext.Provider>
 		);
 	}

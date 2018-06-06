@@ -1,5 +1,6 @@
 .MainNav .navbar {
 	height: 104px;
+  min-width: 1000px;
 	padding: 0;
   -webkit-font-smoothing: antialiased;
   border-bottom: solid 1px #6a6a6a;

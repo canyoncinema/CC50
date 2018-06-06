@@ -5,20 +5,21 @@ import './SearchBar.css';
 import { FILMS_SEARCH_LABEL, EPHEMERA_SEARCH_LABEL } from '../../collection-context';
 import IconSearch from '../Icon/IconSearch';
 import SearchFilter from '../SearchFilter/SearchFilter';
-import TypeAhead from '../TypeAhead/TypeAhead';
+import TypeAheadChoiceList from '../TypeAheadChoiceList/TypeAheadChoiceList';
+import TypeAheadChoices from '../TypeAheadChoices/TypeAheadChoices';
 
 class SearchBar extends Component {
 	constructor(props) {
 		super(props);
 		this.inputRef = React.createRef();
+		this.choicesRef = React.createRef();
 		this.wrapperRef = this.inputRef;
-
-		this.onOutsideClick = this.onOutsideClick.bind(this);
-		this.onInsideClick = this.onInsideClick.bind(this);
 	}
 
 	state = {
-		clearPlaceholder: false
+		disableInput: true,
+		clickedInside: false,
+		clickedInsideAutocompletedText: false
 	}
 
 	componentDidMount() {
@@ -31,25 +32,50 @@ class SearchBar extends Component {
   }
 
 	componentDidUpdate() {
-		if (this.state.clearPlaceholder) {
+		if (!this.state.disableInput) {
 			this.inputRef.current.focus();
 		}
 	}
 
-	onOutsideClick(event) {
+	onOutsideClick = (event) => {
 		// TODO: make reusable
-		const el = this.inputRef && this.inputRef.current;
-		if (el && !el.contains(event.target)) {
-			this.setState({
-				clearPlaceholder: false
-			});
+		// created with React#createRef -> el is accessible via current
+		const inputEl = this.inputRef && this.inputRef.current;
+		const choicesEl = this.choicesRef;
+		const clickedOutsideInput = inputEl && !inputEl.contains(event.target);
+		const clickedOnChoice = event.target.parentElement.classList.contains('TypeAheadChoiceList') ||
+				event.target.parentElement.parentElement.classList.contains('TypeAheadChoiceList');
+		// NOTE: cannot be invoked on choice selection.
+		// onChoiceSelect handler needs to be called.
+		if (clickedOutsideInput) {
+			// TODO: HACK
+			console.log('clickedOutsideInput')
+			if (clickedOnChoice) {
+				this.setState({
+					disableInput: true,
+					clickedInsideAutocompletedText: false
+				});
+			} else {
+				console.log('did NOT click on choice.')
+				this.setState({
+					disableInput: true,
+					clickedInsideAutocompletedText: false
+				});
+			}
     }
 	}
 
-	onInsideClick(event) {
-		console.log('onInsideClick, clear placeholder')
+	setChoicesRef = (ref) => {
+		this.choicesRef = ref;
+		console.log('choicesRef', this.choicesRef);
+	}
+
+	onInsideClick = (event) => {
+		console.log('onInsideClick clickedInsideAutocompletedText',
+			!!this.props.searchTextAutocompleted)
 		this.setState({
-			clearPlaceholder: true
+			disableInput: false,
+			clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted
 		});
 	}
 
@@ -59,32 +85,42 @@ class SearchBar extends Component {
 			searchText,
 			searchLabel,
 			setSearchText,
+			searchTextAutocompleted,
 			className
 		} = this.props;
-		const { clearPlaceholder } = this.state;
+		const { disableInput, clickedInside, clickedInsideAutocompletedText } = this.state;
+		const clearPlaceholder = !disableInput;
 		// TODO: handle submit
 		return (
 			<form
 				className={[
 					'SearchBar',
 					className,
-					clearPlaceholder ? 'active' : null
+					!disableInput ? 'active' : null
 				].join(' ')}
 				onSubmit={() => null}>
 				<IconSearch />
 				<div className="input-wrapper"
 					onClick={this.onInsideClick}>
-					<TypeAhead searchText={searchText}>
-						<input
-							ref={this.inputRef}
-							type="text"
-							className="input"
-							value={searchText}
-							onChange={setSearchText}
-							disabled={!clearPlaceholder}
-							placeholder={clearPlaceholder ? '' : searchPlaceholder}
+					<input
+						type="text"
+						className="TypeAhead input"
+						ref={this.inputRef}
+						value={searchText}
+						onChange={setSearchText}
+						disabled={disableInput}
+						placeholder={clearPlaceholder ? '' : searchPlaceholder}
+					/>
+					<TypeAheadChoiceList
+						setRef={this.setChoicesRef}
+						isOpen={searchTextAutocompleted ?
+								clickedInsideAutocompletedText :
+								!disableInput && searchText.length > 0}>
+						<TypeAheadChoices
+							searchText={searchText}
+							onChoiceSelect={setSearchText}
 						/>
-					</TypeAhead>
+					</TypeAheadChoiceList>
 				</div>
 				{
 					searchLabel === FILMS_SEARCH_LABEL ||

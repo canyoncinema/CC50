@@ -21,8 +21,6 @@ html {
   line-height: normal;
   letter-spacing: normal;
   -webkit-font-smoothing: antialiased;
-  /* desktop only */
-  min-width: 1000px;
 }
 
 body {
@@ -33,6 +31,8 @@ body {
 .App {
   margin: 0;
   padding: 0;
+  /* desktop only */
+  min-width: 1300px;
   
   font-family: Karla, sans-serif;
   color: #231f20;

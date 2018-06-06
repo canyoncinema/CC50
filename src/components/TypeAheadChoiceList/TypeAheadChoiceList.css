@@ -1,0 +1,15 @@
+.TypeAheadChoiceList {
+  padding: 0;
+  z-index: 98;
+  position: absolute;
+  width: 100%;
+	display: none !important;
+}
+
+.TypeAheadChoiceList.active {
+	display: block !important;
+}
+
+.collapsed-nav:not(.active) .TypeAheadChoiceList {
+	display: none !important;
+}

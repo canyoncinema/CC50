@@ -14,7 +14,7 @@ class Search extends Component {
 			context => {
 			const {
 				searchLabel, onOptionSelect,
-				searchPlaceholder, searchText, setSearchText
+				searchTextAutocompleted, searchPlaceholder, searchText, setSearchText
 			} = context;
 				return [
 					<SearchMenu
@@ -29,6 +29,7 @@ class Search extends Component {
 						searchText={searchText}
 						setSearchText={setSearchText}
 						searchLabel={searchLabel}
+						searchTextAutocompleted={searchTextAutocompleted}
 					/>
 				];
 			}
