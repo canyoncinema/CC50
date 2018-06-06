@@ -1,12 +1,13 @@
 import React from 'react';
 import { Row } from 'reactstrap';
+import './CollectionSection.css';
 
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
 const CollectionSection = ({ searchData, header, description, buttonText }) => {
 	return (
-		<div className="section">
+		<div className="CollectionSection">
 			<header className="section-header d-flex">
 				<div>
 					<h3>{header}</h3>

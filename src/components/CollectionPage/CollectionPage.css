@@ -100,10 +100,6 @@
 }
 
 /*  Contents  */
-.CollectionPage .section {
-	padding: 60px 70px;
-	background-color: var(--offwhite);
-}
 .CollectionPage .section-header .Button {
 	position: relative;
 	top: -10px;
