@@ -21,9 +21,24 @@
 
 /*  menu  */
 .SearchFilter.menu {
-	padding: 25px 36px;
-	display: none;
+	display: block;
+	padding: 0;
 	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 50px;
+	z-index: 99;
+	border: solid 1px;
+	border-top: none;
+	background-color: transparent;
+	border-color: transparent;
+
+	height: 0;
+	transition: height 0.15s linear,
+		padding 0.15s linear,
+		border-color 0.15s linear,
+		background-color 0.15s linear; 
 }
 
 .SearchFilter.menu label {
@@ -34,16 +49,12 @@
 }
 
 .SearchFilter.menu.active {
-	display: block !important;
-	position: absolute;
-	right: 0;
-	top: 50px;
+	padding: 8px 36px 25px;
+	height: auto;
+	border-color: #6a6a6a;
+	border-color: var(--dark-grey);
 	background-color: #231f20;
 	background-color: var(--black);
-	border-color: #6a6a6a;
-	border: solid 1px var(--dark-grey);
-	border-top: none;
-	z-index: 99;
 }
 
 .SearchFilter .inline-group {
