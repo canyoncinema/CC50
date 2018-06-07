@@ -10,24 +10,28 @@ const CollectionPageHome = () => {
       header="Recently Added Films"
       description="New acquisitions to the Canyon Cinema collection"
       buttonText="See all films"
+      buttonLink="/collection/films"
       searchData={filmData}
     />,
     <CollectionSection key={1}
       header="Recently Added Filmmakers"
       description="Spotlight on some of Canyon Cinema’s filmmakers"
       buttonText="See all filmmakers"
+      buttonLink="/collection/filmmakers"
       searchData={filmmakerData}
     />,
     <CollectionSection key={2}
       header="Recently Added Curated Programs"
       description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
       buttonText="See all curated programs"
+      buttonLink="/collection/programs"
       searchData={programData}
     />,
     <CollectionSection key={3}
       header="Recently Added Ephemera"
       description="Printed pieces, photos, stills, videos, and other related materials"
       buttonText="See all ephemera"
+      buttonLink="/collection/ephemera"
       searchData={ephemeraData}
     />
 	];

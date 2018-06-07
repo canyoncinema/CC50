@@ -1,9 +1,7 @@
 import React from 'react';
 
-import CollectionPageHome from '../CollectionPageHome/CollectionPageHome';
-
-const CollectionPageItem = ({ match }) => {
-	return 'CollectionPageItem ' + match.params.item;
+const CollectionPageItem = ({ item }) => {
+	return 'CollectionPageItem ' + item;
 };
 
 export default CollectionPageItem;

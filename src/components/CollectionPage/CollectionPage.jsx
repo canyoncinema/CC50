@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Row } from 'reactstrap';
 import './CollectionPage.css';
-import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel, toCollectionSearchPlaceholder } from '../../collection-context';
 
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
@@ -21,7 +21,6 @@ class CollectionPage extends Component {
 	setSearchText(e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) {
 		// TODO: simplify
 		const searchText = searchTextVal || e.target.value;
-		console.log('setSearchText', arguments)
 		this.setState({
 			searchText,
 			searchLabel: searchLabelVal ?
@@ -38,8 +37,8 @@ class CollectionPage extends Component {
 	}
 
 	state = {
-		searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
-		searchLabel: 'All',
+		searchPlaceholder: toCollectionSearchPlaceholder(this.props.match.params[0]),
+		searchLabel: toCollectionSearchLabel(this.props.match.params[0]),
 		searchText: '',
 		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText.bind(this),

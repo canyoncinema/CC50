@@ -49,14 +49,12 @@ class SearchBar extends Component {
 		// onChoiceSelect handler needs to be called.
 		if (clickedOutsideInput) {
 			// TODO: HACK
-			console.log('clickedOutsideInput')
 			if (clickedOnChoice) {
 				this.setState({
 					disableInput: true,
 					clickedInsideAutocompletedText: false
 				});
 			} else {
-				console.log('did NOT click on choice.')
 				this.setState({
 					disableInput: true,
 					clickedInsideAutocompletedText: false
@@ -67,12 +65,9 @@ class SearchBar extends Component {
 
 	setChoicesRef = (ref) => {
 		this.choicesRef = ref;
-		console.log('choicesRef', this.choicesRef);
 	}
 
 	onInsideClick = (event) => {
-		console.log('onInsideClick clickedInsideAutocompletedText',
-			!!this.props.searchTextAutocompleted)
 		this.setState({
 			disableInput: false,
 			clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted

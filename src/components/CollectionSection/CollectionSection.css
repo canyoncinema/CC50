@@ -2,3 +2,8 @@
 	padding: 60px 70px 0;
 	background-color: var(--offwhite);
 }
+
+.CollectionSection a {
+	position: relative;
+	top: -10px;
+}

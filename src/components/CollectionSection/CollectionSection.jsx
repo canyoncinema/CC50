@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Row } from 'reactstrap';
 import './CollectionSection.css';
 
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
-const CollectionSection = ({ searchData, header, description, buttonText }) => {
+const CollectionSection = ({ searchData, header, description,
+	buttonText, buttonLink }) => {
 	return (
 		<div className="CollectionSection">
 			<header className="section-header d-flex">
@@ -15,9 +17,11 @@ const CollectionSection = ({ searchData, header, description, buttonText }) => {
 						{description}
 					</p>
 				</div>
-        <Button className="ml-auto" size="default">
-          {buttonText}
-        </Button>
+      	<Link className="ml-auto" to={buttonLink}>
+	        <Button size="default">
+	          {buttonText}
+	        </Button>
+      	</Link>
 			</header>
 			<Row>
 				{

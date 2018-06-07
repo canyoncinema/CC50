@@ -13,6 +13,8 @@ import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
 import MainNav from './components/MainNav/MainNav';
+import Page404 from './components/Page404/Page404';
+import SearchResultsSummary from './components/SearchResultsSummary/SearchResultsSummary';
 
 /*
         <Route exact path="/collection/programs" component={CollectionPage} />
@@ -44,12 +46,20 @@ class App extends Component {
           <MainNav />
           <Route exact path="/" component={HomePage} />
 
-          <Route path="/collection" children={() =>
-            <CollectionPage>
+          <Route path="/collection*" render={({match}) =>
+            <CollectionPage match={match}>
               <Switch>
-                <Route exact path="/collection/:item" render={({match}) =>
-                  <CollectionPageItem match={match}/>} />
-                <Route path="/collection" component={CollectionPageHome} />
+                <Route exact path="/collection/:collectionItem(films|filmmakers|programs|ephemera)" render={({match}) =>
+                  <CollectionPageItem item={match.params.collectionItem} />
+                } />
+                <Route exact path="/collection" component={CollectionPageHome} />
+                <Route path="/collection/:otherItem" component={({match}) => [
+                  <SearchResultsSummary key={1}
+                    searchText={match.params.otherItem}
+                    numResults={0}
+                  />,
+                  <CollectionPageHome key={2} />
+                ]} />
               </Switch>
             </CollectionPage>
           } />

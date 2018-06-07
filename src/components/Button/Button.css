@@ -15,9 +15,16 @@
   font-family: Karla, sans-serif;
   font-size: 16px;
   letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.Button, .Button a {
+  transition: background-color 0.33s linear,
+    border-color 0.33s linear,
+    opacity 0.33s linear,
+    color 0.33s linear;
   color: #231f20;
   color: var(--black);
-  text-transform: uppercase;
 }
 
 .Button:hover {
@@ -26,7 +33,9 @@
 
   border-color: #231f20;
   border-color: var(--black);
+}
 
+.Button:hover, .Button:hover a {
   color: #ffffff;
 }
 
@@ -41,8 +50,11 @@
   background-color: var(--black);
 
   font-size: 20px;
-  color: #ffffff;
   letter-spacing: 2px;
+}
+
+.Button.large, .Button.large a {
+  color: #ffffff;
 }
 
 h1 .Button.large,
