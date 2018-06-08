@@ -110,7 +110,8 @@ class SearchCard extends Component {
 					'no-gutters',
 					itemTypeClassName,
 					listView ? 'list' : 'grid'
-					].join(' ')}>
+					].join(' ')}
+				onClick={() => console.log('onClick', title)}>
 				<Row className="no-gutters">
 				<Col sm={listView ? 2 : 12}>
 					<div className="media">

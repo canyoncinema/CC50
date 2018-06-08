@@ -7,6 +7,7 @@ import {
 
 import './App.css';
 import './utils/OnHover.css';
+import { getQueryVal } from './utils/query-string';
 import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
@@ -47,8 +48,10 @@ class App extends Component {
           <MainNav />
           <Route exact path="/" component={HomePage} />
 
-          <Route path="/collection*" render={({match}) =>
-            <CollectionPage match={match}>
+          <Route path="/collection*" render={({match, location}) =>
+            <CollectionPage
+              match={match}
+              viewMode={getQueryVal(location.search, 'view')}>
               <Switch>
                 <Route exact path="/collection/:collectionItem(films|filmmakers|programs|ephemera)" render={({match}) =>
                   <CollectionPageItem item={match.params.collectionItem} />

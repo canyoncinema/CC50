@@ -1,5 +1,5 @@
 .Sort {
-	display: block;
+	display: inline-block;
 	font-size: 24px;
 	line-height: 1.17;
 	color: #231f20;
@@ -15,12 +15,12 @@
 }
 
 .SortMenuOptions {
-   margin-top: 20px;
+   margin-top: -5px;
    padding: 0;
    position: absolute;
    top: auto;
    left: 155px;
-   z-index: 99;
+   z-index: 50;
 
    display: none;
 }

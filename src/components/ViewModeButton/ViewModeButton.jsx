@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CollectionContext from '../../collection-context';
 import './ViewModeButton.css';
 
@@ -21,31 +22,31 @@ class ViewModeButton extends Component {
 							onClick={() => context.setViewMode(mode)}
 							className={isActive ? 'ViewModeButton active' : 'ViewModeButton'}>
 							{mode === 'list' ?
-								[
+								<Link to="?view=list">
 									<img
 										key={0}
 										alt="View as List"
 										className="default"
-										src={ViewModeList} />,
+										src={ViewModeList} />
 									<img
 										key={1}
 										alt="View as List - Active"
 										className="active"
 										src={ViewModeListActive} />
-								]
+								</Link>
 								: mode === 'grid' ?
-								[
+								<Link to="?view=grid">
 									<img
 										key={0}
 										alt="View as Grid"
 										className="default"
-										src={ViewModeGrid} />,
+										src={ViewModeGrid} />
 									<img
 										key={1}
 										alt="View as Grid - Active"
 										className="active"
 										src={ViewModeGridActive} />
-								]
+								</Link>
 								: null }
 						</div>
 					);

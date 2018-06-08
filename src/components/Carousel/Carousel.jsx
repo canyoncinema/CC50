@@ -52,7 +52,8 @@ class Carousel extends Component {
 		showViewMore: false
 	}
 
-	onPrevPhoto() {
+	onPrevPhoto(e) {
+		e.stopPropagation();
 		// on clicking left caret when multiple photos exist
 		// (loop) go to last photo if on first photo
 		if (this.state.activePhotoIndex === 0 &&
@@ -102,7 +103,8 @@ class Carousel extends Component {
 		}
 	}
 
-	onNextPhoto() {
+	onNextPhoto(e) {
+		e.stopPropagation();
 		this.setState(this.nextPhotoState(this.state));
 	}
 

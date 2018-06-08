@@ -42,7 +42,7 @@ class CollectionPage extends Component {
 		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText.bind(this),
 		isCollapsedNav: false,
-		viewMode: 'grid',
+		viewMode: this.props.viewMode || 'grid',
 		setViewMode: this.setViewMode.bind(this),
 		onOptionSelect: searchLabel => {
 			this.setState({
@@ -79,6 +79,7 @@ class CollectionPage extends Component {
 		const {
 			isCollapsedNav
 		} = this.state;
+		console.log(this.props);
 		return (
 			<CollectionContext.Provider value={this.state}>
 				<div className={isCollapsedNav ? 'collapsed-nav active' : 'collapsed-nav'}>
