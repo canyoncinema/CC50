@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Search.css';
 
-import CollectionContext from '../../collection-context';
+import CollectionContext, { labelToSearchPlaceholder } from '../../collection-context';
 import SearchMenu from '../SearchMenu/SearchMenu';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -14,7 +14,7 @@ class Search extends Component {
 			context => {
 			const {
 				searchLabel, onOptionSelect,
-				searchTextAutocompleted, searchPlaceholder, searchText, setSearchText
+				searchTextAutocompleted, searchText, setSearchText
 			} = context;
 				return [
 					<SearchMenu
@@ -25,7 +25,7 @@ class Search extends Component {
 					,
 					<SearchBar
 						key={id + '-1'}
-						searchPlaceholder={searchPlaceholder}
+						searchPlaceholder={labelToSearchPlaceholder[searchLabel]}
 						searchText={searchText}
 						setSearchText={setSearchText}
 						searchLabel={searchLabel}

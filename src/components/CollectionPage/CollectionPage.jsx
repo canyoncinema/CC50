@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Row } from 'reactstrap';
 import './CollectionPage.css';
-import CollectionContext, { toCollectionSearchLabel, toCollectionSearchPlaceholder } from '../../collection-context';
+import CollectionContext, { labelToSearchPlaceholder, toCollectionSearchLabel, toCollectionSearchPlaceholder } from '../../collection-context';
 
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
@@ -37,7 +37,6 @@ class CollectionPage extends Component {
 	}
 
 	state = {
-		searchPlaceholder: toCollectionSearchPlaceholder(this.props.match.params[0]),
 		searchLabel: toCollectionSearchLabel(this.props.match.params[0]),
 		searchText: '',
 		searchTextAutocompleted: false,
@@ -45,14 +44,9 @@ class CollectionPage extends Component {
 		isCollapsedNav: false,
 		viewMode: 'grid',
 		setViewMode: this.setViewMode.bind(this),
-		onOptionSelect: label => {
+		onOptionSelect: searchLabel => {
 			this.setState({
-	  		searchLabel: label,
-				searchPlaceholder: 'Search ' +
-					(label === 'All' ?
-						'films, filmmakers, curated programs, ephemera'
-						: label.toLowerCase()
-					) 
+	  		searchLabel
 			});
 		}
 	}

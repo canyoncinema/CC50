@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './SearchMenu.css';
 
+import { toCollectionSearchVal } from '../../collection-context';
 import Caret from '../Caret/Caret';
-import SearchMenuItem from './SearchMenuItem';
+import MenuItem from '../MenuItem/MenuItem';
 
 class SearchMenu extends Component {
 	constructor(props) {
@@ -87,11 +89,13 @@ class SearchMenu extends Component {
 						{
 							SearchMenu.labels.map((label, i) => {
 								return (
-									<SearchMenuItem
-										key={i}
-										onClick={e => this.onClickLabel(e, label)}>
-										{label}
-									</SearchMenuItem>
+									<Link to={'/collection/' + toCollectionSearchVal(label)}>
+										<MenuItem
+											key={i}
+											onClick={e => this.onClickLabel(e, label)}>
+												{label}
+										</MenuItem>
+									</Link>
 								);
 							})
 						}

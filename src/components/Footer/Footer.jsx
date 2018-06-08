@@ -4,9 +4,9 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
-const Footer = () => {
+const Footer = ({className}) => {
 	return (
-		<Row className="Footer">
+		<Row className={['Footer', className].join(' ')}>
 			<Col sm="6">
 				<ul className="links">
 					<li><Link target="_blank" to="//www.canyoncinema.com/catalog">Catalog</Link></li>

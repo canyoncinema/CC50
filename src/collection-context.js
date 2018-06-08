@@ -25,6 +25,64 @@ export const toCollectionSearchLabel = val => {
 		return PROGRAMS_SEARCH_LABEL;
 	} else if (val.indexOf('ephemera') !== -1) {
 		return EPHEMERA_SEARCH_LABEL;
+	} else {
+		// SPEC: assume 'all' on nonsensical collection search path
+		return ALL_SEARCH_LABEL;
+	}
+};
+
+export const toCollectionSearchVal = label => {
+	if (label === ALL_SEARCH_LABEL) return '';
+	if (label === FILMMAKERS_SEARCH_LABEL) return 'filmmakers';
+	if (label === FILMS_SEARCH_LABEL) return 'films';
+	if (label === PROGRAMS_SEARCH_LABEL) return 'programs';
+	if (label === EPHEMERA_SEARCH_LABEL) return 'ephemera';
+}
+
+export const toCollectionSort = val => {
+	val = val.toLowerCase();
+	if (val.indexOf('filmmaker') !== -1 ||
+			val.indexOf('program') !== -1) {
+		return {
+			values: [
+				'-created',
+				'title'
+			],
+			labels: [
+				'Recently Added',
+				'Alphabetical'
+			]
+		};
+	} else if (val.indexOf('film') !== -1) {
+		return {
+			values: [
+				'-created',
+				'title',
+				'filmmaker',
+				'-producedAt',
+				'producedAt'
+			],
+			labels: [
+				'Recently Added',
+				'Alphabetical (Title)',
+				'Alphabetical (Filmmaker)',
+				'Production Date (New to Old)',
+				'Production Date (Old to New)'
+			]
+		};
+	} else if (val.indexOf('ephemera') !== -1) {
+		return {
+			values: [
+				'-created',
+				'random'
+			],
+			labels: [
+				'Recently Added',
+				'Random'
+			]
+		};
+	} else {
+		throw new Error('Invalid value ' + val);
 	}
 };
 
@@ -40,8 +98,19 @@ export const toCollectionSearchPlaceholder = val => {
 		return PROGRAMS_SEARCH_PLACEHOLDER;
 	} else if (val.indexOf('ephemera') !== -1) {
 		return EPHEMERA_SEARCH_PLACEHOLDER;
+	} else {
+		throw new Error('Invalid value ' + val);
 	}
-}
+};
+
+export const labelToSearchPlaceholder = {};
+
+labelToSearchPlaceholder[ALL_SEARCH_LABEL] = ALL_SEARCH_PLACEHOLDER;
+labelToSearchPlaceholder[FILMS_SEARCH_LABEL] = FILMS_SEARCH_PLACEHOLDER;
+labelToSearchPlaceholder[FILMMAKERS_SEARCH_LABEL] = FILMMAKERS_SEARCH_PLACEHOLDER;
+labelToSearchPlaceholder[PROGRAMS_SEARCH_LABEL] = PROGRAMS_SEARCH_PLACEHOLDER;
+labelToSearchPlaceholder[EPHEMERA_SEARCH_LABEL] = EPHEMERA_SEARCH_PLACEHOLDER;
+
 
 const CollectionContext = React.createContext({
 	searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',

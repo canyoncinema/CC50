@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import CollectionContext from '../../collection-context';
 import SearchCard from '../SearchCard/SearchCard';
 
@@ -20,6 +22,10 @@ class SearchCards extends Component {
 			</CollectionContext.Consumer>
 		);
 	}
+}
+
+SearchCards.propTypes = {
+	data: PropTypes.array.isRequired
 }
 
 export default SearchCards;

@@ -3,7 +3,6 @@
 	background-color: var(--offwhite);
 }
 
-.CollectionSection a {
-	position: relative;
-	top: -10px;
+.CollectionPage .CollectionSection:last-child {
+  padding-bottom: 150px;
 }

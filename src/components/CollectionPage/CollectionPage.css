@@ -91,7 +91,7 @@
 	left: 204px;
 }
 
-.CollectionPage .SearchMenuItem {
+.CollectionPage .SearchMenu .MenuItem {
 	margin-top: -1px;
 }
 
@@ -100,11 +100,6 @@
 }
 
 /*  Contents  */
-.CollectionPage .section-header .Button {
-	position: relative;
-	top: -10px;
-}
-
 .CollectionPage .section-header p {
 	margin-bottom: 0;
 }
@@ -116,4 +111,8 @@
 .CollectionPage .container-fluid {
 	padding-left: 0;
 	padding-right: 0;
+}
+
+.CollectionPage .Sort {
+	padding: 60px 70px 0;
 }

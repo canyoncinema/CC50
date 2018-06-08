@@ -43,8 +43,8 @@ class SearchBar extends Component {
 		const inputEl = this.inputRef && this.inputRef.current;
 		const choicesEl = this.choicesRef;
 		const clickedOutsideInput = inputEl && !inputEl.contains(event.target);
-		const clickedOnChoice = event.target.parentElement.classList.contains('TypeAheadChoiceList') ||
-				event.target.parentElement.parentElement.classList.contains('TypeAheadChoiceList');
+		const clickedOnChoice = event.target.parentElement && (event.target.parentElement.classList.contains('TypeAheadChoiceList') ||
+				event.target.parentElement.parentElement && event.target.parentElement.parentElement.classList.contains('TypeAheadChoiceList'));
 		// NOTE: cannot be invoked on choice selection.
 		// onChoiceSelect handler needs to be called.
 		if (clickedOutsideInput) {

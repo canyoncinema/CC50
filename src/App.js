@@ -9,6 +9,7 @@ import './App.css';
 import './utils/OnHover.css';
 import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';
+import Footer from './components/Footer/Footer';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
@@ -75,6 +76,7 @@ class App extends Component {
 
           <Route exact path="/about" component={CollectionPage} />
           <Route exact path="/press" component={CollectionPage} />
+          <Footer className="no-gutters" />
         </div>
       </Router>
     );

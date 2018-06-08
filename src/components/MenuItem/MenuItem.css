@@ -1,4 +1,4 @@
-.SearchMenuItem {
+.MenuItem {
 	background-color: #231f20;
   background-color: var(--black);
   padding: 0 20px;
@@ -6,19 +6,23 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 18px;
   color: #ffffff;
-  height: 50px;
-  width: 205px;
+  line-height: 50px;
   border: solid 1px #6a6a6a;
   border: solid 1px var(--dark-grey);
   margin-top: -1px;
 
   cursor: pointer;
   z-index: 90;
+  list-style: none;
 }
 
-.SearchMenuItem:hover {
+.MenuItem:hover {
   background-color: #ffffff;
   border-color: #ffffff;
   color: #231f20;
   color: var(--black);
+}
+
+.MenuItem.active {
+  font-weight: bold;
 }

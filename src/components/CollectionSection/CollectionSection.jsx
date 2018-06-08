@@ -10,19 +10,23 @@ const CollectionSection = ({ searchData, header, description,
 	buttonText, buttonLink }) => {
 	return (
 		<div className="CollectionSection">
-			<header className="section-header d-flex">
-				<div>
-					<h3>{header}</h3>
-					<p>
-						{description}
-					</p>
-				</div>
-      	<Link className="ml-auto" to={buttonLink}>
-	        <Button size="default">
-	          {buttonText}
-	        </Button>
-      	</Link>
-			</header>
+			{
+				header ?
+				<header className="section-header d-flex">
+					<div>
+						<h3>{header}</h3>
+						<p>
+							{description}
+						</p>
+					</div>
+	      	<Link className="ml-auto" to={buttonLink}>
+		        <Button size="default">
+		          {buttonText}
+		        </Button>
+	      	</Link>
+				</header>
+				: null
+			}
 			<Row>
 				{
 					searchData && searchData.length ?
