@@ -37,3 +37,7 @@
 .Footer section {
 	margin-bottom: 45px;
 }
+
+.Footer .social a {
+  margin-right: 9px;
+}

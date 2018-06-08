@@ -3,6 +3,9 @@ import './Footer.css';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import IconTumblr from '../Icon/IconTumblr';
+import IconFacebook from '../Icon/IconFacebook';
+import IconTwitter from '../Icon/IconTwitter';
 
 const Footer = ({className}) => {
 	return (
@@ -31,9 +34,15 @@ const Footer = ({className}) => {
 								<div><Link target="_blank" to="//www.canyoncinema.com">www.canyoncinema.com</Link></div>
 							</section>
 							<section className="social">
-								<Link target="_blank" to="//www.facebook.com/canyoncinema">Facebook</Link>, 
-								<Link target="_blank" to="//www.canyon-cinema.tumblr.com">Twitter</Link>, 
-								<Link target="_blank" to="//www.twitter.com/canyoncinema">Tumblr</Link>
+								<Link target="_blank" to="//www.facebook.com/canyoncinema">
+									<IconFacebook />
+								</Link>
+								<Link target="_blank" to="//www.canyon-cinema.tumblr.com">
+									<IconTumblr />
+								</Link>
+								<Link target="_blank" to="//www.twitter.com/canyoncinema">
+									<IconTwitter />
+								</Link>
 							</section>
 						</div>
 					</Col>
