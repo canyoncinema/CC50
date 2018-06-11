@@ -1,18 +1,18 @@
 import React, { Component} from 'react';
 import { Row } from 'reactstrap';
 import Sort from '../Sort/Sort';
-import { toCollectionSearchLabel, toCollectionSort } from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel, toCollectionSort } from '../../collection-context';
 import CollectionSection from '../CollectionSection/CollectionSection';
 import { filmData, filmmakerData, programData, ephemeraData } from '../../spoof-data';
 
-function getSpoofData(item) {
-	if (item === 'films') {
+function getSpoofData(items) {
+	if (items === 'films') {
 		return filmData;
-	} else if (item === 'filmmakers') {
+	} else if (items === 'filmmakers') {
 		return filmmakerData;
-	} else if (item === 'programs') {
+	} else if (items === 'programs') {
 		return programData;
-	} else if (item === 'ephemera') {
+	} else if (items === 'ephemera') {
 		return ephemeraData;
 	}
 }
@@ -31,18 +31,27 @@ class CollectionPageItem extends Component {
 	}
 
 	render() {
-		const { item } = this.props;
+		const { collectionItems, searchedText } = this.props;
 		const { sortIndex } = this.state;
-		const sort = toCollectionSort(item);
-		return <div className="CollectionPageItem">
-			<Sort
-				labels={sort.labels}
-				values={sort.values}
-				sortIndex={sortIndex}
-				onSort={this.onSort}
-				itemLabel={toCollectionSearchLabel(item)} />
-			<CollectionSection searchData={getSpoofData(item)}/>
-		</div>
+		const sort = toCollectionSort(collectionItems);
+		console.log('searchedText', searchedText);
+		return <CollectionContext.Consumer>
+			{
+				context => 
+				<div className="CollectionPageItem">
+					{	!context.searchedText ?
+						<Sort
+						labels={sort.labels}
+						values={sort.values}
+						sortIndex={sortIndex}
+						onSort={this.onSort}
+						itemLabel={toCollectionSearchLabel(collectionItems)} />
+						: null
+					}
+					<CollectionSection searchData={getSpoofData(collectionItems)}/>
+				</div>
+			}
+		</CollectionContext.Consumer>
 	}
 }
 

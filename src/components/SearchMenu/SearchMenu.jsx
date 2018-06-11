@@ -89,7 +89,7 @@ class SearchMenu extends Component {
 						{
 							SearchMenu.labels.map((label, i) => {
 								return (
-									<Link to={'/collection/' + toCollectionSearchVal(label) + window.location.search || ''}>
+									<Link key={i} to={'/collection/' + toCollectionSearchVal(label) + window.location.search || ''}>
 										<MenuItem
 											key={i}
 											onClick={e => this.onClickLabel(e, label)}>

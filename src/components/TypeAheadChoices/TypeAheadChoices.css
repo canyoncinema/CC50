@@ -19,6 +19,15 @@
 .TypeAheadChoice:focus,
 .TypeAheadChoice:active {
 	background-color: #ffffff;
+}
+
+.TypeAheadChoice {
+	width: 100%;
+}
+
+.TypeAheadChoice:hover,
+.TypeAheadChoice:focus,
+.TypeAheadChoice:active {
 	color: #231f20;
   color: var(--black);
 }

@@ -8,3 +8,20 @@ export const getQueryVal = function(queryString, variable) {
   }
   return false;
 }
+
+export const updateQueryString = function(search, paramsObj={}) {
+	var obj = search ? JSON
+		.parse('{"' + search.replace(/^\?+/, '').replace(/&/g, '","')
+		.replace(/=/g,'":"') + '"}', function(key, value) {
+			return key === "" ? value : decodeURIComponent(value)
+		}) : paramsObj;
+	obj = Object.assign(obj, paramsObj);
+	var urlString = '';
+	Object.keys(obj).forEach((key, i) => {
+		urlString += key + '=' + obj[key]
+		if (i !== Object.keys(obj).length - 1) {
+			urlString += '&';
+		}
+	});
+	return urlString;
+}

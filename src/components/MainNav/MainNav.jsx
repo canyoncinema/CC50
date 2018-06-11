@@ -5,9 +5,14 @@ import './MainNav.css';
 
 import Logo from '../Logo/Logo';
 
-const MainNav = ({isCollapsed, location}) => {
+const MainNav = ({isCollapsed}) => {
+	const location = window.location;
 	const isTransparent = location.pathname === '/';
-	const isActive = pathname => location.pathname.indexOf(pathname) === 0;
+	var i;
+	const isActive = pathname => {
+		return (i = location.pathname.indexOf(pathname)) === 0 &&
+		(!location.pathname[pathname.length] || location.pathname[pathname.length] === '?' || location.pathname[pathname.length] === '/');
+	}
 	return (
 		<div className={isCollapsed ?
 				'MainNav collapsed' : 'MainNav'}>

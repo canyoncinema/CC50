@@ -4,6 +4,56 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Karla';
+  src: url(/Karla-Regular.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url(/Karla-Italic.ttf);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url(/Karla-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url(/Karla-BoldItalic.ttf);
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url(/Lora-Regular.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url(/Lora-Italic.ttf);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url(/Lora-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url(/Lora-BoldItalic.ttf);
+  font-weight: bold;
+  font-style: italic;
+}
+
 :root {
   --gold: #a5721a;
   --lightest-gray: #eae8e8;
@@ -97,7 +147,7 @@ h1 {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.13;
+  /*line-height: 1.13;*/
   letter-spacing: normal;
   text-align: left;
   color: #231f20;

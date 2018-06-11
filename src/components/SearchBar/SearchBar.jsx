@@ -19,7 +19,8 @@ class SearchBar extends Component {
 	state = {
 		disableInput: true,
 		clickedInside: false,
-		clickedInsideAutocompletedText: false
+		clickedInsideAutocompletedText: false,
+		submittedSearchText: ''
 	}
 
 	componentDidMount() {
@@ -48,13 +49,13 @@ class SearchBar extends Component {
 		// NOTE: cannot be invoked on choice selection.
 		// onChoiceSelect handler needs to be called.
 		if (clickedOutsideInput) {
+			console.log('clickedOnChoice', clickedOnChoice);
 			// TODO: HACK
-			if (clickedOnChoice) {
-				this.setState({
-					disableInput: true,
-					clickedInsideAutocompletedText: false
-				});
-			} else {
+			if (!clickedOnChoice) {
+				// this.setState({
+				// 	disableInput: true,
+				// 	clickedInsideAutocompletedText: false
+				// });
 				this.setState({
 					disableInput: true,
 					clickedInsideAutocompletedText: false
@@ -74,6 +75,16 @@ class SearchBar extends Component {
 		});
 	}
 
+	// submitSearch = (text, label) => {
+	// 	console.log('submit searchText', text, label);
+	// 	// TODO: submit search!
+	// 	this.setState({
+	// 		disableInput: true,
+	// 		clickedInsideAutocompletedText: false,
+	// 		submittedSearchText: text
+	// 	})
+	// }
+
 	render() {
 		const {
 			searchPlaceholder,
@@ -81,7 +92,8 @@ class SearchBar extends Component {
 			searchLabel,
 			setSearchText,
 			searchTextAutocompleted,
-			className
+			className,
+			submitSearch
 		} = this.props;
 		const { disableInput, clickedInside, clickedInsideAutocompletedText } = this.state;
 		const clearPlaceholder = !disableInput;
@@ -93,7 +105,10 @@ class SearchBar extends Component {
 					className,
 					!disableInput ? 'active' : null
 				].join(' ')}
-				onSubmit={() => null}>
+				onSubmit={(e) => {
+					e.preventDefault();
+					submitSearch(searchText, searchLabel);
+				}}>
 				<IconSearch />
 				<div className="input-wrapper"
 					onClick={this.onInsideClick}>
@@ -113,7 +128,7 @@ class SearchBar extends Component {
 								!disableInput && searchText.length > 0}>
 						<TypeAheadChoices
 							searchText={searchText}
-							onChoiceSelect={setSearchText}
+							onChoiceSelect={submitSearch}
 						/>
 					</TypeAheadChoiceList>
 				</div>

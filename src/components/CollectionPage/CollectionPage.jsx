@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { Row } from 'reactstrap';
 import './CollectionPage.css';
-import CollectionContext, { labelToSearchPlaceholder, toCollectionSearchLabel, toCollectionSearchPlaceholder } from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
 
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import Search from '../Search/Search';
 import ViewModeButtons from '../ViewModeButtons/ViewModeButtons';
-import CollectionPageHome from '../CollectionPageHome/CollectionPageHome';
-import CollectionPageItem from '../CollectionPageItem/CollectionPageItem';
+import SearchResultsSummary from '../SearchResultsSummary/SearchResultsSummary';
 
 class CollectionPage extends Component {
 	constructor(props) {
@@ -18,7 +15,7 @@ class CollectionPage extends Component {
 		this.setViewMode = this.setViewMode.bind(this);
 	}
 
-	setSearchText(e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) {
+	setSearchText = (e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) => {
 		// TODO: simplify
 		const searchText = searchTextVal || e.target.value;
 		this.setState({
@@ -36,17 +33,30 @@ class CollectionPage extends Component {
 		});
 	}
 
+	submitSearch = (text, label) => {
+		this.setState({
+			searchText: text,
+			searchedText: text,
+			searchLabel: label,
+			searchTextAutocompleted: true
+		});
+	}
+
 	state = {
-		searchLabel: toCollectionSearchLabel(this.props.match.params[0]),
-		searchText: '',
+		searchLabel: toCollectionSearchLabel(this.props.collectionItemsString),
+		searchText: this.props.searchedText,
+		searchedText: this.props.searchedText,
 		searchTextAutocompleted: false,
-		setSearchText: this.setSearchText.bind(this),
+		setSearchText: this.setSearchText,
+		submitSearch: this.submitSearch,
 		isCollapsedNav: false,
 		viewMode: this.props.viewMode || 'grid',
 		setViewMode: this.setViewMode.bind(this),
 		onOptionSelect: searchLabel => {
+			// SPEC: changing search menu filter, changes page & resets searched text
 			this.setState({
-	  		searchLabel
+	  		searchLabel,
+	  		searchedText: ''
 			});
 		}
 	}
@@ -75,11 +85,13 @@ class CollectionPage extends Component {
 	}
 
 	render() {
-		const { children } = this.props;
+		const { children, nonCollectionItemsString, collectionItemsString } = this.props;
 		const {
-			isCollapsedNav
+			isCollapsedNav,
+			searchedText
 		} = this.state;
-		console.log(this.props);
+		console.log(this.props, 's', this.state);
+
 		return (
 			<CollectionContext.Provider value={this.state}>
 				<div className={isCollapsedNav ? 'collapsed-nav active' : 'collapsed-nav'}>
@@ -97,6 +109,19 @@ class CollectionPage extends Component {
 							</div>
 						</div>
 					</header>
+					{
+						nonCollectionItemsString ?
+						<SearchResultsSummary key={1}
+              searchText={collectionItemsString ? collectionItemsString + nonCollectionItemsString : nonCollectionItemsString}
+              numResults={0}
+            />
+						: searchedText ?
+						<SearchResultsSummary key={1}
+              searchText={searchedText}
+              numResults={10}
+            />
+						: null
+					}
 					{children}
 				</div>
 			</CollectionContext.Provider>

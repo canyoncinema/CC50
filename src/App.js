@@ -8,7 +8,6 @@ import {
 import './App.css';
 import './utils/OnHover.css';
 import { getQueryVal } from './utils/query-string';
-import Head from './components/Head/Head';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import CollectionPage from './components/CollectionPage/CollectionPage';
@@ -44,29 +43,27 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Head />
           <MainNav />
           <Route exact path="/" component={HomePage} />
-
-          <Route path="/collection*" render={({match, location}) =>
-            <CollectionPage
+          <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera)?*" render={({match, location}) => {
+            const searchedText = getQueryVal(location.search, 'search');
+            return <CollectionPage
               match={match}
+              nonCollectionItemsString={match.params[1]}
+              collectionItemsString={match.params.collectionItems}
+              searchedText={searchedText}
               viewMode={getQueryVal(location.search, 'view')}>
               <Switch>
-                <Route exact path="/collection/:collectionItem(films|filmmakers|programs|ephemera)" render={({match}) =>
-                  <CollectionPageItem item={match.params.collectionItem} />
+                <Route exact path="/collection/:collectionItems(films|filmmakers|programs|ephemera)" render={() => {
+                  return <CollectionPageItem
+                    searchedText={searchedText}
+                    collectionItems={match.params.collectionItems} />
+                }
                 } />
-                <Route exact path="/collection" component={CollectionPageHome} />
-                <Route path="/collection/:otherItem" component={({match}) => [
-                  <SearchResultsSummary key={1}
-                    searchText={match.params.otherItem}
-                    numResults={0}
-                  />,
-                  <CollectionPageHome key={2} />
-                ]} />
+                <Route path="/collection" component={CollectionPageHome} />
               </Switch>
             </CollectionPage>
-          } />
+          }} />
           
           <Route exact path="/features/writings-and-essays" component={CollectionPage} />
           <Route exact path="/features/tour" component={CollectionPage} />

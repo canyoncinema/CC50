@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import './TypeAheadChoices.css';
-
-const DEBOUNCE_THRESHOLD = 250;
+import { updateQueryString } from '../../utils/query-string';
+import {
+	ALL_SEARCH_LABEL,
+	FILMS_SEARCH_LABEL,
+	FILMMAKERS_SEARCH_LABEL,
+	PROGRAMS_SEARCH_LABEL,
+	EPHEMERA_SEARCH_LABEL,
+	toCollectionSearchVal
+} from '../../collection-context';
 
 class TypeAheadChoices extends Component {
 	constructor(props) {
@@ -15,7 +22,7 @@ class TypeAheadChoices extends Component {
 		choiceTexts: [],
 		choiceMatchStartChars: [],
 		choiceMatchEndChars: [],
-		choiceTypes: []
+		choiceSearchLabels: []
 	}
 
 	componentDidUpdate() {
@@ -38,14 +45,14 @@ class TypeAheadChoices extends Component {
 				],
 				choiceMatchStartChars: [0, 4, 8, 1, 3, 2, 5],
 				choiceMatchEndChars: [3, 7, 12, 13, 9, 13, 9],
-				choiceTypes: [
-					'Filmmaker',
-					'Film',
-					'Ephemera',
-					'Film',
-					'Film',
-					'Filmmaker',
-					'Ephemera'
+				choiceSearchLabels: [ // TODO: THIS IS PLURAL == SEARCH LABELS
+					FILMMAKERS_SEARCH_LABEL,
+					FILMS_SEARCH_LABEL,
+					EPHEMERA_SEARCH_LABEL,
+					FILMS_SEARCH_LABEL,
+					FILMS_SEARCH_LABEL,
+					FILMMAKERS_SEARCH_LABEL,
+					EPHEMERA_SEARCH_LABEL
 				]
 			})
 		}, 250);
@@ -56,26 +63,28 @@ class TypeAheadChoices extends Component {
 	}
 
 	render() {
-		const { children, shouldUpdate,
-			setChoicesRef, onChoiceSelect,
-			searchText
-		} = this.props;
+		const { onChoiceSelect } = this.props;
 		const {
-			choiceTexts, choiceTypes,
+			choiceTexts, choiceSearchLabels,
 			choiceMatchStartChars, choiceMatchEndChars
 		} = this.state;
 		// TODO: proper search label val
 		return choiceTexts.map((choiceText, i) => {
 					const matchStartChar = choiceMatchStartChars[i],
 								matchEndChar = choiceMatchEndChars[i],
-								choiceType = choiceTypes[i];
-					const matchLength = matchEndChar - matchStartChar + 1;
+								choiceLabel = choiceSearchLabels[i];
 					return <li
 						className="TypeAheadChoice d-flex"
 						key={i}
 						onClick={e => {
 							// TODO: HACK
-							onChoiceSelect(null, choiceText, choiceType, true);
+							const url = '/collection/' +
+							toCollectionSearchVal(choiceLabel) + '?' +
+							updateQueryString(window.location.search, {
+								search: encodeURIComponent(choiceText)
+							});
+							onChoiceSelect(choiceText, choiceLabel);
+							window.location.replace(url);
 						}}>
 						<span className="value">
 							{choiceText.slice(0, matchStartChar)}
@@ -84,7 +93,7 @@ class TypeAheadChoices extends Component {
 							</span>
 							{choiceText.slice(matchEndChar + 1, choiceText.length)}
 						</span>
-						<label className="ml-auto">{choiceTypes[i]}</label>
+						<label className="ml-auto">{choiceSearchLabels[i]}</label>
 					</li>
 				});
 	}

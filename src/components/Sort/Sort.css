@@ -5,7 +5,6 @@
 	color: #231f20;
 	color: var(--black);
 	cursor: pointer;
-	margin-bottom: 25px;
 }
 
 .Sort a:hover,
@@ -15,7 +14,7 @@
 }
 
 .SortMenuOptions {
-   margin-top: -5px;
+   margin-top: 25px;
    padding: 0;
    position: absolute;
    top: auto;

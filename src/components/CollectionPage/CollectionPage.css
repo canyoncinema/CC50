@@ -29,7 +29,8 @@
 }
 
 .CollectionPage header.search-sort h1 {
-	margin-bottom: 40px;
+	padding-bottom: 40px;
+	margin: 0;
 }
 
 .CollectionPage .filters {

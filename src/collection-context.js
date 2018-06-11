@@ -14,16 +14,15 @@ export const EPHEMERA_SEARCH_PLACEHOLDER = 'Search ephemera';
 
 
 export const toCollectionSearchLabel = val => {
-	val = val.toLowerCase();
-	if (val === 'all' || val === '/' || val === '') {
+	if (val === 'all' || val === '/' || !val) {
 		return ALL_SEARCH_LABEL;
-	} else if (val.indexOf('filmmaker') !== -1) {
+	} else if (val.toLowerCase().indexOf('filmmaker') !== -1) {
 		return FILMMAKERS_SEARCH_LABEL;
-	} else if (val.indexOf('film') !== -1) {
+	} else if (val.toLowerCase().indexOf('film') !== -1) {
 		return FILMS_SEARCH_LABEL;
-	} else if (val.indexOf('program') !== -1) {
+	} else if (val.toLowerCase().indexOf('program') !== -1) {
 		return PROGRAMS_SEARCH_LABEL;
-	} else if (val.indexOf('ephemera') !== -1) {
+	} else if (val.toLowerCase().indexOf('ephemera') !== -1) {
 		return EPHEMERA_SEARCH_LABEL;
 	} else {
 		// SPEC: assume 'all' on nonsensical collection search path
@@ -120,6 +119,8 @@ const CollectionContext = React.createContext({
 	viewMode: 'grid',
 	toSearchLabel: () => {},
 	setViewMode: () => {},
+	setSearchText: () => {},
+	submitSearch: () => {},
 	onOptionSelect: () => {}
 });
 
