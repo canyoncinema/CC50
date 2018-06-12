@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './Carousel.css';
 import PropTypes from 'prop-types';
 
 import Caret from '../Caret/Caret';
 import PhotoFill from '../PhotoFill/PhotoFill';
 
-const CarouselPhotoFiller = ({id, itemType, bgPhotoSrc, title}) => {
-	const itemTypeUrlEncoded = encodeURIComponent(
-			itemType.toLowerCase().replace(' ', '-')
-		);
+const CarouselPhotoFiller = ({id, bgPhotoSrc, title}) => {
 	return (
 		<PhotoFill
 			className="CarouselPhotoFiller"
@@ -17,10 +13,8 @@ const CarouselPhotoFiller = ({id, itemType, bgPhotoSrc, title}) => {
 			width="100%"
 			height="100%">
 			<div className="foreground">
-				<Link to={`/collection/${itemTypeUrlEncoded}/${encodeURIComponent(id)}`}>
-					<p>View</p>
-					<h4>{title}</h4>
-				</Link>
+				<p>View</p>
+				<h4>{title}</h4>
 			</div>
 		</PhotoFill>
 	);
@@ -28,7 +22,6 @@ const CarouselPhotoFiller = ({id, itemType, bgPhotoSrc, title}) => {
 
 CarouselPhotoFiller.propTypes = {
 	id: PropTypes.string.isRequired,
-	itemType: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	bgPhotoSrc: PropTypes.string.isRequired
 };
@@ -91,7 +84,7 @@ class Carousel extends Component {
 				// spec: loop to first (does not show more than MAX_CAROUSEL_IMAGES)
 				// and prompt user to click item to show more
 				return {
-					activePhotoIndex: 4,
+					activePhotoIndex: MAX_CAROUSEL_IMAGES - 1,
 					showViewMore: true
 				};
 			} else {
@@ -109,7 +102,7 @@ class Carousel extends Component {
 	}
 
 	render() {
-		const { id, itemType, photos, title } = this.props;
+		const { id, photos, title } = this.props;
 		const { showViewMore, activePhotoIndex } = this.state;
 		const activePhotoSrc = (photos || [])[activePhotoIndex]
 			|| require('./empty-still.png');
@@ -131,7 +124,6 @@ class Carousel extends Component {
 				showViewMore ?
 					<CarouselPhotoFiller
 						id={String(id)}
-						itemType={itemType}
 						title={title}
 						bgPhotoSrc={activePhotoSrc} />
 					: <PhotoFill width="100%" height="100%"

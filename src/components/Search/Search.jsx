@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './Search.css';
 
-import CollectionContext, { labelToSearchPlaceholder } from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel, labelToSearchPlaceholder } from '../../collection-context';
 import SearchMenu from '../SearchMenu/SearchMenu';
 import SearchBar from '../SearchBar/SearchBar';
 
 // TODO: rename to SearchCollection
 class Search extends Component {
 	render() {
-		const { id } = this.props;
+		console.log('search collectionItems', collectionItems);
+		const { id, collectionItems } = this.props;
+		const searchLabel = toCollectionSearchLabel(collectionItems);
 		return <CollectionContext.Consumer>
 		{
 			context => {
 			const {
-				searchLabel, onOptionSelect, submitSearch,
+				onOptionSelect, submitSearch,
 				searchTextAutocompleted, searchText, setSearchText
 			} = context;
-			console.log('searchLabel', searchLabel)
 				return [
 					<SearchMenu
 						key={id + '-0'}

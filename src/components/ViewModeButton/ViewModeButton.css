@@ -10,27 +10,6 @@
 	position: relative;
 }
 
-
-/* White Border Effects */
-.search-sort .ViewModeButton.active,
-.search-sort .ViewModeButton:hover {
-	border-top-color: #ffffff !important;
-	border-bottom-color: #ffffff !important;
-	border-left-color: #ffffff !important;
-}
-
-.search-sort .ViewModeButton.active,
-.search-sort .ViewModeButton.active + .ViewModeButton,
-.search-sort .ViewModeButton:hover,
-.search-sort .ViewModeButton:hover + .ViewModeButton {
-	border-left-color: #ffffff !important;
-}
-
-.search-sort .ViewModeButton.active:last-child,
-.search-sort .ViewModeButton:last-child:hover {
-	border-right-color: #ffffff !important;	
-}
-
 .ViewModeButton img {
 	width: 24px;
 	display: inline-block;
@@ -60,4 +39,25 @@
 
 .ViewModeButton.active img.active {
 	opacity: 1;
+}
+
+/* White Border Effects */
+
+.search-sort .ViewModeButton.active,
+.search-sort .ViewModeButton:hover {
+	border-top-color: #ffffff !important;
+	border-bottom-color: #ffffff !important;
+	border-left-color: #ffffff !important;
+}
+
+.search-sort .ViewModeButton.active,
+.search-sort .ViewModeButton.active + .ViewModeButton,
+.search-sort .ViewModeButton:hover,
+.search-sort .ViewModeButton:hover + .ViewModeButton {
+	border-left-color: #ffffff !important;
+}
+
+.search-sort .ViewModeButton.active:last-child,
+.search-sort .ViewModeButton:last-child:hover {
+	border-right-color: #ffffff !important;	
 }

@@ -1,0 +1,1 @@
+CollectionPageItemContent.jsx

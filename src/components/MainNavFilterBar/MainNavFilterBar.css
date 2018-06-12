@@ -9,11 +9,6 @@
 	border-left-color: transparent;
 }
 
-.MainNavFilterBar .SearchMenu {
-	border-left-color: transparent;
-	border-right-color: transparent;
-}
-
 .MainNavFilterBar .SearchBar:hover,
 .MainNavFilterBar .SearchBar.active {
 	border-left-color: white;

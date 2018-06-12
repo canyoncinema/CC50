@@ -30,6 +30,20 @@ export const toCollectionSearchLabel = val => {
 	}
 };
 
+export const collectionItemsToSingularTitlecased = label => {
+	if (label === 'filmmakers') return 'Filmmaker';
+	if (label === 'films') return 'Film';
+	if (label === 'programs') return 'Program';
+	if (label === 'ephemera') return 'Ephemera';
+	throw new Error('Invalid label ' + label);
+}
+
+export const itemTypeToCollectionSearchVal = itemType => {
+	if (itemType === 'filmmaker') return 'filmmakers';
+	if (itemType === 'film') return 'films';
+	if (itemType === 'program') return 'programs';
+	if (itemType === 'ephemera') return 'ephemera';
+}
 export const toCollectionSearchVal = label => {
 	if (label === ALL_SEARCH_LABEL) return '';
 	if (label === FILMMAKERS_SEARCH_LABEL) return 'filmmakers';
@@ -113,7 +127,6 @@ labelToSearchPlaceholder[EPHEMERA_SEARCH_LABEL] = EPHEMERA_SEARCH_PLACEHOLDER;
 
 const CollectionContext = React.createContext({
 	searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
-	searchLabel: 'All',
 	searchText: '',
 	isCollapsedNav: false,
 	viewMode: 'grid',

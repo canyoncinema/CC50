@@ -107,7 +107,7 @@ class SearchBar extends Component {
 				].join(' ')}
 				onSubmit={(e) => {
 					e.preventDefault();
-					submitSearch(searchText, searchLabel);
+					submitSearch(searchText);
 				}}>
 				<IconSearch />
 				<div className="input-wrapper"

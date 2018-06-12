@@ -1,0 +1,28 @@
+.CollectionPageItemMenu {
+	padding: 0;
+	max-width: 225px;
+}
+
+.CollectionPageItemMenu li {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: normal;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+  list-style: none;
+  padding: 0;
+}
+
+.CollectionPageItemMenu li a {
+	color: var(--black);
+}
+
+.CollectionPageItemMenu li {
+	margin-bottom: 20px;
+}
+
+.CollectionPageItemMenu li.active a {
+	font-weight: bold;
+	color: #a5721a;
+  color: var(--gold);
+}

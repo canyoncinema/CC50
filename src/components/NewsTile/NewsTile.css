@@ -2,6 +2,7 @@
 	background-color: #fff;
 	position: relative;
 	cursor: pointer;
+	width: 360px;
 }
 
 .NewsTile h4 {

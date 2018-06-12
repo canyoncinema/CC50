@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {
+  withRouter,
+  Link
+} from 'react-router-dom';
 import './SearchCard.css';
 import $clamp from 'clamp-js';
 import lineClamp from 'line-clamp';
 
+import { itemTypeToCollectionSearchVal } from '../../collection-context';
 import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
@@ -72,12 +76,6 @@ class SearchCard extends Component {
 		}
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		// all content should stay the same, unless
-		// clamping diff length lines depending on switched view mode
-		return nextProps.viewMode !== this.props.viewMode;
-  }
-
   componentDidMount() {
   	this.clampLines();
   }
@@ -99,19 +97,27 @@ class SearchCard extends Component {
 			year,
 			tags,
 			related,
-			viewMode
+			viewMode,
+			customColSize,
+			history
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
 		return (
-			<Col sm={ listView ? 12 : 4 }
+			<Col sm={ listView ?
+					12
+					: customColSize ? customColSize : 4
+				}
 				className={[
 					'SearchCard',
-					'no-gutters',
 					itemTypeClassName,
 					listView ? 'list' : 'grid'
 					].join(' ')}
-				onClick={() => console.log('onClick', title)}>
+				onClick={(e) => {
+					e.stopPropagation();
+					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${id}`;
+					history.push(path);
+				}}>
 				<Row className="no-gutters">
 				<Col sm={listView ? 2 : 12}>
 					<div className="media">
@@ -124,7 +130,7 @@ class SearchCard extends Component {
 				</Col>
 				<Col sm={listView ? 10 : 12}>
 					<Row className="no-gutters content">
-						<Col sm={listView ? 4 : 12} className={listView ? 'main' : null}>
+						<Col sm={listView ? 4 : 12} className="main">
 							<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
 								{
 									itemType === 'filmmaker' ?
@@ -137,7 +143,8 @@ class SearchCard extends Component {
 									<h6>{itemType}</h6>
 									<h4 className="d-flex">
 										<div className="title"
-											ref={this.titleRef}>
+											ref={this.titleRef}
+											title={title + (year ? ` (${year})` : '')}>
 											{listView ? title + (year ? ` (${year})` : '') : title}
 										</div>
 										{
@@ -150,15 +157,27 @@ class SearchCard extends Component {
 							</div>
 							{
 								creator ?
-								<div className="creator">
-									<Link to="filmmaker/" className="gold">{creator}</Link>
+								<div className="creator" title={creator.displayName}>
+									<a className="gold" onClick={(e) => {
+										e.stopPropagation();
+										const path = `/collection/filmmakers/${creator.id}`;
+										history.push(path);
+									}}>
+										{creator.displayName}
+									</a>
 								</div>
 								: null
 							}
 						</Col>
 							{
 								description ?
-								<Col sm={listView ? itemTypeClassName === 'filmmaker' ? 8 : 4 : 12}>
+								<Col sm={listView ?
+									itemType === 'filmmaker' ||
+									(itemType === 'film' && (!tags || !tags.length)) ||
+									(itemType === 'program' && (!filmmakers || !filmmakers.length))
+									?
+										8 : 4
+									: 12}>
 									<div className="list-center-wrapper">
 										<div className="descriptive">
 											<p className="small"
@@ -170,29 +189,36 @@ class SearchCard extends Component {
 								</Col>
 								: null
 							}
-						{
-							filmmakers && filmmakers.length ?
-							<Col sm={listView ? 4 : 12}>
-								<div className="no-gutters" ref={this.filmmakersRef}>
-								<RelatedLinks
-									label="Filmmakers">
-									{filmmakers.map((filmmaker, i) =>
-										<RelatedLink
-											key={i}
-											isLast={i === filmmakers.length - 1}
-											to={`/filmmaker/${filmmaker.id}`}>
-											{filmmaker.name}
-										</RelatedLink>
-									)}
-								</RelatedLinks>
-								</div>
-							</Col>
-							: null
-						}
+							{
+								filmmakers && filmmakers.length ?
+								<Col className="filmmakers" sm={listView ? 4 : 12}>
+									<div className="no-gutters" ref={this.filmmakersRef}>
+										<RelatedLinks
+											label="Filmmakers">
+											{filmmakers.map((filmmaker, i) =>
+												<RelatedLink
+													key={i}
+													isLast={i === filmmakers.length - 1}
+													to={`/filmmaker/${filmmaker.id}`}>
+													<span title={filmmaker.name}>{filmmaker.name}</span>
+												</RelatedLink>
+											)}
+										</RelatedLinks>
+									</div>
+								</Col>
+								: null
+							}
 						{
 							tags && tags.length ?
 							<Col sm={listView ? 4 : 12}
-								className={listView && itemTypeClassName === 'ephemera' ? 'order-3' : null}>
+								className={
+									listView && itemTypeClassName === 'ephemera' ?
+										!related || !related.length ?
+											'offset-sm-4 order-3' :
+											'order-3' :
+									listView && itemTypeClassName === 'film' ?
+										!description ? 'offset-sm-4' : null :
+									null}>
 								<div className="list-center-wrapper">
 									<div className="tags-wrapper">
 										<div className="tags" ref={this.tagsRef}>
@@ -214,7 +240,7 @@ class SearchCard extends Component {
 											key={i}
 											isLast={i === related.length - 1}
 											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-											{rel.title}
+											<span title={rel.title}>{rel.title}</span>
 										</RelatedLink>
 									)}
 								</RelatedLinks>
@@ -230,4 +256,4 @@ class SearchCard extends Component {
 	}
 }
 
-export default SearchCard;
+export default withRouter(SearchCard);

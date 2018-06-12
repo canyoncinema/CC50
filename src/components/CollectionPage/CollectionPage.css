@@ -1,30 +1,9 @@
-/* TODO: collapsed nav -> component */
-.collapsed-nav {
-	position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-
-	/*display: none;*/
-	margin-top: -200px;
-	transition: margin-top 0.33s linear;
-}
-.collapsed-nav.active {
-	/*display: block;*/
-	margin-top: 0;
-}
-.collapsed-nav .MainNav .logo-nav-item {
-	padding: 4px !important;
-}
-
-.collapsed-nav .MainNav .navbar {
-  border-bottom: none;
+.CollectionPage header.search-sort {
+	/*padding-top: 63px;*/
+	background-color: var(--black);
 }
 
 .CollectionPage header.search-sort {
-	padding-top: 63px;
-	background-color: var(--black);
 	padding: 70px 70px 43px 70px;
 }
 
@@ -38,21 +17,9 @@
 	height: 50px;
 }
 
-.CollectionPage .change-view {
+.CollectionPage .ViewModeToggler {
 	position: absolute;
-	top: 0;
-	right: 0;
-	color: #ffffff;
-}
-
-.CollectionPage .change-view label {
-	text-align: right;
-	padding-right: 1em;
-	margin: 0;
-}
-
-.CollectionPage .change-view > * {
-	vertical-align: middle;
+	right: 0;	
 }
 
 .CollectionPage .ViewModeButton {

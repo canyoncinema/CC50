@@ -1,0 +1,53 @@
+.CollectionItemHeader {
+	padding: 45px 70px;
+	background-color: #231f20;
+  background-color: var(--black);
+}
+
+.CollectionItemHeader label {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 1.6px;
+  color: #d8d8d8;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.CollectionItemHeader.films h1 {
+	margin-bottom: 0;
+}
+
+.CollectionItemHeader h1 {
+	margin-bottom: 33px;
+}
+
+.CollectionItemHeader.films .metadata {
+	margin-top: 90px;
+}
+
+.CollectionItemHeader .metadata {
+	margin-bottom: 42px;
+}
+
+/*  collapsed  */
+.CollectionItemHeader h1 {
+	transition: font-size 0.33s linear,
+		line-height 0.33s linear,
+		margin-bottom 0.33s linear;
+}
+
+.CollectionItemHeader.collapsed {
+	padding: 18px 70px;
+}
+
+.CollectionItemHeader.collapsed h1 {
+	font-size: 26px;
+	line-height: 1.77;
+	margin-bottom: 0 !important;
+}
+
+.CollectionItemHeader.collapsed .metadata {
+	margin-top: 0;
+	margin-bottom: 0;
+}

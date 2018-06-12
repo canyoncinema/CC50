@@ -6,8 +6,9 @@ import './CollectionSection.css';
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
-const CollectionSection = ({ searchData, header, description,
+const CollectionSection = ({ viewMode, searchData, header, description,
 	buttonText, buttonLink }) => {
+	console.log('CollectionSection viewMode', viewMode);
 	return (
 		<div className="CollectionSection">
 			{
@@ -27,13 +28,15 @@ const CollectionSection = ({ searchData, header, description,
 				</header>
 				: null
 			}
-			<Row>
-				{
-					searchData && searchData.length ?
-					<SearchCards data={searchData} />
-					: null
-				}
-			</Row>
+			{
+				searchData && searchData.length ?
+				<div className="container no-padding">
+					<SearchCards
+						viewMode={viewMode}
+						data={searchData} />
+				</div>
+				: null
+			}
 		</div>
 	);
 }

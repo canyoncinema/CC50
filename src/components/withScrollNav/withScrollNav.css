@@ -1,0 +1,23 @@
+/* TODO: collapsed nav -> component */
+.isScrollNav {
+	position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+	/*display: none;*/
+	margin-top: -200px;
+	transition: margin-top 0.33s linear;
+}
+.isScrollNav.active {
+	/*display: block;*/
+	margin-top: 0;
+}
+.isScrollNav .MainNav .logo-nav-item {
+	padding: 4px !important;
+}
+
+.isScrollNav .MainNav .navbar {
+  border-bottom: none;
+}

@@ -4,6 +4,7 @@
 	background-color: #ffffff;
 	margin-bottom: 40px;
 	cursor: pointer;
+	width: 360px;
 }
 
 .EventTile:hover .content h4 {

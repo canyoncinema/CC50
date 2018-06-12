@@ -10,6 +10,6 @@
 	display: block !important;
 }
 
-.collapsed-nav:not(.active) .TypeAheadChoiceList {
+.isScrollNav:not(.active) .TypeAheadChoiceList {
 	display: none !important;
 }

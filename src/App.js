@@ -12,6 +12,7 @@ import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
+import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
@@ -45,25 +46,39 @@ class App extends Component {
         <div className="App">
           <MainNav />
           <Route exact path="/" component={HomePage} />
-          <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera)?*" render={({match, location}) => {
-            const searchedText = getQueryVal(location.search, 'search');
-            return <CollectionPage
-              match={match}
-              nonCollectionItemsString={match.params[1]}
-              collectionItemsString={match.params.collectionItems}
-              searchedText={searchedText}
-              viewMode={getQueryVal(location.search, 'view')}>
-              <Switch>
-                <Route exact path="/collection/:collectionItems(films|filmmakers|programs|ephemera)" render={() => {
-                  return <CollectionPageItem
-                    searchedText={searchedText}
-                    collectionItems={match.params.collectionItems} />
-                }
-                } />
-                <Route path="/collection" component={CollectionPageHome} />
-              </Switch>
-            </CollectionPage>
-          }} />
+          <Switch>
+            <Route exact
+              path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"
+              component={({match}) =>
+                <CollectionPageItem
+                  collectionItems={match.params.collectionItems}
+                  itemId={match.params.itemId} />
+              } />
+            <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera)?*" render={({match, location}) => {
+              const searchedText = getQueryVal(location.search, 'search');
+              const viewMode = getQueryVal(location.search, 'view');
+              return <CollectionPage
+                match={match}
+                nonCollectionItemsString={match.params[1]}
+                collectionItemsString={match.params.collectionItems}
+                searchedText={searchedText}
+                viewMode={viewMode}>
+                <Switch>
+                  <Route exact path="/collection/:collectionItems(films|filmmakers|programs|ephemera)" render={({ match }) => {
+                    return <CollectionPageItems
+                      viewMode={viewMode}
+                      searchedText={searchedText}
+                      collectionItems={match.params.collectionItems} />
+                  }
+                  } />
+                  <Route path="/collection" component={({location}) => {
+                    return <CollectionPageHome
+                      viewMode={getQueryVal(location.search, 'view')} />
+                  }} />
+                </Switch>
+              </CollectionPage>
+            }} />
+          </Switch>
           
           <Route exact path="/features/writings-and-essays" component={CollectionPage} />
           <Route exact path="/features/tour" component={CollectionPage} />

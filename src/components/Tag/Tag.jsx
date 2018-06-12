@@ -5,11 +5,11 @@ export const tagId = (field, value) => `${field}__${value}`;
 
 class Tag extends Component {
 	render() {
-		const { children, disabled } = this.props;
+		const { children, onTagSelect, disabled } = this.props;
 		return (
 			<div disabled={disabled}
 				className="Tag"
-				onClick={this.onClick}>
+				onClick={onTagSelect && this.onClick}>
 				{children}
 			</div>
 		);
@@ -17,9 +17,7 @@ class Tag extends Component {
 
 	onClick = () => {
 		const { field, value, onTagSelect } = this.props;
-		if (field && value && onTagSelect) {
-			onTagSelect(field, value);	
-		}
+		onTagSelect(field, value);
 	}
 }
 

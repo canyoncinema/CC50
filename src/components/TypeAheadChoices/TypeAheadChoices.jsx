@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './TypeAheadChoices.css';
 import { updateQueryString } from '../../utils/query-string';
+import { withRouter } from 'react-router-dom';
 import {
 	ALL_SEARCH_LABEL,
 	FILMS_SEARCH_LABEL,
@@ -26,11 +27,13 @@ class TypeAheadChoices extends Component {
 	}
 
 	componentDidUpdate() {
+		console.log('componentDidUpdate');
 		if (this.updateDebounced) {
 			clearTimeout(this.updateDebounced);
 		}
 
 		this.updateDebounced = setTimeout(() => {
+			console.log('componentDidUpdate, set choiceTexts')
 			this.setState({
 				// choices: [this.props.searchText, this.props.searchText, this.props.searchText]
 				searchText: this.props.searchText,
@@ -59,15 +62,18 @@ class TypeAheadChoices extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		return nextProps.searchText.trim() !== this.state.searchText.trim();
+		console.log('shouldComponentUpdate', nextProps.searchText, this.state.searchText);
+		return nextProps.searchText ?
+			nextProps.searchText.trim() !== this.state.searchText.trim() : false;
 	}
 
 	render() {
-		const { onChoiceSelect } = this.props;
+		const { onChoiceSelect, history } = this.props;
 		const {
 			choiceTexts, choiceSearchLabels,
 			choiceMatchStartChars, choiceMatchEndChars
 		} = this.state;
+		console.log('choiceTexts', choiceTexts);
 		// TODO: proper search label val
 		return choiceTexts.map((choiceText, i) => {
 					const matchStartChar = choiceMatchStartChars[i],
@@ -84,7 +90,7 @@ class TypeAheadChoices extends Component {
 								search: encodeURIComponent(choiceText)
 							});
 							onChoiceSelect(choiceText, choiceLabel);
-							window.location.replace(url);
+							history.push(url);
 						}}>
 						<span className="value">
 							{choiceText.slice(0, matchStartChar)}
@@ -99,4 +105,4 @@ class TypeAheadChoices extends Component {
 	}
 }
 
-export default TypeAheadChoices;
+export default withRouter(TypeAheadChoices);
