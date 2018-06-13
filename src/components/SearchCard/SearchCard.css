@@ -1,8 +1,10 @@
 .SearchCard {
+	display: inline-block;
+	width: 360px;
 	margin-bottom: 40px;
+	margin-right: 40px;
 	font-size: 14px;
 	line-height: 22px;
-	width: 360px;
 
 	-webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
@@ -199,10 +201,6 @@
 
 .SearchCard.list .CarouselPhotoFiller .foreground {
    padding: 21px 38px;
-}
-
-.SearchCard.list .Carousel .Caret {
-   padding: 25% 8.5px;
 }
 
 .SearchCard.list .CarouselPhotoFiller .foreground h4 {

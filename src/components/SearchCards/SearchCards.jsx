@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 import SearchCard from '../SearchCard/SearchCard';
+import './SearchCards.css';
 
 class SearchCards extends Component {
 	render() {
 		const { data, customColSize, viewMode, searchLabel } = this.props;
 		return data && data.length ?
-			<Row>
+			<div className="SearchCards">
 			{
 				data.map((d, i) =>
 					<SearchCard
@@ -17,7 +18,7 @@ class SearchCards extends Component {
 						{...d} />
 				)
 			}
-			</Row>
+			</div>
 			: null;
 	}
 }

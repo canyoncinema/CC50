@@ -1,5 +1,9 @@
-.CollectionPageItem > .content {
-	padding: 70px 70px 100px;
+.CollectionPageItem > .container {
+	padding: 0 70px 100px;
+}
+
+.CollectionPageItem .content {
+	max-width: 758px;
 }
 
 .CollectionPageItem h3 {
@@ -7,11 +11,7 @@
 }
 
 .CollectionPageItem section {
-	margin-top: 60px;
-}
-
-.CollectionPageItem section:first-child {
-	margin-top: 0;
+	padding-top: 70px;
 }
 
 .CollectionPageItem .Button {

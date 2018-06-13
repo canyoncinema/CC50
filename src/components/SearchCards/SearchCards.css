@@ -1,0 +1,13 @@
+.SearchCards .SearchCard:nth-child(3n+3) {
+	margin-right: 0;
+}
+
+.CollectionPage > .CollectionSection > .SearchCards {
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.CollectionPage > .CollectionSection > .SearchCards .SearchCard {
+    white-space: normal;
+}

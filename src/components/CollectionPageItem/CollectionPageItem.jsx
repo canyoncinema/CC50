@@ -90,184 +90,186 @@ class CollectionPageItem extends Component {
 				<CollectionItemHeader
 					{...item}
 					collectionItems={collectionItems} />
-				<div className="content container">
+				<div className="container">
 					<Row>
-						<Col sm={4}>
+						<Col xs={3}>
 							<CollectionPageItemMenu
 								headers={this.headers}
 							/>
 						</Col>
-						<Col sm={8}>
-							{this.conditionallyShow({
-								condition: !!item.description,
-								menuHeader: 'About the ' + singularItemForm,
-								renderContent: () => (
-									<pre className="rich-text">
-										{item.description}
-									</pre>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: singularItemForm === 'Program' &&
-									item.films &&
-									item.films.length,
-								menuHeader: 'Films in This ' + singularItemForm,
-								renderContent: () => (
-									<SearchCards
-										viewMode="list"
-										customColSize={12}
-										data={item.films}
-									/>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: singularItemForm === 'Filmmaker' &&
-									item.films &&
-									item.films.length,
-								menuHeader: 'Films by This ' + singularItemForm,
-								renderContent: () => (
-									<SearchCards
-										viewMode="list"
-										customColSize={12}
-										data={item.films}
-									/>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: singularItemForm === 'Program' &&
-									item.filmmakers &&
-									item.filmmakers.length,
-								menuHeader: 'Filmmakers in This ' + singularItemForm,
-								renderContent: () => (
-									<SearchCards
-										viewMode="list"
-										customColSize={12}
-										data={item.filmmakers}
-									/>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.ephemera && item.ephemera.length,
-								menuHeader: 'Ephemera',
-								renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
-								renderContent: () => (
-									item.ephemera.map((e, i) =>
-										<EphemeraMiniCard
-											key={i}
-											{...e}
-										/>
+						<Col xs={9}>
+							<div className="content">
+								{this.conditionallyShow({
+									condition: !!item.description,
+									menuHeader: 'About the ' + singularItemForm,
+									renderContent: () => (
+										<pre className="rich-text">
+											{item.description}
+										</pre>
 									)
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.programs && item.programs.length,
-								menuHeader: 'Programs',
-								renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
-								renderContent: () => (
-									item.programs.map((program, i) =>
+								})}
+								{this.conditionallyShow({
+									condition: singularItemForm === 'Program' &&
+										item.films &&
+										item.films.length,
+									menuHeader: 'Films in This ' + singularItemForm,
+									renderContent: () => (
 										<SearchCards
-											key={i}
-											viewMode="grid"
-											customColSize={6}
-											data={program}
+											viewMode="list"
+											customColSize={12}
+											data={item.films}
 										/>
 									)
-								)
-							})}
-							{this.conditionallyShow({
-								condition: singularItemForm === 'Filmmaker' &&
-									item.filmmakers &&
-									item.filmmakers.length,
-								menuHeader: 'Related Filmmakers',
-								renderContent: () => (
-									<SearchCards
-										viewMode="list"
-										customColSize={12}
-										data={item.filmmakers}
-									/>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.events && item.events.length,
-								menuHeader: 'Events',
-								renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
-								renderContent: () => (
-									item.events.map((e, i) =>
-										<EventTile
-											key={i}
-											{...e}
+								})}
+								{this.conditionallyShow({
+									condition: singularItemForm === 'Filmmaker' &&
+										item.films &&
+										item.films.length,
+									menuHeader: 'Films by This ' + singularItemForm,
+									renderContent: () => (
+										<SearchCards
+											viewMode="list"
+											customColSize={12}
+											data={item.films}
 										/>
 									)
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.news && item.news.length,
-								menuHeader: 'Events',
-								renderHeader: () => <h3>{'News Featuring This ' + singularItemForm}</h3>,
-								renderContent: () => (
-									item.events.map((e, i) =>
-										<Col sm={6}>
-											<NewsTile
+								})}
+								{this.conditionallyShow({
+									condition: singularItemForm === 'Program' &&
+										item.filmmakers &&
+										item.filmmakers.length,
+									menuHeader: 'Filmmakers in This ' + singularItemForm,
+									renderContent: () => (
+										<SearchCards
+											viewMode="list"
+											customColSize={12}
+											data={item.filmmakers}
+										/>
+									)
+								})}
+								{this.conditionallyShow({
+									condition: item.ephemera && item.ephemera.length,
+									menuHeader: 'Ephemera',
+									renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
+									renderContent: () => (
+										item.ephemera.map((e, i) =>
+											<EphemeraMiniCard
 												key={i}
 												{...e}
 											/>
-										</Col>
+										)
 									)
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.rentalFormats && item.rentalFormats.length,
-								renderHeader: () => (
-									<Button style="default">
-										{'Rent This ' + singularItemForm}
-									</Button>
-								),
-								renderContent: () => (
-									<RentThis />
-								)
-							})}
-							{this.conditionallyShow({
-								condition: item.filmmaker && !!item.filmmaker.description,
-								menuHeader: 'About the Filmmaker',
-								renderContent: () => (
-									<pre className="rich-text">
-										{item.filmmaker.description}
-									</pre>
-								)
-							})}
-							{this.conditionallyShow({
-								condition: !!item.filmmaker,
-								menuHeader: null,
-								renderContent: () => (
-									<Button key={1} style="default">
-									View Filmmaker Profile
-								</Button>
-								),
-								omitSectionWrapper: true
-							})}
-							{this.conditionallyShow({
-								condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
-								menuHeader: 'Other Films by this Filmmaker',
-								renderHeader: () => <header className="d-flex">
-									<h3 className="single-line-ellipsed">
-										{'Other Films by ' + item.filmmaker.title}
-									</h3>
-									<span className="ml-auto">
-										<ViewModeToggler
-											activeMode={viewMode || 'list'}
-											onClick={this.setViewMode}
-											theme="dark" />
-									</span>
-								</header>,
-								renderContent: () => (
-									<div className="container no-padding">
+								})}
+								{this.conditionallyShow({
+									condition: item.programs && item.programs.length,
+									menuHeader: 'Programs',
+									renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
+									renderContent: () => (
+										item.programs.map((program, i) =>
+											<SearchCards
+												key={i}
+												viewMode="grid"
+												customColSize={6}
+												data={program}
+											/>
+										)
+									)
+								})}
+								{this.conditionallyShow({
+									condition: singularItemForm === 'Filmmaker' &&
+										item.filmmakers &&
+										item.filmmakers.length,
+									menuHeader: 'Related Filmmakers',
+									renderContent: () => (
 										<SearchCards
-											viewMode={viewMode}
-											customColSize={6}
-											data={item.filmmaker.films.filter(f => f.id !== item.id)} />
-									</div>
-								)
-							})}
+											viewMode="list"
+											customColSize={12}
+											data={item.filmmakers}
+										/>
+									)
+								})}
+								{this.conditionallyShow({
+									condition: item.events && item.events.length,
+									menuHeader: 'Events',
+									renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
+									renderContent: () => (
+										item.events.map((e, i) =>
+											<EventTile
+												key={i}
+												{...e}
+											/>
+										)
+									)
+								})}
+								{this.conditionallyShow({
+									condition: item.news && item.news.length,
+									menuHeader: 'Events',
+									renderHeader: () => <h3>{'News Featuring This ' + singularItemForm}</h3>,
+									renderContent: () => (
+										item.events.map((e, i) =>
+											<Col sm={6}>
+												<NewsTile
+													key={i}
+													{...e}
+												/>
+											</Col>
+										)
+									)
+								})}
+								{this.conditionallyShow({
+									condition: item.rentalFormats && item.rentalFormats.length,
+									renderHeader: () => (
+										<Button style="default">
+											{'Rent This ' + singularItemForm}
+										</Button>
+									),
+									renderContent: () => (
+										<RentThis />
+									)
+								})}
+								{this.conditionallyShow({
+									condition: item.filmmaker && !!item.filmmaker.description,
+									menuHeader: 'About the Filmmaker',
+									renderContent: () => (
+										<pre className="rich-text">
+											{item.filmmaker.description}
+										</pre>
+									)
+								})}
+								{this.conditionallyShow({
+									condition: !!item.filmmaker,
+									menuHeader: null,
+									renderContent: () => (
+										<Button key={1} style="default">
+										View Filmmaker Profile
+									</Button>
+									),
+									omitSectionWrapper: true
+								})}
+								{this.conditionallyShow({
+									condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
+									menuHeader: 'Other Films by this Filmmaker',
+									renderHeader: () => <header className="d-flex">
+										<h3 className="single-line-ellipsed">
+											{'Other Films by ' + item.filmmaker.title}
+										</h3>
+										<span className="ml-auto">
+											<ViewModeToggler
+												activeMode={viewMode || 'list'}
+												onClick={this.setViewMode}
+												theme="dark" />
+										</span>
+									</header>,
+									renderContent: () => (
+										<div className="container no-padding">
+											<SearchCards
+												viewMode={viewMode}
+												customColSize={6}
+												data={item.filmmaker.films.filter(f => f.id !== item.id)} />
+										</div>
+									)
+								})}
+							</div>
 						</Col>
 					</Row>
 				</div>

@@ -166,8 +166,17 @@ input:active {
   .container {
     max-width: 1300px;
     padding: 0;
-    margin-left: 0;
   }
+}
+
+@media (min-width: 576px) {
+  .CollectionPageItem > .content {
+    padding: 70px 15px 100px;
+  }
+}
+
+.container {
+  margin-left: 0 !important;
 }
 
 .no-padding {

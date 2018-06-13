@@ -30,11 +30,9 @@ const CollectionSection = ({ viewMode, searchData, header, description,
 			}
 			{
 				searchData && searchData.length ?
-				<div className="container no-padding">
-					<SearchCards
-						viewMode={viewMode}
-						data={searchData} />
-				</div>
+				<SearchCards
+					viewMode={viewMode}
+					data={searchData} />
 				: null
 			}
 		</div>

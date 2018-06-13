@@ -104,10 +104,7 @@ class SearchCard extends Component {
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
 		return (
-			<Col sm={ listView ?
-					12
-					: customColSize ? customColSize : 4
-				}
+			<div
 				className={[
 					'SearchCard',
 					itemTypeClassName,
@@ -251,7 +248,7 @@ class SearchCard extends Component {
 					</Row>
 				</Col>
 				</Row>
-			</Col>
+			</div>
 		);
 	}
 }

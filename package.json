@@ -13,9 +13,11 @@
     "react-helmet": "^5.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-hash-link": "^1.2.0",
     "react-scripts": "1.1.4",
     "react-scrollspy": "^3.3.5",
-    "reactstrap": "^6.0.1"
+    "reactstrap": "^6.0.1",
+    "smoothscroll-polyfill": "^0.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,10 @@
 .CollectionPageItemMenu {
-	padding: 0;
-	max-width: 225px;
+  padding: 70px 0;
+}
+
+.CollectionPageItemMenu.fixed {
+  position: fixed;
+  top: 62px;
 }
 
 .CollectionPageItemMenu li {
