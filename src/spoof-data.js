@@ -15,7 +15,25 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 }, {
 	id: 1299,
 	itemType: 'filmmaker',
-	title: 'Barbara Hammer 2'
+	title: 'Barbara Hammer 2',
+	films: [{
+		id: 1232,
+		itemType: 'film',
+		title: 'Dyketactics',
+		description: `A popular lesbian "commercial" 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.
+		\n"The images are varied and very quickly presented in the early part of the film, introducing the characters, if you will. The second half of the film slows down measurably and all of a sudden I found myself holding my breath as I watched the images of love-making sensually and artistically captured."
+		\n- Elizabeth Lay, Plexus`,
+		format: '16mm',
+		years: '1970s',
+		image: 'Color',
+		sound: 'Sound',
+		tags: ['16mm', '1970s', 'Color', 'Sound'],
+		creator: {
+			displayName: 'Barbara Hammer',
+			id: 1111
+		},
+		year: '1974'
+	}]
 }];
 
 const programData = [{
@@ -85,7 +103,7 @@ const filmData = [{
 	},
 	year: '1974',
 	filmmaker: {
-		id: 1112,
+		id: 1111,
 		itemType: 'filmmaker',
 		title: 'Madam Luxome Barbara Hammer Super Jr the Third of Florence',
 		description: `Barbara Hammer is a visual artist primarily working in film and video. Her work reveals and celebrates marginalized peoples whose stories have not been told. Her cinema is multi-leveled and engages an audience viscerally and intellectually with the goal of activating them to make social change. She has been honored with 5 retrospectives in the last 3 years: The Museum of Modern Art in New York City, Tate Modern in London, Jeu de Paume in Paris, the Toronto International Film Festival and Kunsthalle Oslo in Norway. Her book Hammer! Making Movies Out of Sex and Life was published in 2010 by The Feminist Press at The City University of New York. 

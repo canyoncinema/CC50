@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './CollectionPageItem.css';
 
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
@@ -68,6 +69,13 @@ class CollectionPageItem extends Component {
 					key: 1
 				})
 			]
+		}
+	}
+
+	componentDidUpdate(nextProps) {
+		if (nextProps.itemId !== this.props.itemId) {
+			// new item, scroll back to top
+			window.scrollTo(0, 0);
 		}
 	}
 
@@ -240,9 +248,11 @@ class CollectionPageItem extends Component {
 									condition: !!item.filmmaker,
 									menuHeader: null,
 									renderContent: () => (
-										<Button key={1} style="default">
-										View Filmmaker Profile
-									</Button>
+										<Link to={'/collection/filmmakers/' + item.filmmaker.id}>
+											<Button key={1} style="default">
+												View Filmmaker Profile
+											</Button>
+										</Link>
 									),
 									omitSectionWrapper: true
 								})}
