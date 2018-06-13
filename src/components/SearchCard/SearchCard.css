@@ -1,6 +1,5 @@
 .SearchCard {
 	display: inline-block;
-	width: 360px;
 	margin-bottom: 40px;
 	margin-right: 40px;
 	font-size: 14px;
@@ -10,6 +9,12 @@
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */  
+
+	width: 360px;
+}
+
+.SearchCard.list {
+	width: 100%;
 }
 
 .SearchCard .media {

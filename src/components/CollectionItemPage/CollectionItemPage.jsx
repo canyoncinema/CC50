@@ -28,17 +28,17 @@ function CollectionItemPage(ComposedComponent) {
 			});
 		}
 
-		conditionallyShow = ({ headersInitialized, condition, menuHeader, renderHeader, renderContent, omitSectionWrapper }) => {
+		conditionallyShow = ({ id, condition, menuHeader, renderHeader, renderContent, omitSectionWrapper }) => {
 			// note: renderHeader gets rendered over menuHeader, while menuHeader is added to this.headers
 			// for side menu rendering
 			if (!renderContent) {
 				throw new Error('Expected renderContent');
 			}
 			if (condition) {
-				if (menuHeader) {
-					this.headers.push(menuHeader);
+				if (menuHeader && !this.state.headersInitialized) {
+					this.headers.push({ content: menuHeader, id });
 				}
-				const id = menuHeader ? 'section-' + (this.headers.length - 1) : null;
+				id = menuHeader ? id : null;
 				return !omitSectionWrapper ?
 				(
 					<section key={id} id={id}>
@@ -114,7 +114,6 @@ function CollectionItemPage(ComposedComponent) {
 										viewMode={viewMode}
 										setViewMode={this.setViewMode}
 										item={item}
-										headersInitialized={headersInitialized}
 										conditionallyShow={this.conditionallyShow}
 										singularItemForm={singularItemForm} />
 								</div>

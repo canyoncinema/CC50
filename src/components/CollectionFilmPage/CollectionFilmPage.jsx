@@ -9,18 +9,20 @@ import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 
 
 class CollectionFilmPage extends Component {
-	shouldComponentUpdate(nextProps) {
-		if (nextProps.headersInitialized && nextProps.item.id === this.props.item.id) {
-				return false;
-		};
-		return true;
-	}
+	// shouldComponentUpdate(nextProps) {
+	// 	if (nextProps.headersInitialized &&
+	// 			nextProps.item.id === this.props.item.id &&
+	// 			nextProps.viewMode === this.props.viewMode) {
+	// 			return false;
+	// 	};
+	// 	return true;
+	// }
 
 	render() {
 		const { headersInitialized, item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		return [
 			conditionallyShow({
-				headersInitialized,
+				id: 'about',
 				condition: !!item.description,
 				menuHeader: 'About the Film',
 				renderContent: () => (
@@ -31,7 +33,7 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				headersInitialized,
+				id: 'about-filmmaker',
 				condition: item.filmmaker && !!item.filmmaker.description,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
@@ -42,7 +44,7 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				headersInitialized,
+				id: 'others',
 				condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
@@ -67,7 +69,7 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				headersInitialized,
+				id: 'ephemera',
 				condition: item.ephemera && item.ephemera.length,
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
@@ -82,7 +84,7 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				headersInitialized,
+				id: 'events',
 				condition: item.events && item.events.length,
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
@@ -97,7 +99,7 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				headersInitialized,
+				id: 'curated-programs',
 				condition: item.programs && item.programs.length,
 				menuHeader: 'Programs',
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,

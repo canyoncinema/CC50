@@ -17,13 +17,13 @@ class CollectionPageItemMenu extends Component {
 		return (
 			<Scrollspy
 				className={isScrollNav ? 'CollectionPageItemMenu fixed' : 'CollectionPageItemMenu'}
-				items={headers.map((h, i) => 'section-' + i)}
+				items={headers.map((h, i) => h.id)}
 				currentClassName="active">
 				{headers.map((header, i) =>
 					<li key={i}>
 						<HashLink
 							scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-							to={'#section-' + i}>{header}</HashLink>
+							to={'#' + header.id}>{header.content}</HashLink>
 					</li>
 				)}
 			</Scrollspy>
