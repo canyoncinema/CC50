@@ -14,9 +14,9 @@ import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
+import CollectionFilmPage from './components/CollectionFilmPage/CollectionFilmPage';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
-import SearchResultsSummary from './components/SearchResultsSummary/SearchResultsSummary';
 
 /*
         <Route exact path="/collection/programs" component={CollectionPage} />
@@ -47,6 +47,9 @@ class App extends Component {
           <MainNav />
           <Route exact path="/" component={HomePage} />
           <Switch>
+            <Route exact path="/collection/films/:itemId" component={({ match }) =>
+              <CollectionFilmPage itemId={match.params.itemId} collectionItems="films" />
+            } />
             <Route exact
               path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"
               component={({match}) =>

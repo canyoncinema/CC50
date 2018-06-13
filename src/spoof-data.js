@@ -76,6 +76,37 @@ const programData = [{
 	]
 }];
 
+const ephemeraData = [{
+	id: 1232,
+	itemType: 'ephemera',
+	title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	photos: [],
+	tags: ['Printed Pieces'],
+	related: [{
+		id: 32,
+		title: 'Barbara Hammer',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		title: 'Michael Wallin',
+		itemType: 'filmmaker'
+	}, {
+		id: 32,
+		title: 'Karry Fisher',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		title: 'Wes Andersen',
+		itemType: 'filmmaker'
+	}]
+}, {
+	id: 1244,
+	itemType: 'ephemera',
+	title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	photos: [],
+	tags: ['Printed Pieces']
+}];
+
 const filmData = [{
 		id: 1239,
 		itemType: 'film',
@@ -102,6 +133,7 @@ const filmData = [{
 		id: 1111
 	},
 	year: '1974',
+	ephemera: ephemeraData,
 	filmmaker: {
 		id: 1111,
 		itemType: 'filmmaker',
@@ -151,37 +183,6 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 	tags: ['16mm', '1970s', 'Color', 'Sound', '16mm', '16mm', '16mm', '16mm', '16mm', '16mm'],
 	creator: 'Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer Barbara Hammer',
 	year: '1974'
-}];
-
-const ephemeraData = [{
-	id: 1232,
-	itemType: 'ephemera',
-	title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
-	photos: [],
-	tags: ['Printed Pieces'],
-	related: [{
-		id: 32,
-		title: 'Barbara Hammer',
-		itemType: 'filmmaker'
-	}, {
-		id: 64,
-		title: 'Michael Wallin',
-		itemType: 'filmmaker'
-	}, {
-		id: 32,
-		title: 'Karry Fisher',
-		itemType: 'filmmaker'
-	}, {
-		id: 64,
-		title: 'Wes Andersen',
-		itemType: 'filmmaker'
-	}]
-}, {
-	id: 1244,
-	itemType: 'ephemera',
-	title: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
-	photos: [],
-	tags: ['Printed Pieces']
 }];
 
 export function getSpoofDataObj(searchVal, id) {

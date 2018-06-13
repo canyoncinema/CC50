@@ -6,7 +6,6 @@ import CollectionContext, { toCollectionSearchLabel } from '../../collection-con
 import withScrollNav from '../withScrollNav/withScrollNav';
 
 import MainNav from '../MainNav/MainNav';
-import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import Search from '../Search/Search';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
