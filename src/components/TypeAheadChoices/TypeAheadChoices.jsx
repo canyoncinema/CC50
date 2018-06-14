@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './TypeAheadChoices.css';
 import { updateQueryString } from '../../utils/query-string';
-import { withRouter } from 'react-router-dom';
 import {
 	ALL_SEARCH_LABEL,
 	FILMS_SEARCH_LABEL,
@@ -27,13 +26,11 @@ class TypeAheadChoices extends Component {
 	}
 
 	componentDidUpdate() {
-		console.log('componentDidUpdate');
 		if (this.updateDebounced) {
 			clearTimeout(this.updateDebounced);
 		}
 
 		this.updateDebounced = setTimeout(() => {
-			console.log('componentDidUpdate, set choiceTexts')
 			this.setState({
 				// choices: [this.props.searchText, this.props.searchText, this.props.searchText]
 				searchText: this.props.searchText,
@@ -68,7 +65,7 @@ class TypeAheadChoices extends Component {
 	}
 
 	render() {
-		const { onChoiceSelect, history } = this.props;
+		const { onChoiceSelect } = this.props;
 		const {
 			choiceTexts, choiceSearchLabels,
 			choiceMatchStartChars, choiceMatchEndChars
@@ -90,7 +87,6 @@ class TypeAheadChoices extends Component {
 								search: encodeURIComponent(choiceText)
 							});
 							onChoiceSelect(choiceText, choiceLabel);
-							history.push(url);
 						}}>
 						<span className="value">
 							{choiceText.slice(0, matchStartChar)}
@@ -105,4 +101,4 @@ class TypeAheadChoices extends Component {
 	}
 }
 
-export default withRouter(TypeAheadChoices);
+export default TypeAheadChoices;

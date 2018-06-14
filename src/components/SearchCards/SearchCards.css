@@ -11,3 +11,14 @@
 .CollectionPage > .CollectionSection > .SearchCards .SearchCard {
     white-space: normal;
 }
+
+/*  On CollectionItemPage  */
+
+.CollectionItemPage .SearchCard:nth-child(2n+2) {
+	margin-right: 0;
+}
+
+.CollectionItemPage .SearchCard {
+	margin-right: 40px;
+	display: inline-block;
+}

@@ -6,17 +6,17 @@ import Scrollspy from 'react-scrollspy';
 import smoothscroll from 'smoothscroll-polyfill';
 
 import withScrollNav from '../withScrollNav/withScrollNav';
-import './CollectionPageItemMenu.css';
+import './CollectionItemPageMenu.css';
 
 // kick it off
 smoothscroll.polyfill();
 
-class CollectionPageItemMenu extends Component {
+class CollectionItemPageMenu extends Component {
 	render() {
 		const { headers, isScrollNav } = this.props;
 		return (
 			<Scrollspy
-				className={isScrollNav ? 'CollectionPageItemMenu fixed' : 'CollectionPageItemMenu'}
+				className={isScrollNav ? 'CollectionItemPageMenu fixed' : 'CollectionItemPageMenu'}
 				items={headers.map((h, i) => h.id)}
 				currentClassName="active">
 				{headers.map((header, i) =>
@@ -31,8 +31,8 @@ class CollectionPageItemMenu extends Component {
 	}
 }
 
-CollectionPageItemMenu.propTypes = {
+CollectionItemPageMenu.propTypes = {
 	headers: PropTypes.array.isRequired
 }
 
-export default withScrollNav(CollectionPageItemMenu);
+export default withScrollNav(CollectionItemPageMenu);

@@ -111,27 +111,30 @@ class HomePage extends Component {
       description: 'Intimate documentary about young women who make papier mache fruit and vegetables in a small factory in Mexico. They have a gringo boss, but the factory is owned by his Mexican wife lorem ipsum and stuff'      
     }];
     return (
-      <div className="HomePage page">
+      <div className="HomePage">
         <Hero active={true}>
-          <div className="container-fluid padded-container">
+          <div className="container padded-container">
             <HomeIntro />
           </div>
         </Hero>
-        <div className="container-fluid padded-container">
+        <div className="container padded-container">
           { upcomingEvents.length ?
-            <Row>
-              <Col sm="12">
-                <h1 className="lead upcoming-events d-flex">
-                  Upcoming events
-                  <span className="ml-auto">
-                    <Button size="default">
-                      See all Events
-                    </Button>
-                  </span>
-                </h1>
-                <EventTiles data={upcomingEvents} />
-              </Col>
-            </Row>
+            [
+              <Row>
+                <Col sm="12">
+                  <h1 className="lead upcoming-events d-flex">
+                    Upcoming events
+                    <span className="ml-auto">
+                      <Button size="default">
+                        See all Events
+                      </Button>
+                    </span>
+                  </h1>
+                </Col>
+              </Row>
+              ,
+              <EventTiles className="single-line" data={upcomingEvents} />
+            ]
           : null }
 
           <Row>
@@ -161,34 +164,31 @@ class HomePage extends Component {
             </Col>
           </Row>
 
-          { newsItems.length ?
-          [<Row key={0}>
-            <Col sm="12">
-              <h1 className="lead d-flex news">
-                News
-                <span className="ml-auto">
-                  <Button size="default">
-                    Read All News
-                  </Button>
-                </span>
-              </h1>
-            </Col>
-          </Row>,
-          <Row key={1}>
-            {
-              optimalColWidths(newsItems.length).map((colWidth) => (
-                newsItems.slice(0, colWidth).map((d, i) => {
-                  return (
-                    <Col sm={12 / colWidth} key={i}>
-                      <NewsTile {...d} key={i} />
-                    </Col>
-                  );
-              })))
-            }
-          </Row>]
+          {
+            newsItems.length ?
+            <h1 className="lead d-flex news">
+              News
+              <span className="ml-auto">
+                <Button size="default">
+                  Read All News
+                </Button>
+              </span>
+            </h1>
+            : null
+          }
+          {
+            optimalColWidths(newsItems.length).map((colWidth) => (
+              newsItems.slice(0, colWidth).map((d, i) => {
+                return (
+                  <Col sm={12 / colWidth} key={i}>
+                    <NewsTile {...d} key={i} />
+                  </Col>
+                );
+            })))
+          }
           : null }
         </div>
-        <Row className="featured-posts">
+        <Row className="no-gutters featured-posts">
           {
             optimalColWidths(featuredPosts.length).map((colWidth) => (
               featuredPosts.slice(0, colWidth).map((d, i) => {
@@ -199,12 +199,6 @@ class HomePage extends Component {
                 );
             })))
           }
-        </Row>
-      
-        <Row>
-          <Col sm="12">
-            <Footer />
-          </Col>
         </Row>
       </div>
     );

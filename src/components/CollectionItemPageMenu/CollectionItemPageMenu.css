@@ -1,13 +1,13 @@
-.CollectionPageItemMenu {
+.CollectionItemPageMenu {
   padding: 70px 0;
 }
 
-.CollectionPageItemMenu.fixed {
+.CollectionItemPageMenu.fixed {
   position: fixed;
   top: 62px;
 }
 
-.CollectionPageItemMenu li {
+.CollectionItemPageMenu li {
   font-size: 16px;
   font-weight: normal;
   line-height: normal;
@@ -17,15 +17,15 @@
   padding: 0;
 }
 
-.CollectionPageItemMenu li a {
+.CollectionItemPageMenu li a {
 	color: var(--black);
 }
 
-.CollectionPageItemMenu li {
+.CollectionItemPageMenu li {
 	margin-bottom: 20px;
 }
 
-.CollectionPageItemMenu li.active a {
+.CollectionItemPageMenu li.active a {
 	font-weight: bold;
 	color: #a5721a;
   color: var(--gold);

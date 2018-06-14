@@ -7,7 +7,7 @@ import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { getSpoofDataObj } from '../../spoof-data';
 import { collectionItemsToSingularTitlecased } from '../../collection-context';
 import MainNav from '../MainNav/MainNav';
-import CollectionPageItemMenu from '../CollectionPageItemMenu/CollectionPageItemMenu';
+import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
 
@@ -92,7 +92,7 @@ function CollectionItemPage(ComposedComponent) {
 			const item = getSpoofDataObj(collectionItems, itemId);
 			const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
 			return (
-				<div className="CollectionPageItem">
+				<div className="CollectionItemPage">
 					<ScrollToTopOnMount />
 					<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
 						<MainNav isCollapsed={true} />
@@ -103,7 +103,7 @@ function CollectionItemPage(ComposedComponent) {
 					<div className="container">
 						<Row>
 							<Col xs={3}>
-								<CollectionPageItemMenu
+								<CollectionItemPageMenu
 									headers={this.headers}
 									headersInitialized={headersInitialized}
 								/>

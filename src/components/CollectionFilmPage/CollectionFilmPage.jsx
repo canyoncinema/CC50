@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
-import EventTile from '../EventTile/EventTile';
+import EventTiles from '../EventTiles/EventTiles';
 import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
+import RentThis from '../RentThis/RentThis';
+import Button from '../Button/Button';
 
 
 class CollectionFilmPage extends Component {
@@ -89,12 +91,9 @@ class CollectionFilmPage extends Component {
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
 				renderContent: () => (
-					item.events.map((e, i) =>
-						<EventTile
-							key={i}
-							{...e}
-						/>
-					)
+					<EventTiles
+						data={item.events}
+					/>
 				)
 			})
 			,
@@ -104,14 +103,25 @@ class CollectionFilmPage extends Component {
 				menuHeader: 'Programs',
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
-					item.programs.map((program, i) =>
-						<SearchCards
-							key={i}
-							viewMode="grid"
-							customColSize={6}
-							data={program}
-						/>
-					)
+					<SearchCards
+						viewMode="grid"
+						customColSize={6}
+						data={item.programs}
+					/>
+				)
+			})
+			,
+			conditionallyShow({
+				id: 'rent',
+				condition: item.rentalFormats && item.rentalFormats.length,
+				menuHeader: <Button style="default" size="small">Rent this Film</Button>,
+				renderContent: () => (
+					<RentThis
+						rentalPrice={item.rentalPrice}
+						rentalPriceIsPublished={item.rentalPriceIsPublished}
+						rentalFormats={item.rentalFormats}
+						rentalFormId={item.rentalFormId}
+					/>
 				)
 			})
 		];

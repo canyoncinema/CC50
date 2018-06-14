@@ -1,3 +1,56 @@
+export const eventData = [{
+	"id": 125234,
+	"startDateTime": "Thu, 17 May 2018 20:30:00 GMT",
+	"name": "Red Shift - Gunvor Nelson + Daughters of Chaos - Marjorie Keller",
+	"facebookUrl": "facebook.com/event-page",
+	"location": {
+		"name": "Roxie Theater",
+		"address": "3117 16th Street, San Francisco"
+	},
+	"ticketPrice": 11,
+	"ticketNote": "Day Pass",
+	"ticketUrl": "http://tickets-website.com",
+	"photos": [
+		"https://i.imgur.com/tD0hhz3.png"
+	],
+	"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
+	"films": []
+}, {
+	"id": 125234,
+	"startDateTime": "Thu, 17 May 2018 20:30:00 GMT",
+	"name": "Red Shift - Gunvor Nelson + Daughters of Chaos - Marjorie Keller",
+	"facebookUrl": "facebook.com/event-page",
+	"location": {
+		"name": "Roxie Theater",
+		"address": "3117 16th Street, San Francisco"
+	},
+	"ticketPrice": 11,
+	"ticketNote": "Day Pass",
+	"ticketUrl": "http://tickets-website.com",
+	"photos": [
+		"https://i.imgur.com/tD0hhz3.png"
+	],
+	"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
+	"films": []
+}, {
+	"id": 125234,
+	"startDateTime": "Thu, 17 May 2018 20:30:00 GMT",
+	"name": "Red Shift - Gunvor Nelson + Daughters of Chaos - Marjorie Keller",
+	"facebookUrl": "facebook.com/event-page",
+	"location": {
+		"name": "Roxie Theater",
+		"address": "3117 16th Street, San Francisco"
+	},
+	"ticketPrice": 11,
+	"ticketNote": "Day Pass",
+	"ticketUrl": "http://tickets-website.com",
+	"photos": [
+		"https://i.imgur.com/tD0hhz3.png"
+	],
+	"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
+	"films": []
+}];
+
 const filmmakerData = [{
 	id: 1111,
 	itemType: 'filmmaker',
@@ -134,6 +187,12 @@ const filmData = [{
 	},
 	year: '1974',
 	ephemera: ephemeraData,
+	events: eventData,
+	programs: programData,
+	rentalPrice: 35,
+	rentalPriceIsPublished: true,
+	rentalFormats: ['16mm', '35mm', 'File'],
+	rentalFormId: 361,
 	filmmaker: {
 		id: 1111,
 		itemType: 'filmmaker',

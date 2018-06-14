@@ -90,11 +90,11 @@ body {
 }
 
 .padded-container {
-  padding: 0 70px; 
+  padding: 0 70px !important; 
 }
 
 .single-line {
-  white-space: nowrap;
+  white-space: nowrap !important;
 }
 
 /* text styles */

@@ -1,0 +1,14 @@
+.EventTiles .EventTile {
+	margin-right: 40px;
+	display: inline-block;
+}
+
+.CollectionItemPage .EventTile {
+	margin-right: 40px;
+	display: inline-block;
+}
+
+.CollectionItemPage .EventTiles .EventTile:nth-child(2n+2) {
+	margin-right: 0;
+}
+
