@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import {
-  withRouter,
-  Link
+  withRouter
 } from 'react-router-dom';
 import './SearchCard.css';
 import $clamp from 'clamp-js';
@@ -98,7 +97,6 @@ class SearchCard extends Component {
 			tags,
 			related,
 			viewMode,
-			customColSize,
 			history
 		} = this.props;
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');

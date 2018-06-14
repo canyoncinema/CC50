@@ -255,6 +255,8 @@ export function getSpoofDataObj(searchVal, id) {
 			return programData.find(findById);
 		case 'ephemera':
 			return ephemeraData.find(findById);
+		default:
+			return {};
 	}
 };
 

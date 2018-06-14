@@ -12,7 +12,6 @@ import EventTiles from '../EventTiles/EventTiles';
 import DarkBox from '../DarkBox/DarkBox';
 import NewsTile from '../NewsTile/NewsTile';
 import FeaturedPost from '../FeaturedPost/FeaturedPost';
-import Footer from '../Footer/Footer';
 
 const optimalColWidths = (num) => {
   const widths = []
@@ -41,11 +40,6 @@ class HomePage extends Component {
     upcomingEvents: events || [],
     newsItems: news || [],
     featuredPosts: featuredPosts || []
-  }
-
-  componentWillUnmount() {
-    console.log('unmount');
-    // this.props.changeMainNavBg('#231f20'); 
   }
 
   componentDidMount() {
@@ -120,7 +114,7 @@ class HomePage extends Component {
         <div className="container padded-container">
           { upcomingEvents.length ?
             [
-              <Row>
+              <Row key={0}>
                 <Col sm="12">
                   <h1 className="lead upcoming-events d-flex">
                     Upcoming events
@@ -133,7 +127,7 @@ class HomePage extends Component {
                 </Col>
               </Row>
               ,
-              <EventTiles className="single-line" data={upcomingEvents} />
+              <EventTiles key={1} className="single-line" data={upcomingEvents} />
             ]
           : null }
 

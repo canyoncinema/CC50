@@ -82,11 +82,13 @@ body {
   margin: 0;
   padding: 0;
   /* desktop only */
-  min-width: 1300px;
+  min-width: 1200px;
   
   font-family: Karla, sans-serif;
   color: #231f20;
   color: var(--black);
+
+  position: relative;
 }
 
 .padded-container {

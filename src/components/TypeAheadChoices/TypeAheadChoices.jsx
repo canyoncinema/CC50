@@ -58,6 +58,12 @@ class TypeAheadChoices extends Component {
 		}, 250);
 	}
 
+	componentWillUnmount() {
+		if (this.updateDebounced) {
+			clearTimeout(this.updateDebounced);
+		}
+	}
+
 	shouldComponentUpdate(nextProps) {
 		console.log('shouldComponentUpdate', nextProps.searchText, this.state.searchText);
 		return nextProps.searchText ?
@@ -70,7 +76,6 @@ class TypeAheadChoices extends Component {
 			choiceTexts, choiceSearchLabels,
 			choiceMatchStartChars, choiceMatchEndChars
 		} = this.state;
-		console.log('choiceTexts', choiceTexts);
 		// TODO: proper search label val
 		return choiceTexts.map((choiceText, i) => {
 					const matchStartChar = choiceMatchStartChars[i],
@@ -81,11 +86,11 @@ class TypeAheadChoices extends Component {
 						key={i}
 						onClick={e => {
 							// TODO: HACK
-							const url = '/collection/' +
-							toCollectionSearchVal(choiceLabel) + '?' +
-							updateQueryString(window.location.search, {
-								search: encodeURIComponent(choiceText)
-							});
+							// const url = '/collection/' +
+							// toCollectionSearchVal(choiceLabel) + '?' +
+							// updateQueryString(window.location.search, {
+							// 	search: encodeURIComponent(choiceText)
+							// });
 							onChoiceSelect(choiceText, choiceLabel);
 						}}>
 						<span className="value">

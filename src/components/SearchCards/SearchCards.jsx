@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 import SearchCard from '../SearchCard/SearchCard';
 import './SearchCards.css';
 
 class SearchCards extends Component {
 	render() {
-		const { data, customColSize, viewMode, searchLabel } = this.props;
+		const { data, customColSize, viewMode } = this.props;
 		return data && data.length ?
 			<div className="SearchCards">
 			{

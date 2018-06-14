@@ -19,12 +19,6 @@ import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
 
-function conditionalHeaderedContent(headers, condition, headerVal) {
-	if (condition) {
-		headers.push(headerVal);
-	}
-}
-
 class CollectionItemPage extends Component {
 	constructor(props) {
 		super(props);
@@ -228,7 +222,7 @@ class CollectionItemPage extends Component {
 								{this.conditionallyShow({
 									condition: item.rentalFormats && item.rentalFormats.length,
 									renderHeader: () => (
-										<Button style="default">
+										<Button className="default">
 											{'Rent This ' + singularItemForm}
 										</Button>
 									),
@@ -250,7 +244,7 @@ class CollectionItemPage extends Component {
 									menuHeader: null,
 									renderContent: () => (
 										<Link to={'/collection/filmmakers/' + item.filmmaker.id}>
-											<Button key={1} style="default">
+											<Button key={1} className="default">
 												View Filmmaker Profile
 											</Button>
 										</Link>

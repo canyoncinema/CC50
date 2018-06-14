@@ -11,17 +11,8 @@ import Button from '../Button/Button';
 
 
 class CollectionFilmPage extends Component {
-	// shouldComponentUpdate(nextProps) {
-	// 	if (nextProps.headersInitialized &&
-	// 			nextProps.item.id === this.props.item.id &&
-	// 			nextProps.viewMode === this.props.viewMode) {
-	// 			return false;
-	// 	};
-	// 	return true;
-	// }
-
 	render() {
-		const { headersInitialized, item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -114,7 +105,7 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'rent',
 				condition: item.rentalFormats && item.rentalFormats.length,
-				menuHeader: <Button style="default" size="small">Rent this Film</Button>,
+				menuHeader: <Button className="default" size="small">Rent this Film</Button>,
 				renderContent: () => (
 					<RentThis
 						rentalPrice={item.rentalPrice}

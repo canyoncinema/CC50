@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './withScrollNav.css';
 
 function withScrollNav(Component, headerHeight=361) {

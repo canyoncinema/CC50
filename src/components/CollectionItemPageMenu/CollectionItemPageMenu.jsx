@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import PropTypes from 'prop-types';
 import Scrollspy from 'react-scrollspy';

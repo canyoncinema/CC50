@@ -34,7 +34,6 @@ class CollectionPage extends Component {
 			search: encodeURIComponent(text)
 		});
 		history.push(path);
-		window.location.replace(path);
 	}
 
 	state = {

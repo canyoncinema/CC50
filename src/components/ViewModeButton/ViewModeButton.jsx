@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CollectionContext from '../../collection-context';
 import './ViewModeButton.css';
 
 import ViewModeList from './list-view-inactive.svg';

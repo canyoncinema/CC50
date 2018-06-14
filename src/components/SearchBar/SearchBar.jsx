@@ -42,14 +42,15 @@ class SearchBar extends Component {
 		// TODO: make reusable
 		// created with React#createRef -> el is accessible via current
 		const inputEl = this.inputRef && this.inputRef.current;
-		const choicesEl = this.choicesRef;
 		const clickedOutsideInput = inputEl && !inputEl.contains(event.target);
-		const clickedOnChoice = event.target.parentElement && (event.target.parentElement.classList.contains('TypeAheadChoiceList') ||
-				event.target.parentElement.parentElement && event.target.parentElement.parentElement.classList.contains('TypeAheadChoiceList'));
+		const clickedOnChoice = event.target.parentElement &&
+			(
+				event.target.parentElement.classList.contains('TypeAheadChoiceList') ||
+				event.target.parentElement.parentElement && event.target.parentElement.parentElement.classList.contains('TypeAheadChoiceList')
+			);
 		// NOTE: cannot be invoked on choice selection.
 		// onChoiceSelect handler needs to be called.
 		if (clickedOutsideInput) {
-			console.log('clickedOnChoice', clickedOnChoice);
 			// TODO: HACK
 			if (!clickedOnChoice) {
 				// this.setState({
@@ -74,16 +75,6 @@ class SearchBar extends Component {
 			clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted
 		});
 	}
-
-	// submitSearch = (text, label) => {
-	// 	console.log('submit searchText', text, label);
-	// 	// TODO: submit search!
-	// 	this.setState({
-	// 		disableInput: true,
-	// 		clickedInsideAutocompletedText: false,
-	// 		submittedSearchText: text
-	// 	})
-	// }
 
 	render() {
 		const {

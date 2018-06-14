@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import './MainNav.css';
 
@@ -48,4 +47,4 @@ const MainNav = ({isCollapsed}) => {
 	);
 };
 
-export default withRouter(MainNav);
+export default MainNav;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import './HomeIntro.css';
 
 // import CollectonContext from '../../collection-context';
@@ -22,6 +23,10 @@ class HomeIntro extends Component {
     });
   }
 
+  submitSearch = (searchText) => {
+    this.props.history.push('/collection?search=' + encodeURIComponent(searchText));
+  }
+
   render() {
     const { searchText } = this.state;
   	return (
@@ -33,6 +38,7 @@ class HomeIntro extends Component {
             searchPlaceholder="Search the collection"
             setSearchText={this.setSearchText}
             searchText={searchText}
+            submitSearch={this.submitSearch}
           />
         </Col>
         <Col m="6">
@@ -49,4 +55,4 @@ class HomeIntro extends Component {
   }
 }
 
-export default HomeIntro;
+export default withRouter(HomeIntro);
