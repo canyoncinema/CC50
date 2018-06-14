@@ -8,7 +8,7 @@ import { getSpoofDataObj } from '../../spoof-data';
 import { collectionItemsToSingularTitlecased } from '../../collection-context';
 import MainNav from '../MainNav/MainNav';
 import withScrollNav from '../withScrollNav/withScrollNav';
-import CollectionPageItemMenu from '../CollectionPageItemMenu/CollectionPageItemMenu';
+import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import Button from '../Button/Button';
 import SearchCards from '../SearchCards/SearchCards';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
@@ -25,7 +25,7 @@ function conditionalHeaderedContent(headers, condition, headerVal) {
 	}
 }
 
-class CollectionPageItem extends Component {
+class CollectionItemPage extends Component {
 	constructor(props) {
 		super(props);
 		this.headers = [];
@@ -91,7 +91,7 @@ class CollectionPageItem extends Component {
 		console.log('item', item);
 		const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
 		return (
-			<div className="CollectionPageItem">
+			<div className="CollectionItemPage">
 				<ScrollToTopOnMount />
 				<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
 					<MainNav isCollapsed={true} />
@@ -102,7 +102,7 @@ class CollectionPageItem extends Component {
 				<div className="container">
 					<Row>
 						<Col xs={3}>
-							<CollectionPageItemMenu
+							<CollectionItemPageMenu
 								headers={this.headers}
 							/>
 						</Col>
@@ -295,4 +295,4 @@ class CollectionPageItem extends Component {
 	}
 }
 
-export default withScrollNav(CollectionPageItem);
+export default withScrollNav(CollectionItemPage);
