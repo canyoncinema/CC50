@@ -171,16 +171,21 @@ class HomePage extends Component {
             : null
           }
           {
-            optimalColWidths(newsItems.length).map((colWidth) => (
-              newsItems.slice(0, colWidth).map((d, i) => {
-                return (
-                  <Col sm={12 / colWidth} key={i}>
-                    <NewsTile {...d} key={i} />
-                  </Col>
-                );
-            })))
+            newsItems.length ?
+            <Row>
+              {
+                optimalColWidths(newsItems.length).map((colWidth) => (
+                  newsItems.slice(0, colWidth).map((d, i) => {
+                    return (
+                      <Col sm={12 / colWidth} key={i}>
+                        <NewsTile {...d} key={i} />
+                      </Col>
+                    );
+                })))
+              }
+            </Row>
+            : null
           }
-          : null }
         </div>
         <Row className="no-gutters featured-posts">
           {
