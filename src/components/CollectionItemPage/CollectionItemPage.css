@@ -14,7 +14,7 @@
 	padding-top: 70px;
 }
 
-.CollectionItemPage .Button {
+.CollectionItemPage .content .Button {
 	margin-top: 45px;
 }
 
@@ -29,5 +29,15 @@
 }
 
 .CollectionItemPage .ViewModeToggler label {
-    padding-right: 6px;
+  padding-right: 6px;
+}
+
+.CollectionItemPage .ViewModeButton {
+	/*width: 38px;*/
+}
+
+.CollectionItemPage .ViewModeButton img {
+  /*padding-right: 2px;*/
+  /*padding-left: 2px;*/
+  /*width: 28px;*/
 }

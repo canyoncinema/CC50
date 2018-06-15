@@ -89,6 +89,9 @@ function CollectionItemPage(ComposedComponent) {
 			const { collectionItems, itemId, isScrollNav } = this.props;
 			const { viewMode, headersInitialized } = this.state;
 			const item = getSpoofDataObj(collectionItems, itemId);
+			if (!item) {
+				throw new Error('Item with ID ' + itemId + ' in ' + collectionItems + ' not found. TODO: 404 page!');
+			}
 			const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
 			return (
 				<div className="CollectionItemPage">

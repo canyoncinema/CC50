@@ -2,6 +2,8 @@
 	margin-right: 0;
 }
 
+/* turn on horizontal scrolling
+
 .CollectionPage > .CollectionSection > .SearchCards {
     white-space: nowrap;
     width: 100%;
@@ -11,6 +13,8 @@
 .CollectionPage > .CollectionSection > .SearchCards .SearchCard {
     white-space: normal;
 }
+
+*/
 
 /*  On CollectionItemPage  */
 

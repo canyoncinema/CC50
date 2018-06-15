@@ -17,6 +17,10 @@
 	width: 100%;
 }
 
+.SearchCard.grid h6 {
+	margin-top: 5px;
+}
+
 .SearchCard .media {
 	height: 223px;
 }
@@ -25,15 +29,15 @@
 
 }
 
-.SearchCard .title {
+.SearchCard .displayName {
 	display: inline-block;
 }
 
-.SearchCard.filmmaker .title {
+.SearchCard.filmmaker .displayName {
 	width: 225px;
 }
 
-.SearchCard.filmmaker .title {
+.SearchCard.filmmaker .displayName {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -50,6 +54,10 @@
 
 .SearchCard.grid .content {
 	height: 277px;
+}
+
+.SearchCard.grid.on-filmmaker-page .content {
+	height: 227px;
 }
 
 .SearchCard .content:hover {
@@ -144,9 +152,9 @@
 }
 
 /* TODO: hack the one-line clamp */
-.SearchCard.list.film .title,
+.SearchCard.list.film .displayName,
 .SearchCard.film .creator,
-.SearchCard.list.filmmaker .title {
+.SearchCard.list.filmmaker .displayName {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -158,8 +166,8 @@
 	width: 295px;
 }
 
-.SearchCard.grid.filmmaker .title,
-.SearchCard.list.filmmaker .title {
+.SearchCard.grid.filmmaker .displayName,
+.SearchCard.list.filmmaker .displayName {
 	width: 225px;
 	display: inline-block !important;
 }

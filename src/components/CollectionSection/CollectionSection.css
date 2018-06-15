@@ -1,6 +1,12 @@
 .CollectionSection {
 	padding: 60px 70px 0;
 	background-color: var(--offwhite);
+
+	/*  enforce desktop design only:
+		avoid card overflows + fix search card widths to
+		preserve desired image sizing
+	*/
+	width: 1300px;
 }
 
 .CollectionPage .CollectionSection:last-child {

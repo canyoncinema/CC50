@@ -15,30 +15,10 @@ import CollectionPageHome from './components/CollectionPageHome/CollectionPageHo
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
 import CollectionFilmPage from './components/CollectionFilmPage/CollectionFilmPage';
+import CollectionFilmmakerPage from './components/CollectionFilmmakerPage/CollectionFilmmakerPage';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
 
-/*
-        <Route exact path="/collection/programs" component={CollectionPage} />
-        <Route exact path="/collection/programs/:id" component={CollectionPage} />
-        
-        <Route exact path="/collection/films" component={CollectionPage} />
-        <Route exact path="/collection/films/:id" component={CollectionPage} />
-
-        <Route exact path="/collection/filmmakers" component={CollectionPage} />
-        <Route exact path="/collection/filmmakers/:id" component={CollectionPage} />
-
-        <Route exact path="/collection/ephemera" component={CollectionPage} />
-        <Route exact path="/collection/ephemera/:id" component={CollectionPage} />
-
-
-        <Route path="/collection" component={CollectionPage}>
-            <Switch>
-              <Route exact path="/films" component={CollectionPageItem} />
-              <Route path="/" component={CollectionPageHome} />
-            </Switch>
-          </Route>
-*/
 class App extends Component {
   render() {
     return (
@@ -48,7 +28,14 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Switch>
             <Route exact path="/collection/films/:itemId" component={({ match }) =>
-              <CollectionFilmPage itemId={match.params.itemId} collectionItems="films" />
+              <CollectionFilmPage
+                itemId={match.params.itemId}
+                collectionItems="films" />
+            } />
+            <Route exact path="/collection/filmmakers/:itemId" component={({ match }) =>
+              <CollectionFilmmakerPage
+                itemId={match.params.itemId}
+                collectionItems="filmmakers" />
             } />
             <Route exact
               path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"
@@ -59,7 +46,7 @@ class App extends Component {
               } />
             <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera)?*" render={({match, location}) => {
               const searchedText = getQueryVal(location.search, 'search');
-              const viewMode = getQueryVal(location.search, 'view');
+              const viewMode = getQueryVal(location.search, 'view') || 'grid';
               return <CollectionPage
                 match={match}
                 nonCollectionItemsString={match.params[1]}
@@ -76,7 +63,7 @@ class App extends Component {
                   } />
                   <Route path="/collection" component={({location}) => {
                     return <CollectionPageHome
-                      viewMode={getQueryVal(location.search, 'view')} />
+                      viewMode={getQueryVal(location.search, 'view') || 'grid'} />
                   }} />
                 </Switch>
               </CollectionPage>

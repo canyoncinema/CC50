@@ -6,6 +6,11 @@
 .ViewModeToggler.dark {
 	color: #231f20;
 	color: var(--black);
+	margin-right: -10px;
+}
+
+.ViewModeToggler.dark .ViewModeButton:not(.active) {
+	opacity: 0.5;
 }
 
 .ViewModeToggler label {

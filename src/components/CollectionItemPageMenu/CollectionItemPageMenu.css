@@ -7,6 +7,10 @@
   top: 62px;
 }
 
+.CollectionItemPageMenu li .Button {
+  margin-top: 20px;
+}
+
 .CollectionItemPageMenu li {
   font-size: 16px;
   font-weight: normal;

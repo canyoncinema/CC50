@@ -8,16 +8,16 @@ import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
+import { COLLECTION_ITEM_LIST_VIEW_MODE } from '../SearchCard/SearchCard';
 
-
-class CollectionFilmPage extends Component {
+class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		return [
 			conditionallyShow({
 				id: 'about',
-				condition: !!item.description,
-				menuHeader: 'About the Film',
+				condition: item.description,
+				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
 					<pre className="rich-text">
 						{item.description}
@@ -26,24 +26,13 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'filmmaker',
-				condition: item.filmmaker && !!item.filmmaker.description,
-				menuHeader: 'About the Filmmaker',
-				renderContent: () => (
-					<pre className="rich-text">
-						{item.filmmaker.description}
-					</pre>
-				)
-			})
-			,
-			conditionallyShow({
-				id: 'filmmaker-profile',
-				condition: item.filmmaker,
+				id: null,
+				condition: item.webAddress,
 				menuHeader: null,
 				renderContent: () => (
-					<Link to={`/collection/filmmakers/${item.filmmaker.id}`}>
+					<Link target="_blank" to={`${item.webAddress}`}>
 						<Button className="default">
-							View Filmmaker Profile
+							Visit Artist's Website
 						</Button>
 					</Link>
 				),
@@ -51,12 +40,12 @@ class CollectionFilmPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'others',
-				condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
-				menuHeader: 'Other Films by this Filmmaker',
+				id: 'films',
+				condition: item.films && item.films.length,
+				menuHeader: 'Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
-						{'Other Films by ' + item.filmmaker.title}
+						Films by this Filmmaker
 					</h3>
 					<span className="ml-auto">
 						<ViewModeToggler
@@ -68,9 +57,10 @@ class CollectionFilmPage extends Component {
 				renderContent: () => (
 					<div className="container no-padding">
 						<SearchCards
-							viewMode={viewMode}
+							viewMode={viewMode || 'list'}
+							isFilmmakerPage={true}
 							customColSize={6}
-							data={item.filmmaker.films.filter(f => f.id !== item.id)} />
+							data={item.films} />
 					</div>
 				)
 			})
@@ -133,4 +123,4 @@ class CollectionFilmPage extends Component {
 	}
 }
 
-export default withScrollNav(CollectionItemPage(CollectionFilmPage));
+export default withScrollNav(CollectionItemPage(CollectionFilmmakerPage));
