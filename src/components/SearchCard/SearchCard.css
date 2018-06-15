@@ -1,5 +1,6 @@
 .SearchCard {
 	display: inline-block;
+	vertical-align: top;
 	margin-bottom: 40px;
 	margin-right: 40px;
 	font-size: 14px;
@@ -53,7 +54,7 @@
 }
 
 .SearchCard.grid .content {
-	height: 277px;
+	height: 286px;
 }
 
 .SearchCard.grid.on-filmmaker-page .content {
@@ -198,6 +199,10 @@
 	margin-bottom: 12px;
 }
 
+.SearchCard.list.on-filmmaker-page h4 {
+	margin-bottom: 16px;
+}
+
 .SearchCard.list .creator {
 	margin: 0;
 }
@@ -210,6 +215,11 @@
 .SearchCard.list .tags {
 	margin: 0;
 	padding-left: 1rem;
+}
+
+.SearchCard.list.on-filmmaker-page .tags {
+	margin-top: 24px;
+	padding-left: 0;	
 }
 
 .SearchCard.list .CarouselPhotoFiller .foreground {
@@ -226,4 +236,45 @@
 
 .SearchCard.list .col-sm-4 + .col-sm-4:not(.order-3) + .col-sm-4 .RelatedLinks {
     padding-left: 1rem;
+}
+
+
+/*  filmmaker films */
+
+.SearchCard.list.on-filmmaker-page {
+	height: 185px;
+}
+
+.SearchCard.list.on-filmmaker-page .description {
+	height: 41px;
+}
+
+.SearchCard.grid.on-filmmaker-page .description {
+	height: 69px;
+}
+
+.SearchCard .filmmaker-film-still,
+.SearchCard .filmmaker-film-still + .filmmaker-content {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.SearchCard.list.on-filmmaker-page .filmmaker-content {
+	width: 515px;
+	height: 185px;
+}
+
+.SearchCard .filmmaker-film-still .media {
+	width: 245px;
+	height: 185px;
+}
+
+.SearchCard.list.on-filmmaker-page .content {
+	height: 185px;
+	padding: 30px;
+}
+
+.SearchCard.list.on-filmmaker-page .main {
+	padding-right: 0;
+	width: 100%;
 }

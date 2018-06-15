@@ -128,6 +128,7 @@ var getFilmData = () => [{
 		displayName: 'Vital Signs',
 		description: 'This film is dedicated to John Wilbert Hammer, Curt McDowell and Vito Russo.',
 		format: '16mm',
+		year: 1999,
 		years: '1990s',
 		image: 'Color',
 		sound: 'Silent',

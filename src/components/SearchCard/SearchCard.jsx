@@ -27,18 +27,23 @@ class SearchCard extends Component {
 	}
 
 	clampLines() {
-		const itemType = this.props.itemType.toLowerCase(),
-					listView = this.props.viewMode === 'list';
+		const listView = this.props.viewMode === 'list';
 		let maxDisplayNameLines, maxDescriptionLines;
-		if (itemType === 'filmmaker') {
-			maxDisplayNameLines = 1;
-			maxDescriptionLines = listView ? 3 : 6;
-		} else if (itemType === 'ephemera') {
-			maxDisplayNameLines = listView ? 2 : 3;
-			maxDescriptionLines = 3;
+		if (this.props.isFilmmakerPage) {
+			maxDescriptionLines = listView ? 2 : 3;
+			maxDisplayNameLines = listView ? 1 : 2;
 		} else {
-			maxDisplayNameLines = listView && itemType === 'film' ? 1 : 2;
-			maxDescriptionLines = 3;
+			const itemType = this.props.itemType.toLowerCase();
+			if (itemType === 'filmmaker') {
+				maxDisplayNameLines = 1;
+				maxDescriptionLines = listView ? 3 : 6;
+			} else if (itemType === 'ephemera') {
+				maxDisplayNameLines = listView ? 2 : 3;
+				maxDescriptionLines = 3;
+			} else {
+				maxDisplayNameLines = listView && itemType === 'film' ? 1 : 2;
+				maxDescriptionLines = 3;
+			}
 		}
 
 		// TODO: debug line clamp lib (removes title if clamps 1 line)
@@ -119,8 +124,8 @@ class SearchCard extends Component {
 					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${id}`;
 					history.push(path);
 				}}>
-				<Row className="no-gutters">
-				<Col sm={listView ? isFilmmakerPage ? 3 :  2 : 12}>
+				<div className={listView && !isFilmmakerPage ? 'row no-gutters' : 'no-gutters'}>
+				<div className={listView ? isFilmmakerPage ? 'filmmaker-film-still' :  'col-sm-2' : ''}>
 					<div className="media">
 						<Carousel
 							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
@@ -128,10 +133,10 @@ class SearchCard extends Component {
 							title={displayName}
 							itemType={itemType} />
 					</div>
-				</Col>
-				<Col sm={listView ? 10 : 12}>
-					<div className={listView ? 'row no-gutters content' : 'no-gutters content'}>
-						<div className={listView ? 'col-sm-4 main' : 'main'}>
+				</div>
+				<div className={listView ? isFilmmakerPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
+					<div className={listView && !isFilmmakerPage ? 'row no-gutters content' : 'no-gutters content'}>
+						<div className={listView && !isFilmmakerPage ? 'col-sm-4 main' : 'main'}>
 							<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
 								{
 									itemType === 'filmmaker' ?
@@ -149,12 +154,13 @@ class SearchCard extends Component {
 										<div className="displayName"
 											ref={this.displayNameRef}
 											title={displayName + (year ? ` (${year})` : '')}>
-											{listView ? displayName + (year ? ` (${year})` : '') : displayName}
+											{listView && !isFilmmakerPage ?
+												displayName + (year ? ` (${year})` : '') :
+												displayName}
 										</div>
 										{
-											year && !listView ?
+											listView && !isFilmmakerPage ? null :
 											<span className="year ml-auto">{year}</span>
-											: null
 										}
 									</h4>
 								</div>
@@ -173,26 +179,20 @@ class SearchCard extends Component {
 								: null
 							}
 						</div>
-							{
-								description ?
-								<div className={listView ?
-									itemType === 'filmmaker' ||
-									(itemType === 'film' && (!tags || !tags.length)) ||
-									(itemType === 'program' && (!filmmakers || !filmmakers.length))
-									?
-										'col-sm-8' : 'col-sm-4'
-									: ''}>
-									<div className="list-center-wrapper">
-										<div className="descriptive">
-											<p className="small"
-												ref={this.descriptionRef}>
-												{description}
-											</p>
-										</div>
-									</div>
+							<div className={listView && !isFilmmakerPage ?
+								itemType === 'filmmaker' ||
+								(itemType === 'film' && (!tags || !tags.length)) ||
+								(itemType === 'program' && (!filmmakers || !filmmakers.length))
+								?
+									'col-sm-8' : 'col-sm-4'
+								: null}>
+								<div className={listView && !isFilmmakerPage ? 'list-center-wrapper' : null}>
+									<p className="small description"
+										ref={this.descriptionRef}>
+										{description}
+									</p>
 								</div>
-								: null
-							}
+							</div>
 							{
 								filmmakers && filmmakers.length ?
 								<div className={listView ? 'col-sm-4 filmmakers' : 'filmmakers'}>
@@ -214,24 +214,9 @@ class SearchCard extends Component {
 							}
 						{
 							tags && tags.length ?
-							<div className={[
-									listView ? 'col-sm-4' : '',
-									listView &&
-										itemTypeClassName === 'ephemera' ?
-											'order-3' :
-										null,
-									listView &&
-										itemTypeClassName === 'ephemera' &&
-										(!related || !related.length) ?
-											'offset-sm-4' :
-										null,
-									listView &&
-										itemTypeClassName === 'film' &&
-										!description ?
-											'offset-sm-4' :
-										null
-								].join(' ')}>
-								<div className="list-center-wrapper">
+							<div className={listView && !isFilmmakerPage ? 'col-sm-4 order-3' : ''}>
+								<div className={listView && !isFilmmakerPage ?
+									'list-center-wrapper' : null}>
 									<div className="tags-wrapper">
 										<div className="tags" ref={this.tagsRef}>
 											{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
@@ -261,8 +246,8 @@ class SearchCard extends Component {
 							: null
 						}
 					</div>
-				</Col>
-				</Row>
+				</div>
+				</div>
 			</div>
 		);
 	}
