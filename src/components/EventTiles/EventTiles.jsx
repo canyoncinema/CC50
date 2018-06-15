@@ -4,14 +4,14 @@ import './EventTiles.css';
 
 import EventTile from '../EventTile/EventTile';
 
-const EventTiles = ({className, data}) => {
+const EventTiles = ({className, customColSize, data}) => {
 	return (
 		<Row className={[className, 'EventTiles'].join(' ')}>
 			{
 				data.map((d, i) => {
 					return (
-						<Col key={i} sm="4">
-							<EventTile {...d} />
+						<Col key={i} sm={customColSize || 4}>
+							<EventTile {...d} key={i} />
 						</Col>
 					);
 				})

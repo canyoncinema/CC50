@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
+import RelatedFilmmakers from '../RelatedFilmmakers/RelatedFilmmakers';
 import EventTiles from '../EventTiles/EventTiles';
+import NewsTiles from '../NewsTiles/NewsTiles';
 import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import RentThis from '../RentThis/RentThis';
@@ -81,21 +83,9 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'events',
-				condition: item.events && item.events.length,
-				menuHeader: 'Events',
-				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
-				renderContent: () => (
-					<EventTiles
-						data={item.events}
-					/>
-				)
-			})
-			,
-			conditionallyShow({
 				id: 'curated-programs',
 				condition: item.programs && item.programs.length,
-				menuHeader: 'Programs',
+				menuHeader: 'Curated Programs',
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<SearchCards
@@ -107,15 +97,39 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'rent',
-				condition: item.rentalFormats && item.rentalFormats.length,
-				menuHeader: <Button className="default" size="small">Rent this Film</Button>,
+				id: 'related-filmmakers',
+				condition: item.relatedFilmmakers && item.relatedFilmmakers.length,
+				menuHeader: 'Relaed Filmmakers',
+				renderHeader: () => <h3>Related Filmmakers</h3>,
 				renderContent: () => (
-					<RentThis
-						rentalPrice={item.rentalPrice}
-						rentalPriceIsPublished={item.rentalPriceIsPublished}
-						rentalFormats={item.rentalFormats}
-						rentalFormId={item.rentalFormId}
+					<RelatedFilmmakers
+						data={item.relatedFilmmakers}
+					/>
+				)
+			})
+			,
+			conditionallyShow({
+				id: 'events',
+				condition: item.events && item.events.length,
+				menuHeader: 'Events',
+				renderHeader: () => <h3>{'Events Featuring this ' + singularItemForm}</h3>,
+				renderContent: () => (
+					<EventTiles
+						customColSize={6}
+						data={item.events}
+					/>
+				)
+			})
+			,
+			conditionallyShow({
+				id: 'news',
+				condition: item.news && item.news.length,
+				menuHeader: 'News',
+				renderHeader: () => <h3>{'News Featuring this ' + singularItemForm}</h3>,
+				renderContent: () => (
+					<NewsTiles
+						customColSize={6}
+						data={item.news}
 					/>
 				)
 			})

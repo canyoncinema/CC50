@@ -97,6 +97,7 @@ class CollectionFilmPage extends Component {
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<EventTiles
+						customColSize={6}
 						data={item.events}
 					/>
 				)

@@ -1,3 +1,26 @@
+export const newsData = [{
+	"id": 235234,
+	"name": "Canyon Cinema 50 January 2018 Events",
+	"created": "Tue, 15 May 2018 20:00:00 GMT",
+	"author": "John Schmidt",
+	"link": "/news/23524",
+	"photo": "https://placekitten.com/g/600/500"
+}, {
+	"id": 235235,
+	"name": "2017 was a remarkable year. 2018 will be even better (but only with your help).",
+	"created": "Tue, 8 May 2018 18:00:00 GMT",
+	"author": "John Schmidt",
+	"link": "/news/23524",
+	"photo": "https://placekitten.com/g/600/500"
+}, {
+	"id": 235236,
+	"name": "Now from Larry Gottheim: Chants and Dances for Hand",
+	"created": "Mon, 7 May 2018 15:00:00 GMT",
+	"author": "John Schmidt",
+	"link": "/news/23524",
+	"photo": "https://placekitten.com/g/600/500"
+}]
+
 export const eventData = [{
 	"id": 125234,
 	"startDateTime": "Thu, 17 May 2018 20:30:00 GMT",
@@ -228,7 +251,56 @@ Welcome To This House, her new feature documentary on the poet Elizabeth Bishop,
 
 Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 	avatar: null,
-	films: filmData
+	films: filmData,
+	ephemera: ephemeraData,
+	programs: programData,
+	news: newsData,
+	relatedFilmmakers: [{
+	id: 1299,
+	itemType: 'filmmaker',
+	displayName: 'Barbara Hammer 2',
+	films: [{
+		id: 1232,
+		itemType: 'film',
+		displayName: 'Dyketactics',
+		description: `A popular lesbian "commercial" 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.
+		\n"The images are varied and very quickly presented in the early part of the film, introducing the characters, if you will. The second half of the film slows down measurably and all of a sudden I found myself holding my breath as I watched the images of love-making sensually and artistically captured."
+		\n- Elizabeth Lay, Plexus`,
+		format: '16mm',
+		years: '1970s',
+		image: 'Color',
+		sound: 'Sound',
+		tags: ['16mm', '1970s', 'Color', 'Sound'],
+		creator: {
+			displayName: 'Barbara Hammer',
+			id: 1111
+		},
+		year: '1974'
+	}]
+}, {
+	id: 1299,
+	itemType: 'filmmaker',
+	displayName: 'Barbara Hammer 3',
+	films: [{
+		id: 1232,
+		itemType: 'film',
+		displayName: 'Dyketactics',
+		description: `A popular lesbian "commercial" 110 images of sensual touching montages in A, B, C, D rolls of "kinaesthetic" editing.
+		\n"The images are varied and very quickly presented in the early part of the film, introducing the characters, if you will. The second half of the film slows down measurably and all of a sudden I found myself holding my breath as I watched the images of love-making sensually and artistically captured."
+		\n- Elizabeth Lay, Plexus`,
+		format: '16mm',
+		years: '1970s',
+		image: 'Color',
+		sound: 'Sound',
+		tags: ['16mm', '1970s', 'Color', 'Sound'],
+		creator: {
+			displayName: 'Barbara Hammer',
+			id: 1111
+		},
+		year: '1974'
+	}]
+}],
+	events: eventData
 }, {
 	id: 1299,
 	itemType: 'filmmaker',
