@@ -6,7 +6,6 @@ class Head extends Component {
     return false;
   }
   render() {
-    console.log('Head');
   	return (
   		<Helmet>
         <meta charSet="utf-8" />

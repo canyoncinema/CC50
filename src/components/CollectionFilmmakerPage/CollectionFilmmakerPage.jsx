@@ -99,7 +99,7 @@ class CollectionFilmmakerPage extends Component {
 			conditionallyShow({
 				id: 'related-filmmakers',
 				condition: item.relatedFilmmakers && item.relatedFilmmakers.length,
-				menuHeader: 'Relaed Filmmakers',
+				menuHeader: 'Related Filmmakers',
 				renderHeader: () => <h3>Related Filmmakers</h3>,
 				renderContent: () => (
 					<RelatedFilmmakers
