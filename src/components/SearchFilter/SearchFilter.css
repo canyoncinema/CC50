@@ -61,6 +61,6 @@
 	display: inline-block;
 }
 
-.SearchFilterMenu {
-
+.SearchFilter .Tag:hover {
+	background-color: rgba(165, 114, 26, 0.8);
 }

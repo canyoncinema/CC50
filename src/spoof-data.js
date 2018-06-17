@@ -154,6 +154,7 @@ const programData = [{
 	}],
 	ephemera: ephemeraData,
 	events: eventData,
+	news: newsData,
 	rentalPrice: 635,
 	rentalFormats: ['16mm'],
 	rentalFormId: 6,
@@ -316,6 +317,16 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 	id: 1299,
 	itemType: 'filmmaker',
 	displayName: 'Barbara Hammer 2',
+	tags: ['16mm', '1970s', 'Color', 'Sound'],
+	description: `Barbara Hammer is a visual artist primarily working in film and video. Her work reveals and celebrates marginalized peoples whose stories have not been told. Her cinema is multi-leveled and engages an audience viscerally and intellectually with the goal of activating them to make social change. She has been honored with 5 retrospectives in the last 3 years: The Museum of Modern Art in New York City, Tate Modern in London, Jeu de Paume in Paris, the Toronto International Film Festival and Kunsthalle Oslo in Norway. Her book Hammer! Making Movies Out of Sex and Life was published in 2010 by The Feminist Press at The City University of New York. 
+
+She is most well-known for making the first explicit lesbian film in 1974, Dyketactics, and for her trilogy of documentary film essays on queer history Nitrate Kisses (1992), Tender Fictions (1995), History Lessons, (2000). 
+
+She teaches at The European Graduate School in Saas-Fee, Switzerland. Her work is represented by the gallery KOW in Berlin, Germany. Company (formerly Capricious88) will exhibit her drawings and paintings in a one-woman show in NYC opening September 11, 2015.
+
+Welcome To This House, her new feature documentary on the poet Elizabeth Bishop, was funded by a Guggenheim Fellowship (2013-14) Welcome To This House premieres at The Museum of Fine Art, Boston and The Museum of Modern Art, New York, 2015.
+
+Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 	films: [{
 		id: 1232,
 		itemType: 'film',
@@ -338,6 +349,7 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 	id: 1299,
 	itemType: 'filmmaker',
 	displayName: 'Barbara Hammer 3',
+	tags: ['16mm', '1970s', 'Color', 'Sound'],
 	films: [{
 		id: 1232,
 		itemType: 'film',

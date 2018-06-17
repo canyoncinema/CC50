@@ -18,10 +18,6 @@
 	cursor: pointer;
 }
 
-.Tag:hover {
-	background-color: rgba(165, 114, 26, 0.8);
-}
-
 .Tag[disabled] {
 	background-color: #888888;
   background-color: var(--light-grey);
