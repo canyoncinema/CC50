@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import $clamp from 'clamp-js';
+import lineClamp from 'line-clamp';
+
 import {
   withRouter
 } from 'react-router-dom';
 import './SearchCard.css';
-import $clamp from 'clamp-js';
-import lineClamp from 'line-clamp';
 
 import { itemTypeToCollectionSearchVal } from '../../collection-context';
+import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
@@ -17,75 +19,6 @@ import RelatedLink from '../RelatedLink/RelatedLink';
 class SearchCard extends Component {
 	constructor(props) {
 		super(props);
-		this.displayNameRef = React.createRef();
-		this.descriptionRef = React.createRef();
-		this.filmmakersRef = React.createRef();
-		this.relatedRef = React.createRef();
-		this.tagsRef = React.createRef();
-
-		this.clampLines = this.clampLines.bind(this);
-	}
-
-	clampLines() {
-		const listView = this.props.viewMode === 'list';
-		let maxDisplayNameLines, maxDescriptionLines;
-		if (this.props.isFilmmakerPage) {
-			maxDescriptionLines = listView ? 2 : 3;
-			maxDisplayNameLines = listView ? 1 : 2;
-		} else {
-			const itemType = this.props.itemType.toLowerCase();
-			if (itemType === 'filmmaker') {
-				maxDisplayNameLines = 1;
-				maxDescriptionLines = listView ? 3 : 6;
-			} else if (itemType === 'ephemera') {
-				maxDisplayNameLines = listView ? 2 : 3;
-				maxDescriptionLines = 3;
-			} else {
-				maxDisplayNameLines = listView && itemType === 'film' ? 1 : 2;
-				maxDescriptionLines = 3;
-			}
-		}
-
-		// TODO: debug line clamp lib (removes title if clamps 1 line)
-		// TODO: debug hack with 2 line clamp libs :(
-		if (this.displayNameRef && this.displayNameRef.current) {
-			// TODO: HACK -- lineClamp does not behave well with 1 line clamps
-			if (maxDisplayNameLines > 1) {
-				lineClamp(this.displayNameRef.current, maxDisplayNameLines);
-			} else {
-				$clamp(this.displayNameRef.current, { clamp: maxDisplayNameLines });
-			}
-		}
-
-		if (this.descriptionRef && this.descriptionRef.current) {
-			$clamp(this.descriptionRef.current, { clamp: maxDescriptionLines });
-			// lineClamp(this.descriptionRef.current, maxDescriptionLines);
-		}
-
-		if (this.filmmakersRef && this.filmmakersRef.current) {
-			$clamp(this.filmmakersRef.current, { clamp: listView ? 3 : 2 });	
-			// lineClamp(this.filmmakersRef.current, 2);
-		}
-
-		// HACK: stupid refs on stateless components
-		// const related = document.querySelectorAll('.RelatedLinks');
-		if (this.relatedRef && this.relatedRef.current) {
-			// $clamp(this.relatedRef.current, { clamp: 2 });	
-			$clamp(this.relatedRef.current, { clamp: listView ? 3 : 2 });
-		}
-
-		if (this.tagsRef && this.tagsRef.current) {
-			$clamp(this.tagsRef.current, { clamp: 1 });	
-			// lineClamp(this.tagsRef.current, 1);
-		}
-	}
-
-  componentDidMount() {
-  	this.clampLines();
-  }
-
-	componentDidUpdate() {
-		this.clampLines();
 	}
 
 	render() {
@@ -103,20 +36,35 @@ class SearchCard extends Component {
 			related,
 			viewMode,
 			history,
-			isFilmmakerPage
+			isItemPage
 		} = this.props;
 		// Note: certain design rules exist for cards on filmmaker pages.
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
-	
-		console.log('viewMode', viewMode);
+		let maxDisplayNameLines, maxDescriptionLines;
+		if (isItemPage) {
+			maxDescriptionLines = listView ? 2 : 3;
+			maxDisplayNameLines = listView ? 1 : 2;
+		} else {
+			if (itemType === 'filmmaker') {
+				maxDisplayNameLines = 1;
+				maxDescriptionLines = listView ? 3 : 6;
+			} else if (itemType === 'ephemera') {
+				maxDisplayNameLines = listView ? 2 : 3;
+				maxDescriptionLines = 3;
+			} else {
+				maxDisplayNameLines = listView && itemType === 'film' ? 1 : 2;
+				maxDescriptionLines = 3;
+			}
+		}
+		console.log('itemType', itemType, 'maxDescriptionLines', maxDescriptionLines)
 		return (
 			<div
 				className={[
 					'SearchCard',
 					itemTypeClassName,
-					isFilmmakerPage ? 'on-filmmaker-page': null,
+					isItemPage ? 'on-filmmaker-page': null,
 					viewMode,
 					].join(' ')}
 				onClick={(e) => {
@@ -124,8 +72,8 @@ class SearchCard extends Component {
 					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${id}`;
 					history.push(path);
 				}}>
-				<div className={listView && !isFilmmakerPage ? 'row no-gutters' : 'no-gutters'}>
-				<div className={listView ? isFilmmakerPage ? 'filmmaker-film-still' :  'col-sm-2' : ''}>
+				<div className={listView ? isItemPage ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
+				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-sm-2' : ''}>
 					<div className="media">
 						<Carousel
 							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
@@ -134,9 +82,9 @@ class SearchCard extends Component {
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView ? isFilmmakerPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
-					<div className={listView && !isFilmmakerPage ? 'row no-gutters content' : 'no-gutters content'}>
-						<div className={listView && !isFilmmakerPage ? 'col-sm-4 main' : 'main'}>
+				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
+					<div className={listView && !isItemPage ? 'row no-gutters content' : 'no-gutters content'}>
+						<div className={listView && !isItemPage ? 'col-sm-4 main' : 'main'}>
 							<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
 								{
 									itemType === 'filmmaker' ?
@@ -146,27 +94,30 @@ class SearchCard extends Component {
 									: null
 								}
 								<div>
-									{	!isFilmmakerPage ?
+									{	!isItemPage ?
 										<h6>{itemType}</h6>
 										: null
 									}
 									<h4 className="d-flex">
-										<div className="displayName"
-											ref={this.displayNameRef}
+										<ClampedDescription
+											className="displayName"
+											maxLines={maxDisplayNameLines}
 											title={displayName + (year ? ` (${year})` : '')}>
-											{listView && !isFilmmakerPage ?
+											{
+												listView && !isItemPage ?
 												displayName + (year ? ` (${year})` : '') :
-												displayName}
-										</div>
+												displayName
+											}
+										</ClampedDescription>
 										{
-											listView && !isFilmmakerPage ? null :
+											listView && !isItemPage ? null :
 											<span className="year ml-auto">{year}</span>
 										}
 									</h4>
 								</div>
 							</div>
 							{
-								filmmaker && !isFilmmakerPage ?
+								filmmaker && !isItemPage ?
 								<div className="creator" title={filmmaker.displayName}>
 									<a className="gold" onClick={(e) => {
 										e.stopPropagation();
@@ -179,48 +130,61 @@ class SearchCard extends Component {
 								: null
 							}
 						</div>
-							<div className={listView && !isFilmmakerPage ?
+						{
+							itemType === 'ephemera' ?
+							null :
+							<div className={listView && !isItemPage ?
 								itemType === 'filmmaker' ||
 								(itemType === 'film' && (!tags || !tags.length)) ||
 								(itemType === 'program' && (!filmmakers || !filmmakers.length))
 								?
 									'col-sm-8' : 'col-sm-4'
 								: null}>
-								<div className={listView && !isFilmmakerPage ? 'list-center-wrapper' : null}>
-									<p className="small description"
-										ref={this.descriptionRef}>
+								<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
+									<ClampedDescription
+										className="description"
+										maxLines={maxDescriptionLines}>
 										{description}
-									</p>
+									</ClampedDescription>
 								</div>
 							</div>
+						}
 							{
 								filmmakers && filmmakers.length ?
 								<div className={listView ? 'col-sm-4 filmmakers' : 'filmmakers'}>
-									<div className="no-gutters" ref={this.filmmakersRef}>
-										<RelatedLinks
-											label="Filmmakers">
-											{filmmakers.map((filmmaker, i) =>
-												<RelatedLink
-													key={i}
-													isLast={i === filmmakers.length - 1}
-													to={`/filmmaker/${filmmaker.id}`}>
-													<span title={filmmaker.name}>{filmmaker.name}</span>
-												</RelatedLink>
-											)}
-										</RelatedLinks>
+									<div className="no-gutters">
+										<ClampedDescription
+											className="no-gutters"
+											maxLines={listView ? 3 : 2}
+											title={displayName + (year ? ` (${year})` : '')}>
+											<RelatedLinks
+												label="Filmmakers">
+												{filmmakers.map((filmmaker, i) =>
+													<RelatedLink
+														key={i}
+														isLast={i === filmmakers.length - 1}
+														to={`/filmmaker/${filmmaker.id}`}>
+														<span title={filmmaker.displayName}>{filmmaker.displayName}</span>
+													</RelatedLink>
+												)}
+											</RelatedLinks>
+										</ClampedDescription>
 									</div>
 								</div>
 								: null
 							}
 						{
 							tags && tags.length ?
-							<div className={listView && !isFilmmakerPage ? 'col-sm-4 order-3' : ''}>
-								<div className={listView && !isFilmmakerPage ?
+							<div className={listView && !isItemPage ?
+									itemType === 'ephemera' && !related ?
+									'col-sm-4 order-3 offset-sm-4' :
+									'col-sm-4 order-3' : ''}>
+								<div className={listView && !isItemPage ?
 									'list-center-wrapper' : null}>
 									<div className="tags-wrapper">
-										<div className="tags" ref={this.tagsRef}>
+										<ClampedDescription className="tags" maxLines={1}>
 											{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
-										</div>
+										</ClampedDescription>
 									</div>
 								</div>
 							</div>
@@ -229,7 +193,9 @@ class SearchCard extends Component {
 						{
 							related && related.length ?
 							<div className={listView ? 'col-sm-4' : ''}>
-								<div className="list-center-wrapper no-gutters" ref={this.relatedRef}>
+								<ClampedDescription
+									className="list-center-wrapper no-gutters"
+									maxLines={listView ? 3 : 2}>
 								<RelatedLinks
 									label="Related">
 									{related.map((rel, i) =>
@@ -241,7 +207,7 @@ class SearchCard extends Component {
 										</RelatedLink>
 									)}
 								</RelatedLinks>
-								</div>
+								</ClampedDescription>
 							</div>
 							: null
 						}

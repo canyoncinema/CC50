@@ -104,14 +104,14 @@ function CollectionItemPage(ComposedComponent) {
 						collectionItems={collectionItems} />
 					<div className="container">
 						<Row>
-							<Col xs={3}>
+							<Col md={3}>
 								<CollectionItemPageMenu
 									headers={this.headers}
 									headersInitialized={headersInitialized}
 								/>
 							</Col>
-							<Col xs={9}>
-								<div className="content">
+							<Col md={9}>
+								<div className="descriptive-content">
 									<ComposedComponent
 										viewMode={viewMode}
 										setViewMode={this.setViewMode}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './RentThis.css';
 
 import Button from '../Button/Button';
 
@@ -50,19 +51,24 @@ const toCollapsedData = rentalOptions => rentalOptions
 
 const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFormId }) =>
 <div className="RentThis d-flex">
-	<div className="price">{rentalPriceIsPublished ?
-		'$' + toPriceString(rentalPrice)
-		: 'Inquire for Pricing'
-	}</div>
-	<small>
-		Available Format{rentalFormats && rentalFormats.length === 1 ?
-		'' : 's'}: 
-		{rentalFormats.join(', ')}
-	</small>
-	<Button style="default" className="ml-auto"
-		to={'http://canyoncinema.com/clients/rental-inquiry-form/' + rentalFormId}>
-		Rent
-	</Button>
+	<div>
+		<div className="price">{rentalPriceIsPublished ?
+			'$' + toPriceString(rentalPrice)
+			: 'Inquire for Pricing'
+		}</div>
+		<div>
+			<small>
+				Available Format{rentalFormats && rentalFormats.length === 1 ?
+				'' : 's'}: {rentalFormats.join(', ')}
+			</small>
+		</div>
+	</div>
+	<div className="ml-auto">
+		<Button className="default" size="small"
+			to={'http://canyoncinema.com/clients/rental-inquiry-form/' + rentalFormId}>
+			Rent
+		</Button>
+	</div>
 </div>;
 
 export default RentThis;

@@ -16,6 +16,7 @@ import CollectionPageItems from './components/CollectionPageItems/CollectionPage
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
 import CollectionFilmPage from './components/CollectionFilmPage/CollectionFilmPage';
 import CollectionFilmmakerPage from './components/CollectionFilmmakerPage/CollectionFilmmakerPage';
+import CollectionProgramPage from './components/CollectionProgramPage/CollectionProgramPage';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
 
@@ -36,6 +37,11 @@ class App extends Component {
               <CollectionFilmmakerPage
                 itemId={match.params.itemId}
                 collectionItems="filmmakers" />
+            } />
+            <Route exact path="/collection/programs/:itemId" component={({ match }) =>
+              <CollectionProgramPage
+                itemId={match.params.itemId}
+                collectionItems="programs" />
             } />
             <Route exact
               path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"

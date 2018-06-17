@@ -44,8 +44,15 @@
 	text-overflow: ellipsis;
 }
 
-.SearchCard p.small {
+.SearchCard .description {
 	line-height: 22px;
+}
+
+.SearchCard.grid:not(.filmmaker) .description {
+	height: 66px;
+}
+.SearchCard.grid .tags-wrapper {
+	margin-top: 15px;
 }
 
 .SearchCard .content {
@@ -64,6 +71,19 @@
 .SearchCard .content:hover {
 	box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.08);
 	cursor: pointer;
+}
+
+.SearchCard .description {
+	font-family: Karla, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.57;
+  letter-spacing: normal;
+  text-align: left;
+  color: #231f20;
+  color: var(--black);
 }
 
 .SearchCard a {
@@ -110,10 +130,6 @@
 
 .SearchCard .avatar {
 	margin-right: 25px;
-}
-
-.SearchCard .tags {
-	margin-top: 0;
 }
 
 .SearchCard .Carousel {
@@ -175,6 +191,7 @@
 
 .SearchCard:not(.list) .filmmakers {
 	height: 48px;
+	margin-top: 15px;
 }
 
 .SearchCard.list .list-center-wrapper {
@@ -207,7 +224,7 @@
 	margin: 0;
 }
 
-.SearchCard.list p.small {
+.SearchCard.list .description {
 	margin-bottom: 0;
 	margin-top: 3px;
 }

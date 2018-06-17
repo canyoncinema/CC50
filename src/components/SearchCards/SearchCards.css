@@ -22,7 +22,7 @@
 	margin-right: 0;
 }
 
-.CollectionItemPage .SearchCard {
+.CollectionItemPage .SearchCard.grid {
 	margin-right: 40px;
 	display: inline-block;
 }

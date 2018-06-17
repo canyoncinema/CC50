@@ -1,3 +1,46 @@
+export const ephemeraData = [{
+	id: 1232,
+	itemType: 'ephemera',
+	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	photos: [],
+	tags: ['Printed Pieces'],
+	related: [{
+		id: 32,
+		displayName: 'Barbara Hammer',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		displayName: 'Michael Wallin',
+		itemType: 'filmmaker'
+	}, {
+		id: 32,
+		displayName: 'Karry Fisher',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		displayName: 'Wes Andersen',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		displayName: 'Wes Andersen 2',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		displayName: 'Wes Andersen 3',
+		itemType: 'filmmaker'
+	}, {
+		id: 64,
+		displayName: 'Wes Andersen 4',
+		itemType: 'filmmaker'
+	}]
+}, {
+	id: 1244,
+	itemType: 'ephemera',
+	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	photos: [],
+	tags: ['Printed Pieces']
+}];
+
 export const newsData = [{
 	"id": 235234,
 	"name": "Canyon Cinema 50 January 2018 Events",
@@ -90,20 +133,31 @@ const programData = [{
 	],
 	filmmakers: [{
 		id: 234,
-		name: 'Coni Beeson'
+		displayName: 'Coni Beeson',
+		tags: ['16mm', '1970s', 'Color', 'Sound'],
+		avatarUrl: 'https://placekitten.com/g/600/500'
 	}, {
 		id: 234,
-		name: 'Dana Plays'
+		displayName: 'Dana Plays',
+		avatarUrl: 'https://placekitten.com/g/600/500'
 	}, {
 		id: 234,
-		name: 'Alice Anne Parker Severson'
+		displayName: 'Alice Anne Parker Severson',
+		tags: ['16mm', '1970s', 'Color', 'Sound']
 	}, {
 		id: 234,
-		name: 'Elizabeth Sherry'
+		displayName: 'Elizabeth Sherry'
 	}, {
 		id: 234,
-		name: 'Bob Smithy Jonesy'
-	}]
+		displayName: 'Bob Smithy Jonesy',
+		avatarUrl: 'https://placekitten.com/g/600/500'
+	}],
+	ephemera: ephemeraData,
+	events: eventData,
+	rentalPrice: 635,
+	rentalFormats: ['16mm'],
+	rentalFormId: 6,
+	rentalPriceIsPublished: true
 }, {
 	id: 1233,
 	itemType: 'program',
@@ -112,37 +166,38 @@ const programData = [{
 	photos: [
 		'https://placeimg.com/640/480/any'
 	]
-}];
-
-const ephemeraData = [{
-	id: 1232,
-	itemType: 'ephemera',
-	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
-	photos: [],
-	tags: ['Printed Pieces'],
-	related: [{
-		id: 32,
-		displayName: 'Barbara Hammer',
-		itemType: 'filmmaker'
-	}, {
-		id: 64,
-		displayName: 'Michael Wallin',
-		itemType: 'filmmaker'
-	}, {
-		id: 32,
-		displayName: 'Karry Fisher',
-		itemType: 'filmmaker'
-	}, {
-		id: 64,
-		displayName: 'Wes Andersen',
-		itemType: 'filmmaker'
-	}]
 }, {
-	id: 1244,
-	itemType: 'ephemera',
-	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	id: 1234,
+	itemType: 'program',
+	displayName: 'Between Pop Culture and the Avant-Garde: Little-Seen Thing that has ever seen!',
 	photos: [],
-	tags: ['Printed Pieces']
+	filmmakers: [{
+		id: 234,
+		displayName: 'Coni Beeson',
+		tags: ['16mm', '1970s', 'Color', 'Sound'],
+		avatarUrl: 'https://placekitten.com/g/600/500'
+	}, {
+		id: 234,
+		displayName: 'Dana Plays',
+		avatarUrl: 'https://placekitten.com/g/600/500'
+	}, {
+		id: 234,
+		displayName: 'Alice Anne Parker Severson',
+		tags: ['16mm', '1970s', 'Color', 'Sound']
+	}, {
+		id: 234,
+		displayName: 'Elizabeth Sherry'
+	}, {
+		id: 234,
+		displayName: 'Bob Smithy Jonesy',
+		avatarUrl: 'https://placekitten.com/g/600/500'
+	}],
+	ephemera: ephemeraData,
+	events: eventData,
+	rentalPrice: 635,
+	rentalFormats: ['16mm'],
+	rentalFormId: 6,
+	rentalPriceIsPublished: true
 }];
 
 var getFilmData = () => [{
@@ -233,6 +288,8 @@ Barbara Hammer lives and works in New York City and Kerhonkson, New York.`,
 		id: 1111
 	}
 }];
+
+programData[0].films = getFilmData();
 
 const filmData = getFilmData();
 

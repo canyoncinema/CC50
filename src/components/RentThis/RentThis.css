@@ -1,0 +1,19 @@
+.RentThis {
+	padding: 35px;
+	background-color: white;
+}
+
+.RentThis small {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.64;
+  color: #4a4a4a;
+  color: var(--darkest-gray);	
+}
+
+.RentThis .price {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 0.8;
+  margin-bottom: 14px;
+}

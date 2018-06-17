@@ -8,19 +8,17 @@ import EventTiles from '../EventTiles/EventTiles';
 import NewsTiles from '../NewsTiles/NewsTiles';
 import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
-import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
-import { COLLECTION_ITEM_LIST_VIEW_MODE } from '../SearchCard/SearchCard';
+import RentThis from '../RentThis/RentThis';
 
-class CollectionFilmmakerPage extends Component {
+class CollectionProgramPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		console.log('viewMode', viewMode);
 		return [
 			conditionallyShow({
 				id: 'about',
 				condition: item.description,
-				menuHeader: 'About the Filmmaker',
+				menuHeader: 'About the Program',
 				renderContent: () => (
 					<pre className="rich-text">
 						{item.description}
@@ -29,23 +27,9 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: null,
-				condition: item.webAddress,
-				menuHeader: null,
-				renderContent: () => (
-					<Link target="_blank" to={`${item.webAddress}`}>
-						<Button className="default">
-							Visit Artist's Website
-						</Button>
-					</Link>
-				),
-				omitSectionWrapper: true
-			})
-			,
-			conditionallyShow({
 				id: 'films',
 				condition: item.films && item.films.length,
-				menuHeader: 'Films by this Filmmaker',
+				menuHeader: 'Films in this Program',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
 						Films by this Filmmaker
@@ -69,10 +53,18 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
+				id: 'filmmakers',
+				condition: item.filmmakers && item.filmmakers.length,
+				menuHeader: 'Filmmakers',
+				renderHeader: () => <h3>Filmmakers in this Program</h3>,
+				renderContent: () => <Filmmakers data={item.filmmakers} />
+			})
+			,
+			conditionallyShow({
 				id: 'ephemera',
 				condition: item.ephemera && item.ephemera.length,
 				menuHeader: 'Ephemera',
-				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
+				renderHeader: () => <h3>Ephemera Related to this Program</h3>,
 				renderContent: () => (
 					item.ephemera.map((e, i) =>
 						<EphemeraMiniCard
@@ -84,36 +76,10 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'curated-programs',
-				condition: item.programs && item.programs.length,
-				menuHeader: 'Curated Programs',
-				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
-				renderContent: () => (
-					<SearchCards
-						viewMode="grid"
-						customColSize={6}
-						data={item.programs}
-					/>
-				)
-			})
-			,
-			conditionallyShow({
-				id: 'related-filmmakers',
-				condition: item.relatedFilmmakers && item.relatedFilmmakers.length,
-				menuHeader: 'Related Filmmakers',
-				renderHeader: () => <h3>Related Filmmakers</h3>,
-				renderContent: () => (
-					<Filmmakers
-						data={item.relatedFilmmakers}
-					/>
-				)
-			})
-			,
-			conditionallyShow({
 				id: 'events',
 				condition: item.events && item.events.length,
 				menuHeader: 'Events',
-				renderHeader: () => <h3>{'Events Featuring this ' + singularItemForm}</h3>,
+				renderHeader: () => <h3>Events Featuring this Program</h3>,
 				renderContent: () => (
 					<EventTiles
 						customColSize={6}
@@ -134,8 +100,23 @@ class CollectionFilmmakerPage extends Component {
 					/>
 				)
 			})
+			,
+			conditionallyShow({
+				id: 'rent',
+				condition: item.rentalFormats && item.rentalFormats.length,
+				menuHeader: <Button className="default" size="small">Rent this Program</Button>,
+				renderHeader: () => <h3>Rent this Program</h3>,
+				renderContent: () => (
+					<RentThis
+						rentalPrice={item.rentalPrice}
+						rentalPriceIsPublished={item.rentalPriceIsPublished}
+						rentalFormats={item.rentalFormats}
+						rentalFormId={item.rentalFormId}
+					/>
+				)
+			})
 		];
 	}
 }
 
-export default withScrollNav(CollectionItemPage(CollectionFilmmakerPage));
+export default withScrollNav(CollectionItemPage(CollectionProgramPage));
