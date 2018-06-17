@@ -29,7 +29,7 @@ class CollectionProgramPage extends Component {
 			conditionallyShow({
 				id: 'films',
 				condition: item.films && item.films.length,
-				menuHeader: 'Films in this Program',
+				menuHeader: 'Films',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
 						Films by this Filmmaker

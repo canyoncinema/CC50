@@ -36,7 +36,7 @@ class EventTile extends Component {
 
 		const dateTime = new Date(startDateTime);
 		return (
-			<div className="EventTile on-hover">
+			<div className="EventTile shadow-on-hover">
 				<div className="banner">
 					<CalDay dateTime={dateTime} />
 					<PhotoFill src={photos[0]} height="100%" />

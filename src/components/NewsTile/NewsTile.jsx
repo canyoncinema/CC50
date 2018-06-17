@@ -20,7 +20,7 @@ class NewsTile extends Component {
 		const { name, created, photo, author } = this.props;
 		const authorByline = author ? ` by ${author}` : null;
 		return (
-			<div className="NewsTile on-hover">
+			<div className="NewsTile shadow-on-hover">
 				<PhotoFill src={photo} height="202px" />
 				<div className="content">
 					<h4 className="hover-effect" ref={this.newsNameRef}>{name}</h4>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Filmmaker from '../Filmmaker/Filmmaker';
 import './Filmmakers.css';
 

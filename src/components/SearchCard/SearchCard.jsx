@@ -63,6 +63,7 @@ class SearchCard extends Component {
 			<div
 				className={[
 					'SearchCard',
+					'shadow-on-hover',
 					itemTypeClassName,
 					isItemPage ? 'on-filmmaker-page': null,
 					viewMode,

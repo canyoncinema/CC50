@@ -99,6 +99,11 @@ body {
   white-space: nowrap !important;
 }
 
+.shadow-on-hover:hover {
+  box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
 /* text styles */
 
 .single-line-ellipsed {

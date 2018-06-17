@@ -1,5 +1,4 @@
-.on-hover:hover {
-	/*color: var(--gold) !important;*/
+.ShadowOnHover {
 	box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.08);
 	cursor: pointer;
 }

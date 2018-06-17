@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import './utils/OnHover.css';
 import { getQueryVal } from './utils/query-string';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
