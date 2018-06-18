@@ -7,10 +7,10 @@ export default () => {
 	return (
 		<div className="BrowseLinksList">
 			<BrowseLink text="Films" search="films" />
-			<BrowseLink text="Filmmakers" search="films" />
-			<BrowseLink text="Curated Programs" search="films" />
-			<BrowseLink text="Ephemera" search="films" />
-			<BrowseLink text="Everything" />
+			<BrowseLink text="Filmmakers" search="filmmakers" />
+			<BrowseLink text="Curated Programs" search="programs" />
+			<BrowseLink text="Ephemera" search="ephemera" />
+			<BrowseLink text="Everything" search="" />
     </div>
 	);
 };
