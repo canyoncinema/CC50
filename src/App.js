@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import store, { history } from './store';
 
 import './App.css';
 import { getQueryVal } from './utils/query-string';
@@ -22,7 +25,8 @@ import Page404 from './components/Page404/Page404';
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Provider store={store}>
+      <ConnectedRouter history={history}>
         <div className="App">
           <MainNav />
           <Route exact path="/" component={HomePage} />
@@ -88,7 +92,8 @@ class App extends Component {
           <Route exact path="/press" component={CollectionPage} />
           <Footer className="no-gutters" />
         </div>
-      </Router>
+      </ConnectedRouter>
+      </Provider>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import Tags from '../Tags/Tags';
 import Tag from '../Tag/Tag';
@@ -7,7 +8,7 @@ import './Filmmaker.css';
 
 class Filmmaker extends Component {
 	render() {
-		const { id, avatarUrl, displayName, tags, history } = this.props;
+		const { id, test, avatarUrl, displayName, tags, history } = this.props;
 		return (
 			<div className="Filmmaker shadow-on-hover"
 				onClick={(e) => {
@@ -22,7 +23,7 @@ class Filmmaker extends Component {
 						url={avatarUrl} />
 				</div>
 				<div className="content">
-					<h4 className="displayName single-line">{displayName}</h4>
+					<h4 className="displayName single-line">{displayName} {test}</h4>
 					{
 						tags && tags.length ?
 						<Tags className="single-line">
@@ -40,4 +41,8 @@ class Filmmaker extends Component {
 	}
 }
 
-export default withRouter(Filmmaker);
+const mapStateToProps = state => ({
+	test: state.test
+});
+
+export default connect(mapStateToProps)(withRouter(Filmmaker));

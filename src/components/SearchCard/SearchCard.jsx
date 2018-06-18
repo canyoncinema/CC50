@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { history } from '../../store';
 import { Row, Col } from 'reactstrap';
 import $clamp from 'clamp-js';
 import lineClamp from 'line-clamp';
@@ -35,7 +36,6 @@ class SearchCard extends Component {
 			tags,
 			related,
 			viewMode,
-			history,
 			isItemPage
 		} = this.props;
 		// Note: certain design rules exist for cards on filmmaker pages.
