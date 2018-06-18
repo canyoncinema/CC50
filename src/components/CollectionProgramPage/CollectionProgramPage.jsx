@@ -32,7 +32,7 @@ class CollectionProgramPage extends Component {
 				menuHeader: 'Films',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
-						Films by this Filmmaker
+						Films in this Program
 					</h3>
 					<span className="ml-auto">
 						<ViewModeToggler

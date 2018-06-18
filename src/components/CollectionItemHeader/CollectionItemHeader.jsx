@@ -14,6 +14,7 @@ class CollectionItemHeader extends Component {
 			collapsed,
 			collectionItems,
 			title,
+			displayName,
 			// films & programs
 			media,
 			format,
@@ -28,19 +29,32 @@ class CollectionItemHeader extends Component {
 			// ephemera
 			types
 		} = this.props;
+		const hasSideComponent = avatar || (media && media.length);
 		return <header className={`CollectionItemHeader container-fluid ${collectionItems} no-gutters`}>
 			<div className="container">
 				<Row>
-					<Col sm={6}>
+					<Col sm={hasSideComponent ? 6 : 12}>
 						<label>{toCollectionSearchLabel(collectionItems)}</label>
-						<h1 className="white">{title}</h1>
+						<h1 className="white">{displayName}</h1>
 						<div className="metadata">
-							MetaComponent
+							{
+								types && types.length ?
+								<Tags>
+									{
+										types.map(type => <Tag>{type}</Tag>)
+									}
+								</Tags>
+								: null
+							}
 						</div>
 					</Col>
-					<Col sm={6}>
-						SideComponent
-					</Col>
+					{
+						hasSideComponent ?
+						<Col sm={6}>
+							SideComponent
+						</Col>
+						: null
+					}
 				</Row>
 			</div>
 		</header>

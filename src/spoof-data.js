@@ -3,7 +3,7 @@ export const ephemeraData = [{
 	itemType: 'ephemera',
 	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
 	photos: [],
-	tags: ['Printed Pieces'],
+	types: ['Printed Pieces'],
 	related: [{
 		id: 32,
 		displayName: 'Barbara Hammer',

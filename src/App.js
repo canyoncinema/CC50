@@ -16,6 +16,7 @@ import CollectionPageItem from './components/CollectionPageItem/CollectionPageIt
 import CollectionFilmPage from './components/CollectionFilmPage/CollectionFilmPage';
 import CollectionFilmmakerPage from './components/CollectionFilmmakerPage/CollectionFilmmakerPage';
 import CollectionProgramPage from './components/CollectionProgramPage/CollectionProgramPage';
+import CollectionEphemeraPage from './components/CollectionEphemeraPage/CollectionEphemeraPage';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
 
@@ -41,6 +42,11 @@ class App extends Component {
               <CollectionProgramPage
                 itemId={match.params.itemId}
                 collectionItems="programs" />
+            } />
+            <Route exact path="/collection/ephemera/:itemId" component={({ match }) =>
+              <CollectionEphemeraPage
+                itemId={match.params.itemId}
+                collectionItems="ephemera" />
             } />
             <Route exact
               path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"
