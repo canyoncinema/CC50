@@ -15,7 +15,6 @@ class CollectionPage extends Component {
 	setSearchText = (e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) => {
 		// TODO: simplify
 		const searchText = searchTextVal || e.target.value;
-		console.log('setSearchText', searchText)
 		this.setState({
 			searchText,
 			searchTextAutocompleted
@@ -65,8 +64,6 @@ class CollectionPage extends Component {
 			searchedText,
 			viewMode
 		} = this.state;
-		console.log('CollectionPage!! collectionItemsString', collectionItemsString);
-		console.log('viewMode', this.props.viewMode, this.state.viewMode)
 
 		return (
 			<CollectionContext.Provider value={this.state}>

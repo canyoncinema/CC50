@@ -8,14 +8,11 @@ import EventTiles from '../EventTiles/EventTiles';
 import NewsTiles from '../NewsTiles/NewsTiles';
 import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
-import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
-import { COLLECTION_ITEM_LIST_VIEW_MODE } from '../SearchCard/SearchCard';
 
 class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		console.log('viewMode', viewMode);
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -62,7 +59,7 @@ class CollectionFilmmakerPage extends Component {
 						<SearchCards
 							viewMode={viewMode || 'list'}
 							isItemPage={true}
-							customColSize={(viewMode == 'list' || !viewMode) ? 12 : 6}
+							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
 							data={item.films} />
 					</div>
 				)

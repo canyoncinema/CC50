@@ -7,7 +7,6 @@ import Button from '../Button/Button';
 
 const CollectionSection = ({ viewMode, searchData, header, description,
 	buttonText, buttonLink }) => {
-	console.log('CollectionSection viewMode', viewMode);
 	return (
 		<div className="CollectionSection">
 			{

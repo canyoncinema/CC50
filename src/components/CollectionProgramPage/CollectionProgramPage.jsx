@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
@@ -46,7 +45,7 @@ class CollectionProgramPage extends Component {
 						<SearchCards
 							viewMode={viewMode || 'list'}
 							isItemPage={true}
-							customColSize={(viewMode == 'list' || !viewMode) ? 12 : 6}
+							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
 							data={item.films} />
 					</div>
 				)

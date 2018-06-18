@@ -23,7 +23,6 @@ class CollectionPageItems extends Component {
 		const { collectionItems, viewMode } = this.props;
 		const { sortIndex } = this.state;
 		const sort = toCollectionSort(collectionItems);
-		console.log('CollectionPageItems viewMode', viewMode)
 		return <CollectionContext.Consumer>
 			{
 				context => 

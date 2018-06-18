@@ -47,10 +47,8 @@ class SearchMenu extends Component {
 		// TODO: make reusable
 		const el = this.wrapperRef && this.wrapperRef.current,
 			el2 = this.labelRef && this.labelRef.current;
-		// console.log('onOutsideClick', el, event.target, event.target.classList)
 		if (el && !el.contains(event.target) &&
 				!el2.contains(event.target)) {
-			// console.log('clicked outside SearchMenu!')
 			this.setState({
 				isOpen: false
 			});

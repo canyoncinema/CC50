@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import testReducer from './test-reducer';
+import filmmakers from './filmmakers-reducer';
 
 export default combineReducers({
-  test: testReducer
+  filmmakers
 });

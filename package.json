@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "base-64": "^0.1.0",
     "bootstrap": "4.1.1",
     "clamp-js": "^0.7.0",
     "connected-react-router": "^4.3.0",

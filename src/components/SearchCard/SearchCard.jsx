@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { history } from '../../store';
-import { Row, Col } from 'reactstrap';
-import $clamp from 'clamp-js';
-import lineClamp from 'line-clamp';
 
 import {
   withRouter
@@ -58,7 +55,6 @@ class SearchCard extends Component {
 				maxDescriptionLines = 3;
 			}
 		}
-		console.log('itemType', itemType, 'maxDescriptionLines', maxDescriptionLines)
 		return (
 			<div
 				className={[
