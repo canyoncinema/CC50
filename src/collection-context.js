@@ -30,6 +30,14 @@ export const toCollectionSearchLabel = val => {
 	}
 };
 
+export const collectionItemsToSingular = label => {
+	if (label === 'filmmakers') return 'filmmaker';
+	if (label === 'films') return 'film';
+	if (label === 'programs') return 'program';
+	if (label === 'ephemera') return 'ephemera';
+	throw new Error('Invalid label ' + label);
+}
+
 export const collectionItemsToSingularTitlecased = label => {
 	if (label === 'filmmakers') return 'Filmmaker';
 	if (label === 'films') return 'Film';

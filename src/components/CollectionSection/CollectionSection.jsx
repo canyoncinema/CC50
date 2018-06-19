@@ -5,7 +5,7 @@ import './CollectionSection.css';
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
-const CollectionSection = ({ viewMode, searchData, header, description,
+const CollectionSection = ({ viewMode, itemType, searchData, header, description,
 	buttonText, buttonLink }) => {
 	return (
 		<div className="CollectionSection">
@@ -29,6 +29,7 @@ const CollectionSection = ({ viewMode, searchData, header, description,
 			{
 				searchData && searchData.length ?
 				<SearchCards
+					itemType={itemType}
 					viewMode={viewMode}
 					data={searchData} />
 				: null

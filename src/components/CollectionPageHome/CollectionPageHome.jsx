@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  filmmakers: state.filmmakers
+  filmmakerData: state.filmmakers.data
 });
 
 class CollectionPageHome extends Component {
@@ -18,40 +18,52 @@ class CollectionPageHome extends Component {
   }
 
   render() {
-    const { viewMode } = this.props;
+    const { viewMode, filmmakerData } = this.props;
+    console.log('filmmakerData', filmmakerData);
+    const filmData = getSpoofDataList('films'),
+          programData = getSpoofDataList('programs'),
+          ephemeraData = getSpoofDataList('ephemera');
   	return [
-  		<CollectionSection key={0}
-        viewMode={viewMode}
-        header="Recently Added Films"
-        description="New acquisitions to the Canyon Cinema collection"
-        buttonText="See all films"
-        buttonLink="/collection/films"
-        searchData={getSpoofDataList('films')}
-      />,
+  		filmData && filmData.length ?
+        <CollectionSection key={0}
+          viewMode={viewMode}
+          header="Recently Added Films"
+          description="New acquisitions to the Canyon Cinema collection"
+          buttonText="See all films"
+          buttonLink="/collection/films"
+          itemType="film"
+          searchData={filmData}
+        /> : null,
+      filmmakerData && filmmakerData.length ?
       <CollectionSection key={1}
         viewMode={viewMode}
         header="Recently Added Filmmakers"
         description="Spotlight on some of Canyon Cinema’s filmmakers"
         buttonText="See all filmmakers"
         buttonLink="/collection/filmmakers"
-        searchData={getSpoofDataList('filmmakers')}
-      />,
+        itemType="filmmaker"
+        searchData={filmmakerData}
+      /> : null,
+      programData && programData.length ?
       <CollectionSection key={2}
         viewMode={viewMode}
         header="Recently Added Curated Programs"
         description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
         buttonText="See all curated programs"
         buttonLink="/collection/programs"
-        searchData={getSpoofDataList('programs')}
-      />,
+        itemType="program"
+        searchData={programData}
+      /> : null,
+      ephemeraData && ephemeraData.length ?
       <CollectionSection key={3}
         viewMode={viewMode}
         header="Recently Added Ephemera"
         description="Printed pieces, photos, stills, videos, and other related materials"
         buttonText="See all ephemera"
         buttonLink="/collection/ephemera"
-        searchData={getSpoofDataList('ephemera')}
-      />
+        itemType="ephemera"
+        searchData={ephemeraData}
+      /> : null
   	];
   }
 }

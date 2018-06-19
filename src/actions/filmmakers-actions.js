@@ -16,8 +16,10 @@ function fetchFilmmakers() {
 	}
 }
 
-function receiveFilmmakers(data) {
-	console.log('receiveFilmmakers', data);
+function receiveFilmmakers(payload) {
+	let data = payload['ns2:abstract-common-list']['list-item'];
+	if (data.length === undefined) data = [data];
+	console.log('data', data);
 	return {
 		type: RECEIVED_FILMMAKERS,
 		data
