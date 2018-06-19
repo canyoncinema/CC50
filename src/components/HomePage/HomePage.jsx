@@ -89,7 +89,6 @@ class HomePage extends Component {
 
   render() {
     const { upcomingEvents, newsItems, featuredPosts } = this.state;
-    console.log('upcomingEvents', upcomingEvents);
 
     var spotlightData = [{
       name: 'Portland (1996)',

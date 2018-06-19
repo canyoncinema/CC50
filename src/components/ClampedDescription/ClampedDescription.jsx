@@ -20,7 +20,6 @@ class ClampedDescription extends Component {
 
 	render() {
 		const { children, className, title, maxLines } = this.props;
-		console.log(className, maxLines);
 		return (
 			<div
 				ref={this.ref}

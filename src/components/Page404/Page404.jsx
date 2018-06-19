@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Page404 = () => {
-	console.log('Page404');
 	return (
 		<div className="Page404">
 			<h1>Oops!</h1>

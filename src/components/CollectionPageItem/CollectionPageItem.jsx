@@ -82,7 +82,6 @@ class CollectionItemPage extends Component {
 		const { collectionItems, itemId, isScrollNav } = this.props;
 		const { viewMode } = this.state;
 		const item = getSpoofDataObj(collectionItems, itemId);
-		console.log('item', item);
 		const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
 		return (
 			<div className="CollectionItemPage">

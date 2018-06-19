@@ -25,7 +25,6 @@ class SearchFilter extends Component {
 			const obj = {};
 			obj[FIELD_VALUE_ID] = !prevState.filtersDisabled[FIELD_VALUE_ID];
 			const newFiltersDisabled = Object.assign(prevState.filtersDisabled, obj);
-			console.log('newFiltersDisabled', newFiltersDisabled);
 			return {
 				filtersDisabled: newFiltersDisabled
 			};

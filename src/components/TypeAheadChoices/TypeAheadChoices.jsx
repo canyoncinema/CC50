@@ -65,7 +65,6 @@ class TypeAheadChoices extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		console.log('shouldComponentUpdate', nextProps.searchText, this.state.searchText);
 		return nextProps.searchText ?
 			nextProps.searchText.trim() !== this.state.searchText.trim() : false;
 	}

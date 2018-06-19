@@ -15,15 +15,14 @@ import { COLLECTION_ITEM_LIST_VIEW_MODE } from '../SearchCard/SearchCard';
 class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		console.log('viewMode', viewMode);
 		return [
 			conditionallyShow({
 				id: 'about',
-				condition: item.description,
+				condition: item.bioNote,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.description}
+						{item.bioNote}
 					</pre>
 				)
 			})
@@ -33,7 +32,7 @@ class CollectionFilmmakerPage extends Component {
 				condition: item.webAddress,
 				menuHeader: null,
 				renderContent: () => (
-					<Link target="_blank" to={`${item.webAddress}`}>
+					<Link className="section-button" target="_blank" to={`${item.webAddress}`}>
 						<Button className="default">
 							Visit Artist's Website
 						</Button>

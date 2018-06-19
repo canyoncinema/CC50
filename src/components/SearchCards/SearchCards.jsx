@@ -6,7 +6,7 @@ import './SearchCards.css';
 
 class SearchCards extends Component {
 	render() {
-		const { data, customColSize, customColWidth, viewMode, isItemPage } = this.props;
+		const { itemType, data, customColSize, customColWidth, viewMode, isItemPage } = this.props;
 		if (customColSize && customColWidth) {
 			return data && data.length ?
 			<Row className="SearchCards">
@@ -15,8 +15,10 @@ class SearchCards extends Component {
 						<div key={i} className={'col-'+customColWidth+'-'+customColSize}>
 							<SearchCard
 								key={i}
+								itemType={itemType}
 								isItemPage={isItemPage}
 								viewMode={viewMode}
+								data={d}
 								{...d} />
 						</div>
 					)
@@ -33,8 +35,10 @@ class SearchCards extends Component {
 						<Col key={i} xl={customColSize}>
 							<SearchCard
 								key={i}
+								itemType={itemType}
 								isItemPage={isItemPage}
 								viewMode={viewMode}
+								data={d}
 								{...d} />
 						</Col>
 					)
@@ -48,8 +52,10 @@ class SearchCards extends Component {
 				data.map((d, i) =>
 					<SearchCard
 						key={i}
+						itemType={itemType}
 						isItemPage={isItemPage}
 						viewMode={viewMode}
+						data={d}
 						{...d} />
 				)
 			}

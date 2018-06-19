@@ -9,6 +9,11 @@ import {
 import './SearchCard.css';
 
 import { itemTypeToCollectionSearchVal } from '../../collection-context';
+
+import FilmmakerContent from './FilmmakerContent';
+import FilmContent from './FilmContent';
+import EphemeraContent from './EphemeraContent';
+import ProgramContent from './ProgramContent';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
@@ -23,6 +28,7 @@ class SearchCard extends Component {
 
 	render() {
 		const {
+			data,
 			id,
 			itemType,
 			photos,
@@ -42,23 +48,6 @@ class SearchCard extends Component {
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
-		let maxDisplayNameLines, maxDescriptionLines;
-		if (isItemPage) {
-			maxDescriptionLines = listView ? 2 : 3;
-			maxDisplayNameLines = listView ? 1 : 2;
-		} else {
-			if (itemType === 'filmmaker') {
-				maxDisplayNameLines = 1;
-				maxDescriptionLines = listView ? 3 : 6;
-			} else if (itemType === 'ephemera') {
-				maxDisplayNameLines = listView ? 2 : 3;
-				maxDescriptionLines = 3;
-			} else {
-				maxDisplayNameLines = listView && itemType === 'film' ? 1 : 2;
-				maxDescriptionLines = 3;
-			}
-		}
-		console.log('itemType', itemType, 'maxDescriptionLines', maxDescriptionLines)
 		return (
 			<div
 				className={[
@@ -85,135 +74,38 @@ class SearchCard extends Component {
 				</div>
 				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
 					<div className={listView && !isItemPage ? 'row no-gutters content' : 'no-gutters content'}>
-						<div className={listView && !isItemPage ? 'col-sm-4 main' : 'main'}>
-							<div className={itemType === 'filmmaker' ? 'd-flex' : null}>
-								{
-									itemType === 'filmmaker' ?
-									<div className="avatar">
-										<FilmmakerAvatar url={avatar} />
-									</div>
-									: null
-								}
-								<div>
-									{	!isItemPage ?
-										<h6>{itemType}</h6>
-										: null
-									}
-									<h4 className="d-flex">
-										<ClampedDescription
-											className="displayName"
-											maxLines={maxDisplayNameLines}
-											title={displayName + (year ? ` (${year})` : '')}>
-											{
-												listView && !isItemPage ?
-												displayName + (year ? ` (${year})` : '') :
-												displayName
-											}
-										</ClampedDescription>
-										{
-											listView && !isItemPage ? null :
-											<span className="year ml-auto">{year}</span>
-										}
-									</h4>
-								</div>
-							</div>
-							{
-								filmmaker && !isItemPage ?
-								<div className="creator" title={filmmaker.displayName}>
-									<a className="gold" onClick={(e) => {
-										e.stopPropagation();
-										const path = `/collection/filmmakers/${filmmaker.id}`;
-										history.push(path);
-									}}>
-										{filmmaker.displayName}
-									</a>
-								</div>
-								: null
-							}
-						</div>
+						{
+							itemType === 'filmmaker' ?
+							<FilmmakerContent
+								isItemPage={isItemPage}
+								viewMode={viewMode}
+								{...data}
+							/> : null
+						}
+						{
+							itemType === 'film' ?
+							<FilmContent
+								isItemPage={isItemPage}
+								viewMode={viewMode}
+								{...data}
+							/> : null
+						}
 						{
 							itemType === 'ephemera' ?
-							null :
-							<div className={listView && !isItemPage ?
-								itemType === 'filmmaker' ||
-								(itemType === 'film' && (!tags || !tags.length)) ||
-								(itemType === 'program' && (!filmmakers || !filmmakers.length))
-								?
-									'col-sm-8' : 'col-sm-4'
-								: null}>
-								<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
-									<ClampedDescription
-										className="description"
-										maxLines={maxDescriptionLines}>
-										{description}
-									</ClampedDescription>
-								</div>
-							</div>
-						}
-							{
-								filmmakers && filmmakers.length ?
-								<div className={listView ? 'col-sm-4 filmmakers' : 'filmmakers'}>
-									<div className="no-gutters">
-										<ClampedDescription
-											className="no-gutters"
-											maxLines={listView ? 3 : 2}
-											title={displayName + (year ? ` (${year})` : '')}>
-											<RelatedLinks
-												label="Filmmakers">
-												{filmmakers.map((filmmaker, i) =>
-													<RelatedLink
-														key={i}
-														isLast={i === filmmakers.length - 1}
-														to={`/filmmaker/${filmmaker.id}`}>
-														<span title={filmmaker.displayName}>{filmmaker.displayName}</span>
-													</RelatedLink>
-												)}
-											</RelatedLinks>
-										</ClampedDescription>
-									</div>
-								</div>
-								: null
-							}
-						{
-							tags && tags.length ?
-							<div className={listView && !isItemPage ?
-									itemType === 'ephemera' && !related ?
-									'col-sm-4 order-3 offset-sm-4' :
-									'col-sm-4 order-3' : ''}>
-								<div className={listView && !isItemPage ?
-									'list-center-wrapper' : null}>
-									<div className="tags-wrapper">
-										<ClampedDescription className="tags" maxLines={1}>
-											{tags.map((tag, i) => <Tag key={i}>{tag}</Tag>)}
-										</ClampedDescription>
-									</div>
-								</div>
-							</div>
-							: null
+							<EphemeraContent
+								viewMode={viewMode}
+								{...data}
+							/> : null
 						}
 						{
-							related && related.length ?
-							<div className={listView ? 'col-sm-4' : ''}>
-								<ClampedDescription
-									className="list-center-wrapper no-gutters"
-									maxLines={listView ? 3 : 2}>
-								<RelatedLinks
-									label="Related">
-									{related.map((rel, i) =>
-										<RelatedLink
-											key={i}
-											isLast={i === related.length - 1}
-											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-											<span title={rel.displayName}>{rel.displayName}</span>
-										</RelatedLink>
-									)}
-								</RelatedLinks>
-								</ClampedDescription>
-							</div>
-							: null
+							itemType === 'program' ?
+							<ProgramContent
+								viewMode={viewMode}
+								{...data}
+							/> : null
 						}
 					</div>
-				</div>
+					</div>
 				</div>
 			</div>
 		);

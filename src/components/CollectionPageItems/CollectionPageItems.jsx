@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import Sort from '../Sort/Sort';
-import CollectionContext, { toCollectionSearchLabel, toCollectionSort } from '../../collection-context';
+import CollectionContext, { toCollectionSearchLabel, toCollectionSort, collectionItemsToSingular } from '../../collection-context';
 
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
@@ -23,7 +23,6 @@ class CollectionPageItems extends Component {
 		const { collectionItems, viewMode } = this.props;
 		const { sortIndex } = this.state;
 		const sort = toCollectionSort(collectionItems);
-		console.log('CollectionPageItems viewMode', viewMode)
 		return <CollectionContext.Consumer>
 			{
 				context => 
@@ -39,6 +38,7 @@ class CollectionPageItems extends Component {
 						: null
 					}
 					<CollectionSection
+						itemType={collectionItemsToSingular(collectionItems)}
 						viewMode={viewMode} 
 						searchData={getSpoofDataList(collectionItems)}/>
 				</div>

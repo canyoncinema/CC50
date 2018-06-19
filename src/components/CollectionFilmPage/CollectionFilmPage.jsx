@@ -41,7 +41,7 @@ class CollectionFilmPage extends Component {
 				condition: item.filmmaker,
 				menuHeader: null,
 				renderContent: () => (
-					<Link to={`/collection/filmmakers/${item.filmmaker.id}`}>
+					<Link className="section-button" to={`/collection/filmmakers/${item.filmmaker.id}`}>
 						<Button className="default">
 							View Filmmaker Profile
 						</Button>
@@ -121,6 +121,7 @@ class CollectionFilmPage extends Component {
 				id: 'rent',
 				condition: item.rentalFormats && item.rentalFormats.length,
 				menuHeader: <Button className="default" size="small">Rent this Film</Button>,
+				renderHeader: () => <h3>Rent this Film</h3>,
 				renderContent: () => (
 					<RentThis
 						rentalPrice={item.rentalPrice}
