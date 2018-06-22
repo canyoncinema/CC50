@@ -31,19 +31,19 @@ class App extends Component {
           <MainNav />
           <Route exact path="/" component={HomePage} />
           <Switch>
-            <Route exact path="/collection/films/:itemId" component={({ match }) =>
+            <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
               <CollectionFilmPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="films" />
             } />
-            <Route exact path="/collection/filmmakers/:itemId" component={({ match }) =>
+            <Route exact path="/collection/filmmakers/:shortIdentifier" component={({ match }) =>
               <CollectionFilmmakerPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="filmmakers" />
             } />
-            <Route exact path="/collection/programs/:itemId" component={({ match }) =>
+            <Route exact path="/collection/programs/:shortIdentifier" component={({ match }) =>
               <CollectionProgramPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="programs" />
             } />
             <Route exact

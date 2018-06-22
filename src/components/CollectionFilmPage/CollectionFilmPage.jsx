@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import withScrollNav from '../withScrollNav/withScrollNav';
+
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import EventTiles from '../EventTiles/EventTiles';
@@ -8,36 +8,72 @@ import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
-
+import URNRelatedField from '../URNRelatedField/URNRelatedField';
 
 class CollectionFilmPage extends Component {
+	// componentDidMount() {
+	// 	this.props.indicateHeadersInitialized();
+	// }
+
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	return !nextProps.headersInitialized;
+	// }
+
+	state = {
+		filmmaker: null,
+		filmmakerFilms: null
+	}
+
+	setFilmmaker = (filmmaker) => {
+		this.setState({ filmmaker });
+	}
+
+	setFilmmakerFilms = (films) => {
+		// TODO: MAKE THIS REAL
+		this.setState({
+			filmmakerFilms: films
+		})
+	}
+
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { filmmaker } = this.state;
 		return [
 			conditionallyShow({
 				id: 'about',
-				condition: !!item.description,
+				order: 0,
+				condition: !!item.workDescription,
 				menuHeader: 'About the Film',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.description}
+						{item.workDescription}
 					</pre>
 				)
 			})
 			,
+			<URNRelatedField
+				key="filmmaker-data"
+				refName={item &&
+					item.creatorGroupList &&
+					item.creatorGroupList.creatorGroup &&
+					item.creatorGroupList.creatorGroup.creator}
+				setData={this.setFilmmaker} />
+			,
 			conditionallyShow({
 				id: 'filmmaker',
-				condition: item.filmmaker && !!item.filmmaker.description,
+				order: 1,
+				condition: filmmaker && filmmaker.bioNote,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.filmmaker.description}
+						{filmmaker.bioNote}
 					</pre>
 				)
 			})
 			,
 			conditionallyShow({
 				id: 'filmmaker-profile',
+				order: 2,
 				condition: item.filmmaker,
 				menuHeader: null,
 				renderContent: () => (
@@ -52,6 +88,7 @@ class CollectionFilmPage extends Component {
 			,
 			conditionallyShow({
 				id: 'others',
+				order: 3,
 				condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
@@ -77,6 +114,7 @@ class CollectionFilmPage extends Component {
 			,
 			conditionallyShow({
 				id: 'ephemera',
+				order: 4,
 				condition: item.ephemera && item.ephemera.length,
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
@@ -92,6 +130,7 @@ class CollectionFilmPage extends Component {
 			,
 			conditionallyShow({
 				id: 'events',
+				order: 5,
 				condition: item.events && item.events.length,
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
@@ -105,6 +144,7 @@ class CollectionFilmPage extends Component {
 			,
 			conditionallyShow({
 				id: 'curated-programs',
+				order: 6,
 				condition: item.programs && item.programs.length,
 				menuHeader: 'Programs',
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
@@ -119,6 +159,7 @@ class CollectionFilmPage extends Component {
 			,
 			conditionallyShow({
 				id: 'rent',
+				order: 7,
 				condition: item.rentalFormats && item.rentalFormats.length,
 				menuHeader: <Button className="default" size="small">Rent this Film</Button>,
 				renderContent: () => (
@@ -134,4 +175,4 @@ class CollectionFilmPage extends Component {
 	}
 }
 
-export default withScrollNav(CollectionItemPage(CollectionFilmPage));
+export default CollectionItemPage(CollectionFilmPage);

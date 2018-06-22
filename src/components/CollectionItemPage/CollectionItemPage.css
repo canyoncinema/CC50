@@ -14,7 +14,8 @@
 	padding-top: 70px;
 }
 
-.CollectionItemPage .content > a {
+.CollectionItemPage .content > a,
+.CollectionItemPage .section-button {
 	display: inline-block;
 	margin-top: 45px;
 }

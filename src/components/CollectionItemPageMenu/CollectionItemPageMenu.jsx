@@ -13,12 +13,13 @@ smoothscroll.polyfill();
 class CollectionItemPageMenu extends Component {
 	render() {
 		const { headers, isScrollNav } = this.props;
+		const orderedHeaders = headers.filter(h => !!h);
 		return (
 			<Scrollspy
 				className={isScrollNav ? 'CollectionItemPageMenu fixed' : 'CollectionItemPageMenu'}
-				items={headers.map((h, i) => h.id)}
+				items={orderedHeaders.map((h, i) => h.id)}
 				currentClassName="active">
-				{headers.map((header, i) =>
+				{orderedHeaders.map((header, i) =>
 					<li key={i}>
 						<HashLink
 							scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}

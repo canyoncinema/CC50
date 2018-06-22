@@ -8,23 +8,38 @@ function withScrollNav(Component, headerHeight=361) {
 			isScrollNav: false
 		}
 
+		toggleCollapsedNavTimeout = null
+
+		toggle = () => {
+			// console.log('headerHeight', headerHeight);
+      if (window.scrollY >= headerHeight &&
+      		!this.state.isScrollNav) {
+      	this.setState({
+      		isScrollNav: true
+      	});
+      } else if (window.scrollY < headerHeight &&
+      		this.state.isScrollNav) {
+      	this.setState({
+      		isScrollNav: false
+      	});
+      }
+		}
+
+		toggleCollapsedNav = (e) => {
+			// if (this.toggleCollapsedNavTimeout) {
+			// 	clearTimeout(this.toggleCollapsedNavTimeout);
+			// 	this.toggleCollapsedNavTimeout = null;
+			// }
+			// this.toggleCollapsedNavTimeout = setTimeout(() => this.toggle, 0);
+			this.toggle();
+    }
+
 		componentDidMount() {
-	    this.toggleCollapsedNav = window.addEventListener('scroll', (e) => {
-	      if (window.scrollY >= headerHeight &&
-	      		!this.state.isScrollNav) {
-	      	this.setState({
-	      		isScrollNav: true
-	      	});
-	      } else if (window.scrollY < headerHeight &&
-	      		this.state.isScrollNav) {
-	      	this.setState({
-	      		isScrollNav: false
-	      	});
-	      }
-	    });
+	    this.toggleCollapsedNav = window.addEventListener('scroll', this.toggleCollapsedNav);
 	  }
 
 	  componentWillUnmount() {
+			clearTimeout(this.toggleCollapsedNavTimeout);
 	  	window.removeEventListener('scroll', this.toggleCollapsedNav);
 	  }
 

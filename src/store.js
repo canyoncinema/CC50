@@ -5,6 +5,10 @@ import { createBrowserHistory } from 'history';
 import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import Config from './config';
+const env = process.env.NODE_ENV || 'development';
+export const config = new Config(env);
+
 export const history = createBrowserHistory();
 
 const initialState = {};

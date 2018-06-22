@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CollectionSection from '../CollectionSection/CollectionSection';
 import { getFilmmakers } from '../../actions/filmmakers-actions';
+import { getFilms } from '../../actions/films-actions';
 import { getSpoofDataList } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
-  getFilmmakers: () => dispatch(getFilmmakers())
+  getFilmmakers: () => dispatch(getFilmmakers()),
+  getFilms: () => dispatch(getFilms())
 })
 
 const mapStateToProps = state => ({
-  filmmakerData: state.filmmakers.data
+  filmmakerData: state.filmmakers.data,
+  filmData: state.films.data
 });
 
 class CollectionPageHome extends Component {
   componentDidMount() {
     this.props.getFilmmakers();
+    this.props.getFilms();
   }
 
   render() {
-    const { viewMode, filmmakerData } = this.props;
-    console.log('filmmakerData', filmmakerData);
-    const filmData = getSpoofDataList('films'),
-          programData = getSpoofDataList('programs'),
+    const {
+      viewMode,
+      filmmakerData,
+      filmData
+    } = this.props;
+    const programData = getSpoofDataList('programs'),
           ephemeraData = getSpoofDataList('ephemera');
   	return [
   		filmData && filmData.length ?

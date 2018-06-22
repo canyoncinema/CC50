@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import Filmmakers from '../Filmmakers/Filmmakers';
@@ -16,32 +15,37 @@ class CollectionFilmmakerPage extends Component {
 		return [
 			conditionallyShow({
 				id: 'about',
-				condition: item.description,
+				order: 0,
+				condition: item.bioNote,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.description}
+						{item.bioNote}
 					</pre>
 				)
 			})
 			,
 			conditionallyShow({
 				id: null,
+				order: 1,
 				condition: item.webAddress,
 				menuHeader: null,
 				renderContent: () => (
-					<Link target="_blank" to={`${item.webAddress}`}>
+					<a className="section-button"
+						target="_blank"
+						href={`${item.webAddress}`}>
 						<Button className="default">
 							Visit Artist's Website
 						</Button>
-					</Link>
+					</a>
 				),
 				omitSectionWrapper: true
 			})
 			,
 			conditionallyShow({
 				id: 'films',
-				condition: item.films && item.films.length,
+				order: 2,
+				condition: item.works && item.works.length,
 				menuHeader: 'Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
@@ -60,13 +64,14 @@ class CollectionFilmmakerPage extends Component {
 							viewMode={viewMode || 'list'}
 							isItemPage={true}
 							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
-							data={item.films} />
+							data={item.works} />
 					</div>
 				)
 			})
 			,
 			conditionallyShow({
 				id: 'ephemera',
+				order: 3,
 				condition: item.ephemera && item.ephemera.length,
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
@@ -82,6 +87,7 @@ class CollectionFilmmakerPage extends Component {
 			,
 			conditionallyShow({
 				id: 'curated-programs',
+				order: 4,
 				condition: item.programs && item.programs.length,
 				menuHeader: 'Curated Programs',
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
@@ -96,31 +102,34 @@ class CollectionFilmmakerPage extends Component {
 			,
 			conditionallyShow({
 				id: 'related-filmmakers',
-				condition: item.relatedFilmmakers && item.relatedFilmmakers.length,
+				order: 5,
+				condition: item.relatedPersons && item.relatedPersons.length,
 				menuHeader: 'Related Filmmakers',
 				renderHeader: () => <h3>Related Filmmakers</h3>,
 				renderContent: () => (
 					<Filmmakers
-						data={item.relatedFilmmakers}
+						data={item.relatedPersons}
 					/>
 				)
 			})
 			,
 			conditionallyShow({
 				id: 'events',
-				condition: item.events && item.events.length,
+				order: 6,
+				condition: item.exhibitions && item.exhibitions.length,
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<EventTiles
 						customColSize={6}
-						data={item.events}
+						data={item.exhibitions}
 					/>
 				)
 			})
 			,
 			conditionallyShow({
 				id: 'news',
+				order: 7,
 				condition: item.news && item.news.length,
 				menuHeader: 'News',
 				renderHeader: () => <h3>{'News Featuring this ' + singularItemForm}</h3>,
@@ -135,4 +144,4 @@ class CollectionFilmmakerPage extends Component {
 	}
 }
 
-export default withScrollNav(CollectionItemPage(CollectionFilmmakerPage));
+export default CollectionItemPage(CollectionFilmmakerPage);

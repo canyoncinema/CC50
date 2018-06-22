@@ -1,3 +1,6 @@
+.CollectionPage .CollectionSection:last-child {
+	min-height: 500px;
+}
 /*.CollectionPageItem > .container {
 	padding: 0 70px 100px;
 }

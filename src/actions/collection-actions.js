@@ -34,17 +34,16 @@ function failFilmmakers(error) {
 export function getFilmmakers() {
 	return (dispatch) => {
 		dispatch(fetchFilmmakers())
-		return fetch(config.listFilmmakersUrl, { headers: config.authHeaders })
+		return fetch(config.filmmakersUrl, { headers: config.authHeaders })
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilmmakers("Bad response from server"));
 				}
 				return response.json();
 			})
-			.then(data => {
+			.then(data =>
 				dispatch(receiveFilmmakers(data))
-			})
-			.catch(error =>
+			, error =>
 				dispatch(failFilmmakers(error))
 			);
 	}
