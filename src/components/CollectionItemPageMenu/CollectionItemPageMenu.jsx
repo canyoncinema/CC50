@@ -3,6 +3,7 @@ import { HashLink } from 'react-router-hash-link';
 import PropTypes from 'prop-types';
 import Scrollspy from 'react-scrollspy';
 import smoothscroll from 'smoothscroll-polyfill';
+import { connect } from 'react-redux';
 
 import withScrollNav from '../withScrollNav/withScrollNav';
 import './CollectionItemPageMenu.css';
@@ -10,9 +11,14 @@ import './CollectionItemPageMenu.css';
 // kick it off
 smoothscroll.polyfill();
 
+const mapStateToProps = state => ({
+  headers: state.itemMenuHeaders
+});
+
 class CollectionItemPageMenu extends Component {
 	render() {
 		const { headers, isScrollNav } = this.props;
+		console.log('CollectionItemPageMenu isScrollNav', isScrollNav)
 		const orderedHeaders = headers.filter(h => !!h);
 		return (
 			<Scrollspy
@@ -35,4 +41,4 @@ CollectionItemPageMenu.propTypes = {
 	headers: PropTypes.array.isRequired
 }
 
-export default withScrollNav(CollectionItemPageMenu);
+export default withScrollNav(connect(mapStateToProps)(CollectionItemPageMenu));

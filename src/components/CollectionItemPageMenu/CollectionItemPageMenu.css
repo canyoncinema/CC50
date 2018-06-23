@@ -4,7 +4,7 @@
   transition: top 0.33s linear;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 800px) {
   .CollectionItemPageMenu.fixed {
     position: fixed;
     top: 30px;

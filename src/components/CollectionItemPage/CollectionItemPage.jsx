@@ -12,23 +12,17 @@ import MainNav from '../MainNav/MainNav';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
-import { addItemMenuHeader, resetItemMenuHeaders } from '../../actions/item-menu-headers-actions';
+import { addItemMenuHeader } from '../../actions/item-menu-headers-actions';
 import { config } from '../../store';
 
 const mapDispatchToProps = dispatch => ({
   getItem: (collectionItems, uri) => dispatch(getItem(collectionItems, uri)),
-  addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args)),
-  resetItemMenuHeaders: () => dispatch(resetItemMenuHeaders())
+  addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args))
 })
 
 const mapStateToProps = state => ({
   item: state.item.data,
-  headers: state.itemMenuHeaders,
-  // itemFilmmakers: state.itemFilmmakers.data,
-  // itemOtherFilms: state.itemOtherFilms.data,
-  // itemEphemera: state.itemEphemera.data,
-  // itemEvents: state.itemEvents.data,
-  // itemPrograms: state.itemPrograms.data
+  headers: state.itemMenuHeaders
 });
 
 function CollectionItemPage(ComposedComponent) {
@@ -42,6 +36,7 @@ function CollectionItemPage(ComposedComponent) {
 				collectionItems: this.props.collectionItems,
 				shortIdentifier: this.props.shortIdentifier
 			});
+			console.log('did mount item page -> get item', uri);
     	this.props.getItem(this.props.collectionItems, uri);
 		}
 
@@ -63,6 +58,7 @@ function CollectionItemPage(ComposedComponent) {
 			if (menuHeader && !this.props.headers[order]) {
 				// new addition to headers
 				const header = { content: menuHeader, id };
+				console.log('adding header', order);
 				this.props.addItemMenuHeader(order, header);
 			}
 			id = menuHeader ? id : null;
@@ -100,7 +96,6 @@ function CollectionItemPage(ComposedComponent) {
 		componentDidUpdate(nextProps) {
 			if (nextProps.shortIdentifier !== this.props.shortIdentifier) {
 				// new item, scroll back to top and reset headers
-				this.props.resetItemMenuHeaders();
 				window.scrollTo(0, 0);
 			}
 		}
@@ -110,13 +105,13 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		setViewMode = viewMode => {
-			this.setState({
-				viewMode
-			});
+			// this.setState({
+			// 	viewMode
+			// });
 		}
 
 		render() {
-			const { collectionItems, headers, item, shortIdentifier, isScrollNav } = this.props;
+			const { collectionItems, item, shortIdentifier, isScrollNav } = this.props;
 			const { viewMode } = this.state;
 			// const item = getSpoofDataObj(collectionItems, itemId);
 			// if (!item) {
@@ -139,7 +134,7 @@ function CollectionItemPage(ComposedComponent) {
 					<div className="container">
 						<Row>
 							<Col md={3}>
-								<CollectionItemPageMenu headers={headers} />
+								<CollectionItemPageMenu />
 							</Col>
 							<Col md={9}>
 								<div className="descriptive-content">
@@ -148,7 +143,6 @@ function CollectionItemPage(ComposedComponent) {
 										<ComposedComponent
 											viewMode={viewMode}
 											setViewMode={this.setViewMode}
-											item={item}
 											conditionallyShow={this.conditionallyShow}
 											singularItemForm={singularItemForm} />
 										: null

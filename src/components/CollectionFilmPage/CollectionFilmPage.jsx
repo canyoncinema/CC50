@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
@@ -9,6 +10,10 @@ import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
 import URNRelatedField from '../URNRelatedField/URNRelatedField';
+
+const mapStateToProps = state => ({
+	item: state.item.data
+});
 
 class CollectionFilmPage extends Component {
 	// componentDidMount() {
@@ -38,6 +43,7 @@ class CollectionFilmPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		const { filmmaker } = this.state;
+		console.log('Film Page item', item);
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -175,4 +181,4 @@ class CollectionFilmPage extends Component {
 	}
 }
 
-export default CollectionItemPage(CollectionFilmPage);
+export default CollectionItemPage(connect(mapStateToProps)(CollectionFilmPage));

@@ -14,11 +14,13 @@ function withScrollNav(Component, headerHeight=361) {
 			// console.log('headerHeight', headerHeight);
       if (window.scrollY >= headerHeight &&
       		!this.state.isScrollNav) {
+      	console.log('set isScrollNav');
       	this.setState({
       		isScrollNav: true
       	});
       } else if (window.scrollY < headerHeight &&
       		this.state.isScrollNav) {
+      	console.log('set !isScrollNav');
       	this.setState({
       		isScrollNav: false
       	});

@@ -32,6 +32,10 @@ class CollectionPageItems extends Component {
   	}
   }
 
+  componentWillUnmount() {
+  	console.log('unmounting CollectionPageItems')
+  }
+
 	render() {
 		const { items, collectionItems, viewMode } = this.props;
 		return <CollectionContext.Consumer>

@@ -3,6 +3,7 @@ import {
 	RECEIVED_ITEM,
 	FAILED_ITEM
 } from '../actionTypes';
+import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData } from '../utils/parse-data';
 
@@ -86,7 +87,8 @@ export function getItem(collectionItems, uri) {
 				// 	Promise.all([getItemPromise()])
 				// 	debugger
 				// }
-				dispatch(receiveItem(data))
+				dispatch(receiveItem(data));
+				dispatch(resetItemMenuHeaders())
 			}, error =>
 				dispatch(failItem(error))
 			);
