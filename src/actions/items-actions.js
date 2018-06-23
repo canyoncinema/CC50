@@ -34,12 +34,22 @@ function failItems(error) {
 }
 
 // TODO: REAL SORTING
-const toSortedUrl = (url, sort) => url;
+const toSortedUrl = (url, sortVal) => url
+//`${url}?sortBy=${sortVal}`;
 
-export function getItems(collectionItems, sort) {
+// example:
+/*
+
+curl --user reader@canyoncinema.com:reader -H "Accept: application/json" "https://cs.cancf.com/cspace-services/workauthorities/7a94c0cb-5341-4976-b854/items"
+
+*/
+
+export function getItems(collectionItems, sortVal) {
 	return (dispatch) => {
-		dispatch(fetchItems())
-		return fetch(toSortedUrl(config.getListItemsUrl(collectionItems), sort), {
+		dispatch(fetchItems());
+		console.log('get Items', collectionItems, sortVal);
+		console.log('GET', config.getListItemsUrl(collectionItems, sortVal));
+		return fetch(config.getListItemsUrl(collectionItems, sortVal), {
 				headers: config.authHeaders
 			})
 			.then(response => {
@@ -49,7 +59,7 @@ export function getItems(collectionItems, sort) {
 				return response.json();
 			})
 			.then(data =>
-				dispatch(receiveItems(data, sort))
+				dispatch(receiveItems(data))
 			)
 			.catch(error =>
 				dispatch(failItems(error))

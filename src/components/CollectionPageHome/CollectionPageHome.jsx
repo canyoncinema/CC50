@@ -6,8 +6,8 @@ import { getFilms } from '../../actions/films-actions';
 import { getSpoofDataList } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
-  getFilmmakers: () => dispatch(getFilmmakers()),
-  getFilms: () => dispatch(getFilms())
+  getFilmmakers: (...args) => dispatch(getFilmmakers(...args)),
+  getFilms: (...args) => dispatch(getFilms(...args))
 })
 
 const mapStateToProps = state => ({
@@ -17,8 +17,12 @@ const mapStateToProps = state => ({
 
 class CollectionPageHome extends Component {
   componentDidMount() {
-    this.props.getFilmmakers();
-    this.props.getFilms();
+    this.props.getFilmmakers({
+      pgSz: 3
+    });
+    this.props.getFilms({
+      pgSz: 3
+    });
   }
 
   render() {

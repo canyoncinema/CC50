@@ -33,10 +33,12 @@ function failFilms(error) {
 	}
 }
 
-export function getFilms() {
+export function getFilms(queryParams) {
 	return (dispatch) => {
-		dispatch(fetchFilms())
-		return fetch(config.listFilmsUrl, { headers: config.authHeaders })
+		console.log('GET', config.listFilmsUrl(queryParams));
+		dispatch(fetchFilms());
+		return fetch(config.listFilmsUrl(queryParams),
+			{ headers: config.authHeaders })
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilms("Bad response from server"));

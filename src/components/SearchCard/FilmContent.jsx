@@ -36,42 +36,44 @@ class FilmContent extends Component {
 		const creatorMatch = item.creator && matchRefName(item.creator);
 		const listView = viewMode === 'list';
 		return (
-			<div className="FilmContent">
-				{	!isItemPage ?
-					<h6>Film</h6>
-					: null
-				}
-				<h4 className="d-flex">
-					<ClampedDescription
-						className="displayName"
-						maxLines={listView ? 1 : 2}
-						title={item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '')}>
-						{
-							listView && !isItemPage ?
-							item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
-							item.termDisplayName
-						}
-					</ClampedDescription>
-					{
-						listView && !isItemPage ? null :
-						<span className="year ml-auto">{item.creationYear}</span>
+			<div className={listView && !isItemPage ? 'row FilmContent' : 'FilmContent'}>
+				<div className={listView && !isItemPage ? 'col-sm-4' : null}>
+					{	!isItemPage ?
+						<h6>Film</h6>
+						: null
 					}
-				</h4>
-				{
-					creatorMatch && !isItemPage ?
-					<div className="creator" title={getDisplayNameFromMatch(creatorMatch)}>
-						<a className="gold" onClick={(e) => {
-							e.stopPropagation();
-							const path = `/collection/filmmakers/${getShortIdentifierFromMatch(creatorMatch)}`;
-							history.push(path);
-						}}>
-							{getDisplayNameFromMatch(creatorMatch)}
-						</a>
-					</div>
-					: null
-				}
+					<h4 className="d-flex">
+						<ClampedDescription
+							className="displayName"
+							maxLines={listView ? 1 : 2}
+							title={item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '')}>
+							{
+								listView && !isItemPage ?
+								item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
+								item.termDisplayName
+							}
+						</ClampedDescription>
+						{
+							listView && !isItemPage ? null :
+							<span className="year ml-auto">{item.creationYear}</span>
+						}
+					</h4>
+					{
+						creatorMatch && !isItemPage ?
+						<div className="creator" title={getDisplayNameFromMatch(creatorMatch)}>
+							<a className="gold" onClick={(e) => {
+								e.stopPropagation();
+								const path = `/collection/filmmakers/${getShortIdentifierFromMatch(creatorMatch)}`;
+								history.push(path);
+							}}>
+								{getDisplayNameFromMatch(creatorMatch)}
+							</a>
+						</div>
+						: null
+					}
+				</div>
 				<div className={listView && !isItemPage ?
-					'col-sm-8' : null}>
+					'col-sm-4' : null}>
 					<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
 						<ClampedDescription
 							className="description"

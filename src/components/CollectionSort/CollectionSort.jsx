@@ -26,8 +26,9 @@ const toCollectionSortOptions = (collectionItems, itemLabel) => {
 	collectionItems = collectionItems.toLowerCase();
 	if (collectionItems === 'filmmakers' ||
 			collectionItems === 'programs') {
+		// TODO: REAL VALUES
 		return [{
-			value: '-created',
+			value: 'addedDate+DESC',
 			label: 'Recently Added'
 		}, {
 			value: 'title',
@@ -35,7 +36,7 @@ const toCollectionSortOptions = (collectionItems, itemLabel) => {
 		}];
 	} else if (collectionItems === 'films') {
 		return [{
-			value: '-created',
+			value: 'addedDate+DESC',
 			label: 'Recently Added'
 		}, {
 			value: 'title',
@@ -52,7 +53,7 @@ const toCollectionSortOptions = (collectionItems, itemLabel) => {
 		}];
 	} else if (collectionItems === 'ephemera') {
 		return [{
-			value: '-created',
+			value: 'addedDate+DESC',
 			label: 'Recently Added'
 		}, {
 			value: 'random',

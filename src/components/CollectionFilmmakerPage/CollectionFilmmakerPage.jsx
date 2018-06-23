@@ -12,6 +12,7 @@ import Button from '../Button/Button';
 class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		if (!item) return null;
 		return [
 			conditionallyShow({
 				id: 'about',

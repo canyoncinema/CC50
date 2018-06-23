@@ -9,26 +9,25 @@ import CollectionSection from '../CollectionSection/CollectionSection';
 import { getSpoofDataList } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
-  getItems: (collectionItems) => dispatch(getItems(collectionItems))
+  getItems: (...args) => dispatch(getItems(...args))
 });
 
-const mapStateToProps = state => {
-	return ({
-	  items: state.items.data,
-	  sortIsOpen: state.collectionSort.isOpen,
-	  sortVal: state.collectionSort.value
-	})
-};
+const mapStateToProps = state => ({
+  items: state.items.data,
+  sortIsOpen: state.collectionSort.isOpen,
+  sortVal: state.collectionSort.activeOption.value
+});
 
 class CollectionPageItems extends Component {
 	componentDidMount() {
-    this.props.getItems(this.props.collectionItems);
+    this.props.getItems(this.props.collectionItems, this.props.sortVal);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
+  	console.log('componentDidUpdate', nextProps.collectionItems, this.props.collectionItems)
   	if (nextProps.collectionItems !== this.props.collectionItems) {
   		// change items shown
-  		this.props.getItems(nextProps.collectionItems);
+  		this.props.getItems(nextProps.collectionItems, this.props.sortVal);
   	}
   }
 

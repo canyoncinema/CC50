@@ -141,6 +141,7 @@ function CollectionItemPage(ComposedComponent) {
 									{
 										item && item.csid ?
 										<ComposedComponent
+											item={item}
 											viewMode={viewMode}
 											setViewMode={this.setViewMode}
 											conditionallyShow={this.conditionallyShow}

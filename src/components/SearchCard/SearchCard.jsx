@@ -63,7 +63,7 @@ class SearchCard extends Component {
 							<FilmmakerContent
 								isItemPage={isItemPage}
 								viewMode={viewMode}
-								{...data}
+								item={data}
 							/> : null
 						}
 						{

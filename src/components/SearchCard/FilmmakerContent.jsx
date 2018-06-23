@@ -4,6 +4,7 @@ import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
 const FilmmakerContent = ({
+	item,
 	termDisplayName,
 	viewMode,
 	avatar,
@@ -26,8 +27,8 @@ const FilmmakerContent = ({
 						<ClampedDescription
 							className="displayName"
 							maxLines={1}
-							title={termDisplayName}>
-							{termDisplayName}
+							title={item.termDisplayName}>
+							{item.termDisplayName}
 						</ClampedDescription>
 					</h4>
 				</div>
@@ -39,7 +40,7 @@ const FilmmakerContent = ({
 						<ClampedDescription
 							className="description"
 							maxLines={listView ? 3 : 6}>
-							{shortBioNote}
+							{item.shortBioNote}
 						</ClampedDescription>
 					</div>
 				</div>
@@ -47,7 +48,7 @@ const FilmmakerContent = ({
 				<ClampedDescription
 					className="description"
 					maxLines={listView ? 3 : 6}>
-					{shortBioNote}
+					{item.shortBioNote}
 				</ClampedDescription>
 			}
 		</div>

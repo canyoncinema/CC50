@@ -14,7 +14,7 @@ const config = {
 	production: {
 		username: process.env.REACT_APP_CC50_USERNAME_PRODUCTION,
 		password: process.env.REACT_APP_CC50_PASSWORD_PRODUCTION,
-		baseUrl: 'https://cs.cancf.com/cspace-services',
+		baseUrl: 'http://cs.cancf.com:8180/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items'
@@ -22,41 +22,59 @@ const config = {
 	}
 }
 
+const queryParamsToString = (params) => {
+	// expects object with key-value pairs matching collectionspace params
+	return params &&
+		Object.keys(params).length ?
+		Object.keys(params).reduce((path, key) => {
+		return path += key + '=' + params[key];
+	}, '?') : '';
+};
+
 class Config {
 	constructor(env) {
 		// FOR DEV:
-		// this.env = 'production' || env;
+		this.env = 'production' || env;
 		// FOR PRODUCTION:
-		this.env = env;
+		// this.env = env;
 	}
 
 	get baseUrl() {
 		return config[this.env].baseUrl;
 	}
 
-	get listFilmmakersUrl() {
-		return this.baseUrl + config[this.env].list.personauthorities;
+	listFilmmakersUrl(queryParams) {
+		console.log('list query params', queryParamsToString(queryParams))
+		return this.baseUrl + config[this.env].list.personauthorities
+			+ queryParamsToString(queryParams);
 	}
 
-	get listFilmsUrl() {
-		return this.baseUrl + config[this.env].list.workauthorities;
+	listFilmsUrl(queryParams) {
+		return this.baseUrl + config[this.env].list.workauthorities
+			+ queryParamsToString(queryParams);
 	}
 
-	getListItemsUrl(collectionItems) {
-		const cspaceCollection = this.collectionItemsToCSpaceCollection(collectionItems);
-		return this.baseUrl + config[this.env].list[cspaceCollection];
+	getListItemsUrl(collectionItems, sortVal) {
+		const cspaceCollection = this.collectionItemsToCSpaceCollection(collectionItems, false);
+		const collectionRefName = this.collectionItemsToCSpaceCollection(collectionItems, true);
+		let url = this.baseUrl + config[this.env].list[cspaceCollection];
+		if (sortVal) {
+			// TODO: SORT FOR REAL
+			// url += '?sortBy=' + collectionRefName + '_common:' + sortVal;
+		}
+		return url;
 	}
 
 	getUrl(uri) {
 		return this.baseUrl + uri;
 	}
 
-	collectionItemsToCSpaceCollection(collectionItems) {
+	collectionItemsToCSpaceCollection(collectionItems, isRefName) {
 		switch (collectionItems) {
 			case 'films':
-				return 'workauthorities';
+				return isRefName ? 'works' : 'workauthorities';
 			case 'filmmakers':
-				return 'personauthorities';
+				return isRefName ? 'persons' : 'personauthorities';
 			case 'ephemera':
 				return null;
 			case 'events':

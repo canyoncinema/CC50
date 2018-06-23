@@ -5,7 +5,7 @@ const SORT_RECENTLY_ADDED = 'RECENTLY_ADDED';
 const initialState = {
 	isOpen: false,
 	activeOption: {
-		value: '-created',
+		value: 'updatedAt',
 		label: 'Recently Added'
 	}
 }
