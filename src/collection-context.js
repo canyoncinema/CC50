@@ -51,60 +51,14 @@ export const itemTypeToCollectionSearchVal = itemType => {
 	if (itemType === 'film') return 'films';
 	if (itemType === 'program') return 'programs';
 	if (itemType === 'ephemera') return 'ephemera';
-}
+};
+
 export const toCollectionSearchVal = label => {
 	if (label === ALL_SEARCH_LABEL) return '';
 	if (label === FILMMAKERS_SEARCH_LABEL) return 'filmmakers';
 	if (label === FILMS_SEARCH_LABEL) return 'films';
 	if (label === PROGRAMS_SEARCH_LABEL) return 'programs';
 	if (label === EPHEMERA_SEARCH_LABEL) return 'ephemera';
-}
-
-export const toCollectionSort = val => {
-	val = val.toLowerCase();
-	if (val.indexOf('filmmaker') !== -1 ||
-			val.indexOf('program') !== -1) {
-		return {
-			values: [
-				'-created',
-				'title'
-			],
-			labels: [
-				'Recently Added',
-				'Alphabetical'
-			]
-		};
-	} else if (val.indexOf('film') !== -1) {
-		return {
-			values: [
-				'-created',
-				'title',
-				'filmmaker',
-				'-producedAt',
-				'producedAt'
-			],
-			labels: [
-				'Recently Added',
-				'Alphabetical (Title)',
-				'Alphabetical (Filmmaker)',
-				'Production Date (New to Old)',
-				'Production Date (Old to New)'
-			]
-		};
-	} else if (val.indexOf('ephemera') !== -1) {
-		return {
-			values: [
-				'-created',
-				'random'
-			],
-			labels: [
-				'Recently Added',
-				'Random'
-			]
-		};
-	} else {
-		throw new Error('Invalid value ' + val);
-	}
 };
 
 export const toCollectionSearchPlaceholder = val => {

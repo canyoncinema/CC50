@@ -14,19 +14,8 @@
 	padding-top: 70px;
 }
 
-.CollectionItemPage .descriptive-content > *:first-child {
-	padding-top: 70px;
-}
-
+.CollectionItemPage .content > a,
 .CollectionItemPage .section-button {
-	display: inline-block;
-}
-
-.CollectionItemPage section + .section-button {
-	margin-top: 60px;
-}
-
-.CollectionItemPage .content > a {
 	display: inline-block;
 	margin-top: 45px;
 }

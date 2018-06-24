@@ -1,9 +1,11 @@
 import React from 'react';
+import './FilmmakerContent.css';
 
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
 const FilmmakerContent = ({
+	item,
 	termDisplayName,
 	viewMode,
 	avatar,
@@ -12,8 +14,8 @@ const FilmmakerContent = ({
 }) => {
 	const listView = viewMode === 'list';
 	return (
-		<div className="FilmmakerContent">
-			<div className="d-flex">
+		<div className={listView ? 'row FilmmakerContent' : 'FilmmakerContent'}>
+			<div className={listView ? 'person d-flex col-4' : 'person d-flex'}>
 				<div className="avatar">
 					<FilmmakerAvatar url={avatar} />
 				</div>
@@ -26,20 +28,20 @@ const FilmmakerContent = ({
 						<ClampedDescription
 							className="displayName"
 							maxLines={1}
-							title={termDisplayName}>
-							{termDisplayName}
+							title={item.termDisplayName}>
+							{item.termDisplayName}
 						</ClampedDescription>
 					</h4>
 				</div>
 			</div>
 			{
 				listView && !isItemPage ?
-				<div className="col-sm-8">
+				<div className="col-8">
 					<div className="list-center-wrapper">
 						<ClampedDescription
 							className="description"
 							maxLines={listView ? 3 : 6}>
-							{shortBioNote}
+							{item.shortBioNote}
 						</ClampedDescription>
 					</div>
 				</div>
@@ -47,7 +49,7 @@ const FilmmakerContent = ({
 				<ClampedDescription
 					className="description"
 					maxLines={listView ? 3 : 6}>
-					{shortBioNote}
+					{item.shortBioNote}
 				</ClampedDescription>
 			}
 		</div>

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import store, { history } from './store';
 
 import './App.css';
 import { getQueryVal } from './utils/query-string';
@@ -23,24 +26,25 @@ import Page404 from './components/Page404/Page404';
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Provider store={store}>
+      <ConnectedRouter history={history}>
         <div className="App">
           <MainNav />
           <Route exact path="/" component={HomePage} />
           <Switch>
-            <Route exact path="/collection/films/:itemId" component={({ match }) =>
+            <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
               <CollectionFilmPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="films" />
             } />
-            <Route exact path="/collection/filmmakers/:itemId" component={({ match }) =>
+            <Route exact path="/collection/filmmakers/:shortIdentifier" component={({ match }) =>
               <CollectionFilmmakerPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="filmmakers" />
             } />
-            <Route exact path="/collection/programs/:itemId" component={({ match }) =>
+            <Route exact path="/collection/programs/:shortIdentifier" component={({ match }) =>
               <CollectionProgramPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="programs" />
             } />
             <Route exact path="/collection/ephemera/:itemId" component={({ match }) =>
@@ -94,7 +98,8 @@ class App extends Component {
           <Route exact path="/press" component={CollectionPage} />
           <Footer className="no-gutters" />
         </div>
-      </Router>
+      </ConnectedRouter>
+      </Provider>
     );
   }
 }

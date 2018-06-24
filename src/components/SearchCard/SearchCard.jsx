@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import $clamp from 'clamp-js';
-import lineClamp from 'line-clamp';
 
 import {
   withRouter
@@ -14,12 +11,7 @@ import FilmmakerContent from './FilmmakerContent';
 import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
-import ClampedDescription from '../ClampedDescription/ClampedDescription';
-import Tag from '../Tag/Tag';
-import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
-import RelatedLinks from '../RelatedLinks/RelatedLinks';
-import RelatedLink from '../RelatedLink/RelatedLink';
 
 class SearchCard extends Component {
 	constructor(props) {
@@ -29,20 +21,13 @@ class SearchCard extends Component {
 	render() {
 		const {
 			data,
-			id,
+			csid,
+			shortIdentifier,
 			itemType,
 			photos,
-			displayName,
-			description,
-			filmmaker,
-			filmmakers,
-			avatar,
-			year,
-			tags,
-			related,
 			viewMode,
-			history,
-			isItemPage
+			isItemPage,
+			history
 		} = this.props;
 		// Note: certain design rules exist for cards on filmmaker pages.
 		// See Cards design spec.
@@ -59,27 +44,26 @@ class SearchCard extends Component {
 					].join(' ')}
 				onClick={(e) => {
 					e.stopPropagation();
-					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${id}`;
+					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${shortIdentifier}`;
 					history.push(path);
 				}}>
 				<div className={listView ? isItemPage ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
-				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-sm-2' : ''}>
+				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-2' : ''}>
 					<div className="media">
 						<Carousel
 							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
-							id={id}
-							title={displayName}
+							id={csid}
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
+				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-10' : ''}>
 					<div className={listView && !isItemPage ? 'row no-gutters content' : 'no-gutters content'}>
 						{
 							itemType === 'filmmaker' ?
 							<FilmmakerContent
 								isItemPage={isItemPage}
 								viewMode={viewMode}
-								{...data}
+								item={data}
 							/> : null
 						}
 						{
@@ -87,7 +71,7 @@ class SearchCard extends Component {
 							<FilmContent
 								isItemPage={isItemPage}
 								viewMode={viewMode}
-								{...data}
+								item={data}
 							/> : null
 						}
 						{

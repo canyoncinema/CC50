@@ -1,50 +1,64 @@
 import React, { Component} from 'react';
-import Sort from '../Sort/Sort';
-import CollectionContext, { toCollectionSearchLabel, toCollectionSort, collectionItemsToSingular } from '../../collection-context';
+import { connect } from 'react-redux';
+import CollectionSort from '../CollectionSort/CollectionSort';
+import CollectionContext, { toCollectionSearchLabel, collectionItemsToSingular } from '../../collection-context';
+import { getItems } from '../../actions/items-actions';
 
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
 import { getSpoofDataList } from '../../spoof-data';
 
-class CollectionPageItems extends Component {
-	state = {
-		sortIndex: 0
-	}
+const mapDispatchToProps = dispatch => ({
+  getItems: (...args) => dispatch(getItems(...args))
+});
 
-	onSort = (sortIndex, label, value) => {
-		// TODO: change data
-		console.warn('TODO: sort data by', value);
-		this.setState({
-			sortIndex
-		});
-	}
+const mapStateToProps = state => ({
+  items: state.items.data,
+  sortIsOpen: state.collectionSort.isOpen,
+  sortVal: state.collectionSort.activeOption.value
+});
+
+class CollectionPageItems extends Component {
+	componentDidMount() {
+    this.props.getItems(this.props.collectionItems, this.props.sortVal);
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.collectionItems !== this.props.collectionItems ||
+  			nextProps.sortVal !== this.props.sortVal) {
+  		// change items shown
+  		console.log('change items shown to', nextProps.collectionItems, 'from', this.props.collectionItems);
+  		this.props.getItems(nextProps.collectionItems, nextProps.sortVal);
+  	}
+  }
+
+  componentWillUnmount() {
+  	console.log('unmounting CollectionPageItems')
+  }
 
 	render() {
-		const { collectionItems, viewMode } = this.props;
-		const { sortIndex } = this.state;
-		const sort = toCollectionSort(collectionItems);
+		const { items, collectionItems, viewMode } = this.props;
 		return <CollectionContext.Consumer>
 			{
 				context => 
-				<div className="CollectionPageItem">
+				<div className="CollectionPageItems">
 					<ScrollToTopOnMount />
 					{	!context.searchedText ?
-						<Sort
-						labels={sort.labels}
-						values={sort.values}
-						sortIndex={sortIndex}
-						onSort={this.onSort}
-						itemLabel={toCollectionSearchLabel(collectionItems)} />
+						<CollectionSort
+							collectionItems={collectionItems}
+							itemLabel={toCollectionSearchLabel(collectionItems)} />
 						: null
 					}
 					<CollectionSection
+						customColSize={viewMode !== 'list' ? 4 : null}
+						customColWidth="sm"
 						itemType={collectionItemsToSingular(collectionItems)}
 						viewMode={viewMode} 
-						searchData={getSpoofDataList(collectionItems)}/>
+						searchData={items}/>
 				</div>
 			}
 		</CollectionContext.Consumer>
 	}
 }
 
-export default CollectionPageItems;
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionPageItems);
