@@ -18,10 +18,12 @@ const mapStateToProps = state => ({
 class CollectionPageHome extends Component {
   componentDidMount() {
     this.props.getFilmmakers({
-      pgSz: 3
+      pgSz: 3,
+      'persons:sortBy': 'addedDate+DESC'
     });
     this.props.getFilms({
-      pgSz: 3
+      pgSz: 3,
+      'works:sortBy': 'addedDate+DESC'
     });
   }
 
@@ -36,7 +38,10 @@ class CollectionPageHome extends Component {
   	return [
   		filmData && filmData.length ?
         <CollectionSection key={0}
+          className="CollectionPageHomeSection"
           viewMode={viewMode}
+          customColSize={viewMode !== 'list' ? 4 : null}
+          customColWidth="sm"
           header="Recently Added Films"
           description="New acquisitions to the Canyon Cinema collection"
           buttonText="See all films"
@@ -46,7 +51,10 @@ class CollectionPageHome extends Component {
         /> : null,
       filmmakerData && filmmakerData.length ?
       <CollectionSection key={1}
+        className="CollectionPageHomeSection"
         viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
         header="Recently Added Filmmakers"
         description="Spotlight on some of Canyon Cinema’s filmmakers"
         buttonText="See all filmmakers"
@@ -56,7 +64,10 @@ class CollectionPageHome extends Component {
       /> : null,
       programData && programData.length ?
       <CollectionSection key={2}
+        className="CollectionPageHomeSection"
         viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
         header="Recently Added Curated Programs"
         description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
         buttonText="See all curated programs"
@@ -66,7 +77,10 @@ class CollectionPageHome extends Component {
       /> : null,
       ephemeraData && ephemeraData.length ?
       <CollectionSection key={3}
+        className="CollectionPageHomeSection"
         viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
         header="Recently Added Ephemera"
         description="Printed pieces, photos, stills, videos, and other related materials"
         buttonText="See all ephemera"

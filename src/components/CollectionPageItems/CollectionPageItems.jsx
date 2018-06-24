@@ -23,11 +23,12 @@ class CollectionPageItems extends Component {
     this.props.getItems(this.props.collectionItems, this.props.sortVal);
   }
 
-  componentDidUpdate(nextProps) {
-  	console.log('componentDidUpdate', nextProps.collectionItems, this.props.collectionItems)
-  	if (nextProps.collectionItems !== this.props.collectionItems) {
+  componentWillReceiveProps(nextProps) {
+  	if (nextProps.collectionItems !== this.props.collectionItems ||
+  			nextProps.sortVal !== this.props.sortVal) {
   		// change items shown
-  		this.props.getItems(nextProps.collectionItems, this.props.sortVal);
+  		console.log('change items shown to', nextProps.collectionItems, 'from', this.props.collectionItems);
+  		this.props.getItems(nextProps.collectionItems, nextProps.sortVal);
   	}
   }
 
@@ -40,7 +41,7 @@ class CollectionPageItems extends Component {
 		return <CollectionContext.Consumer>
 			{
 				context => 
-				<div className="CollectionPageItem">
+				<div className="CollectionPageItems">
 					<ScrollToTopOnMount />
 					{	!context.searchedText ?
 						<CollectionSort
@@ -49,6 +50,8 @@ class CollectionPageItems extends Component {
 						: null
 					}
 					<CollectionSection
+						customColSize={viewMode !== 'list' ? 4 : null}
+						customColWidth="sm"
 						itemType={collectionItemsToSingular(collectionItems)}
 						viewMode={viewMode} 
 						searchData={items}/>

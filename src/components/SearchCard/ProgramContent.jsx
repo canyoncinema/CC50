@@ -13,17 +13,19 @@ const ProgramContent = ({
 }) => {
 	const listView = viewMode === 'list';
 	return (
-		<div className="FilmContent">
-			<h6>Curated Program</h6>
-			<h4>
-				<ClampedDescription
-					className="displayName"
-					maxLines={2}
-					title={displayName}>
-					{displayName}
-				</ClampedDescription>
-			</h4>
-			<div className={listView ? 'col-sm-8' : null}>
+		<div className={listView ? 'row ProgramContent' : 'ProgramContent'}>
+			<div className={listView ? 'col-4' : null}>
+				<h6>Curated Program</h6>
+				<h4>
+					<ClampedDescription
+						className="displayName"
+						maxLines={2}
+						title={displayName}>
+						{displayName}
+					</ClampedDescription>
+				</h4>
+			</div>
+			<div className={listView ? filmmakers && filmmakers.length ? 'col-4' : 'col-8' : null}>
 				<div className={listView ? 'list-center-wrapper' : null}>
 					<ClampedDescription
 						className="description"
@@ -34,7 +36,7 @@ const ProgramContent = ({
 			</div>
 			{
 				filmmakers && filmmakers.length ?
-				<div className={listView ? 'col-sm-4 filmmakers' : 'filmmakers'}>
+				<div className={listView ? 'col-4 filmmakers' : 'filmmakers'}>
 					<div className="no-gutters">
 						<ClampedDescription
 							className="no-gutters"

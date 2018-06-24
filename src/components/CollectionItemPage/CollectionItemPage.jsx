@@ -32,12 +32,7 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
-			const uri = config.getRetrieveUri({
-				collectionItems: this.props.collectionItems,
-				shortIdentifier: this.props.shortIdentifier
-			});
-			console.log('did mount item page -> get item', uri);
-    	this.props.getItem(this.props.collectionItems, uri);
+			this.props.getItem(this.props.collectionItems, this.props.shortIdentifier);
 		}
 
 		conditionallyShow = ({

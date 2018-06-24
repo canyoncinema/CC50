@@ -64,7 +64,7 @@ const relatedCollections = {
 	films: ['films']
 }
 
-export function getItem(collectionItems, uri) {
+export function getItem(collectionItems, shortIdentifier) {
 	/*
 	 * Related Objects Reqs per item:
 	 * films: item.otherFilmsByFilmmaker, item.ephemera, item.events, item.programs
@@ -73,7 +73,7 @@ export function getItem(collectionItems, uri) {
 	 */
 	return (dispatch) => {
 		dispatch(fetchItem());
-		return fetch(config.getUrl(uri), { headers: config.authHeaders })
+		return fetch(config.getItemUrl({ collectionItems, shortIdentifier }), { headers: config.authHeaders })
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failItem("Bad response from server"));

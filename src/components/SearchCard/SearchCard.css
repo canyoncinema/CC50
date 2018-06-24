@@ -152,7 +152,12 @@
 }
 
 .SearchCard.list .content {
-	padding: 16px 20px;
+	padding: 18px 20px;
+	white-space: nowrap;
+}
+
+.SearchCard.list .content * {
+	white-space: normal;
 }
 
 .SearchCard.list .main {

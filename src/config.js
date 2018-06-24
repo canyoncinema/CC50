@@ -19,15 +19,80 @@ const config = {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items'
 		}
+		// _ALL_ only works for LISTS
+		// Note: CSID changes on db reset, shortIdentifier stays
+
 	}
 }
+
+const collectionItemsToCSpaceCollection = (collectionItems, isRefName, isPlural) => {
+	switch (collectionItems) {
+		case 'films':
+			return isRefName ? isPlural ? 'works' : 'work' : 'workauthorities';
+		case 'filmmakers':
+			return isRefName ? isPlural ? 'persons' : 'person' : 'personauthorities';
+		case 'ephemera':
+			return isRefName ? isPlural ? 'collectionobjects' : 'collectionobject' : 'collectionobjects';
+			// admin@canyoncinema.com:Administrator -H "Accept: application/json" "http://cs.cancf.com/cspace-services/collectionobjects"
+			// NOTE: FILTER FOR EPHEMERA( from Nima )
+		case 'programs':
+			return isRefName ? isPlural ? 'groups' : 'group' : 'groups';
+		case 'events':
+			return isRefName ? isPlural ? 'exhibitions' : 'exhibition' : 'exhibitions';
+		default:
+			return;
+	}
+}
+
+const collectionItemsToItemName = (collectionItems, isPlural) => {
+	switch (collectionItems) {
+		case 'films':
+			return isPlural ? 'works' : 'work';
+		case 'filmmakers':
+			return isPlural ? 'persons' : 'person';
+		case 'ephemera':
+			return null;
+		case 'events':
+			return 'exhibitions';
+		default:
+			return;
+	}
+};
+
+const cspaceCollectionToItemName = (cspaceCollection, isPlural) => {
+	switch (cspaceCollection) {
+		case 'workauthorities':
+			return isPlural ? 'works' : 'work';
+		case 'work':
+			return isPlural ? 'works' : 'work';
+		case 'works':
+			return isPlural ? 'works' : 'work';
+		case 'personauthorities':
+			return isPlural ? 'persons' : 'person';
+		case 'person':
+			return isPlural ? 'persons' : 'person';
+		case 'persons':
+			return isPlural ? 'persons' : 'person';
+		case 'ephemera':
+			return null;
+		case 'events':
+			return 'exhibitions';
+		default:
+			return;
+	}
+};
 
 const queryParamsToString = (params) => {
 	// expects object with key-value pairs matching collectionspace params
 	return params &&
 		Object.keys(params).length ?
-		Object.keys(params).reduce((path, key) => {
-		return path += key + '=' + params[key];
+		Object.keys(params).reduce((path, key, i) => {
+			path += key + '=' + params[key];
+			if (i !== Object.keys(params).length - 1) {
+				// not the last one; keep appending
+				path += '&';
+			}
+			return path;
 	}, '?') : '';
 };
 
@@ -55,8 +120,8 @@ class Config {
 	}
 
 	getListItemsUrl(collectionItems, sortVal) {
-		const cspaceCollection = this.collectionItemsToCSpaceCollection(collectionItems, false);
-		const collectionRefName = this.collectionItemsToCSpaceCollection(collectionItems, true);
+		const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
+		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
 		let url = this.baseUrl + config[this.env].list[cspaceCollection];
 		if (sortVal) {
 			// TODO: SORT FOR REAL
@@ -65,39 +130,27 @@ class Config {
 		return url;
 	}
 
-	getUrl(uri) {
-		return this.baseUrl + uri;
-	}
-
-	collectionItemsToCSpaceCollection(collectionItems, isRefName) {
-		switch (collectionItems) {
-			case 'films':
-				return isRefName ? 'works' : 'workauthorities';
-			case 'filmmakers':
-				return isRefName ? 'persons' : 'personauthorities';
-			case 'ephemera':
-				return null;
-			case 'events':
-				return 'exhibitions';
-			default:
-				return;
+	getItemUrl({ collectionItems, cspaceCollection, shortIdentifier }) {
+		if (!shortIdentifier || !(collectionItems || cspaceCollection)) {
+			throw new Error('collectionItems + shortIdentifier are required');
 		}
+		// example: "http://cs.cancf.com/cspace-services/personauthorities/urn:cspace:name(person)/items/urn:cspace:name(AbigailChild1529446292368)"
+		const cllxn = cspaceCollection ? cspaceCollection : collectionItemsToCSpaceCollection(collectionItems, false);
+		const itemName = collectionItems ?
+			collectionItemsToItemName(collectionItems, false) :
+			cspaceCollectionToItemName(cspaceCollection, false);
+		return `${this.baseUrl}/${cllxn}/urn:cspace:name(${itemName})/items/urn:cspace:name(${shortIdentifier})`;
 	}
 
 	getRetrieveUri({ collectionItems, shortIdentifier, cspaceCollection }) {
 		const cspaceCllxn = cspaceCollection ||
-			this.collectionItemsToCSpaceCollection(collectionItems);
+			collectionItemsToCSpaceCollection(collectionItems);
 		if (shortIdentifier) {
 			return config[this.env].list[cspaceCllxn] +
 				'/urn:cspace:name(' +
 				shortIdentifier +
 				')';
 		}
-		//  else if (itemId) {
-		// 	return config[this.env].list[collectionItems] + '/' + itemId;
-		// } else {
-		// 	throw new Error('Missing ID or Short Identifier');
-		// }
 	}
 
 	get authHeaders() {
@@ -117,10 +170,10 @@ class Config {
 		const match = matchRefName(refName);
 		const cspaceCollection = match[1]; // e.g. personauthorities
 		const shortIdentifier = match[3]; // e.g. StanBrakhage1529309099094
-		return this.getUrl(this.getRetrieveUri({
-			cspaceCollection,
-			shortIdentifier
-		}));
+		return this.getItemUrl({
+			shortIdentifier,
+			cspaceCollection
+		})
 	}
 }
 

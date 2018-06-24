@@ -6,7 +6,11 @@ class RelatedLinks extends Component {
 		const { label, children } = this.props;
 		return (
 			<div className="RelatedLinks">
-				<label>{label}:</label> {children}
+				{
+					label ?
+					<label>{label}:</label>
+					: null
+				} {children}
 			</div>
 		);
 	}

@@ -48,7 +48,7 @@ class SearchCard extends Component {
 					history.push(path);
 				}}>
 				<div className={listView ? isItemPage ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
-				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-sm-2' : ''}>
+				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-2' : ''}>
 					<div className="media">
 						<Carousel
 							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
@@ -56,7 +56,7 @@ class SearchCard extends Component {
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-sm-10' : ''}>
+				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-10' : ''}>
 					<div className={listView && !isItemPage ? 'row no-gutters content' : 'no-gutters content'}>
 						{
 							itemType === 'filmmaker' ?

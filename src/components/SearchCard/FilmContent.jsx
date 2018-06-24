@@ -37,7 +37,7 @@ class FilmContent extends Component {
 		const listView = viewMode === 'list';
 		return (
 			<div className={listView && !isItemPage ? 'row FilmContent' : 'FilmContent'}>
-				<div className={listView && !isItemPage ? 'col-sm-4' : null}>
+				<div className={listView && !isItemPage ? 'col-4' : null}>
 					{	!isItemPage ?
 						<h6>Film</h6>
 						: null
@@ -73,7 +73,7 @@ class FilmContent extends Component {
 					}
 				</div>
 				<div className={listView && !isItemPage ?
-					'col-sm-4' : null}>
+					'col-4' : null}>
 					<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
 						<ClampedDescription
 							className="description"
@@ -84,7 +84,7 @@ class FilmContent extends Component {
 				</div>
 				{
 					<div className={listView && !isItemPage ?
-													'col-sm-4 order-3' : null}>
+													'col-4 order-3' : null}>
 						<div className={listView && !isItemPage ?
 							'list-center-wrapper' : null}>
 							<div className="tags-wrapper">

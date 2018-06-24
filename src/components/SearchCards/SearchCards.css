@@ -26,3 +26,7 @@
 	margin-right: 40px;
 	display: inline-block;
 }
+
+.CollectionPageItems .SearchCards .SearchCard.grid {
+	margin-right: 0;
+}

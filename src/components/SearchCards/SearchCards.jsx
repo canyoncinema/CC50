@@ -12,7 +12,9 @@ class SearchCards extends Component {
 			<Row className="SearchCards">
 				{
 					data.map((d, i) =>
-						<div key={i} className={'col-'+customColWidth+'-'+customColSize}>
+						<div key={i} className={'col-'+
+						(customColWidth === 'xs' ? '' : customColWidth + '-') +
+						customColSize}>
 							<SearchCard
 								key={i}
 								itemType={itemType}

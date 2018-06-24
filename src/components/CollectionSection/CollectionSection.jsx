@@ -5,10 +5,10 @@ import './CollectionSection.css';
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
-const CollectionSection = ({ viewMode, itemType, searchData, header, description,
+const CollectionSection = ({ customColSize, customColWidth, className, viewMode, itemType, searchData, header, description,
 	buttonText, buttonLink }) => {
 	return (
-		<div className="CollectionSection">
+		<div className={[className, 'CollectionSection'].join(' ')}>
 			{
 				header ?
 				<header className="section-header d-flex">
@@ -29,10 +29,16 @@ const CollectionSection = ({ viewMode, itemType, searchData, header, description
 			{
 				searchData && searchData.length ?
 				<SearchCards
+					customColSize={customColSize}
+					customColWidth={customColWidth}
 					itemType={itemType}
 					viewMode={viewMode}
 					data={searchData} />
 				: null
+			}
+			{
+				!searchData || !searchData.length ?
+				'Loading...' : null
 			}
 		</div>
 	);
