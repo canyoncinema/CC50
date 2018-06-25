@@ -7,6 +7,10 @@ const mapStateToProps = state => ({
 });
 
 class TypeAheadChoiceList extends Component {
+	componentWillReceiveProps(nextProps) {
+		console.log('reeive', nextProps, this.props);
+	}
+
 	render() {
 		const { searchTextAutocompleted,
 			clickedInsideAutocompletedText,
@@ -16,7 +20,6 @@ class TypeAheadChoiceList extends Component {
 			children,
 			setRef
 		} = this.props;
-		console.log('choicesCollectionItems', choicesCollectionItems, 'collectionItems', collectionItems);
 		const isOpen = (searchTextAutocompleted &&
 										clickedInsideAutocompletedText &&
 										choicesCollectionItems === collectionItems) ||

@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import './TypeAheadChoices.css';
 import { updateQueryString } from '../../utils/query-string';
 import { getDisplayNameFromRefName,
-collectionItemsToSingularTitlecased } from '../../utils/parse-data';
+	getShortIdentifierFromRefName,
+	collectionItemsToSingularTitlecased } from '../../utils/parse-data';
 import { getChoices } from '../../actions/typeahead-choices-actions';
+import { history } from '../../store';
 import {
 	ALL_SEARCH_LABEL,
 	FILMS_SEARCH_LABEL,
@@ -39,7 +41,6 @@ class TypeAheadChoices extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		console.log('TypeAheadChoices componentDidUpdate');
 		if (this.updateDebounced) {
 			clearTimeout(this.updateDebounced);
 		}
@@ -66,6 +67,7 @@ class TypeAheadChoices extends Component {
 	}
 
 	render() {
+		// onChoiceSelect(choice.termDisplayName, this.props.collectionItems)
 		const { numChoices, collectionItems, choicesCollectionItems,
 			onChoiceSelect, setChoicesCollectionItems,
 			choices, searchText } = this.props;
@@ -87,15 +89,20 @@ class TypeAheadChoices extends Component {
 					className="TypeAheadChoice d-flex"
 					key={i}
 					title={`${collectionItemsToSingularTitlecased(collectionItems)}: ${choice.termDisplayName}`}
-					onClick={() => onChoiceSelect(choice.termDisplayName, this.props.collectionItems)}>
+					onClick={(e) => {
+						e.stopPropagation();
+						const path = `/collection/${collectionItems}/${getShortIdentifierFromRefName(choice.refName)}`;
+						history.push(path);
+					}}
+				>
 					<span className="value">
-							{choice.termDisplayName.slice(0, choice.matchChar.start)}
-							<span className="match">
-								{choice.termDisplayName.slice(choice.matchChar.start, choice.matchChar.end + 1)}
-							</span>
-							{choice.termDisplayName.slice(choice.matchChar.end + 1, choice.termDisplayName.length)}
+						{choice.termDisplayName.slice(0, choice.matchChar.start)}
+						<span className="match">
+							{choice.termDisplayName.slice(choice.matchChar.start, choice.matchChar.end + 1)}
 						</span>
-						<label className="ml-auto">{collectionItemsToSingularTitlecased(collectionItems)}</label>
+						{choice.termDisplayName.slice(choice.matchChar.end + 1, choice.termDisplayName.length)}
+					</span>
+					<label className="ml-auto">{collectionItemsToSingularTitlecased(collectionItems)}</label>
 				</li>
 			);
 		})

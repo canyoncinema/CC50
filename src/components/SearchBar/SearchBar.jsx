@@ -63,10 +63,6 @@ class SearchBar extends Component {
 		if (clickedOutsideInput) {
 			// TODO: HACK
 			if (!clickedOnChoice) {
-				// this.setState({
-				// 	disableInput: true,
-				// 	clickedInsideAutocompletedText: false
-				// });
 				this.setState({
 					disableInput: true,
 					clickedInsideAutocompletedText: false
@@ -80,10 +76,13 @@ class SearchBar extends Component {
 	}
 
 	onInsideClick = (event) => {
-		this.setState({
-			disableInput: false,
-			clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted
-		});
+		if (this.state.disableInput ||
+			this.state.clickedInsideAutocompletedText == !this.props.searchTextAutocompleted) {
+			this.setState({
+				disableInput: false,
+				clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted
+			});
+		}
 		if (this.props.searchText &&
 				this.props.collectionItems !== this.props.choicesCollectionItems) {
 			// clicked into typed search, after changing collection type
