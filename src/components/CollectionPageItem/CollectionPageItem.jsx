@@ -5,7 +5,7 @@ import './CollectionPageItem.css';
 
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { getSpoofDataObj } from '../../spoof-data';
-import { collectionItemsToSingularTitlecased } from '../../collection-context';
+import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
 import MainNav from '../MainNav/MainNav';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';

@@ -65,7 +65,7 @@ class App extends Component {
               return <CollectionPage
                 match={match}
                 nonCollectionItemsString={match.params[1]}
-                collectionItemsString={match.params.collectionItems}
+                collectionItems={match.params.collectionItems}
                 searchedText={searchedText}
                 viewMode={viewMode}>
                 <Switch>

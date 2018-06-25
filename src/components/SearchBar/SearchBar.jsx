@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getChoices } from '../../actions/typeahead-choices-actions';
 import PropTypes from 'prop-types';
 import './SearchBar.css';
 
@@ -7,6 +9,14 @@ import IconSearch from '../Icon/IconSearch';
 import SearchFilter from '../SearchFilter/SearchFilter';
 import TypeAheadChoiceList from '../TypeAheadChoiceList/TypeAheadChoiceList';
 import TypeAheadChoices from '../TypeAheadChoices/TypeAheadChoices';
+
+const mapStateToProps = state => ({
+	choicesCollectionItems: state.typeAheadChoices.collectionItems
+});
+
+const mapDispatchToProps = dispatch => ({
+	getChoices: (...args) => dispatch(getChoices(...args))
+})
 
 class SearchBar extends Component {
 	constructor(props) {
@@ -74,6 +84,15 @@ class SearchBar extends Component {
 			disableInput: false,
 			clickedInsideAutocompletedText: !!this.props.searchTextAutocompleted
 		});
+		if (this.props.searchText &&
+				this.props.collectionItems !== this.props.choicesCollectionItems) {
+			// clicked into typed search, after changing collection type
+			// to query over; re-execute get search choices on new collection
+			this.props.getChoices(
+				this.props.collectionItems,
+				this.props.searchText
+			);
+		}
 	}
 
 	render() {
@@ -84,7 +103,8 @@ class SearchBar extends Component {
 			setSearchText,
 			searchTextAutocompleted,
 			className,
-			submitSearch
+			submitSearch,
+			collectionItems
 		} = this.props;
 		const { disableInput, clickedInside, clickedInsideAutocompletedText } = this.state;
 		const clearPlaceholder = !disableInput;
@@ -113,11 +133,15 @@ class SearchBar extends Component {
 						placeholder={clearPlaceholder ? '' : searchPlaceholder}
 					/>
 					<TypeAheadChoiceList
+						collectionItems={collectionItems}
 						setRef={this.setChoicesRef}
-						isOpen={searchTextAutocompleted ?
-								clickedInsideAutocompletedText :
-								!disableInput && searchText.length > 0}>
+						searchTextAutocompleted={searchTextAutocompleted}
+						clickedInsideAutocompletedText={clickedInsideAutocompletedText}
+						isTypingSearch={!disableInput && searchText.length > 0}
+						>
 						<TypeAheadChoices
+							numChoices={7}
+							collectionItems={collectionItems}
 							searchText={searchText}
 							onChoiceSelect={submitSearch}
 						/>
@@ -142,4 +166,4 @@ SearchBar.propTypes = {
 	setSearchText: PropTypes.func.isRequired
 };
 
-export default SearchBar;
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

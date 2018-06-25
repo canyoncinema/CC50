@@ -5,6 +5,7 @@ import item from './item-reducer';
 import items from './items-reducer';
 import itemMenuHeaders from './item-menu-headers-reducer';
 import collectionSort from './collection-sort-reducer';
+import typeAheadChoices from './typeahead-choices-reducer';
 
 export default combineReducers({
   filmmakers,
@@ -12,5 +13,6 @@ export default combineReducers({
   item,
   itemMenuHeaders,
   items,
-  collectionSort
+  collectionSort,
+  typeAheadChoices
 });

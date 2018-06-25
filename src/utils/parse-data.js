@@ -22,6 +22,12 @@ export const matchRefName = refName => {
 		return refName.match(/^urn\:cspace\:canyoncinema.com\:(\S+)\:name(\S+)\:item\:name\((\S+)\)\'(.+)\'$/);
 };
 
+export const getCspaceCllxnFromRefName = (refName, match) => {
+	// e.g. 'workauthorities'
+	return match ? match[1] : matchRefName(refName)[1];
+};
+
+
 export const getDisplayNameFromRefName = (refName, match) => {
 	// e.g. 'Stan Brakhage'
 	return match ? match[4] : matchRefName(refName)[4];
@@ -40,6 +46,63 @@ export const getDisplayNameFromMatch = (match) => {
 export const getShortIdentifierFromMatch = (match) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	return match[3];
+};
+
+export const collectionItemsToItemName = (collectionItems, isPlural) => {
+	switch (collectionItems) {
+		case 'films':
+			return isPlural ? 'works' : 'work';
+		case 'filmmakers':
+			return isPlural ? 'persons' : 'person';
+		case 'ephemera':
+			return null;
+		case 'events':
+			return 'exhibitions';
+		default:
+			return;
+	}
+};
+
+export const collectionItemsToCSpaceCollection = (collectionItems, isRefName, isPlural) => {
+	switch (collectionItems) {
+		case 'films':
+			return isRefName ? isPlural ? 'works' : 'work' : 'workauthorities';
+		case 'filmmakers':
+			return isRefName ? isPlural ? 'persons' : 'person' : 'personauthorities';
+		case 'ephemera':
+			return isRefName ? isPlural ? 'collectionobjects' : 'collectionobject' : 'collectionobjects';
+			// admin@canyoncinema.com:Administrator -H "Accept: application/json" "http://cs.cancf.com/cspace-services/collectionobjects"
+			// NOTE: FILTER FOR EPHEMERA( from Nima )
+		case 'programs':
+			return isRefName ? isPlural ? 'groups' : 'group' : 'groups';
+		case 'events':
+			return isRefName ? isPlural ? 'exhibitions' : 'exhibition' : 'exhibitions';
+		default:
+			return;
+	}
+};
+
+export const cspaceCollectionToItemName = (cspaceCollection, isPlural) => {
+	switch (cspaceCollection) {
+		case 'workauthorities':
+			return isPlural ? 'works' : 'work';
+		case 'work':
+			return isPlural ? 'works' : 'work';
+		case 'works':
+			return isPlural ? 'works' : 'work';
+		case 'personauthorities':
+			return isPlural ? 'persons' : 'person';
+		case 'person':
+			return isPlural ? 'persons' : 'person';
+		case 'persons':
+			return isPlural ? 'persons' : 'person';
+		case 'ephemera':
+			return null;
+		case 'events':
+			return 'exhibitions';
+		default:
+			return;
+	}
 };
 
 export const getNameFromFilmFormat = formatRefName => {
@@ -75,3 +138,11 @@ export const yearsFromyear = year => {
 	if (year.length !== 4) throw new Error('Invalid Year ' + year);
 	return String(Math.floor(Number(year)/10) * 10) + 's';
 }
+
+export const collectionItemsToSingularTitlecased = label => {
+	if (label === 'filmmakers') return 'Filmmaker';
+	if (label === 'films') return 'Film';
+	if (label === 'programs') return 'Program';
+	if (label === 'ephemera') return 'Ephemera';
+	throw new Error('Invalid label ' + label);
+};

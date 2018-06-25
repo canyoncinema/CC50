@@ -28,6 +28,7 @@ class Search extends Component {
 						key={id + '-1'}
 						searchPlaceholder={labelToSearchPlaceholder[searchLabel]}
 						searchText={searchText}
+						collectionItems={collectionItems}
 						setSearchText={setSearchText}
 						searchLabel={searchLabel}
 						submitSearch={submitSearch}

@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './TypeAheadChoiceList.css';
 
-const TypeAheadChoiceList = ({ isOpen, children, setRef }) => {
-	return (
-		<ul
-			ref={setRef}
-			className={ isOpen ? 'TypeAheadChoiceList active' : 'TypeAheadChoiceList'}>
-			{children}
-		</ul>
-	);
+const mapStateToProps = state => ({
+	choicesCollectionItems: state.typeAheadChoices.collectionItems
+});
+
+class TypeAheadChoiceList extends Component {
+	render() {
+		const { searchTextAutocompleted,
+			clickedInsideAutocompletedText,
+			isTypingSearch,
+			choicesCollectionItems,
+			collectionItems,
+			children,
+			setRef
+		} = this.props;
+		console.log('choicesCollectionItems', choicesCollectionItems, 'collectionItems', collectionItems);
+		const isOpen = (searchTextAutocompleted &&
+										clickedInsideAutocompletedText &&
+										choicesCollectionItems === collectionItems) ||
+										isTypingSearch;
+		return (
+			<ul
+				ref={setRef}
+				className={ isOpen ? 'TypeAheadChoiceList active' : 'TypeAheadChoiceList'}>
+				{children}
+			</ul>
+		);
+	}
 }
 
-export default TypeAheadChoiceList;
+export default connect(mapStateToProps)(TypeAheadChoiceList);

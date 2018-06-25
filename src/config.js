@@ -1,5 +1,10 @@
 import base64 from 'base-64';
-import { matchRefName, getDisplayNameFromRefName } from './utils/parse-data';
+import { matchRefName,
+	getDisplayNameFromRefName,
+	collectionItemsToItemName,
+	cspaceCollectionToItemName,
+	collectionItemsToCSpaceCollection } from './utils/parse-data';
+import { queryParamsToString } from './utils/query-string';
 
 const config = {
 	development: {
@@ -25,77 +30,6 @@ const config = {
 	}
 }
 
-const collectionItemsToCSpaceCollection = (collectionItems, isRefName, isPlural) => {
-	switch (collectionItems) {
-		case 'films':
-			return isRefName ? isPlural ? 'works' : 'work' : 'workauthorities';
-		case 'filmmakers':
-			return isRefName ? isPlural ? 'persons' : 'person' : 'personauthorities';
-		case 'ephemera':
-			return isRefName ? isPlural ? 'collectionobjects' : 'collectionobject' : 'collectionobjects';
-			// admin@canyoncinema.com:Administrator -H "Accept: application/json" "http://cs.cancf.com/cspace-services/collectionobjects"
-			// NOTE: FILTER FOR EPHEMERA( from Nima )
-		case 'programs':
-			return isRefName ? isPlural ? 'groups' : 'group' : 'groups';
-		case 'events':
-			return isRefName ? isPlural ? 'exhibitions' : 'exhibition' : 'exhibitions';
-		default:
-			return;
-	}
-}
-
-const collectionItemsToItemName = (collectionItems, isPlural) => {
-	switch (collectionItems) {
-		case 'films':
-			return isPlural ? 'works' : 'work';
-		case 'filmmakers':
-			return isPlural ? 'persons' : 'person';
-		case 'ephemera':
-			return null;
-		case 'events':
-			return 'exhibitions';
-		default:
-			return;
-	}
-};
-
-const cspaceCollectionToItemName = (cspaceCollection, isPlural) => {
-	switch (cspaceCollection) {
-		case 'workauthorities':
-			return isPlural ? 'works' : 'work';
-		case 'work':
-			return isPlural ? 'works' : 'work';
-		case 'works':
-			return isPlural ? 'works' : 'work';
-		case 'personauthorities':
-			return isPlural ? 'persons' : 'person';
-		case 'person':
-			return isPlural ? 'persons' : 'person';
-		case 'persons':
-			return isPlural ? 'persons' : 'person';
-		case 'ephemera':
-			return null;
-		case 'events':
-			return 'exhibitions';
-		default:
-			return;
-	}
-};
-
-const queryParamsToString = (params) => {
-	// expects object with key-value pairs matching collectionspace params
-	return params &&
-		Object.keys(params).length ?
-		Object.keys(params).reduce((path, key, i) => {
-			path += key + '=' + params[key];
-			if (i !== Object.keys(params).length - 1) {
-				// not the last one; keep appending
-				path += '&';
-			}
-			return path;
-	}, '?') : '';
-};
-
 class Config {
 	constructor(env) {
 		// FOR DEV:
@@ -119,14 +53,17 @@ class Config {
 			+ queryParamsToString(queryParams);
 	}
 
-	getListItemsUrl(collectionItems, sortVal) {
+	getListItemsUrl(collectionItems, queryParams) {
 		const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
 		let url = this.baseUrl + config[this.env].list[cspaceCollection];
-		if (sortVal) {
+		if (queryParams) {
+			url += queryParamsToString(queryParams);
+		}
+		// if (sortVal) {
 			// TODO: SORT FOR REAL
 			// url += '?sortBy=' + collectionRefName + '_common:' + sortVal;
-		}
+		// }
 		return url;
 	}
 

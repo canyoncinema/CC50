@@ -18,10 +18,27 @@ export const updateQueryString = function(search, paramsObj={}) {
 	obj = Object.assign(obj, paramsObj);
 	var urlString = '';
 	Object.keys(obj).forEach((key, i) => {
-		urlString += key + '=' + obj[key]
-		if (i !== Object.keys(obj).length - 1) {
-			urlString += '&';
+		if (obj[key]) {
+			urlString += key + '=' + obj[key]
+			if ((i !== Object.keys(obj).length - 1) &&
+					(!!obj[Object.keys(obj)[i + 1]])) {
+				urlString += '&';
+			}
 		}
 	});
 	return urlString;
 }
+
+export const queryParamsToString = (params) => {
+	// expects object with key-value pairs matching collectionspace params
+	return params &&
+		Object.keys(params).length ?
+		Object.keys(params).reduce((path, key, i) => {
+			path += key + '=' + params[key];
+			if (i !== Object.keys(params).length - 1) {
+				// not the last one; keep appending
+				path += '&';
+			}
+			return path;
+	}, '?') : '';
+};

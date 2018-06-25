@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './TypeAheadChoices.css';
 import { updateQueryString } from '../../utils/query-string';
+import { getDisplayNameFromRefName,
+collectionItemsToSingularTitlecased } from '../../utils/parse-data';
+import { getChoices } from '../../actions/typeahead-choices-actions';
 import {
 	ALL_SEARCH_LABEL,
 	FILMS_SEARCH_LABEL,
@@ -9,6 +13,15 @@ import {
 	EPHEMERA_SEARCH_LABEL,
 	toCollectionSearchVal
 } from '../../collection-context';
+
+const mapStateToProps = state => ({
+	choices: state.typeAheadChoices.data,
+	choicesCollectionItems: state.typeAheadChoices.collectionItems
+});
+
+const mapDispatchToProps = dispatch => ({
+	getChoices: (collectionItems, choiceText) => dispatch(getChoices(collectionItems, choiceText))
+});
 
 class TypeAheadChoices extends Component {
 	constructor(props) {
@@ -25,36 +38,19 @@ class TypeAheadChoices extends Component {
 		choiceSearchLabels: []
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
+		console.log('TypeAheadChoices componentDidUpdate');
 		if (this.updateDebounced) {
 			clearTimeout(this.updateDebounced);
 		}
 
 		this.updateDebounced = setTimeout(() => {
-			this.setState({
-				// choices: [this.props.searchText, this.props.searchText, this.props.searchText]
-				searchText: this.props.searchText,
-				choiceTexts: [
-					this.props.searchText + ' choice 1',
-					this.props.searchText + ' choice 2',
-					this.props.searchText + ' choice 3',
-					this.props.searchText + ' choice 4',
-					this.props.searchText + ' choice 5',
-					this.props.searchText + ' choice 6',
-					this.props.searchText + ' choice 7'
-				],
-				choiceMatchStartChars: [0, 4, 8, 1, 3, 2, 5],
-				choiceMatchEndChars: [3, 7, 12, 13, 9, 13, 9],
-				choiceSearchLabels: [ // TODO: THIS IS PLURAL == SEARCH LABELS
-					FILMMAKERS_SEARCH_LABEL,
-					FILMS_SEARCH_LABEL,
-					EPHEMERA_SEARCH_LABEL,
-					FILMS_SEARCH_LABEL,
-					FILMS_SEARCH_LABEL,
-					FILMMAKERS_SEARCH_LABEL,
-					EPHEMERA_SEARCH_LABEL
-				]
-			})
+			if (prevProps.searchText === this.props.searchText) return;
+			// execute search
+			this.props.getChoices(
+				this.props.collectionItems,
+				this.props.searchText
+			);
 		}, 250);
 	}
 
@@ -70,39 +66,40 @@ class TypeAheadChoices extends Component {
 	}
 
 	render() {
-		const { onChoiceSelect } = this.props;
+		const { numChoices, collectionItems, choicesCollectionItems,
+			onChoiceSelect, setChoicesCollectionItems,
+			choices, searchText } = this.props;
 		const {
 			choiceTexts, choiceSearchLabels,
-			choiceMatchStartChars, choiceMatchEndChars
+			choiceMatchChars
 		} = this.state;
-		// TODO: proper search label val
-		return choiceTexts.map((choiceText, i) => {
-					const matchStartChar = choiceMatchStartChars[i],
-								matchEndChar = choiceMatchEndChars[i],
-								choiceLabel = choiceSearchLabels[i];
-					return <li
-						className="TypeAheadChoice d-flex"
-						key={i}
-						onClick={e => {
-							// TODO: HACK
-							// const url = '/collection/' +
-							// toCollectionSearchVal(choiceLabel) + '?' +
-							// updateQueryString(window.location.search, {
-							// 	search: encodeURIComponent(choiceText)
-							// });
-							onChoiceSelect(choiceText, choiceLabel);
-						}}>
-						<span className="value">
-							{choiceText.slice(0, matchStartChar)}
+		return (choices || []).map(choice => {
+			choice.matchChar = {
+				start: choice.termDisplayName.toLowerCase().indexOf(searchText.toLowerCase()),
+				end: choice.termDisplayName.toLowerCase().indexOf(searchText.toLowerCase()) + searchText.length - 1
+			};
+			return choice;
+		})
+		.slice(0, numChoices)
+		.map((choice, i) => {
+			return (
+				<li
+					className="TypeAheadChoice d-flex"
+					key={i}
+					title={`${collectionItemsToSingularTitlecased(collectionItems)}: ${choice.termDisplayName}`}
+					onClick={() => onChoiceSelect(choice.termDisplayName, this.props.collectionItems)}>
+					<span className="value">
+							{choice.termDisplayName.slice(0, choice.matchChar.start)}
 							<span className="match">
-								{choiceText.slice(matchStartChar, matchEndChar + 1)}
+								{choice.termDisplayName.slice(choice.matchChar.start, choice.matchChar.end + 1)}
 							</span>
-							{choiceText.slice(matchEndChar + 1, choiceText.length)}
+							{choice.termDisplayName.slice(choice.matchChar.end + 1, choice.termDisplayName.length)}
 						</span>
-						<label className="ml-auto">{choiceSearchLabels[i]}</label>
-					</li>
-				});
+						<label className="ml-auto">{collectionItemsToSingularTitlecased(collectionItems)}</label>
+				</li>
+			);
+		})
 	}
 }
 
-export default TypeAheadChoices;
+export default connect(mapStateToProps, mapDispatchToProps)(TypeAheadChoices);

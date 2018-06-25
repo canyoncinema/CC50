@@ -1,7 +1,7 @@
 import {
-	FETCH_ITEMS,
-	RECEIVED_ITEMS,
-	FAILED_ITEMS
+	FETCH_CHOICES,
+	RECEIVED_CHOICES,
+	FAILED_CHOICES
 } from '../actionTypes';
 import { config } from '../store';
 import { parseFilm } from '../utils/parse-data';
@@ -9,48 +9,59 @@ import { parseFilm } from '../utils/parse-data';
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
 
-function fetchItems() {
+function fetchChoices() {
 	return {
-		type: FETCH_ITEMS
+		type: FETCH_CHOICES
 	}
 }
 
-function receiveItems(payload, sort) {
+function receiveChoices(payload, collectionItems) {
+	if (payload['ns2:abstract-common-list'].itemsInPage === '0') {
+		return {
+			type: RECEIVED_CHOICES,
+			data: [],
+			collectionItems
+		}
+	}
 	let data = payload['ns2:abstract-common-list']['list-item'];
 	if (data.length === undefined) data = [data];
-	// data = data.map(d => parseFilm(d));
 	return {
-		type: RECEIVED_ITEMS,
-		data
+		type: RECEIVED_CHOICES,
+		data,
+		collectionItems
 	}
 }
 
-function failItems(error) {
-	console.error('Failed Items Request', error);
+function failChoices(error) {
+	console.error('Failed Choices Request', error);
 	return {
-		type: FAILED_ITEMS,
+		type: FAILED_CHOICES,
 		error
 	}
 }
 
-export function getItems(collectionItems, queryParams) {
+export function getChoices(collectionItems, choiceText) {
+	const queryParams = {
+		pgSz: 7,
+		pt: choiceText
+	};
 	return (dispatch) => {
-		dispatch(fetchItems());
+		dispatch(fetchChoices());
 		console.log('GET', config.getListItemsUrl(collectionItems, queryParams));
 		return fetch(config.getListItemsUrl(collectionItems, queryParams), {
 				headers: config.authHeaders
 			})
 			.then(response => {
 				if (response.status >= 400) {
-					dispatch(failItems("Bad response from server"));
+					dispatch(failChoices("Bad response from server"));
 				}
 				return response.json();
 			})
 			.then(data =>
-				dispatch(receiveItems(data))
+				dispatch(receiveChoices(data, collectionItems))
 			)
 			.catch(error =>
-				dispatch(failItems(error))
+				dispatch(failChoices(error))
 			);
 	}
 };

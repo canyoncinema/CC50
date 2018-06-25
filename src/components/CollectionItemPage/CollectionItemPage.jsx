@@ -7,7 +7,7 @@ import { getSpoofDataObj } from '../../spoof-data';
 import { getItem } from '../../actions/item-actions';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
-import { collectionItemsToSingularTitlecased } from '../../collection-context';
+import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
 import MainNav from '../MainNav/MainNav';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';

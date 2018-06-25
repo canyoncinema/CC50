@@ -38,14 +38,6 @@ export const collectionItemsToSingular = label => {
 	throw new Error('Invalid label ' + label);
 }
 
-export const collectionItemsToSingularTitlecased = label => {
-	if (label === 'filmmakers') return 'Filmmaker';
-	if (label === 'films') return 'Film';
-	if (label === 'programs') return 'Program';
-	if (label === 'ephemera') return 'Ephemera';
-	throw new Error('Invalid label ' + label);
-}
-
 export const itemTypeToCollectionSearchVal = itemType => {
 	if (itemType === 'filmmaker') return 'filmmakers';
 	if (itemType === 'film') return 'films';

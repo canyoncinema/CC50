@@ -27,10 +27,11 @@ class CollectionPage extends Component {
 		});
 	}
 
-	submitSearch = (text) => {
+	submitSearch = (text, collectionItems) => {
 		const { location, history } = this.props;
 		const path = location.pathname + '?' + updateQueryString(location.search, {
-			search: encodeURIComponent(text)
+			search: encodeURIComponent(text),
+			items: collectionItems
 		});
 		history.push(path);
 	}
@@ -57,7 +58,7 @@ class CollectionPage extends Component {
 		const {
 			children,
 			nonCollectionItemsString,
-			collectionItemsString,
+			collectionItems,
 			isScrollNav
 		} = this.props;
 		const {
@@ -69,13 +70,13 @@ class CollectionPage extends Component {
 			<CollectionContext.Provider value={this.state}>
 				<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
 					<MainNav isCollapsed={true} />
-					<MainNavFilterBar collectionItems={collectionItemsString} />
+					<MainNavFilterBar collectionItems={collectionItems} />
 				</div>
 				<div className="CollectionPage">
 					<header className="search-sort">
 						<h1 className="white">Explore the collection</h1>
 						<div className="filters">
-							<Search id={0} collectionItems={collectionItemsString} />
+							<Search id={0} collectionItems={collectionItems} />
 							<ViewModeToggler
 								activeMode={viewMode || 'grid'}
 								onClick={this.setViewMode} />
@@ -84,7 +85,7 @@ class CollectionPage extends Component {
 					{
 						nonCollectionItemsString ?
 						<SearchResultsSummary key={1}
-              searchText={collectionItemsString ? collectionItemsString + nonCollectionItemsString : nonCollectionItemsString}
+              searchText={collectionItems ? collectionItems + nonCollectionItemsString : nonCollectionItemsString}
               numResults={0}
             />
 						: searchedText ?
