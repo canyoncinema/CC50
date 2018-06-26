@@ -141,14 +141,17 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'rent',
 				order: 7,
-				condition: item.rentalFormats && item.rentalFormats.length,
+				condition: item.rentalPrice && item.rentalFormats,
 				menuHeader: <Button className="default" size="small">Rent this Film</Button>,
 				renderHeader: () => <h3>Rent this Film</h3>,
 				renderContent: () => (
 					<RentThis
 						rentalPrice={item.rentalPrice}
-						rentalPriceIsPublished={item.rentalPriceIsPublished}
-						rentalFormats={item.rentalFormats}
+						rentalPriceIsPublished={item.rentalPriceIsPublished || true}
+						rentalFormats={item.rentalFormats &&
+							((item.rentalFormats.rentalFormat && [item.rentalFormats.rentalFormat]) ||
+								item.rentalFormats['list-item'])
+						}
 						rentalFormId={item.rentalFormId}
 					/>
 				)

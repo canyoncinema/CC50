@@ -1,5 +1,6 @@
 import React from 'react';
 import './RentThis.css';
+import { getNameFromFilmFormat } from '../../utils/parse-data';
 
 import Button from '../Button/Button';
 
@@ -7,10 +8,6 @@ import Button from '../Button/Button';
 function onlyUnique(value, index, self) { 
    return self.indexOf(value) === index;
 }
-
-const toPriceString = price => !Number.isInteger(price) && Number.isInteger(price * 10) ?
-		String(price) + '0'
-		: String(price);
 
 /*
 options are { price, format, type }
@@ -53,19 +50,19 @@ const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFo
 <div className="RentThis d-flex">
 	<div>
 		<div className="price">{rentalPriceIsPublished ?
-			'$' + toPriceString(rentalPrice)
+			rentalPrice
 			: 'Inquire for Pricing'
 		}</div>
 		<div>
 			<small>
 				Available Format{rentalFormats && rentalFormats.length === 1 ?
-				'' : 's'}: {rentalFormats.join(', ')}
+				'' : 's'}: {rentalFormats.map(formatRefName => getNameFromFilmFormat(formatRefName)).join(', ')}
 			</small>
 		</div>
 	</div>
 	<div className="ml-auto">
 		<Button className="default" size="small"
-			to={'http://canyoncinema.com/clients/rental-inquiry-form/' + rentalFormId}>
+			to={'http://canyoncinema.com/clients/rental-inquiry-form/' + (rentalFormId || '')}>
 			Rent
 		</Button>
 	</div>
