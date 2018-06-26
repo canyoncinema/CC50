@@ -23,8 +23,8 @@
 }
 
 .BrowseLink a {
-  opacity: 0.9;
-  transition: opacity 0.33s linear;
+  opacity: 0.66;
+  transition: opacity 0.15s linear;
 }
 
 .BrowseLink a:hover,

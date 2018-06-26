@@ -1,9 +1,21 @@
 .HomePage {
 	margin-top: -104px;
+  margin-top: 0;
+  font-size: 0;
+}
+
+.HomePage .video-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .HomePage .Hero {
 	padding-top: 106px;
+  /* video placement */
+  position: relative;
 }
 
 .HomePage .discover {

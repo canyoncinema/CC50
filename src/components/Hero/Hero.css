@@ -1,7 +1,14 @@
 .Hero {
-	background: url(/images/hero-example.jpg) no-repeat center center fixed; 
+	/* background: url(/images/hero-example.jpg) no-repeat center center fixed;  */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-color: black;
+
+  font-size: 1rem;
+}
+
+.Hero .video-wrapper {
+	opacity: 0.66;
 }

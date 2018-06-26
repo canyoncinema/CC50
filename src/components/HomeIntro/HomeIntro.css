@@ -76,10 +76,17 @@
   font-family: inherit;
   color: #ffffff;
   font-size: 20px;
+
+  transition: opacity 0.15s linear, border-width 0.33s linear;
 }
 
-.HomeIntro .search.active {
+.HomeIntro .search.active,
+.HomeIntro .search:hover,
+.HomeIntro .search:focus,
+.HomeIntro .search:active {
   opacity: 1;
+  /*  half as much, to stay the same */
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .HomeIntro .search::placeholder {
