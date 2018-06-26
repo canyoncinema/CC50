@@ -11,7 +11,7 @@ export default ({active, children}) => {
           videoOptions={{
             src: 'cc50.mp4',
             title: 'Canyon Cinema',
-            autoplay: '',
+            autoPlay: true,
             muted: '',
             loop: true,
             poster: 'cc50.mp4'

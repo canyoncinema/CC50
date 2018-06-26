@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 import { Row, Col } from 'reactstrap';
-import VideoCover from 'react-video-cover';
 import data from '../../db.json';
 import './HomePage.css';
 

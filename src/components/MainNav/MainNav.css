@@ -1,4 +1,4 @@
-.MainNav {
+.MainNav.is-home {
   z-index: 22;
   position: absolute;
   left: 0;
