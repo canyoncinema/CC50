@@ -39,7 +39,7 @@ const FilmmakerContent = ({
 				<div className="col-8">
 					<div className="list-center-wrapper">
 						<ClampedDescription
-							className="description"
+							className="description formatted-text"
 							maxLines={listView ? 3 : 6}>
 							{item.shortBioNote}
 						</ClampedDescription>

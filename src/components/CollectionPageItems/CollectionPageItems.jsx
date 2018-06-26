@@ -27,13 +27,8 @@ class CollectionPageItems extends Component {
   	if (nextProps.collectionItems !== this.props.collectionItems ||
   			nextProps.sortVal !== this.props.sortVal) {
   		// change items shown
-  		console.log('change items shown to', nextProps.collectionItems, 'from', this.props.collectionItems);
   		this.props.getItems(nextProps.collectionItems, nextProps.sortVal);
   	}
-  }
-
-  componentWillUnmount() {
-  	console.log('unmounting CollectionPageItems')
   }
 
 	render() {

@@ -76,7 +76,7 @@ class FilmContent extends Component {
 					'col-4' : null}>
 					<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
 						<ClampedDescription
-							className="description"
+							className="description formatted-text"
 							maxLines={3}>
 							{item.shortDescription}
 						</ClampedDescription>

@@ -153,6 +153,11 @@ a.gold:hover {
   white-space: pre-wrap;
 }
 
+.formatted-text {
+  white-space: normal;
+  white-space: pre-wrap;
+}
+
 
 input:focus,
 input:active {

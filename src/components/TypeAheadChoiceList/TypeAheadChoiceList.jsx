@@ -7,10 +7,6 @@ const mapStateToProps = state => ({
 });
 
 class TypeAheadChoiceList extends Component {
-	componentWillReceiveProps(nextProps) {
-		console.log('reeive', nextProps, this.props);
-	}
-
 	render() {
 		const { searchTextAutocompleted,
 			clickedInsideAutocompletedText,

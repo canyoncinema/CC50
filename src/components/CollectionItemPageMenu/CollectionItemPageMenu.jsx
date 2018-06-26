@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
 class CollectionItemPageMenu extends Component {
 	render() {
 		const { headers, isScrollNav } = this.props;
-		console.log('CollectionItemPageMenu isScrollNav', isScrollNav)
 		const orderedHeaders = headers.filter(h => !!h);
 		return (
 			<Scrollspy

@@ -41,6 +41,9 @@ form.SearchBar {
 
 .SearchBar input:disabled {
 	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 14px;
 }
 
 .SearchBar input,

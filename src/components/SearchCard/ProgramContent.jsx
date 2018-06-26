@@ -28,7 +28,7 @@ const ProgramContent = ({
 			<div className={listView ? filmmakers && filmmakers.length ? 'col-4' : 'col-8' : null}>
 				<div className={listView ? 'list-center-wrapper' : null}>
 					<ClampedDescription
-						className="description"
+						className="description formatted-text"
 						maxLines={3}>
 						{description}
 					</ClampedDescription>
