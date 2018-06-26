@@ -15,40 +15,16 @@ import URNRelatedField from '../URNRelatedField/URNRelatedField';
 const mapStateToProps = state => ({
 	item: state.item.data,
 	filmmaker: state.item.filmmaker && state.item.filmmaker.data,
-	filmmakerFilms: state.item.filmmaker &&
-		state.item.filmmaker.films &&
-		state.item.filmmaker.films.data
+	filmmakerOtherFilms: state.item.filmmaker &&
+		state.item.filmmaker.otherFilms &&
+		state.item.filmmaker.otherFilms.data
 });
 
 class CollectionFilmPage extends Component {
-	// componentDidMount() {
-	// 	this.props.indicateHeadersInitialized();
-	// }
-
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	return !nextProps.headersInitialized;
-	// }
-
-	state = {
-		filmmaker: null,
-		filmmakerFilms: null
-	}
-
-	setFilmmaker = (filmmaker) => {
-		this.setState({ filmmaker });
-	}
-
-	setFilmmakerFilms = (films) => {
-		// TODO: MAKE THIS REAL
-		this.setState({
-			filmmakerFilms: films
-		})
-	}
-
 	render() {
-		const { item, filmmaker, filmmakerFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { item, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		console.log('Film Page item', item, 'FILMMAKER', filmmaker && filmmaker.termDisplayName);
-		console.log('filmmakerFilms', filmmakerFilms)
+		console.log('filmmakerFilms', filmmakerOtherFilms)
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -92,7 +68,7 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'others',
 				order: 3,
-				condition: filmmakerFilms && filmmakerFilms.length > 1,
+				condition: filmmakerOtherFilms && filmmakerOtherFilms.length > 1,
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
@@ -111,7 +87,7 @@ class CollectionFilmPage extends Component {
 							itemType="film"
 							viewMode={viewMode}
 							customColSize={6}
-							data={filmmakerFilms.filter(f => f.csid !== item.csid)} />
+							data={filmmakerOtherFilms} />
 					</div>
 				)
 			})

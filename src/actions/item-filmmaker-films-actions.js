@@ -29,11 +29,15 @@ function failItemFilmmakerFilms(error) {
 	}
 }
 
-export function getItemFilmmakerFilms(filmmakerRefName, pgSz) {
+export function getItemFilmmakerFilms({ filmmakerRefName, pgSz, exceptShortIdentifier }) {
 	if (!filmmakerRefName) throw new Error('Expected filmmakerRefName');
 	return (dispatch) => {
 		dispatch(fetchItemFilmmakerFilms());
-		config.fetchFilmmakerFilms(filmmakerRefName)
+		config.fetchFilmmakerFilms({
+			filmmakerRefName,
+			pgSz,
+			exceptShortIdentifier
+		})
 			.then(response => {
 				if (response.status >= 400) {
 					console.error("Bad response from server");

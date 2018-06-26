@@ -5,7 +5,7 @@ const initialState = {
 	data: undefined,
 	isLoading: false,
 	error: undefined,
-	films: undefined
+	otherFilms: undefined
 };
 
 const itemFilmmakerReducer = (state=initialState, action) => {
@@ -14,7 +14,7 @@ const itemFilmmakerReducer = (state=initialState, action) => {
 				return {
 					isLoading: true,
 					error: undefined,
-					films: undefined
+					otherFilms: undefined
 				};
 			return 
 		case types.RECEIVED_ITEM_FILMMAKER:
@@ -28,11 +28,11 @@ const itemFilmmakerReducer = (state=initialState, action) => {
 				isLoading: false,
 				error: action.error,
 				data: undefined,
-				films: undefined
+				otherFilms: undefined
 			};
 		default:
 			return Object.assign(state, {
-				films: films(state.films, action)
+				otherFilms: films(state.films, action)
 			});
 	}
 };

@@ -13,11 +13,15 @@ function fetchItemFilmmaker() {
 	}
 }
 
-function receiveItemFilmmaker(dispatch, item, filmmakerRefName, pgSz) {
+function receiveItemFilmmaker(dispatch, item, filmShortIdentifier, filmmakerRefName, pgSz) {
 	// TODO: MARKDOWN RENDERING
 	item.termDisplayName = toDisplayName(item.refName);
 	if (!item.termDisplayName) console.error('Should have a termDisplayName field. Check #toDisplayName refName field parsing');
-	dispatch(getItemFilmmakerFilms(filmmakerRefName, 6));
+	dispatch(getItemFilmmakerFilms({
+		filmmakerRefName,
+		pgSz: 6,
+		exceptShortIdentifier: filmShortIdentifier
+	}));
 	return {
 		type: RECEIVED_ITEM_FILMMAKER,
 		data: item
@@ -32,7 +36,7 @@ function failItemFilmmaker(error) {
 	}
 }
 
-export function getItemFilmmaker(filmmakerRefName, filmmakerOptions) {
+export function getItemFilmmaker(filmmakerRefName, filmShortIdentifier, filmmakerOptions) {
 	const { filmsByFilmmakerPgSz } = filmmakerOptions;
 	return (dispatch) => {
 		dispatch(fetchItemFilmmaker());
@@ -46,7 +50,7 @@ export function getItemFilmmaker(filmmakerRefName, filmmakerOptions) {
 			})
 			.then(payload => {
 				const data = toItemData(payload);
-				dispatch(receiveItemFilmmaker(dispatch, data, filmmakerRefName, filmsByFilmmakerPgSz));
+				dispatch(receiveItemFilmmaker(dispatch, data, filmShortIdentifier, filmmakerRefName, filmsByFilmmakerPgSz));
 			}, error =>
 				dispatch(failItemFilmmaker(error))
 			);

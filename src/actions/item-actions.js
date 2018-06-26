@@ -14,7 +14,7 @@ function fetchItem() {
 	}
 }
 
-function receiveItem(dispatch, payload, filmmakerOptions) {
+function receiveItem(dispatch, payload, shortIdentifier, filmmakerOptions) {
 	const item = toItemData(payload);
 	// HACKS FOR CSPACE
 	// films: workauthorities
@@ -33,7 +33,10 @@ function receiveItem(dispatch, payload, filmmakerOptions) {
 					item.creatorGroupList.creatorGroup &&
 					item.creatorGroupList.creatorGroup.creator;
 	console.log('recieved filmmakerRefName', filmmakerRefName);
-	if (filmmakerRefName) dispatch(getItemFilmmaker(filmmakerRefName, filmmakerOptions));
+	if (filmmakerRefName) dispatch(getItemFilmmaker(
+		filmmakerRefName,
+		shortIdentifier,
+		filmmakerOptions));
 	return {
 		type: RECEIVED_ITEM,
 		data: item
@@ -94,7 +97,7 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 				// 	Promise.all([getItemPromise()])
 				// 	debugger
 				// }
-				dispatch(receiveItem(dispatch, payload, filmmakerOptions));
+				dispatch(receiveItem(dispatch, payload, shortIdentifier, filmmakerOptions));
 				dispatch(resetItemMenuHeaders())
 			}, error =>
 				dispatch(failItem(error))

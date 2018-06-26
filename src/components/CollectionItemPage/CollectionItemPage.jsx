@@ -33,13 +33,17 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
+			let filmmakerOptions;
+			if (this.props.collectionItems === 'films') {
+				// SPEC: on a film page, show 6 films initially by filmmaker
+				// on a filmmaker page, show 20 initially
+				filmmakerOptions = {
+					filmsByFilmmakerPgSz: this.props.collectionItems === 'films' ? 6 : 20
+				};
+			}
 			this.props.getItem(
 				this.props.collectionItems,
-				this.props.shortIdentifier, {
-					// SPEC: on a film page, show 6 films initially by filmmaker
-					// on a filmmaker page, show 20 initially
-					filmsByFilmmakerPgSz: this.props.collectionItems === 'films' ? 6 : 20
-				});
+				this.props.shortIdentifier, filmmakerOptions);
 		}
 
 		conditionallyShow = ({

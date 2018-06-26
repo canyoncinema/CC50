@@ -104,10 +104,16 @@ class Config {
 		}
 	}
 
-	getFilmmakerFilmsUrl(filmmakerRefName, pgSz=6) {
+	getFilmmakerFilmsUrl({ filmmakerRefName, pgSz=6, exceptShortIdentifier }) {
+		let as = '(works_common:creatorGroupList/*/creator+=+"' +
+			filmmakerRefName + '"';
+		if (exceptShortIdentifier) {
+			// all films by this filmmaker, except this film by short identifier
+			as += '+AND+works_common:shortIdentifier+<>+"' + exceptShortIdentifier + '"'
+		}
+		as += ')';
 		return this.getItemsUrl('films', {
-			as: '((works_common:creatorGroupList/*/creator+=+"' +
-				 filmmakerRefName + '"))',
+			as,
 			pgNum: 0,
 			pgSz,
 			wf_deleted: false
