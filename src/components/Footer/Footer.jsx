@@ -3,6 +3,8 @@ import './Footer.css';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import Support from '../Support/Support';
+import Subscribe from '../Subscribe/Subscribe';
 import IconTumblr from '../Icon/IconTumblr';
 import IconFacebook from '../Icon/IconFacebook';
 import IconTwitter from '../Icon/IconTwitter';
@@ -11,8 +13,8 @@ const Footer = ({className}) => {
 	return (
 		<div className={['Footer', className].join(' ')}>
 			<div className="container">
-				<Row>
-					<Col sm="6">
+				<Row className="no-gutters">
+					<Col md={6}>
 						<ul className="links">
 							<li><Link target="_blank" to="//www.canyoncinema.com/catalog">Catalog</Link></li>
 							<li><Link to="/news">News</Link></li>
@@ -24,9 +26,9 @@ const Footer = ({className}) => {
 							<li><Link target="_blank" to="//www.canyoncinema.com">Canyon Cinema</Link></li>
 						</ul>
 					</Col>
-					<Col sm="6">
+					<Col md={6}>
 						<Row>
-							<Col sm="6">
+							<Col md={6}>
 								<div className="bio">
 									<section className="contact">
 										<div><strong>Canyon Cinema Foundation</strong></div>
@@ -48,7 +50,7 @@ const Footer = ({className}) => {
 									</section>
 								</div>
 							</Col>
-							<Col sm="6">
+							<Col md={6}>
 								<div className="general">
 									<section>
 										<div><strong>General & Title Inquiries</strong></div>
@@ -57,6 +59,19 @@ const Footer = ({className}) => {
 								</div>
 							</Col>
 						</Row>
+					</Col>
+				</Row>
+				<Row className="no-gutters">
+					<Col md={6} md={{ offset: 6 }}>
+						<label className="subscribe-label">Subscribe and stay up to date on news and events</label>
+					</Col>
+				</Row>
+				<Row className="no-gutters">
+					<Col md={6}>
+						<Support />
+					</Col>
+					<Col md={6}>
+						<Subscribe />
 					</Col>
 				</Row>
 			</div>

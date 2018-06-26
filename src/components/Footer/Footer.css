@@ -13,6 +13,7 @@
 .Footer ul.links {
 	column-count: 2;
 	list-style: none;
+  padding: 0;
 }
 
 .Footer ul.links li {
@@ -44,4 +45,11 @@
 
 .Footer .social a {
   margin-right: 9px;
+}
+
+.Footer .subscribe-label {
+  font-size: 23px;
+  color: #ffffff;
+  margin-bottom: 26px;
+  margin-top: 112px;
 }

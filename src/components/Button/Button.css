@@ -18,6 +18,22 @@
   text-transform: uppercase;
 }
 
+.Button.support {
+  font-size: 16px;
+  color: #ffffff;
+  border: solid 2px #fff;
+  /*account for border*/
+  line-height: 66px;
+  padding: 0 50px;
+}
+
+.Button.support:hover {
+  background-color: #ffffff;
+  border: solid 2px #fff;
+  color: #231f20;
+  color: var(--black);
+}
+
 .Button, .Button a {
   transition: background-color 0.33s linear,
     border-color 0.33s linear,

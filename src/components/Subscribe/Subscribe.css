@@ -1,0 +1,39 @@
+.Subscribe input::placeholder {
+	font-style: italic;
+	color: #ffffff;
+
+}
+
+.Subscribe input {
+	font-size: 18px;
+	font-family: inherit;
+	height: 70px;
+}
+
+.Subscribe .submit {
+	background-color: white;
+	color: #231f20;
+	color: var(--black);
+	font-size: 16px;
+	letter-spacing: 1.6px;
+}
+
+.Subscribe input[type="text"] {
+  background: transparent;
+  line-height: 70px;
+  padding: 0 28px;
+  font-size: 1rem;
+  width: 100%;
+  color: #ffffff;
+  border: solid 2px #ffffff;
+  border-right: none;
+}
+
+.Subscribe input[type="submit"] {
+	font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  padding: 0 45px;
+  line-height: 70px;
+  cursor: pointer;
+}
