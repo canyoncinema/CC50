@@ -57,7 +57,7 @@ const EphemeraContent = ({
 											key={i}
 											isLast={i === related.length - 1}
 											to={`/${rel.itemType.toLowerCase().replace(' ','-')}/${rel.id}`}>
-											<span title={rel.displayName}>{rel.displayName}</span>
+											<span title={rel.termDisplayName}>{rel.termDisplayName}</span>
 										</RelatedLink>
 									)}
 								</ClampedDescription>

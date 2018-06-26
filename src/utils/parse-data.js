@@ -10,8 +10,27 @@ export const toItemData = payload => {
 	const commonField = 'ns2:' + name + '_common';
 	const canyonField = 'ns2:' + name + '_canyon';
 	const data = Object.assign(payload.document[commonField], payload.document[canyonField]);
+	if (data.refName) data.termDisplayName = toDisplayName(data.refName);
 	return data;
 };
+
+export const toItemsData = payload => {
+	let data = payload['ns2:abstract-common-list'];
+	if (data.itemsInPage == 0) return [];
+	if (data.itemsInPage == 1) {
+		data = [data['list-item']];
+	} else {
+		data = data['list-item'];
+	}
+	// TODO: MARKDOWN RENDERING
+	if (data.length) {
+		data = data.map(d => {
+			if (d.refName) d.termDisplayName = toDisplayName(d.refName);
+			return d;
+		});
+	}
+	return data;
+}
 
 export const parseFilm = film => {
 	film.creator = parseCreator(film.creator);
@@ -37,6 +56,10 @@ export const getShortIdentifierFromRefName = (refName, match) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	return match ? match[3] : matchRefName(refName)[3];
 };
+
+export function toDisplayName(refName) {
+	return refName.match(/\'(.+)\'$/)[1];
+}
 
 export const getDisplayNameFromMatch = (match) => {
 	// e.g. 'Stan Brakhage'
@@ -125,7 +148,9 @@ export const getNameFromFilmFormat = formatRefName => {
 export const getFilmColor = (color) => {
 	if (color === 'color') return 'Color';
 	if (color === 'b_w') return 'Black/White';
-	if (color === 'color_b_w') return 'Color and B/W';
+	// Discussed: the color_b_w option should not be used at all
+	// Must pick one. Default to "Color"
+	if (color === 'color_b_w') return 'Color';
 	return color;
 }
 

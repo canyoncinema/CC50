@@ -3,9 +3,10 @@ import {
 	RECEIVED_ITEM,
 	FAILED_ITEM
 } from '../actionTypes';
+import { getItemFilmmaker } from './item-filmmaker-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
-import { toItemData } from '../utils/parse-data';
+import { toItemData, toDisplayName } from '../utils/parse-data';
 
 function fetchItem() {
 	return {
@@ -13,12 +14,8 @@ function fetchItem() {
 	}
 }
 
-function toDisplayName(refName) {
-	return refName.match(/\'(.+)\'$/)[1];
-}
-
-function receiveItem(payload) {
-	const data = toItemData(payload);
+function receiveItem(dispatch, payload, filmmakerOptions) {
+	const item = toItemData(payload);
 	// HACKS FOR CSPACE
 	// films: workauthorities
 	// filmmakers: personauthorities
@@ -29,11 +26,17 @@ function receiveItem(payload) {
 
 	// CSPACE: parse name
 	// TODO: MARKDOWN RENDERING
-	data.displayName = toDisplayName(data.refName);
-	if (!data.displayName) console.error('Should have a displayName field. Check refName field parsing');
+	item.termDisplayName = toDisplayName(item.refName);
+	if (!item.termDisplayName) console.error('Should have a displayName field. Check refName field parsing');
+	const filmmakerRefName = item &&
+					item.creatorGroupList &&
+					item.creatorGroupList.creatorGroup &&
+					item.creatorGroupList.creatorGroup.creator;
+	console.log('recieved filmmakerRefName', filmmakerRefName);
+	if (filmmakerRefName) dispatch(getItemFilmmaker(filmmakerRefName, filmmakerOptions));
 	return {
 		type: RECEIVED_ITEM,
-		data
+		data: item
 	}
 }
 
@@ -64,7 +67,11 @@ const relatedCollections = {
 	films: ['films']
 }
 
-export function getItem(collectionItems, shortIdentifier) {
+const defaultFilmmakerOptions = {
+	filmsByFilmmakerPgSz: 6
+}
+
+export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 	/*
 	 * Related Objects Reqs per item:
 	 * films: item.otherFilmsByFilmmaker, item.ephemera, item.events, item.programs
@@ -73,21 +80,21 @@ export function getItem(collectionItems, shortIdentifier) {
 	 */
 	return (dispatch) => {
 		dispatch(fetchItem());
-		return fetch(config.getItemUrl({ collectionItems, shortIdentifier }), { headers: config.authHeaders })
+		return config.fetchItem({ collectionItems, shortIdentifier })
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failItem("Bad response from server"));
 				}
 				return response.json();
 			})
-			.then(data => {
+			.then(payload => {
 				// if (collectionItems === 'films') {
 				// 	// related objects:
 				// 	// item.otherFilmsByFilmmaker, item.ephemera, item.events, item.programs
 				// 	Promise.all([getItemPromise()])
 				// 	debugger
 				// }
-				dispatch(receiveItem(data));
+				dispatch(receiveItem(dispatch, payload, filmmakerOptions));
 				dispatch(resetItemMenuHeaders())
 			}, error =>
 				dispatch(failItem(error))

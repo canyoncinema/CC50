@@ -117,6 +117,7 @@ class CollectionItemPage extends Component {
 									menuHeader: 'Films in This ' + singularItemForm,
 									renderContent: () => (
 										<SearchCards
+											itemType="film"
 											viewMode="list"
 											customColSize={12}
 											data={item.films}
@@ -130,6 +131,7 @@ class CollectionItemPage extends Component {
 									menuHeader: 'Films by This ' + singularItemForm,
 									renderContent: () => (
 										<SearchCards
+											itemType="film"
 											viewMode="list"
 											customColSize={12}
 											data={item.films}
@@ -143,6 +145,7 @@ class CollectionItemPage extends Component {
 									menuHeader: 'Filmmakers in This ' + singularItemForm,
 									renderContent: () => (
 										<SearchCards
+											itemType="filmmaker"
 											viewMode="list"
 											customColSize={12}
 											data={item.filmmakers}
@@ -170,6 +173,7 @@ class CollectionItemPage extends Component {
 										item.programs.map((program, i) =>
 											<SearchCards
 												key={i}
+												itemType="program"
 												viewMode="grid"
 												customColSize={6}
 												data={program}
@@ -184,6 +188,7 @@ class CollectionItemPage extends Component {
 									menuHeader: 'Related Filmmakers',
 									renderContent: () => (
 										<SearchCards
+											itemType="filmmaker"
 											viewMode="list"
 											customColSize={12}
 											data={item.filmmakers}
@@ -267,6 +272,7 @@ class CollectionItemPage extends Component {
 									renderContent: () => (
 										<div className="container no-padding">
 											<SearchCards
+												itemType="film"
 												viewMode={viewMode}
 												customColSize={6}
 												data={item.filmmaker.films.filter(f => f.id !== item.id)} />

@@ -23,7 +23,7 @@ class SearchCard extends Component {
 			data,
 			csid,
 			shortIdentifier,
-			itemType,
+			itemType, // film, program, ephemera, or filmmaker
 			photos,
 			viewMode,
 			isItemPage,

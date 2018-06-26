@@ -1,33 +1,39 @@
 import * as types from '../actionTypes';
+import filmmaker from './item-filmmaker-reducer';
 
 const initialState = {
-	data: null,
+	data: undefined,
 	isLoading: false,
-	error: null
+	error: undefined,
+	filmmaker: undefined
 };
 
 const itemReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_ITEM:
-				return {
-					isLoading: true,
-					error: null
-				};
-			return 
-		case types.RECEIVED_ITEM:
 			return {
-				isLoading: false,
-				error: null,
-				data: action.data
+				isLoading: true,
+				error: undefined,
+				filmmaker: undefined
 			};
+		case types.RECEIVED_ITEM:
+			return Object.assign(state, {
+				isLoading: false,
+				error: undefined,
+				data: action.data
+			});
 		case types.FAILED_ITEM:
 			return {
 				isLoading: false,
 				error: action.error,
-				data: null
+				data: undefined,
+				filmmaker: undefined
 			};
 		default:
-			return state;
+			return {
+				...state,
+				filmmaker: filmmaker(state.filmmaker, action)
+			};
 	}
 };
 

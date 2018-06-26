@@ -16,12 +16,13 @@ import { addItemMenuHeader } from '../../actions/item-menu-headers-actions';
 import { config } from '../../store';
 
 const mapDispatchToProps = dispatch => ({
-  getItem: (collectionItems, uri) => dispatch(getItem(collectionItems, uri)),
+  getItem: (...args) => dispatch(getItem(...args)),
   addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args))
 })
 
 const mapStateToProps = state => ({
   item: state.item.data,
+  isLoading: state.item.isLoading,
   headers: state.itemMenuHeaders
 });
 
@@ -32,7 +33,13 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
-			this.props.getItem(this.props.collectionItems, this.props.shortIdentifier);
+			this.props.getItem(
+				this.props.collectionItems,
+				this.props.shortIdentifier, {
+					// SPEC: on a film page, show 6 films initially by filmmaker
+					// on a filmmaker page, show 20 initially
+					filmsByFilmmakerPgSz: this.props.collectionItems === 'films' ? 6 : 20
+				});
 		}
 
 		conditionallyShow = ({
@@ -106,7 +113,7 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		render() {
-			const { collectionItems, item, shortIdentifier, isScrollNav } = this.props;
+			const { collectionItems, isLoading, item, shortIdentifier, isScrollNav } = this.props;
 			const { viewMode } = this.state;
 			// const item = getSpoofDataObj(collectionItems, itemId);
 			// if (!item) {
@@ -134,7 +141,12 @@ function CollectionItemPage(ComposedComponent) {
 							<Col md={9}>
 								<div className="descriptive-content">
 									{
-										item && item.csid ?
+										isLoading ?
+										<span className="loading">Loading...</span>
+										: null
+									}
+									{
+										!isLoading && item && item.csid ?
 										<ComposedComponent
 											item={item}
 											viewMode={viewMode}

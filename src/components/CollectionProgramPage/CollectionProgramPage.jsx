@@ -43,6 +43,7 @@ class CollectionProgramPage extends Component {
 				renderContent: () => (
 					<div className="container no-padding">
 						<SearchCards
+							itemType="film"
 							viewMode={viewMode || 'list'}
 							isItemPage={true}
 							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}

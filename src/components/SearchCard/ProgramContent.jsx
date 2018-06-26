@@ -48,7 +48,7 @@ const ProgramContent = ({
 										key={i}
 										isLast={i === filmmakers.length - 1}
 										to={`/filmmaker/${filmmaker.id}`}>
-										<span title={filmmaker.displayName}>{filmmaker.displayName}</span>
+										<span title={filmmaker.termDisplayName}>{filmmaker.termDisplayName}</span>
 									</RelatedLink>
 								)}
 							</RelatedLinks>

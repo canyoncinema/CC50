@@ -29,9 +29,9 @@ const CollectionSection = ({ customColSize, customColWidth, className, viewMode,
 			{
 				searchData && searchData.length ?
 				<SearchCards
+					itemType={itemType}
 					customColSize={customColSize}
 					customColWidth={customColWidth}
-					itemType={itemType}
 					viewMode={viewMode}
 					data={searchData} />
 				: null

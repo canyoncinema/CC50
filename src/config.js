@@ -53,18 +53,26 @@ class Config {
 			+ queryParamsToString(queryParams);
 	}
 
-	getListItemsUrl(collectionItems, queryParams) {
+	getItemsUrl(collectionItems, queryParams) {
 		const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
 		let url = this.baseUrl + config[this.env].list[cspaceCollection];
 		if (queryParams) {
-			url += queryParamsToString(queryParams);
+			url += queryParamsToString(Object.assign(queryParams, {
+				wf_deleted: false
+			}));
 		}
 		// if (sortVal) {
 			// TODO: SORT FOR REAL
 			// url += '?sortBy=' + collectionRefName + '_common:' + sortVal;
 		// }
 		return url;
+	}
+
+	fetchItems(...args) {
+		return fetch(encodeURI(this.getItemsUrl(...args)), {
+			headers: this.authHeaders
+		});
 	}
 
 	getItemUrl({ collectionItems, cspaceCollection, shortIdentifier }) {
@@ -79,6 +87,12 @@ class Config {
 		return `${this.baseUrl}/${cllxn}/urn:cspace:name(${itemName})/items/urn:cspace:name(${shortIdentifier})`;
 	}
 
+	fetchItem(...args) {
+		return fetch(encodeURI(this.getItemUrl(...args)), {
+			headers: this.authHeaders
+		});
+	}
+
 	getRetrieveUri({ collectionItems, shortIdentifier, cspaceCollection }) {
 		const cspaceCllxn = cspaceCollection ||
 			collectionItemsToCSpaceCollection(collectionItems);
@@ -88,6 +102,22 @@ class Config {
 				shortIdentifier +
 				')';
 		}
+	}
+
+	getFilmmakerFilmsUrl(filmmakerRefName, pgSz=6) {
+		return this.getItemsUrl('films', {
+			as: '((works_common:creatorGroupList/*/creator+=+"' +
+				 filmmakerRefName + '"))',
+			pgNum: 0,
+			pgSz,
+			wf_deleted: false
+		})
+	}
+
+	fetchFilmmakerFilms(...args) {
+		return fetch(encodeURI(this.getFilmmakerFilmsUrl(...args)), {
+			headers: this.authHeaders
+		});
 	}
 
 	get authHeaders() {

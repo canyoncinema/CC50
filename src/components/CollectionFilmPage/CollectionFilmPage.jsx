@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
@@ -12,7 +13,11 @@ import Button from '../Button/Button';
 import URNRelatedField from '../URNRelatedField/URNRelatedField';
 
 const mapStateToProps = state => ({
-	item: state.item.data
+	item: state.item.data,
+	filmmaker: state.item.filmmaker && state.item.filmmaker.data,
+	filmmakerFilms: state.item.filmmaker &&
+		state.item.filmmaker.films &&
+		state.item.filmmaker.films.data
 });
 
 class CollectionFilmPage extends Component {
@@ -41,9 +46,9 @@ class CollectionFilmPage extends Component {
 	}
 
 	render() {
-		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		const { filmmaker } = this.state;
-		console.log('Film Page item', item);
+		const { item, filmmaker, filmmakerFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		console.log('Film Page item', item, 'FILMMAKER', filmmaker && filmmaker.termDisplayName);
+		console.log('filmmakerFilms', filmmakerFilms)
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -56,14 +61,6 @@ class CollectionFilmPage extends Component {
 					</pre>
 				)
 			})
-			,
-			<URNRelatedField
-				key="filmmaker-data"
-				refName={item &&
-					item.creatorGroupList &&
-					item.creatorGroupList.creatorGroup &&
-					item.creatorGroupList.creatorGroup.creator}
-				setData={this.setFilmmaker} />
 			,
 			conditionallyShow({
 				id: 'filmmaker',
@@ -80,10 +77,10 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'filmmaker-profile',
 				order: 2,
-				condition: item.filmmaker,
+				condition: filmmaker,
 				menuHeader: null,
 				renderContent: () => (
-					<Link className="section-button" to={`/collection/filmmakers/${item.filmmaker.id}`}>
+					<Link className="section-button" to={`/collection/filmmakers/${getShortIdentifierFromRefName(filmmaker.refName)}`}>
 						<Button className="default">
 							View Filmmaker Profile
 						</Button>
@@ -95,11 +92,11 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'others',
 				order: 3,
-				condition: item.filmmaker && item.filmmaker.films && item.filmmaker.films.length > 1,
+				condition: filmmakerFilms && filmmakerFilms.length > 1,
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
-						{'Other Films by ' + item.filmmaker.title}
+						{'Other Films by ' + filmmaker.termDisplayName}
 					</h3>
 					<span className="ml-auto">
 						<ViewModeToggler
@@ -111,9 +108,10 @@ class CollectionFilmPage extends Component {
 				renderContent: () => (
 					<div className="container no-padding">
 						<SearchCards
+							itemType="film"
 							viewMode={viewMode}
 							customColSize={6}
-							data={item.filmmaker.films.filter(f => f.id !== item.id)} />
+							data={filmmakerFilms.filter(f => f.csid !== item.csid)} />
 					</div>
 				)
 			})
@@ -156,6 +154,7 @@ class CollectionFilmPage extends Component {
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<SearchCards
+						itemType="program"
 						viewMode="grid"
 						customColSize={6}
 						data={item.programs}

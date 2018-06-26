@@ -4,7 +4,7 @@ import {
 	FAILED_ITEMS
 } from '../actionTypes';
 import { config } from '../store';
-import { parseFilm } from '../utils/parse-data';
+import { toItemsData, parseFilm } from '../utils/parse-data';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -16,8 +16,7 @@ function fetchItems() {
 }
 
 function receiveItems(payload, sort) {
-	let data = payload['ns2:abstract-common-list']['list-item'];
-	if (data.length === undefined) data = [data];
+	const data = toItemsData(payload);
 	// data = data.map(d => parseFilm(d));
 	return {
 		type: RECEIVED_ITEMS,
@@ -36,10 +35,7 @@ function failItems(error) {
 export function getItems(collectionItems, queryParams) {
 	return (dispatch) => {
 		dispatch(fetchItems());
-		console.log('GET', config.getListItemsUrl(collectionItems, queryParams));
-		return fetch(config.getListItemsUrl(collectionItems, queryParams), {
-				headers: config.authHeaders
-			})
+		return config.fetchItems(collectionItems, queryParams)
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failItems("Bad response from server"));
