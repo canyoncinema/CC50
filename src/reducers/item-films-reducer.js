@@ -1,9 +1,10 @@
 import * as types from '../actionTypes';
 
 const initialState = {
-	data: null,
+	data: undefined,
 	isLoading: false,
-	error: null
+	error: undefined,
+	films: undefined
 };
 
 const itemFilms = (state=initialState, action) => {
@@ -11,20 +12,20 @@ const itemFilms = (state=initialState, action) => {
 		case types.FETCH_ITEM_FILMS:
 			return {
 				isLoading: true,
-				error: null,
-				data: null
+				error: undefined,
+				data: undefined
 			};
 		case types.RECEIVED_ITEM_FILMS:
 			return {
 				isLoading: false,
-				error: null,
+				error: undefined,
 				data: action.data
 			};
 		case types.FAILED_ITEM_FILMS:
 			return {
 				isLoading: false,
 				error: action.error,
-				data: null
+				data: undefined
 			};
 		default:
 			return state;
