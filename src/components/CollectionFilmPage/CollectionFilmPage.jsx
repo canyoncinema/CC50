@@ -152,7 +152,7 @@ class CollectionFilmPage extends Component {
 							((item.rentalFormats.rentalFormat && [item.rentalFormats.rentalFormat]) ||
 								item.rentalFormats['list-item'])
 						}
-						rentalFormId={item.rentalFormId}
+						rentalFormId={item.mtsId}
 					/>
 				)
 			})

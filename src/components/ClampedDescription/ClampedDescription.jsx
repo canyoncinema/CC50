@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import $clamp from 'clamp-js';
 import lineClamp from 'line-clamp';
+import Dotdotdot from 'react-dotdotdot';
+import BrowserDetection from 'react-browser-detection';
 
 class ClampedDescription extends Component {
 	constructor(props) {
@@ -8,28 +10,65 @@ class ClampedDescription extends Component {
 		this.ref = React.createRef();
 	}
 
-	componentDidMount() {
-		// TODO: HACK -- lineClamp does not behave well with 1 line clamps
-		// use .single-line-ellipsed class for 1-line clamps
-		// if (this.props.maxLines === 1) {
-		// 	lineClamp(this.ref.current, 1);
-		// 	return;
-		// }
-		$clamp(this.ref.current, { clamp: this.props.maxLines});
+	// componentDidMount() {
+	// 	// TODO: HACK -- lineClamp does not behave well with 1 line clamps
+	// 	// use .single-line-ellipsed class for 1-line clamps
+	// 	// if (this.props.maxLines === 1) {
+	// 	// 	lineClamp(this.ref.current, 1);
+	// 	// 	return;
+	// 	// }
+	// 	try {
+	// 		if (this.props.maxLines > 1) {
+	// 			$clamp(this.ref.current, { clamp: this.props.maxLines});
+	// 		}
+	// 	} catch(e) {
+	// 		console.error(e);
+	// 		if (this.props.maxLines > 1) {
+	// 			lineClamp(this.ref.current, this.props.maxLines);
+	// 		}
+	// 	}
+	// }
+
+	browserHandler = {
+	  chrome: () => {
+	  	const { children, className, title, maxLines } = this.props;
+	  	return (
+	  		<Dotdotdot
+					title={title}
+					className={[
+						'ClampedDescription',
+						this.props.maxLines === 1 ? 'single-line-ellipsed' : '',
+						className
+					].join(' ')}
+					clamp={maxLines}>
+					{children}
+				</Dotdotdot>
+	  	);
+	  },
+	  default: () => {
+	  	// at least on firefox, cannot take (any?) styles like pre-wrap
+	  	// -> omit classname entirely to be safe
+	  	const { children, className, title, maxLines } = this.props;
+	  	return (
+		  	<Dotdotdot
+					title={title}
+					className={[
+						'ClampedDescription',
+						this.props.maxLines === 1 ? 'single-line-ellipsed' : ''
+					].join(' ')}
+					clamp={maxLines}>
+					{children}
+				</Dotdotdot>
+			);
+		}
 	}
 
 	render() {
 		const { children, className, title, maxLines } = this.props;
 		return (
-			<div
-				ref={this.ref}
-				title={title}
-				className={[
-					'ClampedDescription',
-					className
-				].join(' ')}>
-				{children}
-			</div>
+			<BrowserDetection>
+			{ this.browserHandler }
+			</BrowserDetection>
 		);
 	}
 }

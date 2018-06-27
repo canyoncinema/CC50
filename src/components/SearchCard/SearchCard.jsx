@@ -57,7 +57,7 @@ class SearchCard extends Component {
 					</div>
 				</div>
 				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-10' : ''}>
-					<div className={listView && !isItemPage ? 'row no-gutters content' : 'no-gutters content'}>
+					<div className="content">
 						{
 							itemType === 'filmmaker' ?
 							<FilmmakerContent

@@ -32,6 +32,7 @@
 
 .SearchCard .displayName {
 	display: inline-block;
+	width: 100%;
 }
 
 .SearchCard.filmmaker .displayName {
@@ -45,7 +46,8 @@
 }
 
 .SearchCard .description {
-	line-height: 22px;
+	line-height: 21px;
+	width: 100%;
 }
 
 .SearchCard.grid:not(.filmmaker) .description {

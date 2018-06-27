@@ -13,10 +13,9 @@ const initialState = {
 const collectionSortReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.OPEN_SORT:
-				return Object.assign(state, {
-					isOpen: true
-				});
-			return 
+			return Object.assign(state, {
+				isOpen: true
+			});
 		case types.CLOSE_SORT:
 			return Object.assign(state, {
 				isOpen: false

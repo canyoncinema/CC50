@@ -13,7 +13,7 @@ const ProgramContent = ({
 }) => {
 	const listView = viewMode === 'list';
 	return (
-		<div className={listView ? 'row ProgramContent' : 'ProgramContent'}>
+		<div className={listView ? 'row no-gutters ProgramContent' : 'ProgramContent'}>
 			<div className={listView ? 'col-4' : null}>
 				<h6>Curated Program</h6>
 				<h4>

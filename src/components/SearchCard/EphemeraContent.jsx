@@ -14,7 +14,7 @@ const EphemeraContent = ({
 }) => {
 	const listView = viewMode === 'list';
 	return (
-		<div className={listView ? 'row EphemeraContent' : 'EphemeraContent'}>
+		<div className={listView ? 'row no-gutters EphemeraContent' : 'EphemeraContent'}>
 			<div className={listView ? 'col-4' : null}>
 				<h6>Ephemera</h6>
 				<h4>

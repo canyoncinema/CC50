@@ -31,4 +31,5 @@
 .EventTile .content h4 {
 	margin-bottom: 10px;
 	height: 48px;
+	white-space: normal;
 }

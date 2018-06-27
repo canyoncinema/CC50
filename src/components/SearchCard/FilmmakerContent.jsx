@@ -14,7 +14,7 @@ const FilmmakerContent = ({
 }) => {
 	const listView = viewMode === 'list';
 	return (
-		<div className={listView ? 'row FilmmakerContent' : 'FilmmakerContent'}>
+		<div className={listView ? 'row no-gutters FilmmakerContent' : 'FilmmakerContent'}>
 			<div className={listView ? 'person d-flex col-4' : 'person d-flex'}>
 				<div className="avatar">
 					<FilmmakerAvatar url={avatar} />

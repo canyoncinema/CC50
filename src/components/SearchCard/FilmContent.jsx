@@ -36,7 +36,7 @@ class FilmContent extends Component {
 		const creatorMatch = item.creator && matchRefName(item.creator);
 		const listView = viewMode === 'list';
 		return (
-			<div className={listView && !isItemPage ? 'row FilmContent' : 'FilmContent'}>
+			<div className={listView && !isItemPage ? 'row no-gutters FilmContent' : 'FilmContent'}>
 				<div className={listView && !isItemPage ? 'col-4' : null}>
 					{	!isItemPage ?
 						<h6>Film</h6>

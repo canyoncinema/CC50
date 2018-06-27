@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import $clamp from 'clamp-js';
-
 import './EventTile.css';
 
+import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import CalDay from '../CalDay/CalDay';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
@@ -12,16 +11,13 @@ class EventTile extends Component {
 	constructor(props) {
 		super(props);
 		this.eventNameRef = React.createRef();
-		this.eventLocationRef = React.createRef();
 	}
 
 	componentDidMount() {
-		const eventName = this.eventNameRef.current,
-					eventLocation = this.eventLocationRef.current;
+		const eventName = this.eventNameRef.current;
 		// ellipse-overflow rules:
 		// event name ellipses after 2 lines; location ellipses after 1 line
-		$clamp(eventName, { clamp: 2 });
-		$clamp(eventLocation, { clamp: 1 });
+		// $clamp(eventName, { clamp: 2 });
 	}
 
 	render() {
@@ -42,8 +38,10 @@ class EventTile extends Component {
 					<PhotoFill src={photos[0]} height="100%" />
 				</div>
 				<div className="content">
-					<h4 className="hover-effect" ref={this.eventNameRef}>{name}</h4>
-					<div ref={this.eventLocationRef} className="location">{location.name}</div>
+					<h4 className="hover-effect" ref={this.eventNameRef}>
+						<ClampedDescription maxLines={2}>{name}</ClampedDescription>
+					</h4>
+					<div className="single-line-ellipsed" className="location">{location.name}</div>
 					<div><DateTimeString format="time" dateTime={dateTime} /></div>
 					<div><TicketPriceString price={ticketPrice} note={ticketNote} /></div>
 				</div>
