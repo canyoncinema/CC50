@@ -3,7 +3,7 @@ import { history } from '../../store';
 import {
 	getDisplayNameFromMatch,
 	getShortIdentifierFromMatch,
-	yearsFromyear,
+	yearsFromYear,
 	matchRefName,
 	getNameFromFilmFormat,
 	getFilmColor,
@@ -97,7 +97,11 @@ class FilmContent extends Component {
 									}
 									{
 										item.creationYear ?
-										<Tag>{yearsFromyear(item.creationYear)}</Tag>
+										<Tag>{yearsFromYear(
+											item.creationYear,
+											item.workDateGroupList && item.workDateGroupList.workDateGroup && item.workDateGroupList.workDateGroup.dateEarliestSingleYear,
+											item.workDateGroupList && item.workDateGroupList.workDateGroup && item.workDateGroupList.workDateGroup.dateLatestYear
+										)}</Tag>
 										: null
 									}
 									{

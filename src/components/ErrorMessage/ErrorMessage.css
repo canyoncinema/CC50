@@ -1,0 +1,18 @@
+.ErrorMessage {
+	padding: 60px 70px;
+	display: block;
+}
+
+.CollectionSection .ErrorMessage {
+  padding: 0 0 0 70px;
+  margin-bottom: 70px;
+	border-left: solid 5px #f15656;
+}
+
+.CollectionSection .ErrorMessage h3 {
+	font-size: 1.25em;
+}
+
+.ErrorMessage h3 {
+	color: #f15656;	
+}

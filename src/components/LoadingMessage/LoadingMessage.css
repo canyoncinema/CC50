@@ -1,0 +1,8 @@
+.LoadingMessage {
+	display: block;
+	padding: 60px 70px;
+}
+
+.CollectionSection .LoadingMessage {
+  padding: 0 0 70px;
+}

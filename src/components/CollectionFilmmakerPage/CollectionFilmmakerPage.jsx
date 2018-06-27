@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
@@ -10,9 +11,13 @@ import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
 
+const mapStateToProps = state => ({
+	itemFilms: state.item.films.data
+});
+
 class CollectionFilmmakerPage extends Component {
 	render() {
-		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { item, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		if (!item) return null;
 		return [
 			conditionallyShow({
@@ -47,7 +52,7 @@ class CollectionFilmmakerPage extends Component {
 			conditionallyShow({
 				id: 'films',
 				order: 2,
-				condition: item.works && item.works.length,
+				condition: itemFilms && itemFilms.length,
 				menuHeader: 'Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
@@ -67,7 +72,7 @@ class CollectionFilmmakerPage extends Component {
 							viewMode={viewMode || 'list'}
 							isItemPage={true}
 							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
-							data={item.works} />
+							data={itemFilms} />
 					</div>
 				)
 			})
@@ -148,4 +153,4 @@ class CollectionFilmmakerPage extends Component {
 	}
 }
 
-export default CollectionItemPage(CollectionFilmmakerPage);
+export default CollectionItemPage(connect(mapStateToProps)(CollectionFilmmakerPage));

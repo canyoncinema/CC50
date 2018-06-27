@@ -159,9 +159,15 @@ export const getFilmSound = sound => {
 	if (sound === 'sound') return 'Sound';
 }
 
-export const yearsFromyear = year => {
-	if (year.length !== 4) throw new Error('Invalid Year ' + year);
-	return String(Math.floor(Number(year)/10) * 10) + 's';
+export const yearsFromYear = (displayYears, earliestYear, latestYear) => {
+	if (displayYears.length === 4) {
+		// exact year. SPEC: return decade it is in
+		return [String(Math.floor(Number(displayYears)/10) * 10) + 's'];
+	} else {
+		// multi-year, e.g. a trilogophy released across 2004-2011
+		// SPEC: display exact display years, e.g. "2004-2011"
+		return displayYears;
+	}
 }
 
 export const collectionItemsToSingularTitlecased = label => {

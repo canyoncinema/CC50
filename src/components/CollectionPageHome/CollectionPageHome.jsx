@@ -4,6 +4,7 @@ import CollectionSection from '../CollectionSection/CollectionSection';
 import { getFilmmakers } from '../../actions/filmmakers-actions';
 import { getFilms } from '../../actions/films-actions';
 import { getSpoofDataList } from '../../spoof-data';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const mapDispatchToProps = dispatch => ({
   getFilmmakers: (...args) => dispatch(getFilmmakers(...args)),
@@ -11,8 +12,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  filmmakerData: state.filmmakers.data,
-  filmData: state.films.data
+  filmmakers: state.filmmakers.data,
+  filmmakersIsLoading: state.filmmakers.isLoading,
+  filmmakersError: state.filmmakers.error,
+  films: state.films.data,
+  filmsIsLoading: state.films.isLoading,
+  filmsError: state.films.error
 });
 
 class CollectionPageHome extends Component {
@@ -30,26 +35,30 @@ class CollectionPageHome extends Component {
   render() {
     const {
       viewMode,
-      filmmakerData,
-      filmData
+      filmmakers,
+      films,
+      filmmakersIsLoading,
+      filmsIsLoading,
+      filmmakersError,
+      filmsError
     } = this.props;
     const programData = getSpoofDataList('programs'),
           ephemeraData = getSpoofDataList('ephemera');
-  	return [
-  		filmData && filmData.length ?
-        <CollectionSection key={0}
-          className="CollectionPageHomeSection"
-          viewMode={viewMode}
-          customColSize={viewMode !== 'list' ? 4 : null}
-          customColWidth="sm"
-          header="Recently Added Films"
-          description="New acquisitions to the Canyon Cinema collection"
-          buttonText="See all films"
-          buttonLink="/collection/films"
-          itemType="film"
-          searchData={filmData}
-        /> : null,
-      filmmakerData && filmmakerData.length ?
+    return [
+      <CollectionSection key={0}
+        className="CollectionPageHomeSection"
+        viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
+        header="Recently Added Films"
+        description="New acquisitions to the Canyon Cinema collection"
+        buttonText="See all films"
+        buttonLink="/collection/films"
+        itemType="film"
+        searchData={films}
+        isLoading={filmsIsLoading}
+        error={filmsError}
+      />,
       <CollectionSection key={1}
         className="CollectionPageHomeSection"
         viewMode={viewMode}
@@ -60,8 +69,10 @@ class CollectionPageHome extends Component {
         buttonText="See all filmmakers"
         buttonLink="/collection/filmmakers"
         itemType="filmmaker"
-        searchData={filmmakerData}
-      /> : null,
+        searchData={filmmakers}
+        isLoading={filmmakersIsLoading}
+        error={filmmakersError}
+      />,
       programData && programData.length ?
       <CollectionSection key={2}
         className="CollectionPageHomeSection"

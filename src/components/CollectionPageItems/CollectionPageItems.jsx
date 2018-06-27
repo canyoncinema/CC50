@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import CollectionSort from '../CollectionSort/CollectionSort';
 import CollectionContext, { toCollectionSearchLabel, collectionItemsToSingular } from '../../collection-context';
 import { getItems } from '../../actions/items-actions';
-
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
 import { getSpoofDataList } from '../../spoof-data';
@@ -14,6 +15,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   items: state.items.data,
+  isLoading: state.items.isLoading,
+  error: state.items.error,
   sortIsOpen: state.collectionSort.isOpen,
   sortVal: state.collectionSort.activeOption.value
 });
@@ -32,24 +35,35 @@ class CollectionPageItems extends Component {
   }
 
 	render() {
-		const { items, collectionItems, viewMode } = this.props;
+		const { items, isLoading, error, collectionItems, viewMode } = this.props;
 		return <CollectionContext.Consumer>
 			{
 				context => 
 				<div className="CollectionPageItems">
 					<ScrollToTopOnMount />
-					{	!context.searchedText ?
+					{
+						error ?
+						<ErrorMessage />
+						: isLoading?
+						<LoadingMessage />
+						: null
+					}
+					{	!isLoading && !error && !context.searchedText ?
 						<CollectionSort
 							collectionItems={collectionItems}
 							itemLabel={toCollectionSearchLabel(collectionItems)} />
 						: null
 					}
-					<CollectionSection
-						customColSize={viewMode !== 'list' ? 4 : null}
-						customColWidth="sm"
-						itemType={collectionItemsToSingular(collectionItems)}
-						viewMode={viewMode} 
-						searchData={items}/>
+					{
+						!isLoading && !error ?
+						<CollectionSection
+							customColSize={viewMode !== 'list' ? 4 : null}
+							customColWidth="sm"
+							itemType={collectionItemsToSingular(collectionItems)}
+							viewMode={viewMode} 
+							searchData={items}/>
+						: null
+					}
 				</div>
 			}
 		</CollectionContext.Consumer>

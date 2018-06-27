@@ -4,6 +4,7 @@ import {
 	FAILED_ITEM
 } from '../actionTypes';
 import { getItemFilmmaker } from './item-filmmaker-actions';
+import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData, toDisplayName } from '../utils/parse-data';
@@ -14,7 +15,7 @@ function fetchItem() {
 	}
 }
 
-function receiveItem(dispatch, payload, shortIdentifier, filmmakerOptions) {
+function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions) {
 	const item = toItemData(payload);
 	// HACKS FOR CSPACE
 	// films: workauthorities
@@ -33,10 +34,19 @@ function receiveItem(dispatch, payload, shortIdentifier, filmmakerOptions) {
 					item.creatorGroupList.creatorGroup &&
 					item.creatorGroupList.creatorGroup.creator;
 	console.log('recieved filmmakerRefName', filmmakerRefName);
+	// display filmmaker info (for films)
 	if (filmmakerRefName) dispatch(getItemFilmmaker(
 		filmmakerRefName,
 		shortIdentifier,
 		filmmakerOptions));
+	if (collectionItems === 'filmmakers') {
+		// show films by this filmmaker
+		dispatch(getItemFilms({
+			filmmakerRefName: item.refName,
+			pgSz: 40,
+			exceptShortIdentifier: null
+		}));
+	}
 	return {
 		type: RECEIVED_ITEM,
 		data: item
@@ -66,14 +76,6 @@ function getItemPromise(urn) {
 	});
 }
 
-const relatedCollections = {
-	films: ['films']
-}
-
-const defaultFilmmakerOptions = {
-	filmsByFilmmakerPgSz: 6
-}
-
 export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 	/*
 	 * Related Objects Reqs per item:
@@ -97,8 +99,8 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 				// 	Promise.all([getItemPromise()])
 				// 	debugger
 				// }
-				dispatch(receiveItem(dispatch, payload, shortIdentifier, filmmakerOptions));
-				dispatch(resetItemMenuHeaders())
+				dispatch(receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions));
+				dispatch(resetItemMenuHeaders());
 			}, error =>
 				dispatch(failItem(error))
 			);

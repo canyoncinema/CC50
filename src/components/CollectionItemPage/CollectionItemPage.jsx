@@ -9,6 +9,8 @@ import withScrollNav from '../withScrollNav/withScrollNav';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
 import MainNav from '../MainNav/MainNav';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
@@ -23,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   item: state.item.data,
   isLoading: state.item.isLoading,
+  itemError: state.item.error,
   headers: state.itemMenuHeaders
 });
 
@@ -117,7 +120,7 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		render() {
-			const { collectionItems, isLoading, item, shortIdentifier, isScrollNav } = this.props;
+			const { collectionItems, isLoading, itemError, item, shortIdentifier, isScrollNav } = this.props;
 			const { viewMode } = this.state;
 			// const item = getSpoofDataObj(collectionItems, itemId);
 			// if (!item) {
@@ -146,7 +149,9 @@ function CollectionItemPage(ComposedComponent) {
 								<div className="descriptive-content">
 									{
 										isLoading ?
-										<span className="loading">Loading...</span>
+										<LoadingMessage />
+										: itemError ?
+										<ErrorMessage />
 										: null
 									}
 									{

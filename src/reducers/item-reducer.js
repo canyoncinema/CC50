@@ -1,11 +1,13 @@
 import * as types from '../actionTypes';
 import itemFilmmaker from './item-filmmaker-reducer';
+import itemFilms from './item-films-reducer';
 
 const initialState = {
 	data: undefined,
 	isLoading: false,
 	error: undefined,
-	filmmaker: undefined
+	filmmaker: undefined,
+	films: undefined
 };
 
 const itemReducer = (state=initialState, action) => {
@@ -14,25 +16,29 @@ const itemReducer = (state=initialState, action) => {
 			return {
 				isLoading: true,
 				error: undefined,
-				filmmaker: undefined
+				filmmaker: undefined,
+				films: itemFilms(state.itemFilms, action)
 			};
 		case types.RECEIVED_ITEM:
 			return Object.assign(state, {
 				isLoading: false,
 				error: undefined,
-				data: action.data
+				data: action.data,
+				films: itemFilms(state.itemFilms, action)
 			});
 		case types.FAILED_ITEM:
 			return {
 				isLoading: false,
 				error: action.error,
 				data: undefined,
-				filmmaker: undefined
+				filmmaker: undefined,
+				films: itemFilms(state.itemFilms, action)
 			};
 		default:
 			return {
 				...state,
-				filmmaker: itemFilmmaker(state.filmmaker, action)
+				filmmaker: itemFilmmaker(state.filmmaker, action),
+				films: itemFilms(state.itemFilms, action)
 			};
 	}
 };

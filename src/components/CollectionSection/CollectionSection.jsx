@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './CollectionSection.css';
 
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
-const CollectionSection = ({ customColSize, customColWidth, className, viewMode, itemType, searchData, header, description,
+const CollectionSection = ({
+	isLoading, error,
+	customColSize, customColWidth, className, viewMode, itemType, searchData, header, description,
 	buttonText, buttonLink }) => {
 	return (
 		<div className={[className, 'CollectionSection'].join(' ')}>
@@ -24,6 +28,11 @@ const CollectionSection = ({ customColSize, customColWidth, className, viewMode,
 		        </Button>
 	      	</Link>
 				</header>
+				: null
+			}
+			{
+				isLoading ? <LoadingMessage />
+				: error ? <ErrorMessage />
 				: null
 			}
 			{
