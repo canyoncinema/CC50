@@ -61,7 +61,7 @@ const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFo
 		</div>
 	</div>
 	<div className="ml-auto">
-		<a target="_blank" href={'http://canyoncinema.com/clients/rental-inquiry-form/' + (rentalFormId || '')}>
+		<a target="_blank" href={'http://canyoncinema.com/clients/rental-inquiry-form' + (rentalFormId  ? `?i=${rentalFormId}` : '')}>
 			<Button className="default" size="small">
 				Rent
 			</Button>
