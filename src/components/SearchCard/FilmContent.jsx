@@ -14,6 +14,7 @@ import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import URNRelatedField from '../URNRelatedField/URNRelatedField';
+import ReactMarkdown from 'react-markdown';
 
 class FilmContent extends Component {
 	state = {
@@ -47,11 +48,11 @@ class FilmContent extends Component {
 							className="displayName"
 							maxLines={listView ? 1 : 2}
 							title={item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '')}>
-							{
+							<ReactMarkdown source={
 								listView && !isItemPage ?
 								item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
 								item.termDisplayName
-							}
+							} />
 						</ClampedDescription>
 						{
 							listView && !isItemPage ? null :
@@ -78,7 +79,7 @@ class FilmContent extends Component {
 						<ClampedDescription
 							className="description formatted-text"
 							maxLines={3}>
-							{item.shortDescription}
+							<ReactMarkdown source={item.shortDescription} />
 						</ClampedDescription>
 					</div>
 				</div>

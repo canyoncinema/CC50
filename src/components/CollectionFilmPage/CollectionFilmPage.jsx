@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getShortIdentifierFromRefName } from '../../utils/parse-data';
+import ReactMarkdown from 'react-markdown';
 
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
@@ -33,7 +34,7 @@ class CollectionFilmPage extends Component {
 				menuHeader: 'About the Film',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.workDescription}
+						<ReactMarkdown source={item.workDescription} />
 					</pre>
 				)
 			})
@@ -45,7 +46,7 @@ class CollectionFilmPage extends Component {
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
 					<pre className="rich-text">
-						{filmmaker.bioNote}
+						<ReactMarkdown source={filmmaker.bioNote} />
 					</pre>
 				)
 			})

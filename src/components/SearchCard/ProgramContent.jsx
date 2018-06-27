@@ -4,6 +4,7 @@ import { history } from '../../store';
 import RelatedLinks from '../RelatedLinks/RelatedLinks';
 import RelatedLink from '../RelatedLink/RelatedLink';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
+import ReactMarkdown from 'react-markdown';
 
 const ProgramContent = ({
 	viewMode,
@@ -21,7 +22,7 @@ const ProgramContent = ({
 						className="displayName"
 						maxLines={2}
 						title={displayName}>
-						{displayName}
+						<ReactMarkdown source={displayName} />
 					</ClampedDescription>
 				</h4>
 			</div>
@@ -30,7 +31,7 @@ const ProgramContent = ({
 					<ClampedDescription
 						className="description formatted-text"
 						maxLines={3}>
-						{description}
+						<ReactMarkdown source={description} />
 					</ClampedDescription>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $clamp from 'clamp-js';
 import './NewsTile.css';
+import ReactMarkdown from 'react-markdown';
 
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
@@ -23,7 +24,9 @@ class NewsTile extends Component {
 			<div className="NewsTile shadow-on-hover">
 				<PhotoFill src={photo} height="202px" />
 				<div className="content">
-					<h4 className="hover-effect" ref={this.newsNameRef}>{name}</h4>
+					<h4 className="hover-effect" ref={this.newsNameRef}>
+						<ReactMarkdown source={name} />
+					</h4>
 					<div>
 						<DateTimeString dateTime={created} format="long-date" />
 						{authorByline}

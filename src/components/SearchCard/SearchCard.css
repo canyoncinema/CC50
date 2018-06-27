@@ -70,7 +70,8 @@
 	height: 227px;
 }
 
-.SearchCard .description {
+.SearchCard .description,
+.SearchCard .description p {
 	font-family: Karla, sans-serif;
   font-size: 14px;
   font-weight: normal;

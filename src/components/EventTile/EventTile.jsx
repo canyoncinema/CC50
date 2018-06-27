@@ -6,6 +6,7 @@ import CalDay from '../CalDay/CalDay';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
 import TicketPriceString from '../TicketPriceString/TicketPriceString';
+import ReactMarkdown from 'react-markdown';
 
 class EventTile extends Component {
 	constructor(props) {
@@ -39,7 +40,9 @@ class EventTile extends Component {
 				</div>
 				<div className="content">
 					<h4 className="hover-effect" ref={this.eventNameRef}>
-						<ClampedDescription maxLines={2}>{name}</ClampedDescription>
+						<ClampedDescription maxLines={2}>
+							<ReactMarkdown source={name} />
+						</ClampedDescription>
 					</h4>
 					<div className="single-line-ellipsed" className="location">{location.name}</div>
 					<div><DateTimeString format="time" dateTime={dateTime} /></div>

@@ -64,6 +64,15 @@
   --light-grey: #888888;
 }
 
+a {
+  color: #a5721a;
+  color: var(--gold);
+}
+
+a:hover, a:active, a:focus {
+  color: #674914;
+}
+
 html {
   font-weight: normal;
   font-style: normal;
@@ -159,7 +168,6 @@ a.gold:hover {
 }
 
 .formatted-text {
-  white-space: normal;
   white-space: pre-wrap;
 }
 

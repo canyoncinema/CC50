@@ -1,5 +1,6 @@
 import React from 'react';
 import './FilmmakerContent.css';
+import ReactMarkdown from 'react-markdown';
 
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
@@ -41,7 +42,7 @@ const FilmmakerContent = ({
 						<ClampedDescription
 							className="description formatted-text"
 							maxLines={listView ? 3 : 6}>
-							{item.shortBioNote}
+							<ReactMarkdown source={item.shortBioNote} />
 						</ClampedDescription>
 					</div>
 				</div>

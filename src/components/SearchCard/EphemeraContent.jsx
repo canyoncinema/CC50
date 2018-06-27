@@ -5,6 +5,7 @@ import Tag from '../Tag/Tag';
 import RelatedLinks from '../RelatedLinks/RelatedLinks';
 import RelatedLink from '../RelatedLink/RelatedLink';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
+import ReactMarkdown from 'react-markdown';
 
 const EphemeraContent = ({
 	displayName,
@@ -22,7 +23,7 @@ const EphemeraContent = ({
 						className="displayName"
 						maxLines={listView ? 2 : 3}
 						title={displayName}>
-						{displayName}
+						<ReactMarkdown source={displayName} />
 					</ClampedDescription>
 				</h4>
 			</div>
