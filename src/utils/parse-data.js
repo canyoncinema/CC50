@@ -3,7 +3,7 @@ export const parseCreator = creator =>
 	creator.match(/\'(.+)\'$/) &&
 	creator.match(/\'(.+)\'$/)[1];
 
-export const toItemData = payload => {
+export const toItemData = (payload) => {
 	// expect item payload from CollectionSpace
 	// TODO: MARKDOWN RENDERING
 	const name = payload.document['@name'];

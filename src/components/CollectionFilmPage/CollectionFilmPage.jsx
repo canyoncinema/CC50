@@ -25,7 +25,7 @@ class CollectionFilmPage extends Component {
 	render() {
 		const { item, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		console.log('Film Page item', item, 'FILMMAKER', filmmaker && filmmaker.termDisplayName);
-		console.log('filmmakerFilms', filmmakerOtherFilms)
+		console.log('filmmakerFilms', filmmakerOtherFilms, filmmakerOtherFilms && filmmakerOtherFilms.length >= 1)
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -69,7 +69,7 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'others',
 				order: 3,
-				condition: filmmakerOtherFilms && filmmakerOtherFilms.length > 1,
+				condition: filmmakerOtherFilms && filmmakerOtherFilms.length >= 1,
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">

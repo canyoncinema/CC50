@@ -11,7 +11,8 @@ const itemFilmmakerFilms = (state=initialState, action) => {
 		case types.FETCH_ITEM_FILMMAKER_FILMS:
 			return {
 				isLoading: true,
-				error: null
+				error: null,
+				data: null
 			};
 		case types.RECEIVED_ITEM_FILMMAKER_FILMS:
 			return {

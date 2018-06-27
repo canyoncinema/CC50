@@ -1,5 +1,5 @@
 import * as types from '../actionTypes';
-import filmmaker from './item-filmmaker-reducer';
+import itemFilmmaker from './item-filmmaker-reducer';
 
 const initialState = {
 	data: undefined,
@@ -32,7 +32,7 @@ const itemReducer = (state=initialState, action) => {
 		default:
 			return {
 				...state,
-				filmmaker: filmmaker(state.filmmaker, action)
+				filmmaker: itemFilmmaker(state.filmmaker, action)
 			};
 	}
 };
