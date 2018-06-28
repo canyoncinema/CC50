@@ -7,7 +7,8 @@ const initialState = {
 	isLoading: false,
 	error: undefined,
 	filmmaker: undefined,
-	films: undefined
+	films: undefined,
+	collectionItems: undefined
 };
 
 const itemReducer = (state=initialState, action) => {
@@ -24,7 +25,8 @@ const itemReducer = (state=initialState, action) => {
 				isLoading: false,
 				error: undefined,
 				data: action.data,
-				films: itemFilms(state.films, action)
+				films: itemFilms(state.films, action),
+				collectionItems: action.collectionItems
 			});
 		case types.FAILED_ITEM:
 			return {
@@ -32,7 +34,8 @@ const itemReducer = (state=initialState, action) => {
 				error: action.error,
 				data: undefined,
 				filmmaker: undefined,
-				films: itemFilms(state.films, action)
+				films: itemFilms(state.films, action),
+				collectionItems: undefined
 			};
 		default:
 			return {

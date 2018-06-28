@@ -89,9 +89,6 @@ class CollectionItemPage extends Component {
 				<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
 					<MainNav isCollapsed={true} />
 				</div>
-				<CollectionItemHeader
-					{...item}
-					collectionItems={collectionItems} />
 				<div className="container">
 					<Row>
 						<Col xs={3}>

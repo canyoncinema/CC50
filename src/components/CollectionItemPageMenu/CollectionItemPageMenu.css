@@ -1,16 +1,15 @@
 .CollectionItemPageMenu {
   padding: 70px 0 0;
-  top: 0;
+  top: 95px;
   transition: top 0.33s linear;
 }
 
 @media (min-width: 900px) {
   .CollectionItemPageMenu.fixed {
     position: fixed;
-    top: 30px;
+    top: 127px;
   }  
 }
-
 
 .CollectionItemPageMenu li .Button {
   margin-top: 20px;

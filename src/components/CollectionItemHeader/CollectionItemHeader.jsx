@@ -23,42 +23,41 @@ class CollectionItemHeader extends Component {
 
 	render() {
 		const {
-			collapsed,
+			isCollapsed,
 			collectionItems,
 			item,
 			itemCreator,
-			title,
-			displayName,
-			// films & programs
-			media,
-			format,
-			// films
-			created,
-			image,
-			sound,
-			years,
-			// filmmakers
-			avatar,
-			// ephemera
-			types,
 			isLoading
 		} = this.props;
 		// console.log('itemCreator', itemCreator);
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
-		const hasSideComponent = avatar || (media && media.length);
-		return <header className={`CollectionItemHeader container-fluid ${collectionItems} no-gutters`}>
+		const hasSideComponent = item.avatar || (item.media && item.media.length);
+		return <header className={[
+				'CollectionItemHeader',
+				'container-fluid',
+				collectionItems,
+				'no-gutters',
+				isCollapsed ? 'collapsed' : null
+			].join(' ')}>
 			<div className="container">
 				<Row>
 					<Col sm={hasSideComponent ? 6 : 12}>
-						<label>{toCollectionSearchLabel(collectionItems)}</label>
+						{
+							!isCollapsed ?
+							<label>
+								{toCollectionSearchLabel(collectionItems)}
+							</label>
+							: null
+						}
 						<h1 className="white">{item.termDisplayName}</h1>
 						<div className="metadata">
 							{
 								collectionItems === 'films' ?
 								<div>
 									{
+										!isCollapsed &&
 										item.creationYear ?
 										<div className="year">{item.creationYear}</div>
 										: null
@@ -68,17 +67,12 @@ class CollectionItemHeader extends Component {
 										<CreatorLink creatorRefName={itemCreator} />
 										: null
 									}
-									<FilmTags film={item} />
-								</div>
-								: null
-							}
-							{
-								types && types.length ?
-								<Tags>
 									{
-										types.map(type => <Tag>{type}</Tag>)
+										!isCollapsed ?
+										<FilmTags film={item} />
+										: null
 									}
-								</Tags>
+								</div>
 								: null
 							}
 						</div>

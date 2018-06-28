@@ -29,7 +29,7 @@ class App extends Component {
       <Provider store={store}>
       <ConnectedRouter history={history}>
         <div className="App">
-          <MainNav />
+          <MainNav includesCollapsedItemPageNav={false} />
           <Route exact path="/" component={HomePage} />
           <Switch>
             <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>

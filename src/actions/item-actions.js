@@ -49,7 +49,8 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 	}
 	return {
 		type: RECEIVED_ITEM,
-		data: item
+		data: item,
+		collectionItems
 	}
 }
 

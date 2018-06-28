@@ -10,10 +10,6 @@ class CollectionEphemeraPage extends Component {
 		return (
 			<div className="CollectionEphemeraPage">
 				<ScrollToTopOnMount />
-				<CollectionItemHeader
-					{...item}
-					collectionItems={collectionItems}
-				/>
 				CollectionEphemeraPage
 			</div>
 		);

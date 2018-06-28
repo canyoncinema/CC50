@@ -145,13 +145,15 @@ function CollectionItemPage(ComposedComponent) {
 				<div className="CollectionItemPage">
 					<ScrollToTopOnMount />
 					<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
-						<MainNav isCollapsed={true} />
+						<MainNav
+							includesCollapsedItemPageNav={true}
+							isCollapsed={true} />
 					</div>
 					{
-						item && item.csid ?
+						item ?
 						<CollectionItemHeader
-							{...item}
-							collectionItems={collectionItems} />
+						{...item}
+						collectionItems={collectionItems} />
 						: null
 					}
 					<div className="container">

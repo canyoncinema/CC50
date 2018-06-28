@@ -45,10 +45,6 @@ const CollectionSection = ({
 					data={searchData} />
 				: null
 			}
-			{
-				!searchData || !searchData.length ?
-				'Loading...' : null
-			}
 		</div>
 	);
 }

@@ -4,6 +4,12 @@
   background-color: var(--black);
 }
 
+.CollectionItemHeader.collapsed {
+	border-top: solid 1px var(--dark-grey);
+	padding: 15px 70px;
+	border-color: #6a6a6a;
+}
+
 .CollectionItemHeader label {
   font-size: 12px;
   font-weight: bold;
@@ -17,9 +23,14 @@
 .CollectionItemHeader .CreatorLink {
   font-size: 14px;
   line-height: 1.64;
-  margin-bottom: 22px;
   margin-top: 6px;
+  margin-bottom: 22px;
   display: inline-block;
+}
+
+.CollectionItemHeader.collapsed .CreatorLink {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .CollectionItemHeader .year {
@@ -46,15 +57,10 @@
 	margin-bottom: 0;
 }
 
-/*  collapsed  */
 .CollectionItemHeader h1 {
 	transition: font-size 0.33s linear,
 		line-height 0.33s linear,
 		margin-bottom 0.33s linear;
-}
-
-.CollectionItemHeader.collapsed {
-	padding: 18px 70px;
 }
 
 .CollectionItemHeader.collapsed h1 {

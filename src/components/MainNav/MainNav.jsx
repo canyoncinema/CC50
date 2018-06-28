@@ -1,11 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import './MainNav.css';
 
 import Logo from '../Logo/Logo';
+import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 
-const MainNav = ({location, isCollapsed}) => {
+const mapStateToProps = state => ({
+	item: state.item.data,
+	collectionItems: state.item.collectionItems
+});
+
+const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav, isCollapsed}) => {
 	const isTransparent = location.pathname === '/';
 	var i;
 	const isActive = pathname => {
@@ -13,10 +20,12 @@ const MainNav = ({location, isCollapsed}) => {
 		(!location.pathname[pathname.length] || location.pathname[pathname.length] === '?' || location.pathname[pathname.length] === '/');
 	};
 	const isHomePageMainNav = location.pathname === '/';
+	console.log('isItemPage', includesCollapsedItemPageNav);
 	return (
 		<div className={[
 			'MainNav',
 			isCollapsed ? 'collapsed' : null,
+			includesCollapsedItemPageNav ? 'includes-collapsed-item-nav' : null,
 			isHomePageMainNav ? 'is-home' : null,
 		].join(' ')}>
 			<Navbar
@@ -47,8 +56,16 @@ const MainNav = ({location, isCollapsed}) => {
 						</NavItem>
 					</Nav>
 			</Navbar>
+			{
+				includesCollapsedItemPageNav && item ?
+				<CollectionItemHeader
+					isCollapsed={true}
+					{...item}
+					collectionItems={collectionItems} />
+				: null
+			}
 		</div>
 	);
 };
 
-export default withRouter(MainNav);
+export default withRouter(connect(mapStateToProps)(MainNav));
