@@ -25,7 +25,7 @@ class NewsTile extends Component {
 				<PhotoFill src={photo} height="202px" />
 				<div className="content">
 					<h4 className="hover-effect" ref={this.newsNameRef}>
-						<ReactMarkdown source={name} />
+						<ReactMarkdown source={name} disallowedTypes={['paragraph']} />
 					</h4>
 					<div>
 						<DateTimeString dateTime={created} format="long-date" />

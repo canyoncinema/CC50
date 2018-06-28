@@ -208,110 +208,10 @@ input:active {
   padding: 0 !important;
 }
 
-/* header styles */
+/*  paragraph styles (OVERRIDDEN by header styles, below)  */
+/*  Note: paragraphs sometimes appear in headers, due to Markdown rendering  */
 
-h1 {
-  font-family: Lora, sans-serif;
-  font-size: 48px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.13;
-  letter-spacing: normal;
-  text-align: left;
-  color: #231f20;
-  color: var(--black);
-}
-
-h1.lead {
-  font-family: Lora, sans-serif;
-  font-size: 48px;
-  line-height: 1.13;
-  text-align: left;
-  color: #231f20;
-  color: var(--black);
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-h1.discover {
-  max-width: 736px;
-}
-
-.H2-Black,
-h2 {
-  font-family: Lora, sans-serif;
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.28;
-  letter-spacing: normal;
-  text-align: center;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
-}
-
-.H3-Black,
-h3 {
-  font-family: Karla, sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.17;
-  letter-spacing: normal;
-  text-align: left;
-  color: #231f20;
-  color: var(--black);
-  margin-bottom: 10px;
-}
-
-.H4-Black,
-h4 {
-  font-family: Karla, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.2;
-  letter-spacing: normal;
-  text-align: left;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
-}
-
-.H5-Black,
-h5 {
-  font-family: Karla, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.44;
-  letter-spacing: 3px;
-  text-align: left;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
-}
-
-.H6-Gray,
-h6 {
-  font-family: Karla, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 1.6px;
-  text-align: left;
-  color: #6a6a6a;
-  color: var(--dark-grey);
-}
-
-/*  paragraph styles  */
-
-p.lead {
+p.lead, p.lead * {
   font-family: Karla, sans-serif;
   font-size: 26px;
   font-weight: normal;
@@ -354,4 +254,105 @@ p.small {
 small > p.white {
   text-align: center;
   color: #ffffff;
+}
+
+/* header styles */
+
+h1 {
+  font-family: Lora, sans-serif;
+  font-size: 48px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.13;
+  letter-spacing: normal;
+  text-align: left;
+  color: #231f20;
+  color: var(--black);
+}
+
+h1.lead {
+  font-family: Lora, sans-serif;
+  font-size: 48px;
+  line-height: 1.13;
+  text-align: left;
+  color: #231f20;
+  color: var(--black);
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+h1.discover, h1.discover * {
+  max-width: 736px;
+}
+
+.H2-Black,
+h2, h2 * {
+  font-family: Lora, sans-serif;
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.28;
+  letter-spacing: normal;
+  text-align: center;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+}
+
+.H3-Black,
+h3, h3 * {
+  font-family: Karla, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: #231f20;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+
+.H4-Black,
+h4, h4 * {
+  font-family: Karla, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+}
+
+.H5-Black,
+h5, h5 * {
+  font-family: Karla, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.44;
+  letter-spacing: 3px;
+  text-align: left;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+}
+
+.H6-Gray,
+h6, h6 * {
+  font-family: Karla, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.6px;
+  text-align: left;
+  color: #6a6a6a;
+  color: var(--dark-grey);
 }

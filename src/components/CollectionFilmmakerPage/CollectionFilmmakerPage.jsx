@@ -70,7 +70,7 @@ class CollectionFilmmakerPage extends Component {
 						<SearchCards
 							itemType="film"
 							viewMode={viewMode || 'list'}
-							isItemPage={true}
+							onFilmmakerPage={true}
 							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
 							data={itemFilms} />
 					</div>
@@ -101,6 +101,7 @@ class CollectionFilmmakerPage extends Component {
 				renderHeader: () => <h3>{'Curated Programs Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<SearchCards
+						onFilmmakerPage={true}
 						itemType="program"
 						viewMode="grid"
 						customColSize={6}

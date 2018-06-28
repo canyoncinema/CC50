@@ -41,7 +41,10 @@ class EventTile extends Component {
 				<div className="content">
 					<h4 className="hover-effect" ref={this.eventNameRef}>
 						<ClampedDescription maxLines={2}>
-							<ReactMarkdown source={name} />
+							<ReactMarkdown source={name} renderers={{
+								'paragraph': (text) => text,
+								'text': text => text
+							}} />
 						</ClampedDescription>
 					</h4>
 					<div className="single-line-ellipsed" className="location">{location.name}</div>

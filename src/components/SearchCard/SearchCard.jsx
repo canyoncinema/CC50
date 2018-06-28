@@ -26,7 +26,8 @@ class SearchCard extends Component {
 			itemType, // film, program, ephemera, or filmmaker
 			photos,
 			viewMode,
-			isItemPage,
+			onFilmmakerPage,
+			isItemPageFilmCard,
 			history
 		} = this.props;
 		// Note: certain design rules exist for cards on filmmaker pages.
@@ -39,7 +40,7 @@ class SearchCard extends Component {
 					'SearchCard',
 					'shadow-on-hover',
 					itemTypeClassName,
-					isItemPage ? 'on-filmmaker-page': null,
+					onFilmmakerPage ||  isItemPageFilmCard ? 'is-item-page-film-card': null,
 					viewMode,
 					].join(' ')}
 				onClick={(e) => {
@@ -47,8 +48,8 @@ class SearchCard extends Component {
 					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${shortIdentifier}`;
 					history.push(path);
 				}}>
-				<div className={listView ? isItemPage ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
-				<div className={listView ? isItemPage ? 'filmmaker-film-still' :  'col-2' : ''}>
+				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
+				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-film-still' :  'col-2' : ''}>
 					<div className="media">
 						<Carousel
 							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
@@ -56,12 +57,12 @@ class SearchCard extends Component {
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView ? isItemPage ? 'filmmaker-content' : 'col-10' : ''}>
+				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-content' : 'col-10' : ''}>
 					<div className="content">
 						{
 							itemType === 'filmmaker' ?
 							<FilmmakerContent
-								isItemPage={isItemPage}
+								onFilmmakerPage={onFilmmakerPage || isItemPageFilmCard}
 								viewMode={viewMode}
 								item={data}
 							/> : null
@@ -69,7 +70,7 @@ class SearchCard extends Component {
 						{
 							itemType === 'film' ?
 							<FilmContent
-								isItemPage={isItemPage}
+								isItemPageFilmCard={isItemPageFilmCard || onFilmmakerPage}
 								viewMode={viewMode}
 								item={data}
 							/> : null

@@ -11,7 +11,7 @@ const FilmmakerContent = ({
 	viewMode,
 	avatar,
 	shortBioNote,
-	isItemPage
+	onFilmmakerPage
 }) => {
 	const listView = viewMode === 'list';
 	return (
@@ -21,7 +21,7 @@ const FilmmakerContent = ({
 					<FilmmakerAvatar url={avatar} />
 				</div>
 				<div>
-					{	!isItemPage ?
+					{	!onFilmmakerPage ?
 						<h6>Filmmaker</h6>
 						: null
 					}
@@ -36,7 +36,7 @@ const FilmmakerContent = ({
 				</div>
 			</div>
 			{
-				listView && !isItemPage ?
+				listView && !onFilmmakerPage ?
 				<div className="col-8">
 					<div className="list-center-wrapper">
 						<ClampedDescription

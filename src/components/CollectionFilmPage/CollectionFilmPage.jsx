@@ -86,8 +86,9 @@ class CollectionFilmPage extends Component {
 					<div className="container no-padding">
 						<SearchCards
 							itemType="film"
-							viewMode={viewMode}
+							viewMode={viewMode || 'list'}
 							customColSize={6}
+							isItemPageFilmCard={true}
 							data={filmmakerOtherFilms} />
 					</div>
 				)

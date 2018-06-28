@@ -114,14 +114,14 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		setViewMode = viewMode => {
-			// this.setState({
-			// 	viewMode
-			// });
+			this.setState({
+				viewMode
+			});
 		}
 
 		render() {
 			const { collectionItems, isLoading, itemError, item, shortIdentifier, isScrollNav } = this.props;
-			const { viewMode } = this.state;
+			const viewMode = getQueryVal(window.location.search, 'view') || 'grid';
 			// const item = getSpoofDataObj(collectionItems, itemId);
 			// if (!item) {
 			// 	throw new Error('Item with ID ' + itemId + ' in ' + collectionItems + ' not found. TODO: 404 page!');

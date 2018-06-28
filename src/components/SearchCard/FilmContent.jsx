@@ -14,6 +14,7 @@ import Tag from '../Tag/Tag';
 import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import URNRelatedField from '../URNRelatedField/URNRelatedField';
+import ChildrenOnly from '../ChildrenOnly/ChildrenOnly';
 import ReactMarkdown from 'react-markdown';
 
 class FilmContent extends Component {
@@ -31,15 +32,15 @@ class FilmContent extends Component {
 		const {
 			item,
 			viewMode,
-			isItemPage
+			isItemPageFilmCard
 		} = this.props;
 		const { creator } = this.state;
 		const creatorMatch = item.creator && matchRefName(item.creator);
 		const listView = viewMode === 'list';
 		return (
-			<div className={listView && !isItemPage ? 'row no-gutters FilmContent' : 'FilmContent'}>
-				<div className={listView && !isItemPage ? 'col-4' : null}>
-					{	!isItemPage ?
+			<div className={listView && !isItemPageFilmCard ? 'row no-gutters FilmContent' : 'FilmContent'}>
+				<div className={listView && !isItemPageFilmCard ? 'col-4' : null}>
+					{	!isItemPageFilmCard ?
 						<h6>Film</h6>
 						: null
 					}
@@ -49,18 +50,21 @@ class FilmContent extends Component {
 							maxLines={listView ? 1 : 2}
 							title={item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '')}>
 							<ReactMarkdown source={
-								listView && !isItemPage ?
+								listView && !isItemPageFilmCard ?
 								item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
 								item.termDisplayName
-							} />
+							} renderers={{
+								'paragraph': ChildrenOnly,
+								'root': ChildrenOnly
+							}} />
 						</ClampedDescription>
 						{
-							listView && !isItemPage ? null :
+							listView && !isItemPageFilmCard ? null :
 							<span className="year ml-auto">{item.creationYear}</span>
 						}
 					</h4>
 					{
-						creatorMatch && !isItemPage ?
+						creatorMatch && !isItemPageFilmCard ?
 						<div className="creator" title={getDisplayNameFromMatch(creatorMatch)}>
 							<a className="gold" onClick={(e) => {
 								e.stopPropagation();
@@ -73,20 +77,24 @@ class FilmContent extends Component {
 						: null
 					}
 				</div>
-				<div className={listView && !isItemPage ?
+				<div className={listView && !isItemPageFilmCard ?
 					'col-4' : null}>
-					<div className={listView && !isItemPage ? 'list-center-wrapper' : null}>
+					<div className={listView && !isItemPageFilmCard ? 'list-center-wrapper' : null}>
 						<ClampedDescription
 							className="description formatted-text"
 							maxLines={3}>
-							<ReactMarkdown source={item.shortDescription} />
+							<ReactMarkdown source={item.shortDescription}
+								renderers={{
+								'paragraph': ChildrenOnly,
+								'root': ChildrenOnly
+							}} />
 						</ClampedDescription>
 					</div>
 				</div>
 				{
-					<div className={listView && !isItemPage ?
+					<div className={listView && !isItemPageFilmCard ?
 													'col-4 order-3' : null}>
-						<div className={listView && !isItemPage ?
+						<div className={listView && !isItemPageFilmCard ?
 							'list-center-wrapper' : null}>
 							<div className="tags-wrapper">
 								<div className="tags">

@@ -6,7 +6,11 @@ import './SearchCards.css';
 
 class SearchCards extends Component {
 	render() {
-		const { itemType, data, customColSize, customColWidth, viewMode, isItemPage } = this.props;
+		const { itemType, data, customColWidth, viewMode,
+			onFilmmakerPage, isItemPageFilmCard } = this.props;
+		let customColSize = this.props.customColSize;
+		// SPEC: list view is ALWAYS 12-cols wide, no matter what
+		if (viewMode === 'list') customColSize = 12;
 		if (customColSize && customColWidth) {
 			return data && data.length ?
 			<Row className="SearchCards">
@@ -18,7 +22,8 @@ class SearchCards extends Component {
 							<SearchCard
 								key={i}
 								itemType={itemType}
-								isItemPage={isItemPage}
+								onFilmmakerPage={onFilmmakerPage}
+								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}
 								data={d}
 								{...d} />
@@ -38,7 +43,8 @@ class SearchCards extends Component {
 							<SearchCard
 								key={i}
 								itemType={itemType}
-								isItemPage={isItemPage}
+								onFilmmakerPage={onFilmmakerPage}
+								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}
 								data={d}
 								{...d} />
@@ -55,7 +61,8 @@ class SearchCards extends Component {
 					<SearchCard
 						key={i}
 						itemType={itemType}
-						isItemPage={isItemPage}
+						onFilmmakerPage={onFilmmakerPage}
+						isItemPageFilmCard={isItemPageFilmCard}
 						viewMode={viewMode}
 						data={d}
 						{...d} />

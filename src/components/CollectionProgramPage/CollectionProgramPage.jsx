@@ -45,7 +45,6 @@ class CollectionProgramPage extends Component {
 						<SearchCards
 							itemType="film"
 							viewMode={viewMode || 'list'}
-							isItemPage={true}
 							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
 							data={item.films} />
 					</div>
