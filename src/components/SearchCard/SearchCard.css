@@ -104,7 +104,7 @@
 	margin-bottom: 25px;
 }
 
-.SearchCard.grid.ephemera .tags {
+.SearchCard.grid.ephemera .Tags {
 	margin: 0;
 	height: 50px;
 }
@@ -238,12 +238,12 @@
 	margin-top: 3px;
 }
 
-.SearchCard.list .tags {
+.SearchCard.list .Tags {
 	margin: 0;
 	padding-left: 1rem;
 }
 
-.SearchCard.list.is-item-page-film-card .tags {
+.SearchCard.list.is-item-page-film-card .Tags {
 	margin-top: 24px;
 	padding-left: 0;	
 }

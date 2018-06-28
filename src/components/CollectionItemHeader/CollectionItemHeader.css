@@ -14,6 +14,13 @@
   margin-bottom: 5px;
 }
 
+.CollectionItemHeader .CreatorLink {
+  font-size: 14px;
+  line-height: 1.64;
+  margin-bottom: 22px;
+  display: inline-block;
+}
+
 .CollectionItemHeader.films h1 {
 	margin-bottom: 0;
 }
