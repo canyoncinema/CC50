@@ -6,6 +6,9 @@ import items from './items-reducer';
 import itemMenuHeaders from './item-menu-headers-reducer';
 import collectionSort from './collection-sort-reducer';
 import typeAheadChoices from './typeahead-choices-reducer';
+import events from './events-reducer';
+import news from './news-reducer';
+import posts from './posts-reducer';
 
 export default combineReducers({
   filmmakers,
@@ -14,5 +17,8 @@ export default combineReducers({
   itemMenuHeaders,
   items,
   collectionSort,
-  typeAheadChoices
+  typeAheadChoices,
+  events,
+  news,
+  posts
 });

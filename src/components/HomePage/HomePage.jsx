@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import data from '../../db.json';
 import './HomePage.css';
@@ -34,61 +34,27 @@ const {
   featuredPosts
 } = data;
 
-class HomePage extends Component {
-  state = {
-    films: films || [],
-    upcomingEvents: events || [],
-    newsItems: news || [],
-    featuredPosts: featuredPosts || []
-  }
+const mapStateToProps = state => ({
+  upcomingEvents: state.events.upcoming,
+  news: state.news.data,
+  posts: state.posts.data
+})
 
+class HomePage extends Component {
   componentDidMount() {
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
-    return;
-    // TODO: spoof data sophisticate? Neccesary?
-    // axios.get('//localhost:3001/films')
-    //   .then(response => {
-    //     for (var i = 0; i <= 100; i++) {
-    //       var spoofData = response.data.concat(response.data);
-    //     }
-    //     return spoofData;
-    //   })
-    //   .then(data => {
-    //     this.setState({
-    //       films: data
-    //     });
-    //   });
-
-    // axios.get('//localhost:3001/events')
-    //   .then(response => {
-    //     var spoofData = response.data.concat(response.data).concat(response.data);
-    //     return spoofData;
-    //   })
-    //   .then(data => {
-    //     this.setState({
-    //       upcomingEvents: data
-    //     });
-    //   });
-
-    // axios.get('//localhost:3001/news')
-    //   .then(response => {
-    //     this.setState({
-    //       newsItems: response.data
-    //     });
-    //   });
-
-    // axios.get('//localhost:3001/featuredPosts')
-    //   .then(response => {
-    //     this.setState({
-    //       featuredPosts: response.data
-    //     });
-    //   });
   }
 
   render() {
-    const { upcomingEvents, newsItems, featuredPosts } = this.state;
+    const {
+      upcomingEvents,
+      news,
+      posts
+    } = this.props;
+    // Turn on when discover component is ready (posts are in)
+    const discoverReady = false;
 
     var spotlightData = [{
       name: 'Portland (1996)',
@@ -111,7 +77,7 @@ class HomePage extends Component {
           </div>
         </Hero>
         <div className="container padded-container">
-          { upcomingEvents.length ?
+          { upcomingEvents && upcomingEvents.length ?
             [
               <Row key={0}>
                 <Col sm="12">
@@ -130,35 +96,41 @@ class HomePage extends Component {
             ]
           : null }
 
-          <Row>
-            <Col sm="12">
-              <h1 className="lead discover">Discover something new to teach or share</h1>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm="4">
-              <DarkBox
-                header="Educator"
-                description="Browse curated classroom content and our library of related writings, videos, and other ephemera as it relates to the works and filmmakers in our catalog."
-              />
-            </Col>
-            <Col sm="4">
-              <DarkBox
-                header="Students"
-                description="Learn about the history of our collection of films and filmmakers and how it relates the avant-garde and experimental filmmaking movements from 1921 to the present."
-              />
-            </Col>
-            <Col sm="4">
-              <DarkBox
-                header="Curators"
-                description="Browse our curated programs, hand-picked by our staff and board, or explore the collection to curate your own program."
-              />
-            </Col>
-          </Row>
-
           {
-            newsItems.length ?
+            discoverReady ?
+            <Row>
+              <Col sm="12">
+                <h1 className="lead discover">Discover something new to teach or share</h1>
+              </Col>
+            </Row>
+            : null
+          }
+          {
+            discoverReady ?
+            <Row>
+              <Col sm="4">
+                <DarkBox
+                  header="Educator"
+                  description="Browse curated classroom content and our library of related writings, videos, and other ephemera as it relates to the works and filmmakers in our catalog."
+                />
+              </Col>
+              <Col sm="4">
+                <DarkBox
+                  header="Students"
+                  description="Learn about the history of our collection of films and filmmakers and how it relates the avant-garde and experimental filmmaking movements from 1921 to the present."
+                />
+              </Col>
+              <Col sm="4">
+                <DarkBox
+                  header="Curators"
+                  description="Browse our curated programs, hand-picked by our staff and board, or explore the collection to curate your own program."
+                />
+              </Col>
+            </Row>
+            : null
+          }
+          {
+            news ?
             <h1 className="lead d-flex news">
               News
               <span className="ml-auto">
@@ -170,11 +142,11 @@ class HomePage extends Component {
             : null
           }
           {
-            newsItems.length ?
+            news && news.length ?
             <Row>
               {
-                optimalColWidths(newsItems.length).map((colWidth) => (
-                  newsItems.slice(0, colWidth).map((d, i) => {
+                optimalColWidths(news.length).map((colWidth) => (
+                  news.slice(0, colWidth).map((d, i) => {
                     return (
                       <Col sm={12 / colWidth} key={i}>
                         <NewsTile {...d} key={i} />
@@ -186,21 +158,25 @@ class HomePage extends Component {
             : null
           }
         </div>
-        <Row className="no-gutters featured-posts">
-          {
-            optimalColWidths(featuredPosts.length).map((colWidth) => (
-              featuredPosts.slice(0, colWidth).map((d, i) => {
-                return (
-                  <Col sm={12 / colWidth} key={i}>
-                    <FeaturedPost {...d} key={i} />
-                  </Col>
-                );
-            })))
-          }
-        </Row>
+        {
+          posts ?
+          <Row className="no-gutters featured-posts">
+            {
+              optimalColWidths(posts.length).map((colWidth) => (
+                posts.slice(0, colWidth).map((d, i) => {
+                  return (
+                    <Col sm={12 / colWidth} key={i}>
+                      <FeaturedPost {...d} key={i} />
+                    </Col>
+                  );
+              })))
+            }
+          </Row>
+          : null
+        }
       </div>
     );
   }
 }
 
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);

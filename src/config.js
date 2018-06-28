@@ -13,7 +13,8 @@ const config = {
 		baseUrl: 'http://dev-cs45-2.cancf.com/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
-			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items'
+			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
+			exhibitions: '/exhibitions/_ALL_/items'
 		}
 	},
 	production: {
@@ -22,7 +23,8 @@ const config = {
 		baseUrl: 'http://cs.cancf.com:8180/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
-			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items'
+			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
+			exhibitions: '/exhibitions/_ALL_/items'
 		}
 		// _ALL_ only works for LISTS
 		// Note: CSID changes on db reset, shortIdentifier stays
@@ -69,8 +71,18 @@ class Config {
 		return url;
 	}
 
+	getEventsUrl(queryParams) {
+		let url = this.baseUrl + config[this.env].list['exhibitions'];
+	}
+
 	fetchItems(...args) {
 		return fetch(encodeURI(this.getItemsUrl(...args)), {
+			headers: this.authHeaders
+		});
+	}
+
+	fetchEvents(...args) {
+		return fetch(encodeURI(this.getEventsUrl(...args)), {
 			headers: this.authHeaders
 		});
 	}
