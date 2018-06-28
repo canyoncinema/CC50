@@ -37,7 +37,8 @@ const {
 const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,
   news: state.news.data,
-  posts: state.posts.data
+  posts: state.posts.data,
+  spotlight: state.spotlight.data
 })
 
 class HomePage extends Component {

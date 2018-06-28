@@ -138,6 +138,10 @@ class Config {
 		});
 	}
 
+	fetchSpotlight() {
+		// SPEC: 3 randomized items
+	}
+
 	get authHeaders() {
 		const { username, password } = config[this.env];
 		let headers = new Headers();
