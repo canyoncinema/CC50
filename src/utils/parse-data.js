@@ -3,6 +3,14 @@ export const parseCreator = creator =>
 	creator.match(/\'(.+)\'$/) &&
 	creator.match(/\'(.+)\'$/)[1];
 
+export const toExternalWebUrl = url => {
+  if (url.indexOf('://') != -1) {
+  	// is valid external link already
+  	return url;
+  }
+  return '//' + url;
+}
+
 export const toItemData = (payload) => {
 	// expect item payload from CollectionSpace
 	// TODO: MARKDOWN RENDERING

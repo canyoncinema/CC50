@@ -18,7 +18,16 @@
   font-size: 14px;
   line-height: 1.64;
   margin-bottom: 22px;
+  margin-top: 6px;
   display: inline-block;
+}
+
+.CollectionItemHeader .year {
+	height: 14px;
+	line-height: 1.64;
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
 }
 
 .CollectionItemHeader.films h1 {

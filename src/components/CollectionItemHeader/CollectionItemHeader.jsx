@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './CollectionItemHeader.css';
-
 import { Row, Col } from 'reactstrap';
 import { toCollectionSearchLabel } from '../../collection-context';
 
 import CreatorLink from '../CreatorLink/CreatorLink';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import FilmTags from '../FilmTags/FilmTags';
 import Tags from '../Tags/Tags';
 import Tag from '../Tag/Tag';
 
 const mapStateToProps = state => ({
 	item: state.item.data,
+	isLoading: state.item.isLoading,
 	itemCreator: state.item.data &&
 		state.item.data.creatorGroupList &&
 		state.item.data.creatorGroupList.creatorGroup &&
@@ -39,9 +40,13 @@ class CollectionItemHeader extends Component {
 			// filmmakers
 			avatar,
 			// ephemera
-			types
+			types,
+			isLoading
 		} = this.props;
-		console.log('itemCreator', itemCreator);
+		// console.log('itemCreator', itemCreator);
+		if (isLoading) {
+			return <LoadingMessage />;
+		}
 		const hasSideComponent = avatar || (media && media.length);
 		return <header className={`CollectionItemHeader container-fluid ${collectionItems} no-gutters`}>
 			<div className="container">
@@ -53,6 +58,11 @@ class CollectionItemHeader extends Component {
 							{
 								collectionItems === 'films' ?
 								<div>
+									{
+										item.creationYear ?
+										<div className="year">{item.creationYear}</div>
+										: null
+									}
 									{
 										itemCreator ?
 										<CreatorLink creatorRefName={itemCreator} />

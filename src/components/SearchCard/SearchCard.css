@@ -124,6 +124,7 @@
 	display: inline-block;
   font-weight: normal;
   padding-left: 10px;
+  text-align: right;
 }
 
 .SearchCard .avatar {
@@ -273,7 +274,7 @@
 
 .SearchCard.list.is-item-page-film-card .description {
 	height: 41px;
-	margin: 0;
+	margin-bottom: 16px;
 }
 
 .SearchCard.grid.is-item-page-film-card .description {

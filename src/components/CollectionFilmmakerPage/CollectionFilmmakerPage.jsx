@@ -10,15 +10,20 @@ import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
+import { toExternalWebUrl } from '../../utils/parse-data';
 
 const mapStateToProps = state => ({
-	itemFilms: state.item.films.data
+	itemFilms: state.item.films.data,
+	isLoading: state.item.isLoading
 });
 
 class CollectionFilmmakerPage extends Component {
 	render() {
-		const { item, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		if (!item) return null;
+		const { item, isLoading, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		if (isLoading) {
+			return <LoadingMessage />;
+		}
 		return [
 			conditionallyShow({
 				id: 'about',
@@ -40,7 +45,7 @@ class CollectionFilmmakerPage extends Component {
 				renderContent: () => (
 					<a className="section-button"
 						target="_blank"
-						href={`${item.webAddress}`}>
+						href={`${toExternalWebUrl(item.webAddress)}`}>
 						<Button className="default">
 							Visit Artist's Website
 						</Button>

@@ -3,6 +3,7 @@ import './EventTile.css';
 
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import CalDay from '../CalDay/CalDay';
+import ChildrenOnly from '../ChildrenOnly/ChildrenOnly';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
 import TicketPriceString from '../TicketPriceString/TicketPriceString';
@@ -42,8 +43,8 @@ class EventTile extends Component {
 					<h4 className="hover-effect" ref={this.eventNameRef}>
 						<ClampedDescription maxLines={2}>
 							<ReactMarkdown source={name} renderers={{
-								'paragraph': (text) => text,
-								'text': text => text
+								'paragraph': ChildrenOnly,
+								'root': ChildrenOnly
 							}} />
 						</ClampedDescription>
 					</h4>
