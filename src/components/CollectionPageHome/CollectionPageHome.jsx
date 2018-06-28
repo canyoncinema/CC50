@@ -17,7 +17,13 @@ const mapStateToProps = state => ({
   filmmakersError: state.filmmakers.error,
   films: state.films.data,
   filmsIsLoading: state.films.isLoading,
-  filmsError: state.films.error
+  filmsError: state.films.error,
+  programs: state.programs.data,
+  programsIsLoading: state.programs.isLoading,
+  programsError: state.programs.error,
+  ephemera: state.ephemera.data,
+  ephemeraIsLoading: state.ephemera.isLoading,
+  ephemeraError: state.ephemera.error
 });
 
 class CollectionPageHome extends Component {
@@ -35,12 +41,18 @@ class CollectionPageHome extends Component {
   render() {
     const {
       viewMode,
-      filmmakers,
       films,
-      filmmakersIsLoading,
       filmsIsLoading,
+      filmsError,
+      filmmakers,
+      filmmakersIsLoading,
       filmmakersError,
-      filmsError
+      programs,
+      programsIsLoading,
+      programsError,
+      ephemera,
+      ephemeraIsLoading,
+      ephemeraError
     } = this.props;
     const programData = getSpoofDataList('programs'),
           ephemeraData = getSpoofDataList('ephemera');
@@ -73,7 +85,7 @@ class CollectionPageHome extends Component {
         isLoading={filmmakersIsLoading}
         error={filmmakersError}
       />,
-      programData && programData.length ?
+      programs && programs.length ?
       <CollectionSection key={2}
         className="CollectionPageHomeSection"
         viewMode={viewMode}
@@ -84,9 +96,12 @@ class CollectionPageHome extends Component {
         buttonText="See all curated programs"
         buttonLink="/collection/programs"
         itemType="program"
-        searchData={programData}
-      /> : null,
-      ephemeraData && ephemeraData.length ?
+        searchData={programs}
+        isLoading={programsIsLoading}
+        error={programsError}
+      />
+      : null,
+      ephemera && ephemera.length ?
       <CollectionSection key={3}
         className="CollectionPageHomeSection"
         viewMode={viewMode}
@@ -97,8 +112,11 @@ class CollectionPageHome extends Component {
         buttonText="See all ephemera"
         buttonLink="/collection/ephemera"
         itemType="ephemera"
-        searchData={ephemeraData}
-      /> : null
+        searchData={ephemera}
+        isLoading={ephemeraIsLoading}
+        error={ephemeraError}
+      />
+      : null
   	];
   }
 }

@@ -47,10 +47,7 @@ export function getChoices(collectionItems, choiceText) {
 	};
 	return (dispatch) => {
 		dispatch(fetchChoices());
-		console.log('GET', config.getListItemsUrl(collectionItems, queryParams));
-		return fetch(config.getListItemsUrl(collectionItems, queryParams), {
-				headers: config.authHeaders
-			})
+		return config.fetchItems(collectionItems, queryParams)
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failChoices("Bad response from server"));

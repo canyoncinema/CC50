@@ -9,6 +9,8 @@ import typeAheadChoices from './typeahead-choices-reducer';
 import events from './events-reducer';
 import news from './news-reducer';
 import posts from './posts-reducer';
+import programs from './programs-reducer';
+import ephemera from './ephemera-reducer';
 
 export default combineReducers({
   filmmakers,
@@ -20,5 +22,7 @@ export default combineReducers({
   typeAheadChoices,
   events,
   news,
-  posts
+  posts,
+  programs,
+  ephemera
 });
