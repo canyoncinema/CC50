@@ -19,10 +19,16 @@ const mapStateToProps = state => ({
 
 class CollectionFilmmakerPage extends Component {
 	render() {
+<<<<<<< Updated upstream
 		const { item, isLoading, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
+=======
+		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		console.log('viewMode', viewMode);
+		console.log(item)
+>>>>>>> Stashed changes
 		return [
 			conditionallyShow({
 				id: 'about',
