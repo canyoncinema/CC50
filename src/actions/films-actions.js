@@ -4,7 +4,8 @@ import {
 	FAILED_FILMS
 } from '../actionTypes';
 import { config } from '../store';
-import { parseFilm } from '../utils/parse-data';
+import { parseFilm, toItemsData } from '../utils/parse-data';
+import { getItemsMedia } from './items-media-actions';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -15,13 +16,16 @@ function fetchFilms() {
 	}
 }
 
-function receiveFilms(payload) {
-	let data = payload['ns2:abstract-common-list']['list-item'];
-	if (data.length === undefined) data = [data];
-	// data = data.map(d => parseFilm(d));
+function receiveFilms(dispatch, payload) {
+	const items = toItemsData(payload);
+	// return up to 3 film stills per film item
+	// and indicate num of stills per film (for carousel 'see more')
+	items.forEach(item => {
+		dispatch(getItemsMedia(item));
+	});
 	return {
 		type: RECEIVED_FILMS,
-		data
+		data: items
 	}
 }
 
@@ -45,7 +49,7 @@ export function getFilms(queryParams) {
 				return response.json();
 			})
 			.then(data =>
-				dispatch(receiveFilms(data))
+				dispatch(receiveFilms(dispatch, data))
 			)
 			.catch(error =>
 				dispatch(failFilms(error))
