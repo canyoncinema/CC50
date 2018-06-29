@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { config } from '../../store';
 import { toItemData } from '../../utils/parse-data';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, FormGroup } from 'reactstrap';
+import { Row, Col, Form } from 'reactstrap';
 import './Subscribe.css';
 
 class Subscribe extends Component {

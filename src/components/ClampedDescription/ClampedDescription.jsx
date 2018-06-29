@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import $clamp from 'clamp-js';
-import lineClamp from 'line-clamp';
 import Dotdotdot from 'react-dotdotdot';
 import BrowserDetection from 'react-browser-detection';
 
@@ -9,25 +7,6 @@ class ClampedDescription extends Component {
 		super(props);
 		this.ref = React.createRef();
 	}
-
-	// componentDidMount() {
-	// 	// TODO: HACK -- lineClamp does not behave well with 1 line clamps
-	// 	// use .single-line-ellipsed class for 1-line clamps
-	// 	// if (this.props.maxLines === 1) {
-	// 	// 	lineClamp(this.ref.current, 1);
-	// 	// 	return;
-	// 	// }
-	// 	try {
-	// 		if (this.props.maxLines > 1) {
-	// 			$clamp(this.ref.current, { clamp: this.props.maxLines});
-	// 		}
-	// 	} catch(e) {
-	// 		console.error(e);
-	// 		if (this.props.maxLines > 1) {
-	// 			lineClamp(this.ref.current, this.props.maxLines);
-	// 		}
-	// 	}
-	// }
 
 	browserHandler = {
 	  chrome: () => {
@@ -48,7 +27,7 @@ class ClampedDescription extends Component {
 	  default: () => {
 	  	// at least on firefox, cannot take (any?) styles like pre-wrap
 	  	// -> omit classname entirely to be safe
-	  	const { children, className, title, maxLines } = this.props;
+	  	const { children, title, maxLines } = this.props;
 	  	return (
 		  	<Dotdotdot
 					title={title}

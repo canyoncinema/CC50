@@ -16,7 +16,6 @@ import EventTile from '../EventTile/EventTile';
 import NewsTile from '../NewsTile/NewsTile';
 import RentThis from '../RentThis/RentThis';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
-import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
 
 class CollectionItemPage extends Component {

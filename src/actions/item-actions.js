@@ -33,7 +33,6 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 					item.creatorGroupList &&
 					item.creatorGroupList.creatorGroup &&
 					item.creatorGroupList.creatorGroup.creator;
-	console.log('recieved filmmakerRefName', filmmakerRefName);
 	// display filmmaker info (for films)
 	if (filmmakerRefName) dispatch(getItemFilmmaker(
 		filmmakerRefName,

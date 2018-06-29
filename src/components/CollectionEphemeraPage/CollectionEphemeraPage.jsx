@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
-import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
-import { getSpoofDataObj } from '../../spoof-data';
 
 class CollectionEphemeraPage extends Component {
 	render() {
-		const { collectionItems, itemId, isScrollNav } = this.props;
-		const item = getSpoofDataObj(collectionItems, itemId);
+		const { collectionItems, itemId } = this.props;
 		return (
 			<div className="CollectionEphemeraPage">
 				<ScrollToTopOnMount />

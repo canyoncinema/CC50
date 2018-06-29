@@ -13,7 +13,6 @@ const postsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: undefined
 				};
-			return 
 		case types.RECEIVED_POSTS:
 			return {
 				isLoading: false,

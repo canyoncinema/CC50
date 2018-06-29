@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import {
-  BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
@@ -102,6 +101,7 @@ class App extends Component {
 
           <Route exact path="/about" component={CollectionPage} />
           <Route exact path="/press" component={CollectionPage} />
+          <Route default component={Page404} />
           <Footer className="no-gutters" />
         </div>
       </ConnectedRouter>

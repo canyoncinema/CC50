@@ -20,7 +20,6 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 		(!location.pathname[pathname.length] || location.pathname[pathname.length] === '?' || location.pathname[pathname.length] === '/');
 	};
 	const isHomePageMainNav = location.pathname === '/';
-	console.log('isItemPage', includesCollapsedItemPageNav);
 	return (
 		<div className={[
 			'MainNav',

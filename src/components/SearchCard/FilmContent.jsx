@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { history } from '../../store';
 
-import Tag from '../Tag/Tag';
 import FilmTags from '../FilmTags/FilmTags';
-import FilmmakerAvatar from '../FilmmakerAvatar/FilmmakerAvatar';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
-import URNRelatedField from '../URNRelatedField/URNRelatedField';
 import ChildrenOnly from '../ChildrenOnly/ChildrenOnly';
 import CreatorLink from '../CreatorLink/CreatorLink';
 import ReactMarkdown from 'react-markdown';

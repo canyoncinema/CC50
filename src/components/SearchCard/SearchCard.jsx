@@ -14,10 +14,6 @@ import ProgramContent from './ProgramContent';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
 
 class SearchCard extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const {
 			data,

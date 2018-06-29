@@ -13,7 +13,6 @@ const filmsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: null
 				};
-			return 
 		case types.RECEIVED_FILMS:
 			return {
 				isLoading: false,

@@ -8,7 +8,6 @@ import {
 
 const CreatorLink = ({ history, creatorRefName }) => {
 	const creatorMatch = creatorRefName && matchRefName(creatorRefName);
-	console.log('creatorMatch', creatorMatch)
 	return (
 		<Link
 			to={`/collection/filmmakers/${getShortIdentifierFromMatch(creatorMatch)}`}

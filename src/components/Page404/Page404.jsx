@@ -1,12 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './Page404.css';
 
 const Page404 = () => {
 	return (
 		<div className="Page404">
-			<h1>Oops!</h1>
-			<h3 className="lead">
-				We can't seem to find the page you're looking for.
-			</h3>
+			<h3>Uh oh...</h3>
+			<p>
+				The page you're looking for doesn't exist yet.
+			</p>
+			<br/>
+			<p>
+				<Link to="/">Go Home.</Link>
+			</p>
+			<p>
+				<Link to="/collection">Search the Collection.</Link>
+			</p>
 		</div>
 	);
 };

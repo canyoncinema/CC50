@@ -48,7 +48,6 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
-			console.log('getItem', this.props.shortIdentifier);
 			this.props.getItem(
 				this.props.collectionItems,
 				this.props.shortIdentifier,
@@ -74,7 +73,6 @@ function CollectionItemPage(ComposedComponent) {
 			if (menuHeader && !this.props.headers[order]) {
 				// new addition to headers
 				const header = { content: menuHeader, id };
-				console.log('adding header', order);
 				this.props.addItemMenuHeader(order, header);
 			}
 			id = menuHeader ? id : null;
@@ -111,7 +109,6 @@ function CollectionItemPage(ComposedComponent) {
 
 		componentWillReceiveProps(nextProps) {
 			if (nextProps.shortIdentifier !== this.props.shortIdentifier) {
-				console.log('different shortIdentifier', nextProps.shortIdentifier);
 				// new item, scroll back to top and reset headers
 				window.scrollTo(0, 0);
 				this.props.getItem(
@@ -140,7 +137,6 @@ function CollectionItemPage(ComposedComponent) {
 			// 	throw new Error('Item with ID ' + itemId + ' in ' + collectionItems + ' not found. TODO: 404 page!');
 			// }
 			const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
-			console.log('render CollectionItemPage', item && item.termDisplayName);
 			return (
 				<div className="CollectionItemPage">
 					<ScrollToTopOnMount />

@@ -7,7 +7,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
-import { getSpoofDataList } from '../../spoof-data';
+// import { getSpoofDataList } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
   getItems: (...args) => dispatch(getItems(...args))

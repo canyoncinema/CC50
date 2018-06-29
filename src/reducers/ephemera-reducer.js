@@ -13,7 +13,6 @@ const ephemeraReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: null
 				};
-			return 
 		case types.RECEIVED_EPHEMERA:
 			return {
 				isLoading: false,

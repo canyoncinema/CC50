@@ -1,7 +1,5 @@
 import * as types from '../actionTypes';
 
-const SORT_RECENTLY_ADDED = 'RECENTLY_ADDED';
-
 const initialState = {
 	isOpen: false,
 	activeOption: {

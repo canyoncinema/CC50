@@ -16,7 +16,6 @@ const itemFilmmakerReducer = (state=initialState, action) => {
 					error: undefined,
 					otherFilms: otherFilms(state.otherFilms, action)
 				};
-			return 
 		case types.RECEIVED_ITEM_FILMMAKER:
 			return Object.assign(state, {
 				isLoading: false,

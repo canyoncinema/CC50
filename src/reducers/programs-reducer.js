@@ -13,7 +13,6 @@ const programsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: null
 				};
-			return 
 		case types.RECEIVED_PROGRAMS:
 			return {
 				isLoading: false,

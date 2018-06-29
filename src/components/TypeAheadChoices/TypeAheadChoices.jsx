@@ -89,10 +89,10 @@ class TypeAheadChoices extends Component {
 				<li
 					className="TypeAheadChoice d-flex"
 					key={i}
-					title={`${collectionItemsToSingularTitlecased(collectionItems)}: ${choice.termDisplayName}`}
+					title={`${collectionItemsToSingularTitlecased(collectionItems || choice.collectionItems)}: ${choice.termDisplayName}`}
 					onClick={(e) => {
 						e.stopPropagation();
-						const path = `/collection/${collectionItems}/${getShortIdentifierFromRefName(choice.refName)}`;
+						const path = `/collection/${collectionItems || choice.collectionItems}/${getShortIdentifierFromRefName(choice.refName)}`;
 						history.push(path);
 					}}
 				>
@@ -103,7 +103,7 @@ class TypeAheadChoices extends Component {
 						</span>
 						{choice.termDisplayName.slice(choice.matchChar.end + 1, choice.termDisplayName.length)}
 					</span>
-					<label className="ml-auto">{collectionItemsToSingularTitlecased(collectionItems)}</label>
+					<label className="ml-auto">{collectionItemsToSingularTitlecased(collectionItems || choice.collectionItems)}</label>
 				</li>
 			);
 		})

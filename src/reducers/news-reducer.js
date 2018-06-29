@@ -13,7 +13,6 @@ const newsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: undefined
 				};
-			return 
 		case types.RECEIVED_NEWS:
 			return {
 				isLoading: false,

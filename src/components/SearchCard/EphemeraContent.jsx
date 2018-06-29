@@ -1,5 +1,4 @@
 import React from 'react';
-import { history } from '../../store';
 
 import Tag from '../Tag/Tag';
 import RelatedLinks from '../RelatedLinks/RelatedLinks';

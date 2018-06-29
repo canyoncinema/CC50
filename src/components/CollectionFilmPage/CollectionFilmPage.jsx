@@ -11,7 +11,6 @@ import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import RentThis from '../RentThis/RentThis';
 import Button from '../Button/Button';
-import URNRelatedField from '../URNRelatedField/URNRelatedField';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 
 const mapStateToProps = state => ({
@@ -26,8 +25,6 @@ const mapStateToProps = state => ({
 class CollectionFilmPage extends Component {
 	render() {
 		const { item, isLoading, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		console.log('Film Page item', item, 'FILMMAKER', filmmaker && filmmaker.termDisplayName);
-		console.log('filmmakerFilms', filmmakerOtherFilms, filmmakerOtherFilms && filmmakerOtherFilms.length >= 1)
 		if (isLoading) {
 			return <LoadingMessage />;
 		}

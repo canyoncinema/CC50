@@ -13,7 +13,6 @@ const itemsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: null
 				};
-			return 
 		case types.RECEIVED_ITEMS:
 			return {
 				isLoading: false,

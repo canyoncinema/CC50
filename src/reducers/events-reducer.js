@@ -15,7 +15,6 @@ const eventsReducer = (state=initialState, action) => {
 					isLoading: true,
 					error: undefined
 				};
-			return 
 		case types.RECEIVED_EVENTS:
 			return {
 				isLoading: false,

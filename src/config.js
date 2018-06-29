@@ -65,7 +65,6 @@ class Config {
 	}
 
 	listFilmmakersUrl(queryParams) {
-		console.log('list query params', queryParamsToString(queryParams))
 		return this.baseUrl + config[this.env].list.personauthorities
 			+ queryParamsToString(queryParams);
 	}
@@ -147,29 +146,31 @@ class Config {
 	fetchAllChoices(queryParams) {
 		// SPEC: does a search across ALL collection item types,
 		// and returns a shuffled list of them
-		const choicesPromises = this.collectionItemTypes
-			.map(items =>
+		const choicesPromises = this.collectionItemTypes.map(items =>
 				this.fetchItemChoices(items, queryParams)
 			);
 		return new Promise((resolve, reject) => {
 			Promise.all(choicesPromises)
 				.then((setsOfChoices) => {
-					// // SPEC: shuffle them
-					// let i = filmChoices.length,
-					// 		j = filmmakerChoices.length,
-					// 		k = ephemeraChoices.length,
-					// 		l = programChoices.length;
-					// const numEls = i + j + k + l;
-					// while (numEls > 0) {
-					// 	numEls -= 1;
-					// }
-					// console.log('itemsChoices', itemsChoices);
-					const allChoices = setsOfChoices.reduce((allChoices, set) => {
-						return allChoices.concat(set);
+					const [ filmChoices, filmmakerChoices, ephemeraChoices, programChoices ] = setsOfChoices;
+					const lastElIndices = setsOfChoices.reduce((lastIndices, choiceSet, i) => {
+						if (i === 0) {
+							lastIndices.push(choiceSet.length - 1);
+						} else {
+							const lastI = lastIndices[lastIndices.length - 1];
+							lastIndices.push(lastI + choiceSet.length);
+						}
+						return lastIndices;
 					}, []);
-					console.log('allChoices', allChoices);
+					const allChoices = setsOfChoices.reduce((allChoices, set, i) => {
+						return allChoices.concat(
+							set.map(choice => {
+								choice.collectionItems = this.collectionItemTypes[i];
+								return choice;
+							})
+						);
+					}, []);
 					const shuffledChoices = shuffle(allChoices);
-					console.log('shuffledChoices', shuffledChoices);
 					resolve(shuffledChoices);
 				})
 				.catch(e => reject(e))

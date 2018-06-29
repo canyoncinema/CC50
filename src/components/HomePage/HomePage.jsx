@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
-import data from '../../db.json';
 import './HomePage.css';
 
 import Hero from '../Hero/Hero';
@@ -26,13 +25,6 @@ const optimalColWidths = (num) => {
   }
   return widths;
 };
-
-const {
-  films,
-  events,
-  news,
-  featuredPosts
-} = data;
 
 const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,

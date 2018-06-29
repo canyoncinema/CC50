@@ -7,8 +7,6 @@ import { toCollectionSearchLabel } from '../../collection-context';
 import CreatorLink from '../CreatorLink/CreatorLink';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import FilmTags from '../FilmTags/FilmTags';
-import Tags from '../Tags/Tags';
-import Tag from '../Tag/Tag';
 
 const mapStateToProps = state => ({
 	item: state.item.data,
@@ -29,7 +27,6 @@ class CollectionItemHeader extends Component {
 			itemCreator,
 			isLoading
 		} = this.props;
-		// console.log('itemCreator', itemCreator);
 		if (isLoading) {
 			return <LoadingMessage />;
 		}

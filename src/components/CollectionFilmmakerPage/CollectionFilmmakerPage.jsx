@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import Filmmakers from '../Filmmakers/Filmmakers';

@@ -15,13 +15,6 @@ class EventTile extends Component {
 		this.eventNameRef = React.createRef();
 	}
 
-	componentDidMount() {
-		const eventName = this.eventNameRef.current;
-		// ellipse-overflow rules:
-		// event name ellipses after 2 lines; location ellipses after 1 line
-		// $clamp(eventName, { clamp: 2 });
-	}
-
 	render() {
 		const {
 			startDateTime,
@@ -48,7 +41,7 @@ class EventTile extends Component {
 							}} />
 						</ClampedDescription>
 					</h4>
-					<div className="single-line-ellipsed" className="location">{location.name}</div>
+					<div className="single-line-ellipsed location">{location.name}</div>
 					<div><DateTimeString format="time" dateTime={dateTime} /></div>
 					<div><TicketPriceString price={ticketPrice} note={ticketNote} /></div>
 				</div>

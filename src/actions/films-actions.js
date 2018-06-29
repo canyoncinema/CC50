@@ -35,7 +35,6 @@ function failFilms(error) {
 
 export function getFilms(queryParams) {
 	return (dispatch) => {
-		console.log('GET', config.listFilmsUrl(queryParams));
 		dispatch(fetchFilms());
 		return fetch(config.listFilmsUrl(queryParams),
 			{ headers: config.authHeaders })

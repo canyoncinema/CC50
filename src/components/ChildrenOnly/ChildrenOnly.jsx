@@ -1,12 +1,4 @@
-import React, { Component } from 'react';
-
-// This is for ReactMarkdown renderer to render the element
-// and ignore paragraphs
-//
-// Example:
-//
-//
-//
+import { Component } from 'react';
 
 class ChildrenOnly extends Component {
 	render() {

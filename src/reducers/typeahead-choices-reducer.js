@@ -15,7 +15,6 @@ const typeAheadChoices = (state=initialState, action) => {
 					error: null,
 					collectionItems: null
 				};
-			return 
 		case types.RECEIVED_CHOICES:
 			return {
 				isLoading: false,

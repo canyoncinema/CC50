@@ -9,16 +9,6 @@ class Hero extends Component {
     }
   }
 
-  componentDidMount() {
-    window.document.onload = (e) => {
-      console.log('on load')
-      this.playTimeout = setTimeout(() => {
-        console.log('play', document.getElementById('hero-video').play)
-        document.getElementById('hero-video').play();
-      }, 250);
-    };
-  }
-
   onVideoLoad = () => {
     document.getElementById('hero-video').play();
   }
