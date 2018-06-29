@@ -14,7 +14,7 @@ class Hero extends Component {
   }
 
   render() {
-    const videoIndex = Math.ceil(Math.random() * 5);
+    const videoIndex = Math.ceil(Math.random() * 4);
     const { active, children } = this.props;
   	return (
   		<div className={active ? 'Hero' : ''}>
