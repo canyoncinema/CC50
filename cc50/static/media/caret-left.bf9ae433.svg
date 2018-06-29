@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="28px" viewBox="0 0 14 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>chevron-prev</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.800000012">
+        <g id="card---program" transform="translate(-19.000000, -98.000000)" fill="#FFFFFF">
+            <g id="program">
+                <g id="arrows" transform="translate(19.000000, 98.000000)">
+                    <polygon id="chevron-prev" transform="translate(7.000000, 13.961853) rotate(-180.000000) translate(-7.000000, -13.961853) " points="1.94550409 0 14 12.1772552 14 15.7989388 1.94550409 27.9237058 0 24.7219275 10.9100817 14.0143411 0 3.14929013"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

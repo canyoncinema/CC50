@@ -12,7 +12,7 @@
 	width: 100%;
 }
 
-.collapsed .ThumbnailCarousel > .PhotoFill {
+.collapsed .ThumbnailCarousel > .PhotoFill:not(:only-child) {
 	display: none !important;
 }
 

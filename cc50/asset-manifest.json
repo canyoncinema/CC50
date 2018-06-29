@@ -1,0 +1,21 @@
+{
+  "main.css": "static/css/main.d30aea56.css",
+  "main.css.map": "static/css/main.d30aea56.css.map",
+  "main.js": "static/js/main.ece8e118.js",
+  "main.js.map": "static/js/main.ece8e118.js.map",
+  "static/media/caret-down-dark.svg": "static/media/caret-down-dark.5e858706.svg",
+  "static/media/caret-down.svg": "static/media/caret-down.7fafe8e3.svg",
+  "static/media/caret-left.svg": "static/media/caret-left.bf9ae433.svg",
+  "static/media/caret-right.svg": "static/media/caret-right.8f1aab7c.svg",
+  "static/media/cc-logo.png": "static/media/cc-logo.d279cf46.png",
+  "static/media/grid-view-active-gold.svg": "static/media/grid-view-active-gold.fd3d9b44.svg",
+  "static/media/grid-view-active.svg": "static/media/grid-view-active.7a2f37f3.svg",
+  "static/media/grid-view-inactive.svg": "static/media/grid-view-inactive.a0cb7827.svg",
+  "static/media/icon-facebook.svg": "static/media/icon-facebook.48f0f405.svg",
+  "static/media/icon-search.svg": "static/media/icon-search.157044df.svg",
+  "static/media/icon-tumblr.svg": "static/media/icon-tumblr.54f08769.svg",
+  "static/media/icon-twitter.svg": "static/media/icon-twitter.d6b3bcb7.svg",
+  "static/media/list-view-active-gold.svg": "static/media/list-view-active-gold.c04aa229.svg",
+  "static/media/list-view-active.svg": "static/media/list-view-active.a2e7e53b.svg",
+  "static/media/list-view-inactive.svg": "static/media/list-view-inactive.f7a75fb6.svg"
+}
