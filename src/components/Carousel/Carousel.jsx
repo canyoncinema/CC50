@@ -113,7 +113,6 @@ class Carousel extends Component {
 			activePhotoSrc = photoSrces.length ? photoSrces[activePhotoIndex]
 			: '/images/empty-still.png';
 		}
-		console.log('activePhotoIndex', activePhotoIndex, activePhotoSrc);
 		return (
 			<div className="Carousel">
 			{

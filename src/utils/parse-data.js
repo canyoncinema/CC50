@@ -52,7 +52,7 @@ export const parseFilm = film => {
 };
 
 export const matchRefName = refName => {
-		return refName.match(/^urn\:cspace\:canyoncinema.com\:(\S+)\:name(\S+)\:item\:name\((\S+)\)\'(.+)\'$/);
+	return refName.match(/^urn\:cspace\:canyoncinema.com\:(\S+)\:name(\S+)\:item\:name\((\S+)\)\'(.+)\'$/);
 };
 
 export const getCspaceCllxnFromRefName = (refName, match) => {

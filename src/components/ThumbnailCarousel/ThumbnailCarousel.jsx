@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './ThumbnailCarousel.css';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import Caret from '../Caret/Caret';
+import CSpacePhotoFill, { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
 import { blobCsidToSrc } from '../../utils/parse-data';
 
 const ThumbnailCarousel = ({ media, className }) => {
@@ -20,10 +21,11 @@ const ThumbnailCarousel = ({ media, className }) => {
 					}
 					{
 						media.map((m, i) =>
-							<PhotoFill
-								src={blobCsidToSrc(m.blobCsid, '80x60')}
-								width="80px"
-								height="60px"
+							<CSpacePhotoFill key={i}
+								width={CSpaceCanvasSize.thumbnail.width}
+								height={CSpaceCanvasSize.thumbnail.height}
+								canvasSize={CSpaceCanvasSize.thumbnail}
+								blobCsid={m.blobCsid}
 							/>
 						)
 					}

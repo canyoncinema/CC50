@@ -47,7 +47,12 @@ const toCollapsedData = rentalOptions => rentalOptions
 
 
 const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFormId }) => {
-	console.log('rentalFormats', rentalFormats);
+	// rentalFormats refers to rentalFormats.rentalFormat, 
+	// which is sometimes an array (if >1) or a string refName
+	// question: Cspace, what are you doing?
+	if (typeof rentalFormats === 'string') {
+		rentalFormats = [rentalFormats];
+	}
 	return (
 		<div className="RentThis d-flex">
 			<div>

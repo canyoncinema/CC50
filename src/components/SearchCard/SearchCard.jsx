@@ -41,7 +41,6 @@ class SearchCard extends Component {
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
-		console.log('media', media);
 		return (
 			<div
 				className={[

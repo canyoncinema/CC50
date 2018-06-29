@@ -2,6 +2,25 @@
 	font-size: 0;
 }
 
+.ThumbnailCarousel > * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.collapsed .ThumbnailCarousel > .carousel {
+	display: block;
+	width: 100%;
+}
+
+.collapsed .ThumbnailCarousel > .PhotoFill {
+	display: none !important;
+}
+
+.collapsed .ThumbnailCarousel > .carousel > .PhotoFill {
+	display: inline-block;
+	margin-left: 14px;
+}
+
 .ThumbnailCarousel .carousel {
 	display: inline-block;
 	width: 80px;

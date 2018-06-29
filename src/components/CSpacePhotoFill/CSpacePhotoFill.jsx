@@ -54,7 +54,6 @@ class CSpacePhotoFill extends Component {
 		`.jpeg`
 
 	onLoadError() {
-		console.log('onLoadError', this.props.canvasSize);
 		const sizeIndex = CSpacePhotoFill.findCanvasSizeIndex(
 				this.props.canvasSize,
 				this.props.canvasWidth,
@@ -71,13 +70,19 @@ class CSpacePhotoFill extends Component {
 		}
 	}
 
-	state = {
-		canvasSize: this.props.canvasSize ||
+	constructor(props) {
+		super(props);
+		const size = props.canvasSize ||
 			CSpacePhotoFill.findCanvasSize(
-				this.props.canvasSize,
-				this.props.canvasWidth,
-				this.props.canvasHeight
-			)
+				props.canvasSize,
+				props.canvasWidth,
+				props.canvasHeight
+			);
+		this.state = {
+			canvasSize: size
+		};
+		this.width = size.width;
+		this.height = size.height;
 	}
 
 	render() {
@@ -98,6 +103,8 @@ class CSpacePhotoFill extends Component {
 				className={['CSpacePhotoFill', className].join(' ')}
 				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, canvasSize)}
 				onerror={this.onLoadError}
+				width={this.width}
+				height={this.height}
 			>
 				{children}
 			</PhotoFill>

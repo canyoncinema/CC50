@@ -32,8 +32,8 @@ class App extends Component {
       <ConnectedRouter history={history}>
         <div className="App">
           <MainNav includesCollapsedItemPageNav={false} />
-          <Route exact path="/" component={HomePage} />
           <Switch>
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/tour" component={TourPage} />
             <Route exact path="/support" component={SupportUsPage} />

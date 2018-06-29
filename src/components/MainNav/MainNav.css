@@ -28,6 +28,16 @@
   color: #e6e6e6;
 }
 
+.MainNav .nav-item:last-child a {
+  padding-right: 42px;
+}
+
+.MainNav .IconNewWindow {
+  padding-left: 10px;
+  display: inline-block;
+  margin-top: -3px;
+}
+
 .MainNav .nav-link.logo {
 	opacity: 1;
 	padding: 0;

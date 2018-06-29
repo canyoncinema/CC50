@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
+import IconNewWindow from '../Icon/IconNewWindow';
 import './MainNav.css';
 
 import Logo from '../Logo/Logo';
@@ -48,7 +49,7 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 							<NavLink href="/support">Support Us</NavLink>
 						</NavItem>
 						<NavItem className="ml-auto p-2">
-							<NavLink href="#">canyoncinema.com</NavLink>
+							<NavLink href="#">canyoncinema.com <IconNewWindow /></NavLink>
 						</NavItem>
 					</Nav>
 			</Navbar>

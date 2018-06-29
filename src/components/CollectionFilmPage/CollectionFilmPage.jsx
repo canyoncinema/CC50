@@ -152,10 +152,7 @@ class CollectionFilmPage extends Component {
 					<RentThis
 						rentalPrice={item.rentalPrice}
 						rentalPriceIsPublished={item.rentalPriceIsPublished || true}
-						rentalFormats={item.rentalFormats &&
-							((item.rentalFormats.rentalFormat && [item.rentalFormats.rentalFormat]) ||
-								item.rentalFormats['list-item'])
-						}
+						rentalFormats={item.rentalFormats && item.rentalFormats.rentalFormat}
 						rentalFormId={item.mtsId}
 					/>
 				)
