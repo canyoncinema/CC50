@@ -1,0 +1,9 @@
+.PageHeader {
+	padding: 70px;
+	background-color: #231f20;
+	background-color: var(--black);
+}
+
+.PageHeader h1 {
+	color: #ffffff;
+}

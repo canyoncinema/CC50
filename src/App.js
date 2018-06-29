@@ -12,6 +12,8 @@ import './App.css';
 import { getQueryVal } from './utils/query-string';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
+import AboutPage from './components/AboutPage/AboutPage';
+import TourPage from './components/TourPage/TourPage';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
@@ -32,6 +34,8 @@ class App extends Component {
           <MainNav includesCollapsedItemPageNav={false} />
           <Route exact path="/" component={HomePage} />
           <Switch>
+            <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/tour" component={TourPage} />
             <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
               <CollectionFilmPage
                 shortIdentifier={match.params.shortIdentifier}

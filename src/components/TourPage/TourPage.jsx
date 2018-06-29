@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
 
-class AboutPage extends Component {
+class TourPage extends Component {
 	render() {
 		return (
 			<SecondaryPage
-				headline="About"
-				className="AboutPage">
-				AboutPage
+				headline="Tour"
+				className="TourPage">
+				TourPage
 			</SecondaryPage>
 		);
 	}
 }
 
-export default AboutPage;
+export default TourPage;
