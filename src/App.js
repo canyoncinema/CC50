@@ -14,6 +14,7 @@ import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import AboutPage from './components/AboutPage/AboutPage';
 import TourPage from './components/TourPage/TourPage';
+import SupportUsPage from './components/SupportUsPage/SupportUsPage';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
@@ -36,6 +37,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/tour" component={TourPage} />
+            <Route exact path="/support" component={SupportUsPage} />
             <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
               <CollectionFilmPage
                 shortIdentifier={match.params.shortIdentifier}

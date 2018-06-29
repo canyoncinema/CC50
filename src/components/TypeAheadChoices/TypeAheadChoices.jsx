@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	getChoices: (collectionItems, choiceText) => dispatch(getChoices(collectionItems, choiceText))
+	getChoices: (collectionItems, choiceText) =>
+		dispatch(getChoices(collectionItems, choiceText))
 });
 
 class TypeAheadChoices extends Component {

@@ -1,25 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
 import VideoCover from 'react-video-cover';
 import './Hero.css';
 
-export default ({active, children}) => {
-	return (
-		<div className={active ? 'Hero' : ''}>
-			<div className="shadow" />
-			<div className="video-wrapper">
-        <VideoCover
-          videoOptions={{
-            src: 'cc50.mp4',
-            title: 'Canyon Cinema',
-            autoPlay: true,
-            muted: '',
-            loop: true,
-            poster: 'cc50.mp4'
-          }}
-          remeasureOnWindowResize={true}
-        />
-      </div>
-			{children}
-		</div>
-	);
-};
+class Hero extends Component {
+  componentWillUnmount() {
+    if (this.playTimeout) {
+      clearTimeout(this.playTimeout);
+    }
+  }
+
+  componentDidMount() {
+    window.document.onload = (e) => {
+      console.log('on load')
+      this.playTimeout = setTimeout(() => {
+        console.log('play', document.getElementById('hero-video').play)
+        document.getElementById('hero-video').play();
+      }, 250);
+    };
+  }
+
+  onVideoLoad = () => {
+    document.getElementById('hero-video').play();
+  }
+
+  render() {
+    const videoIndex = Math.ceil(Math.random() * 5);
+    const { active, children } = this.props;
+  	return (
+  		<div className={active ? 'Hero' : ''}>
+  			<div className="shadow" />
+  			<div className="video-wrapper">
+          <VideoCover
+            videoOptions={{
+              id: 'hero-video',
+              src: `Home_${videoIndex}.mp4`,
+              title: 'Canyon Cinema',
+              autoPlay: true,
+              muted: 'muted',
+              // play: true,
+              loop: true,
+              poster: 'cc50.mp4',
+              onLoadStart: this.onVideoLoad
+            }}
+            remeasureOnWindowResize={true}
+          />
+        </div>
+  			{children}
+  		</div>
+  	);
+  }
+}
+
+export default Hero;

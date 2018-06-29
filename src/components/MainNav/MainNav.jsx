@@ -40,16 +40,13 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 							<NavLink href="/collection">Collection</NavLink>
 						</NavItem>
 						<NavItem className={isActive('/about') ? 'p-2 active' : 'p-2'}>
-							<NavLink href="/about">About CC50</NavLink>
+							<NavLink href="/about">About</NavLink>
 						</NavItem>
 						<NavItem className={isActive('/tour') ? 'p-2 active' : 'p-2'}>
 							<NavLink href="/tour">Tour</NavLink>
 						</NavItem>
-						<NavItem className={isActive('/events') ? 'p-2 active' : 'p-2'}>
-							<NavLink href="/events">Events</NavLink>
-						</NavItem>
-						<NavItem className={isActive('/news') ? 'p-2 active' : 'p-2'}>
-							<NavLink href="/news">News</NavLink>
+						<NavItem className={isActive('/support') ? 'p-2 active' : 'p-2'}>
+							<NavLink href="/support">Support Us</NavLink>
 						</NavItem>
 						<NavItem className="ml-auto p-2">
 							<NavLink href="#">canyoncinema.com</NavLink>

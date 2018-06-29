@@ -15,19 +15,10 @@ function fetchChoices() {
 	}
 }
 
-function receiveChoices(payload, collectionItems) {
-	if (payload['ns2:abstract-common-list'].itemsInPage === '0') {
-		return {
-			type: RECEIVED_CHOICES,
-			data: [],
-			collectionItems
-		}
-	}
-	let data = payload['ns2:abstract-common-list']['list-item'];
-	if (data.length === undefined) data = [data];
+function receiveChoices(choices, collectionItems) {
 	return {
 		type: RECEIVED_CHOICES,
-		data,
+		data: choices,
 		collectionItems
 	}
 }
@@ -47,15 +38,12 @@ export function getChoices(collectionItems, choiceText) {
 	};
 	return (dispatch) => {
 		dispatch(fetchChoices());
-		return config.fetchItems(collectionItems, queryParams)
-			.then(response => {
-				if (response.status >= 400) {
-					dispatch(failChoices("Bad response from server"));
-				}
-				return response.json();
-			})
-			.then(data =>
-				dispatch(receiveChoices(data, collectionItems))
+		const makeRequest = collectionItems ?
+			() => config.fetchItemChoices(collectionItems, queryParams) :
+			() => config.fetchAllChoices(queryParams);
+		return makeRequest()
+			.then(choices =>
+				dispatch(receiveChoices(choices, collectionItems))
 			)
 			.catch(error =>
 				dispatch(failChoices(error))

@@ -32,6 +32,26 @@ const config = {
 	}
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
 class Config {
 	constructor(env) {
 		// FOR DEV:
@@ -79,6 +99,81 @@ class Config {
 		return fetch(encodeURI(this.getItemsUrl(...args)), {
 			headers: this.authHeaders
 		});
+	}
+
+	// note: ephemera and program search are not yet there
+	// collectionItemTypes = ['films', 'filmmakers', 'ephemera', 'programs']
+	collectionItemTypes = ['films', 'filmmakers']
+
+	convertPayloadToChoices(payload) {
+		if (!payload['ns2:abstract-common-list']) {
+			throw new Error('Inaccurate payload argument');
+		}
+		if (payload['ns2:abstract-common-list'].itemsInPage === '0') {
+			return [];
+		}
+		let data = payload['ns2:abstract-common-list']['list-item'];
+		if (data.length === undefined) data = [data];
+		return data;
+	}
+
+	fetchItemChoices(...args) {
+		return new Promise((resolve, reject) => {
+			try {
+				fetch(encodeURI(this.getItemsUrl(...args)), {
+					headers: this.authHeaders
+				})
+				.then(response => {
+					if (response.status >= 400) {
+						reject('Bad response from server');
+					}
+					return response.json();
+				})
+				.then(payload => {
+					try {
+						const data = this.convertPayloadToChoices(payload);
+						resolve(data);
+					} catch(e) {
+						reject(e);
+					}
+				})
+				.catch(err => reject(err));
+			} catch(e) {
+				reject(e);
+			}
+		});
+	}
+
+	fetchAllChoices(queryParams) {
+		// SPEC: does a search across ALL collection item types,
+		// and returns a shuffled list of them
+		const choicesPromises = this.collectionItemTypes
+			.map(items =>
+				this.fetchItemChoices(items, queryParams)
+			);
+		return new Promise((resolve, reject) => {
+			Promise.all(choicesPromises)
+				.then((setsOfChoices) => {
+					// // SPEC: shuffle them
+					// let i = filmChoices.length,
+					// 		j = filmmakerChoices.length,
+					// 		k = ephemeraChoices.length,
+					// 		l = programChoices.length;
+					// const numEls = i + j + k + l;
+					// while (numEls > 0) {
+					// 	numEls -= 1;
+					// }
+					// console.log('itemsChoices', itemsChoices);
+					const allChoices = setsOfChoices.reduce((allChoices, set) => {
+						return allChoices.concat(set);
+					}, []);
+					console.log('allChoices', allChoices);
+					const shuffledChoices = shuffle(allChoices);
+					console.log('shuffledChoices', shuffledChoices);
+					resolve(shuffledChoices);
+				})
+				.catch(e => reject(e))
+		})
 	}
 
 	fetchEvents(...args) {
