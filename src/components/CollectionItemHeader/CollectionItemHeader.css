@@ -6,7 +6,7 @@
 
 .CollectionItemHeader.collapsed {
 	border-top: solid 1px var(--dark-grey);
-	padding: 15px 70px;
+	padding: 8px 70px;
 	border-color: #6a6a6a;
 }
 

@@ -9,6 +9,10 @@ import Head from './components/Head/Head';
 
 import registerServiceWorker from './registerServiceWorker';
 
+// polyfills
+import 'core-js/es6/map';
+import 'object-fit-images'; // TODO
+
 ReactDOM.render(
 	[
 		<Head key={0} />,

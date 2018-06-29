@@ -8,6 +8,7 @@ import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData, toDisplayName } from '../utils/parse-data';
+import { getItemMedia } from './item-media-actions';
 
 function fetchItem() {
 	return {
@@ -44,6 +45,12 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 			filmmakerRefName: item.refName,
 			pgSz: 40,
 			exceptShortIdentifier: null
+		}));
+	} else if (collectionItems === 'films') {
+		// show film stills on film
+		dispatch(getItemMedia({
+			refName: item.refName,
+			isFilmStills: true
 		}));
 	}
 	return {

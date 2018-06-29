@@ -3,7 +3,10 @@ import './PhotoFill.css';
 
 const PhotoFill = ({src, className, width, children, height}) => {
 	return (
-		<div className={className ? 'PhotoFill ' + className : 'PhotoFill'}
+		<div className={[
+				className,
+				'PhotoFill'
+			].join(' ')}
 			style={{
 			backgroundImage: `url(${src})`,
 			width: width,

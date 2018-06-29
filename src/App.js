@@ -88,6 +88,7 @@ class App extends Component {
                 </Switch>
               </CollectionPage>
             }} />
+            <Route path="*" component={Page404} />
           </Switch>
           
           <Route exact path="/features/writings-and-essays" component={CollectionPage} />
@@ -101,7 +102,6 @@ class App extends Component {
 
           <Route exact path="/about" component={CollectionPage} />
           <Route exact path="/press" component={CollectionPage} />
-          <Route default component={Page404} />
           <Footer className="no-gutters" />
         </div>
       </ConnectedRouter>

@@ -7,9 +7,11 @@ import { toCollectionSearchLabel } from '../../collection-context';
 import CreatorLink from '../CreatorLink/CreatorLink';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import FilmTags from '../FilmTags/FilmTags';
+import ThumbnailCarousel from '../ThumbnailCarousel/ThumbnailCarousel';
 
 const mapStateToProps = state => ({
 	item: state.item.data,
+	itemMedia: state.item.media.data,
 	isLoading: state.item.isLoading,
 	itemCreator: state.item.data &&
 		state.item.data.creatorGroupList &&
@@ -24,13 +26,14 @@ class CollectionItemHeader extends Component {
 			isCollapsed,
 			collectionItems,
 			item,
+			itemMedia,
 			itemCreator,
 			isLoading
 		} = this.props;
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
-		const hasSideComponent = item.avatar || (item.media && item.media.length);
+		const hasSideComponent = item.avatar || (itemMedia && itemMedia.length);
 		return <header className={[
 				'CollectionItemHeader',
 				'container-fluid',
@@ -77,7 +80,9 @@ class CollectionItemHeader extends Component {
 					{
 						hasSideComponent ?
 						<Col sm={6}>
-							SideComponent
+							<div className="d-flex">
+								<ThumbnailCarousel className="ml-auto" media={itemMedia} />
+							</div>
 						</Col>
 						: null
 					}

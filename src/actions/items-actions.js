@@ -5,6 +5,7 @@ import {
 } from '../actionTypes';
 import { config } from '../store';
 import { toItemsData, parseFilm } from '../utils/parse-data';
+import { getItemsMedia } from './items-media-actions';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -15,12 +16,25 @@ function fetchItems() {
 	}
 }
 
-function receiveItems(payload, sort) {
-	const data = toItemsData(payload);
-	// data = data.map(d => parseFilm(d));
+function receiveItemsWithMedia(data) {
 	return {
 		type: RECEIVED_ITEMS,
 		data
+	};
+}
+
+function receiveItems(dispatch, collectionItems, payload, sort) {
+	let items = toItemsData(payload);
+	if (collectionItems === 'films') {
+		// return up to 3 film stills per film item
+		// and indicate num of stills per film (for carousel 'see more')
+		items.forEach(item => {
+			dispatch(getItemsMedia(item));
+		});
+	}
+	return {
+		type: RECEIVED_ITEMS,
+		data: items
 	}
 }
 
@@ -43,7 +57,7 @@ export function getItems(collectionItems, queryParams) {
 				return response.json();
 			})
 			.then(data =>
-				dispatch(receiveItems(data))
+				dispatch(receiveItems(dispatch, collectionItems, data))
 			)
 			.catch(error =>
 				dispatch(failItems(error))

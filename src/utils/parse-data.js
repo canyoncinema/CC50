@@ -10,6 +10,13 @@ export const toExternalWebUrl = url => {
   }
   return '//' + url;
 }
+const ORIGINAL_PHOTO_SIZE_SUFFIX = 'o';
+// available sizes:
+// 80x60
+// 170x128
+// 360x270
+export const blobCsidToSrc = (blobCsid, size) =>
+	`https://s3-us-west-2.amazonaws.com/cc50-images/thumbs/${blobCsid}${size ? '_' + size : ORIGINAL_PHOTO_SIZE_SUFFIX}.jpeg`;
 
 export const toItemData = (payload) => {
 	// expect item payload from CollectionSpace
@@ -22,7 +29,7 @@ export const toItemData = (payload) => {
 	return data;
 };
 
-export const toItemsData = payload => {
+export const toItemsData = (payload, skipTermDisplayName) => {
 	let data = payload['ns2:abstract-common-list'];
 	if (data.itemsInPage == 0) return [];
 	if (data.itemsInPage == 1) {
@@ -30,8 +37,7 @@ export const toItemsData = payload => {
 	} else {
 		data = data['list-item'];
 	}
-	// TODO: MARKDOWN RENDERING
-	if (data.length) {
+	if (data.length && !skipTermDisplayName) {
 		data = data.map(d => {
 			if (d.refName) d.termDisplayName = toDisplayName(d.refName);
 			return d;

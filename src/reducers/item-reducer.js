@@ -1,6 +1,7 @@
 import * as types from '../actionTypes';
 import itemFilmmaker from './item-filmmaker-reducer';
 import itemFilms from './item-films-reducer';
+import itemMedia from './item-media-reducer';
 
 const initialState = {
 	data: undefined,
@@ -8,7 +9,8 @@ const initialState = {
 	error: undefined,
 	filmmaker: undefined,
 	films: undefined,
-	collectionItems: undefined
+	collectionItems: undefined,
+	media: undefined
 };
 
 const itemReducer = (state=initialState, action) => {
@@ -18,7 +20,8 @@ const itemReducer = (state=initialState, action) => {
 				isLoading: true,
 				error: undefined,
 				filmmaker: undefined,
-				films: itemFilms(state.films, action)
+				films: itemFilms(state.films, action),
+				media: itemMedia(state.media, action)
 			};
 		case types.RECEIVED_ITEM:
 			return Object.assign(state, {
@@ -26,7 +29,8 @@ const itemReducer = (state=initialState, action) => {
 				error: undefined,
 				data: action.data,
 				films: itemFilms(state.films, action),
-				collectionItems: action.collectionItems
+				collectionItems: action.collectionItems,
+				media: itemMedia(state.media, action)
 			});
 		case types.FAILED_ITEM:
 			return {
@@ -35,13 +39,15 @@ const itemReducer = (state=initialState, action) => {
 				data: undefined,
 				filmmaker: undefined,
 				films: itemFilms(state.films, action),
-				collectionItems: undefined
+				collectionItems: undefined,
+				media: itemMedia(state.media, action)
 			};
 		default:
 			return {
 				...state,
 				filmmaker: itemFilmmaker(state.filmmaker, action),
-				films: itemFilms(state.films, action)
+				films: itemFilms(state.films, action),
+				media: itemMedia(state.media, action)
 			};
 	}
 };

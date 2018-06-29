@@ -12,6 +12,7 @@ import posts from './posts-reducer';
 import programs from './programs-reducer';
 import ephemera from './ephemera-reducer';
 import spotlight from './spotlight-reducer';
+import itemsMedia from './items-media-reducer';
 
 export default combineReducers({
   filmmakers,
@@ -26,5 +27,6 @@ export default combineReducers({
   posts,
   programs,
   ephemera,
-  spotlight
+  spotlight,
+  itemsMedia
 });

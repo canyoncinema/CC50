@@ -14,7 +14,8 @@ const config = {
 		list: {
 			personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
 			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
-			exhibitions: '/exhibitions/_ALL_/items'
+			exhibitions: '/exhibitions/_ALL_/items',
+			media: '/media'
 		}
 	},
 	production: {
@@ -24,7 +25,8 @@ const config = {
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
-			exhibitions: '/exhibitions/_ALL_/items'
+			exhibitions: '/exhibitions/_ALL_/items',
+			media: '/media'
 		}
 		// _ALL_ only works for LISTS
 		// Note: CSID changes on db reset, shortIdentifier stays
@@ -83,10 +85,6 @@ class Config {
 				wf_deleted: false
 			}));
 		}
-		// if (sortVal) {
-			// TODO: SORT FOR REAL
-			// url += '?sortBy=' + collectionRefName + '_common:' + sortVal;
-		// }
 		return url;
 	}
 
@@ -140,6 +138,29 @@ class Config {
 			} catch(e) {
 				reject(e);
 			}
+		});
+	}
+
+	getMediaUrl(queryParams) {
+		let url = this.baseUrl + config[this.env].list.media;
+		if (queryParams) {
+			url += queryParamsToString(Object.assign(queryParams, {
+				wf_deleted: false
+			}));
+		}
+		return url;
+	}
+
+	fetchItemMedia({ refName, isFilmStills, pgSz }) {
+		// ((media_canyon:filmSubject+%3D+"urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)'8+Million'"+AND+media_common:typeList%2F*+%3D+"film_still"))&pgNum=0&pgSz=20&wf_deleted=false
+		let as = `((media_canyon:filmSubject+%3D+%22${encodeURI(refName)}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+		// let as = `((media_canyon:filmSubject+%3D+%22urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)%278+Million%27%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+		const queryParams = {
+			as,
+			pgSz
+		};
+		return fetch(this.getMediaUrl(queryParams), {
+			headers: this.authHeaders
 		});
 	}
 

@@ -104,6 +104,9 @@ class Carousel extends Component {
 	render() {
 		const { id, photos, title } = this.props;
 		const { showViewMore, activePhotoIndex } = this.state;
+		if (photos.length) {
+			console.log('Carousel photos', photos);
+		}
 		const activePhotoSrc = (photos || [])[activePhotoIndex]
 			|| require('./empty-still.png');
 		return (

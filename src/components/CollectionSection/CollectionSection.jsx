@@ -9,7 +9,8 @@ import Button from '../Button/Button';
 
 const CollectionSection = ({
 	isLoading, error,
-	customColSize, customColWidth, className, viewMode, itemType, searchData, header, description,
+	customColSize, customColWidth, className, viewMode, itemType,
+	searchData, header, description,
 	buttonText, buttonLink }) => {
 	return (
 		<div className={[className, 'CollectionSection'].join(' ')}>

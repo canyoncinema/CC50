@@ -1,0 +1,44 @@
+.ThumbnailCarousel {
+	font-size: 0;
+}
+
+.ThumbnailCarousel .carousel {
+	display: inline-block;
+	width: 80px;
+	margin-right: 20px;
+}
+
+.ThumbnailCarousel .carousel.has-more .bottom-fade {
+  width: 80px;
+  height: 43px;
+  background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), #231f20);
+  background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), var(--black));
+}
+
+.ThumbnailCarousel .carousel.has-more .top-fade {
+  width: 80px;
+  height: 43px;
+  background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), #231f20);
+  background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), var(--black));
+}
+
+.ThumbnailCarousel .carousel .PhotoFill {
+	display: block;
+	margin-bottom: 14px;
+}
+
+.ThumbnailCarousel .carousel .PhotoFill:last-child {
+	margin-bottom: 0;
+}
+
+.ThumbnailCarousel .PhotoFill {
+	margin-top: 2px;
+	margin-bottom: 30px;
+}
+
+.collapsed .ThumbnailCarousel .PhotoFill {
+	width: 80px !important;
+	height: 60px !important;
+	margin-top: 5px;
+	margin-bottom: 0;
+}

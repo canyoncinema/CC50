@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import {
   withRouter
 } from 'react-router-dom';
@@ -12,12 +12,22 @@ import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
+import { blobCsidToSrc } from '../../utils/parse-data';
+
+const getPhotoSrcs = mediaObjs =>
+	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
+
+const mapStateToProps = (state, ownProps) => ({
+	media: state.itemsMedia.dataByCsid &&
+	state.itemsMedia.dataByCsid.get(ownProps.csid)
+});
 
 class SearchCard extends Component {
 	render() {
 		const {
 			data,
 			csid,
+			media,
 			shortIdentifier,
 			itemType, // film, program, ephemera, or filmmaker
 			photos,
@@ -30,6 +40,7 @@ class SearchCard extends Component {
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
+		console.log('media', media && media.value);
 		return (
 			<div
 				className={[
@@ -48,7 +59,7 @@ class SearchCard extends Component {
 				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-film-still' :  'col-2' : ''}>
 					<div className="media">
 						<Carousel
-							photos={(photos || []).slice(0, MAX_CAROUSEL_IMAGES)}
+							photos={getPhotoSrcs(media || []).slice(0, MAX_CAROUSEL_IMAGES)}
 							id={csid}
 							itemType={itemType} />
 					</div>
@@ -93,4 +104,4 @@ class SearchCard extends Component {
 	}
 }
 
-export default withRouter(SearchCard);
+export default withRouter(connect(mapStateToProps)(SearchCard));
