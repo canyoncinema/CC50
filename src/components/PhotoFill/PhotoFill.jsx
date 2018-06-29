@@ -1,6 +1,8 @@
 import React from 'react';
 import './PhotoFill.css';
 
+const fallbackImgSrc = require('../Carousel/empty-still.png');
+
 const PhotoFill = ({src, className, width, children, height}) => {
 	return (
 		<div className={[
@@ -8,9 +10,9 @@ const PhotoFill = ({src, className, width, children, height}) => {
 				'PhotoFill'
 			].join(' ')}
 			style={{
-			backgroundImage: `url(${src})`,
-			width: width,
-			height: height
+			backgroundImage: `url(${src}), url(/images/empty-still.png)`,
+			width: width || '100%',
+			height: height || '100%'
 		}}>
 			{children}
 		</div>

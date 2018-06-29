@@ -3,7 +3,12 @@ import './Carousel.css';
 import PropTypes from 'prop-types';
 
 import Caret from '../Caret/Caret';
+import CSpacePhotoFill from '../CSpacePhotoFill/CSpacePhotoFill';
 import PhotoFill from '../PhotoFill/PhotoFill';
+import CarouselShowMoreForeground from './CarouselShowMoreForeground';
+
+export const MAX_CAROUSEL_IMAGES = 3;
+
 
 const CarouselPhotoFiller = ({id, bgPhotoSrc, title}) => {
 	return (
@@ -12,10 +17,7 @@ const CarouselPhotoFiller = ({id, bgPhotoSrc, title}) => {
 			src={bgPhotoSrc}
 			width="100%"
 			height="100%">
-			<div className="foreground">
-				<p>View</p>
-				<h4>{title}</h4>
-			</div>
+			<CarouselShowMoreForeground title={title} />
 		</PhotoFill>
 	);
 };
@@ -25,8 +27,6 @@ CarouselPhotoFiller.propTypes = {
 	title: PropTypes.string.isRequired,
 	bgPhotoSrc: PropTypes.string.isRequired
 };
-
-export const MAX_CAROUSEL_IMAGES = 3;
 
 class Carousel extends Component {
 	constructor(props) {
@@ -102,17 +102,23 @@ class Carousel extends Component {
 	}
 
 	render() {
-		const { id, photos, title } = this.props;
+		const { id, media, photoSrces, title,
+			fromCSpace, blobCsids, canvasSize } = this.props;
 		const { showViewMore, activePhotoIndex } = this.state;
-		if (photos.length) {
-			console.log('Carousel photos', photos);
+		if (!blobCsids && !photoSrces) {
+			throw new Error('Must include blobCsids or photoSrces');
 		}
-		const activePhotoSrc = (photos || [])[activePhotoIndex]
-			|| require('./empty-still.png');
+		let activePhotoSrc;
+		if (photoSrces) {
+			activePhotoSrc = photoSrces.length ? photoSrces[activePhotoIndex]
+			: '/images/empty-still.png';
+		}
+		console.log('activePhotoIndex', activePhotoIndex, activePhotoSrc);
 		return (
 			<div className="Carousel">
 			{
-				photos && photos.length > 1 ?
+				(photoSrces && photoSrces.length > 1) ||
+				(blobCsids && blobCsids.length > 1) ?
 				<div className="nav">
 					<Caret
 						onClick={this.onPrevPhoto.bind(this)}
@@ -124,12 +130,25 @@ class Carousel extends Component {
 				: null
 			}
 			{
-				showViewMore ?
-					<CarouselPhotoFiller
-						id={String(id)}
-						title={title}
-						bgPhotoSrc={activePhotoSrc} />
-					: <PhotoFill width="100%" height="100%"
+				showViewMore && blobCsids ?
+				<CSpacePhotoFill
+					blobCsid={blobCsids[activePhotoIndex]}
+					canvasSize={canvasSize}>
+					<CarouselShowMoreForeground title={title} />
+				</CSpacePhotoFill>
+				: showViewMore ?
+				<CarouselPhotoFiller
+					id={String(id)}
+					title={title}
+					bgPhotoSrc={activePhotoSrc} />
+				:
+				fromCSpace ?
+				<CSpacePhotoFill
+					blobCsid={blobCsids[activePhotoIndex]}
+					canvasSize={canvasSize} />
+				:
+				<PhotoFill
+					width="100%" height="100%"
 					src={activePhotoSrc} />
 			}
 			</div>

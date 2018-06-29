@@ -46,27 +46,31 @@ const toCollapsedData = rentalOptions => rentalOptions
 */
 
 
-const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFormId }) =>
-<div className="RentThis d-flex">
-	<div>
-		<div className="price">{rentalPriceIsPublished ?
-			rentalPrice
-			: 'Inquire for Pricing'
-		}</div>
-		<div>
-			<small>
-				Available Format{rentalFormats && rentalFormats.length === 1 ?
-				'' : 's'}: {rentalFormats.map(formatRefName => getNameFromFilmFormat(formatRefName)).join(', ')}
-			</small>
+const RentThis = ({ rentalPrice, rentalPriceIsPublished, rentalFormats, rentalFormId }) => {
+	console.log('rentalFormats', rentalFormats);
+	return (
+		<div className="RentThis d-flex">
+			<div>
+				<div className="price">{rentalPriceIsPublished ?
+					rentalPrice
+					: 'Inquire for Pricing'
+				}</div>
+				<div>
+					<small>
+						Available Format{rentalFormats && rentalFormats.length === 1 ?
+						'' : 's'}: {rentalFormats.map(formatRefName => getNameFromFilmFormat(formatRefName)).join(', ')}
+					</small>
+				</div>
+			</div>
+			<div className="ml-auto">
+				<a target="_blank" href={'http://canyoncinema.com/clients/rental-inquiry-form' + (rentalFormId  ? `?i=${rentalFormId}` : '')}>
+					<Button className="default" size="small">
+						Rent
+					</Button>
+				</a>
+			</div>
 		</div>
-	</div>
-	<div className="ml-auto">
-		<a target="_blank" href={'http://canyoncinema.com/clients/rental-inquiry-form' + (rentalFormId  ? `?i=${rentalFormId}` : '')}>
-			<Button className="default" size="small">
-				Rent
-			</Button>
-		</a>
-	</div>
-</div>;
+	);
+}
 
 export default RentThis;

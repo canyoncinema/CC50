@@ -12,6 +12,7 @@ import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
+import { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
 import { blobCsidToSrc } from '../../utils/parse-data';
 
 const getPhotoSrcs = mediaObjs =>
@@ -40,7 +41,7 @@ class SearchCard extends Component {
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
-		console.log('media', media && media.value);
+		console.log('media', media);
 		return (
 			<div
 				className={[
@@ -59,7 +60,9 @@ class SearchCard extends Component {
 				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-film-still' :  'col-2' : ''}>
 					<div className="media">
 						<Carousel
-							photos={getPhotoSrcs(media || []).slice(0, MAX_CAROUSEL_IMAGES)}
+							fromCSpace={true}
+							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
+							canvasSize={CSpaceCanvasSize.grid}
 							id={csid}
 							itemType={itemType} />
 					</div>
