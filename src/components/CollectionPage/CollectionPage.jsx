@@ -94,7 +94,6 @@ class CollectionPage extends Component {
 			searchedText,
 			viewMode
 		} = this.state;
-		console.log('searchedText', searchedText, 'searchedItems', searchedItems);
 		// TODO PAGINATE
 
 		return (
@@ -129,11 +128,15 @@ class CollectionPage extends Component {
 						: null
 					}
 					{
-						searchedItems ?
+						searchedItemsSearchedText &&
+						searchedItems &&
+						!searchedItemsIsLoading ?
 						<CollectionSearchResults
 							viewMode={viewMode}
 							items={searchedItems} />
-						: children
+						: !searchedItemsIsLoading ?
+						children
+						: null
 					}
 				</div>
 			</CollectionContext.Provider>
