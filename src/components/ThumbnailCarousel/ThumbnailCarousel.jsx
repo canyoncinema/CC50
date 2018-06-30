@@ -22,8 +22,6 @@ const ThumbnailCarousel = ({ media, className }) => {
 					{
 						media.map((m, i) =>
 							<CSpacePhotoFill key={i}
-								width={CSpaceCanvasSize.thumbnail.width}
-								height={CSpaceCanvasSize.thumbnail.height}
 								canvasSize={CSpaceCanvasSize.thumbnail}
 								blobCsid={m.blobCsid}
 							/>

@@ -55,18 +55,21 @@ class SearchCard extends Component {
 					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${shortIdentifier}`;
 					history.push(path);
 				}}>
-				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'no-gutters single-line' : 'row no-gutters' : 'no-gutters'}>
-				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-film-still' :  'col-2' : ''}>
+				<div className={listView ?
+						(onFilmmakerPage || isItemPageFilmCard) ? 'no-gutters single-line' : 'd-flex'
+						: 'no-gutters'}>
+				<div className={listView && (onFilmmakerPage || isItemPageFilmCard) ?
+						'filmmaker-film-still' :  ''}>
 					<div className="media">
 						<Carousel
 							fromCSpace={true}
 							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
-							canvasSize={CSpaceCanvasSize.grid}
+							canvasSize={listView ? CSpaceCanvasSize.list : CSpaceCanvasSize.grid}
 							id={csid}
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView ? (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-content' : 'col-10' : ''}>
+				<div className={listView && (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-content' : ''}>
 					<div className="content">
 						{
 							itemType === 'filmmaker' ?

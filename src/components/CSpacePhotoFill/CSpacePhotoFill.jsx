@@ -14,9 +14,14 @@ class CSpacePhotoFill extends Component {
 		suffix: '_80x60'
 	}, {
 		name: 'list',
-		width: 170,
-		height: 128,
-		suffix: '_170x128'
+		width: 140,
+		height: 105,
+		suffix: '_140x105'
+	}, {
+		name: 'large',
+		width: 245,
+		height: 184,
+		suffix: '_245x184'
 	}, {
 		name: 'grid',
 		width: 360,
@@ -29,7 +34,7 @@ class CSpacePhotoFill extends Component {
 		suffix: ORIGINAL_PHOTO_SIZE_SUFFIX
 	}]
 
-	static findCanvasSize = (width, height) => {
+	findCanvasSize = (width, height) => {
 		const size = CSpacePhotoFill.orderedSizes.find(size =>
 			size.width === this.props.canvasWidth &&
 			size.height === this.props.canvasHeight
@@ -38,7 +43,7 @@ class CSpacePhotoFill extends Component {
 		return size;
 	}
 
-	static findCanvasSizeIndex = (sizeToFind, width, height) => {
+	findCanvasSizeIndex = (sizeToFind, width, height) => {
 		const sizeIndex = CSpacePhotoFill.orderedSizes
 			.findIndex(size =>
 				(size.name === (sizeToFind && sizeToFind.name)) ||
@@ -54,7 +59,7 @@ class CSpacePhotoFill extends Component {
 		`.jpeg`
 
 	onLoadError() {
-		const sizeIndex = CSpacePhotoFill.findCanvasSizeIndex(
+		const sizeIndex = this.findCanvasSizeIndex(
 				this.props.canvasSize,
 				this.props.canvasWidth,
 				this.props.canvasHeight
@@ -70,28 +75,24 @@ class CSpacePhotoFill extends Component {
 		}
 	}
 
-	constructor(props) {
-		super(props);
-		const size = props.canvasSize ||
-			CSpacePhotoFill.findCanvasSize(
-				props.canvasSize,
-				props.canvasWidth,
-				props.canvasHeight
-			);
-		this.state = {
-			canvasSize: size
-		};
-		this.width = size.width;
-		this.height = size.height;
+	state = {
+		adjustedPhotoSize: this.findCanvasSize(
+			this.props.canvasSize,
+			this.props.canvasWidth,
+			this.props.canvasHeight
+		)
 	}
 
 	render() {
 		const {
 			blobCsid,
 			className,
-			children
+			children,
+			canvasSize,
+			width,
+			height
 		} = this.props;
-		const { canvasSize } = this.state;
+		const { adjustedPhotoSize } = this.state;
 
 		// SPEC: if image fails to load, go next size up
 		// if that fails to load, return CarouselPhotoFiller
@@ -103,8 +104,8 @@ class CSpacePhotoFill extends Component {
 				className={['CSpacePhotoFill', className].join(' ')}
 				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, canvasSize)}
 				onerror={this.onLoadError}
-				width={this.width}
-				height={this.height}
+				width={canvasSize && canvasSize.width || width}
+				height={canvasSize && canvasSize.height || height}
 			>
 				{children}
 			</PhotoFill>

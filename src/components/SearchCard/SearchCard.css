@@ -152,7 +152,8 @@
 }
 
 .SearchCard.list .media .Carousel {
-	height: 100%;
+	height: 105px;
+	width: 140px;
 }
 
 .SearchCard.list .content {
