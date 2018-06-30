@@ -10,7 +10,7 @@ const PhotoFill = ({src, className, width, children, height}) => {
 				'PhotoFill'
 			].join(' ')}
 			style={{
-			backgroundImage: `url(${src}), url(/images/empty-still.png)`,
+			backgroundImage: src.indexOf('empty-still') != -1 ? src : `url(${src}), url(/images/loading-still.png)`,
 			width: width || '100%',
 			height: height || '100%'
 		}}>

@@ -34,13 +34,14 @@ class CSpacePhotoFill extends Component {
 		suffix: ORIGINAL_PHOTO_SIZE_SUFFIX
 	}]
 
-	findCanvasSize = (width, height) => {
-		const size = CSpacePhotoFill.orderedSizes.find(size =>
+	findCanvasSize = (size, width, height) => {
+		if (size) return size;
+		const foundSize = CSpacePhotoFill.orderedSizes.find(size =>
 			size.width === this.props.canvasWidth &&
 			size.height === this.props.canvasHeight
 		);
-		if (!size) console.error('Cannot find size ' + width + ' ' + height);
-		return size;
+		if (!foundSize) console.error('Cannot find size ' + width + ' ' + height);
+		return foundSize;
 	}
 
 	findCanvasSizeIndex = (sizeToFind, width, height) => {
@@ -102,7 +103,7 @@ class CSpacePhotoFill extends Component {
 		return (
 			<PhotoFill
 				className={['CSpacePhotoFill', className].join(' ')}
-				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, canvasSize)}
+				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, adjustedPhotoSize)}
 				onerror={this.onLoadError}
 				width={canvasSize && canvasSize.width || width}
 				height={canvasSize && canvasSize.height || height}
