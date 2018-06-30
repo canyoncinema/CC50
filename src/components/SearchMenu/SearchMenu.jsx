@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './SearchMenu.css';
 
-import { toCollectionSearchVal } from '../../collection-context';
 import Caret from '../Caret/Caret';
 import MenuItem from '../MenuItem/MenuItem';
 

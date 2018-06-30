@@ -167,12 +167,15 @@ class Config {
 
 	fetchItemMedia({ refName, isFilmStills, pgSz }) {
 		// ((media_canyon:filmSubject+%3D+"urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)'8+Million'"+AND+media_common:typeList%2F*+%3D+"film_still"))&pgNum=0&pgSz=20&wf_deleted=false
-		let as = `((media_canyon:filmSubject+%3D+%22${encodeURI(refName)}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+		let as = `((media_canyon:filmSubject+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
 		// let as = `((media_canyon:filmSubject+%3D+%22urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)%278+Million%27%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
 		const queryParams = {
 			as,
 			pgSz
 		};
+		if (refName.indexOf('BlackandWhiteTrypps41529866733480') !== -1) {
+			console.log('fetch as', as);
+		}
 		return fetch(this.getMediaUrl(queryParams), {
 			headers: this.authHeaders
 		});
