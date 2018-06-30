@@ -99,11 +99,11 @@ class SearchBar extends Component {
 			searchPlaceholder,
 			searchText,
 			searchLabel,
+			collectionItems,
 			setSearchText,
 			searchTextAutocompleted,
 			className,
-			submitSearch,
-			collectionItems
+			submitSearch
 		} = this.props;
 		const { disableInput, clickedInside, clickedInsideAutocompletedText } = this.state;
 		const clearPlaceholder = !disableInput;
@@ -117,7 +117,7 @@ class SearchBar extends Component {
 				].join(' ')}
 				onSubmit={(e) => {
 					e.preventDefault();
-					submitSearch(searchText);
+					submitSearch(searchText, collectionItems);
 				}}>
 				<IconSearch />
 				<div className="input-wrapper"

@@ -45,7 +45,7 @@ class CollectionPage extends Component {
 	}
 
 	submitSearch = (text, collectionItems) => {
-		console.log('submitSearch', text);
+		console.log('submitSearch', text, collectionItems);
 		const { location, history } = this.props;
 		const path = location.pathname + '?' + updateQueryString(location.search, {
 			search: encodeURIComponent(text),
@@ -57,6 +57,7 @@ class CollectionPage extends Component {
 
 	componentDidMount() {
 		if (this.props.searchedText) {
+			console.log('getSearchedItems', this.props.collectionItems, this.props.searchedText)
 			this.props.getSearchedItems(this.props.collectionItems, this.props.searchedText);
 		}
 	}
