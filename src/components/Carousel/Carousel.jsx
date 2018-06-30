@@ -32,9 +32,9 @@ class Carousel extends Component {
 	constructor(props) {
 		super(props);
 
-		if (props.photos && props.photos.length > MAX_CAROUSEL_IMAGES) {
+		if (this.numPhotos() > MAX_CAROUSEL_IMAGES) {
 			throw new Error(`Invalid number of photos. Cannot exceed ${MAX_CAROUSEL_IMAGES} in carousel.
-					Got ${props.photos.length}`);
+					Got ${this.numPhotos()}`);
 		}
 
 		this.nextPhotoState = this.nextPhotoState.bind(this);
@@ -58,7 +58,7 @@ class Carousel extends Component {
 		} else if (this.state.activePhotoIndex === 0 &&
 				this.state.showViewMore) {
 			this.setState({
-				activePhotoIndex: this.props.photos.length - 1,
+				activePhotoIndex: this.numPhotos() - 1,
 				showViewMore: false
 			});
 		} else {
@@ -70,6 +70,9 @@ class Carousel extends Component {
 		}
 	}
 
+	numPhotos = () => (this.props.blobCsids && this.props.blobCsids.length) ||
+		(this.props.photoSrces && this.props.photoSrces.length)
+
 	nextPhotoState(state) {
 		// on clicking left caret when multiple photos exist
 		// (loop) go to first photo if on last photo
@@ -80,11 +83,12 @@ class Carousel extends Component {
 			};
 		} else {
 			const newIndex = state.activePhotoIndex + 1;
-			if (newIndex >= MAX_CAROUSEL_IMAGES) {
+			if (newIndex >= (MAX_CAROUSEL_IMAGES - 1) ||
+					newIndex >= this.numPhotos()) {
 				// spec: loop to first (does not show more than MAX_CAROUSEL_IMAGES)
 				// and prompt user to click item to show more
 				return {
-					activePhotoIndex: MAX_CAROUSEL_IMAGES - 1,
+					activePhotoIndex: this.numPhotos() - 1,
 					showViewMore: true
 				};
 			} else {
@@ -102,8 +106,8 @@ class Carousel extends Component {
 	}
 
 	render() {
-		const { id, media, photoSrces, title,
-			fromCSpace, blobCsids, canvasSize } = this.props;
+		const { id, media, canvasSize, photoSrces, title,
+			fromCSpace, blobCsids, e } = this.props;
 		const { showViewMore, activePhotoIndex } = this.state;
 		if (!blobCsids && !photoSrces) {
 			throw new Error('Must include blobCsids or photoSrces');

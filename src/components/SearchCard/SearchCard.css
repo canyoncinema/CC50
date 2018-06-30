@@ -203,19 +203,6 @@
 	margin-top: 15px;
 }
 
-.SearchCard.list .list-center-wrapper {
-	display: table !important;
-	height: 100%;
-	width: 100%;
-	padding-right: 26px;
-}
-
-.SearchCard.list .list-center-wrapper > * {
-	margin: 0;
-	display: table-cell;
-	vertical-align: middle;
-}
-
 .SearchCard.list .content > *:last-child .list-center-wrapper {
 	padding-right: 0;
 }

@@ -105,6 +105,19 @@ body {
   position: relative;
 }
 
+.list-center-wrapper {
+  display: table !important;
+  height: 100%;
+  width: 100%;
+  padding-right: 26px;
+}
+
+.list-center-wrapper > * {
+  margin: 0;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .padded-container {
   padding: 0 70px !important; 
 }

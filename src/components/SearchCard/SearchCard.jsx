@@ -66,6 +66,7 @@ class SearchCard extends Component {
 							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
 							canvasSize={listView ? CSpaceCanvasSize.list : CSpaceCanvasSize.grid}
 							id={csid}
+							title={data.termDisplayName}
 							itemType={itemType} />
 					</div>
 				</div>
