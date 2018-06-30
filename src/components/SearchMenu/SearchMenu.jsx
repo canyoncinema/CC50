@@ -12,21 +12,28 @@ class SearchMenu extends Component {
 		super(props);
 		this.wrapperRef = React.createRef();
 		this.labelRef = React.createRef();
-		this.onOutsideClick = this.onOutsideClick.bind(this);
-		this.onClickLabel = this.onClickLabel.bind(this);
 	}
 
 	state = {
 		isOpen: false
 	}
 
-	static labels = [
-		'All',
-		'Films',
-		'Filmmakers',
-		'Curated Programs',
-		'Ephemera'
-	]
+	static options = [{
+		label: 'All',
+		collectionItems: null
+	}, {
+		label: 'Films',
+		collectionItems: 'films'
+	}, {
+		label: 'Filmmakers',
+		collectionItems: 'filmmakers'
+	}, {
+		label: 'Curated Programs',
+		collectionItems: 'programs'
+	}, {
+		label: 'Ephemera',
+		collectionItems: 'ephemera'
+	}]
 
 	componentDidMount() {
 		// TODO: make outside click handling reusable
@@ -43,7 +50,7 @@ class SearchMenu extends Component {
 		}
 	}
 
-	onOutsideClick(event) {
+	onOutsideClick = (event) => {
 		// TODO: make reusable
 		const el = this.wrapperRef && this.wrapperRef.current,
 			el2 = this.labelRef && this.labelRef.current;
@@ -61,11 +68,11 @@ class SearchMenu extends Component {
 		});
 	}
 
-	onClickLabel(e, label) {
+	onClickOption = (option) => {
 		this.setState({
 			isOpen: false
 		});
-		this.props.onOptionSelect(label);
+		this.props.onOptionSelect(option);
 	}
 
 	render() {
@@ -85,15 +92,13 @@ class SearchMenu extends Component {
 				<ul key={1} ref={this.wrapperRef}
 						className={isOpen ? 'SearchMenuOptions active' : 'SearchMenuOptions'}>
 						{
-							SearchMenu.labels.map((label, i) => {
+							SearchMenu.options.map((option, i) => {
 								return (
-									<Link key={i} to={'/collection/' + toCollectionSearchVal(label) + window.location.search || ''}>
-										<MenuItem
-											key={i}
-											onClick={e => this.onClickLabel(e, label)}>
-												{label}
-										</MenuItem>
-									</Link>
+									<MenuItem
+										key={i}
+										onClick={(e) => this.onClickOption(option)}>
+											{option.label}
+									</MenuItem>
 								);
 							})
 						}

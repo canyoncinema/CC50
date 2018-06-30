@@ -45,11 +45,9 @@ class CollectionPage extends Component {
 	}
 
 	submitSearch = (text, collectionItems) => {
-		console.log('submitSearch', text, collectionItems);
 		const { location, history } = this.props;
-		const path = location.pathname + '?' + updateQueryString(location.search, {
-			search: encodeURIComponent(text),
-			items: collectionItems
+		const path = '/collection' + (collectionItems ? '/' + collectionItems : '') + '?' + updateQueryString(location.search, {
+			search: encodeURIComponent(text)
 		});
 		history.push(path);
 		this.props.getSearchedItems(collectionItems, text);
@@ -57,7 +55,6 @@ class CollectionPage extends Component {
 
 	componentDidMount() {
 		if (this.props.searchedText) {
-			console.log('getSearchedItems', this.props.collectionItems, this.props.searchedText)
 			this.props.getSearchedItems(this.props.collectionItems, this.props.searchedText);
 		}
 	}
@@ -71,11 +68,14 @@ class CollectionPage extends Component {
 		isCollapsedNav: false,
 		viewMode: this.props.viewMode || 'grid',
 		setViewMode: this.setViewMode,
-		onOptionSelect: searchLabel => {
-			// SPEC: changing search menu filter, changes page & resets searched text
-			this.setState({
-	  		searchedText: ''
-			});
+		onOptionSelect: option => {
+			if (this.props.searchedText) {
+				this.submitSearch(this.props.searchedText, option.collectionItems);
+			} else {
+				// just push to history
+				const path = '/collection' + (option.collectionItems ? '/' + option.collectionItems : '');
+				this.props.history.push(path);				
+			}
 		}
 	}
 
