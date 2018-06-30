@@ -42,9 +42,10 @@ export function getChoices(collectionItems, choiceText) {
 			() => config.fetchItemChoices(collectionItems, queryParams) :
 			() => config.fetchAllChoices(queryParams);
 		return makeRequest()
-			.then(choices =>
+			.then(choiceData => {
+				const { choices, totalCount, pageCount } = choiceData;
 				dispatch(receiveChoices(choices, collectionItems))
-			)
+			})
 			.catch(error =>
 				dispatch(failChoices(error))
 			);

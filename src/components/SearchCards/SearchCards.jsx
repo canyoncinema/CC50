@@ -21,7 +21,7 @@ class SearchCards extends Component {
 						customColSize}>
 							<SearchCard
 								key={i}
-								itemType={itemType}
+								itemType={itemType || d.itemType}
 								onFilmmakerPage={onFilmmakerPage}
 								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}

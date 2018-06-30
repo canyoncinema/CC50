@@ -46,6 +46,14 @@ export const toItemsData = (payload, skipTermDisplayName) => {
 	return data;
 }
 
+export const toTotalCount = (payload) => {
+	return Number(payload['ns2:abstract-common-list'].totalItems);
+};
+
+export const toPageCount = (payload) => {
+	return Number(payload['ns2:abstract-common-list'].itemsInPage);
+};
+
 export const parseFilm = film => {
 	film.creator = parseCreator(film.creator);
 	return film;
@@ -59,7 +67,6 @@ export const getCspaceCllxnFromRefName = (refName, match) => {
 	// e.g. 'workauthorities'
 	return match ? match[1] : matchRefName(refName)[1];
 };
-
 
 export const getDisplayNameFromRefName = (refName, match) => {
 	// e.g. 'Stan Brakhage'
@@ -141,6 +148,38 @@ export const cspaceCollectionToItemName = (cspaceCollection, isPlural) => {
 			return;
 	}
 };
+
+export const cspaceCollectionToItemType = (cspaceCollection, isPlural) => {
+	switch (cspaceCollection) {
+		case 'workauthorities':
+			return 'film';
+		case 'work':
+			return 'film';
+		case 'works':
+			return 'film';
+		case 'personauthorities':
+			return 'filmmaker';
+		case 'person':
+			return 'filmmaker';
+		case 'persons':
+			return 'filmmaker';
+		case 'collectionobjects':
+			return 'ephemera';
+		case 'collectionobject':
+			return 'program';
+		case 'ephemera':
+			return 'ephemera';
+		case 'exhibitions':
+			return 'event';
+		default:
+			return;
+	}
+};
+
+export const getItemTypeFromRefName = refName => {
+	return cspaceCollectionToItemType(getCspaceCllxnFromRefName(refName));
+}
+
 
 export const getNameFromFilmFormat = formatRefName => {
 	const formatShortIdentifier = getShortIdentifierFromRefName(formatRefName);

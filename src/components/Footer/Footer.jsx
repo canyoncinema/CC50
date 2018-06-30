@@ -54,7 +54,7 @@ const Footer = ({className}) => {
 								<div className="general">
 									<section>
 										<div><strong>General & Title Inquiries</strong></div>
-										<div><Link to="mailto:info@canyoncinema.com">info(at)canyoncinema.com</Link></div>
+										<div><a href="mailto:info@canyoncinema.com">info(at)canyoncinema.com</a></div>
 									</section>
 								</div>
 							</Col>

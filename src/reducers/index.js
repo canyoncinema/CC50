@@ -13,6 +13,7 @@ import programs from './programs-reducer';
 import ephemera from './ephemera-reducer';
 import spotlight from './spotlight-reducer';
 import itemsMedia from './items-media-reducer';
+import searchedItems from './searched-items-reducer';
 
 export default combineReducers({
   filmmakers,
@@ -28,5 +29,6 @@ export default combineReducers({
   programs,
   ephemera,
   spotlight,
-  itemsMedia
+  itemsMedia,
+  searchedItems
 });

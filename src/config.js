@@ -1,5 +1,8 @@
 import base64 from 'base-64';
 import { matchRefName,
+	toItemsData,
+	toTotalCount,
+	toPageCount,
 	getDisplayNameFromRefName,
 	collectionItemsToItemName,
 	cspaceCollectionToItemName,
@@ -102,16 +105,21 @@ class Config {
 	// collectionItemTypes = ['films', 'filmmakers', 'ephemera', 'programs']
 	collectionItemTypes = ['films', 'filmmakers']
 
+	fetchSearchedItems(collectionItems, queryParams) {
+		return fetch(encodeURI(this.getItemsUrl(collectionItems, queryParams)), {
+			headers: this.authHeaders
+		});
+	}
+
 	convertPayloadToChoices(payload) {
 		if (!payload['ns2:abstract-common-list']) {
 			throw new Error('Inaccurate payload argument');
 		}
-		if (payload['ns2:abstract-common-list'].itemsInPage === '0') {
+		if (toTotalCount(payload) == 0) {
 			return [];
 		}
-		let data = payload['ns2:abstract-common-list']['list-item'];
-		if (data.length === undefined) data = [data];
-		return data;
+		const items = toItemsData(payload);
+		return items;
 	}
 
 	fetchItemChoices(...args) {
@@ -129,7 +137,13 @@ class Config {
 				.then(payload => {
 					try {
 						const data = this.convertPayloadToChoices(payload);
-						resolve(data);
+						const totalCount = toTotalCount(payload);
+						const pageCount = toPageCount(payload);
+						resolve({
+							data,
+							totalCount,
+							pageCount
+						});
 					} catch(e) {
 						reject(e);
 					}
@@ -172,7 +186,19 @@ class Config {
 			);
 		return new Promise((resolve, reject) => {
 			Promise.all(choicesPromises)
-				.then((setsOfChoices) => {
+				.then((sets) => {
+					const setsOfChoices = sets.map(s => s.data);
+					const setsOfTotalCounts = sets.map(s => s.totalCount);
+					const totalCountSum = setsOfTotalCounts
+						.reduce((total, count) =>
+							total += count,
+						0);
+					const setsOfPageCounts = sets.map(s => s.pageCount);
+					const pageCountSum = setsOfPageCounts
+						.reduce((total, count) =>
+							total += count,
+						0)
+					// TODO: PAGINATION
 					const [ filmChoices, filmmakerChoices, ephemeraChoices, programChoices ] = setsOfChoices;
 					const lastElIndices = setsOfChoices.reduce((lastIndices, choiceSet, i) => {
 						if (i === 0) {
@@ -192,7 +218,11 @@ class Config {
 						);
 					}, []);
 					const shuffledChoices = shuffle(allChoices);
-					resolve(shuffledChoices);
+					resolve({
+						choices: shuffledChoices,
+						totalCount: totalCountSum,
+						pageCount: pageCountSum
+					});
 				})
 				.catch(e => reject(e))
 		})
