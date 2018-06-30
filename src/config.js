@@ -219,7 +219,7 @@ class Config {
 					}, []);
 					const shuffledChoices = shuffle(allChoices);
 					resolve({
-						choices: shuffledChoices,
+						data: shuffledChoices,
 						totalCount: totalCountSum,
 						pageCount: pageCountSum
 					});

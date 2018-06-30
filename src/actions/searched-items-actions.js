@@ -39,6 +39,7 @@ export function getSearchedItems(collectionItems, searchText) {
 		pgSz: 40,
 		kw: searchText
 	};
+	console.log('getSearchedItems', collectionItems, searchText);
 	return (dispatch) => {
 		dispatch(fetchSearchedItems());
 		const makeRequest = collectionItems ?
@@ -46,8 +47,8 @@ export function getSearchedItems(collectionItems, searchText) {
 			() => config.fetchAllChoices(queryParams);
 		return makeRequest()
 			.then(choiceData => {
-				const { choices, totalCount, pageCount } = choiceData;
-				dispatch(receiveSearchedItems(choices, totalCount, pageCount, collectionItems, searchText))
+				const { data, totalCount, pageCount } = choiceData;
+				dispatch(receiveSearchedItems(data, totalCount, pageCount, collectionItems, searchText))
 			})
 			.catch(error =>
 				dispatch(failSearchedItems(error))
