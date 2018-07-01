@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 
 class CollectionFilmmakerPage extends Component {
 	render() {
-		const { item, isLoading, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { item, isLoading, shortIdentifier, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
@@ -86,7 +86,7 @@ class CollectionFilmmakerPage extends Component {
 			conditionallyShow({
 				id: 'ephemera',
 				order: 3,
-				condition: item.refName.indexOf('AbigailChild') !== -1,
+				condition: shortIdentifier.indexOf('AbigailChild') !== -1,
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
 				renderContent: () => (
