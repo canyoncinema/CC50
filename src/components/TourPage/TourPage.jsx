@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
+import ComingSoonMessage from '../ComingSoonMessage/ComingSoonMessage';
 
 class TourPage extends Component {
 	render() {
@@ -12,7 +13,7 @@ class TourPage extends Component {
 				<Helmet>
 	        <title>About | Canyon Cinema</title>
 	      </Helmet>
-				TourPage
+				<ComingSoonMessage />
 			</SecondaryPage>
 		);
 	}

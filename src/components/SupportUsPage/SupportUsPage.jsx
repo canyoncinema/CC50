@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
+import ComingSoonMessage from '../ComingSoonMessage/ComingSoonMessage';
 
 class SupportUsPage extends Component {
 	render() {
@@ -8,7 +9,7 @@ class SupportUsPage extends Component {
 			<SecondaryPage
 				headline="Support Us"
 				className="SupportUsPage">
-				SupportUsPage
+				<ComingSoonMessage />
 			</SecondaryPage>
 		);
 	}
