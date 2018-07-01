@@ -15,7 +15,7 @@ class PhotoFill extends Component {
 					'PhotoFill'
 				].join(' ')}
 				style={{
-				backgroundImage: src === EMPTY_STILL_PATH ? src : `url(${src}), url(/images/loading-still.png)`,
+				backgroundImage: src && src !== EMPTY_STILL_PATH ? `url(${src}), url(/images/loading-still.png)` : null,
 				width: !isNaN(width) ? width + 'px' : width ? width : '100%',
 				height: !isNaN(height) ? height + 'px' : height ? height : '100%'
 			}}>

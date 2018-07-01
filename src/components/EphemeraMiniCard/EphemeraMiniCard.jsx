@@ -15,7 +15,7 @@ class EphemeraMiniCard extends Component {
 					<PhotoFill
 						width={225}
 						height={225*3/4}
-						src="https://placeimg.com/640/480/any"
+						src={item.photoSrc}
 					/>
 					<div className="content single-line-ellipsed">
 						{title}

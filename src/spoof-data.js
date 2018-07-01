@@ -2,7 +2,9 @@ export const ephemeraData = [{
 	id: 1232,
 	itemType: 'ephemera',
 	termDisplayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
-	photos: [],
+	photos: [
+		'https://s3-us-west-2.amazonaws.com/cc50-ephemera/Abigail%20Child%20Interview/thumbs/Abigail_12_12_17-1_245x184.jpeg'
+	],
 	types: ['Printed Pieces'],
 	related: [{
 		id: 32,
