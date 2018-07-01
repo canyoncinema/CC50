@@ -93,7 +93,9 @@ class CollectionFilmmakerPage extends Component {
 					ephemeraData.map((e, i) =>
 						<EphemeraMiniCard
 							key={i}
-							{...e}
+							title={e.termDisplayName}
+							shortIdentifier={'AbigailChildEphemera' + i}
+							item={e}
 						/>
 					)
 				)

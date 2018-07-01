@@ -1,6 +1,19 @@
 .EphemeraMiniCard {
-	background-repeat: no-repeat;
-	background-position: center center;
-  background-size: cover;
-  background-color: white;
+	display: inline-block;
+	margin-right: 40px;
+	background-color: #fff;
+	width: 225px;
+}
+
+.EphemeraMiniCard:nth-child(3n+3) {
+	margin-right: 0;
+}
+
+.EphemeraMiniCard .content {
+	padding: 17px 20px;
+	font-size: 14px;
+	line-height: 1.57;
+	width: 100%;
+	color: #231f20;
+	color: var(--black);
 }

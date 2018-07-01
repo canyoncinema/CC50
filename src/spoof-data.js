@@ -1,42 +1,42 @@
 export const ephemeraData = [{
 	id: 1232,
 	itemType: 'ephemera',
-	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	termDisplayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
 	photos: [],
 	types: ['Printed Pieces'],
 	related: [{
 		id: 32,
-		displayName: 'Barbara Hammer',
+		termDisplayName: 'Barbara Hammer',
 		itemType: 'filmmaker'
 	}, {
 		id: 64,
-		displayName: 'Michael Wallin',
+		termDisplayName: 'Michael Wallin',
 		itemType: 'filmmaker'
 	}, {
 		id: 32,
-		displayName: 'Karry Fisher',
+		termDisplayName: 'Karry Fisher',
 		itemType: 'filmmaker'
 	}, {
 		id: 64,
-		displayName: 'Wes Andersen',
+		termDisplayName: 'Wes Andersen',
 		itemType: 'filmmaker'
 	}, {
 		id: 64,
-		displayName: 'Wes Andersen 2',
+		termDisplayName: 'Wes Andersen 2',
 		itemType: 'filmmaker'
 	}, {
 		id: 64,
-		displayName: 'Wes Andersen 3',
+		termDisplayName: 'Wes Andersen 3',
 		itemType: 'filmmaker'
 	}, {
 		id: 64,
-		displayName: 'Wes Andersen 4',
+		termDisplayName: 'Wes Andersen 4',
 		itemType: 'filmmaker'
 	}]
 }, {
 	id: 1244,
 	itemType: 'ephemera',
-	displayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
+	termDisplayName: 'Michael Wallin Remembered Ephemera Titles have a Maximum of Three Lines Even If It OverFlows to a Fourth Line',
 	photos: [],
 	tags: ['Printed Pieces']
 }];
