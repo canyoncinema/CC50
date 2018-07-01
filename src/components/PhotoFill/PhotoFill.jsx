@@ -16,8 +16,8 @@ class PhotoFill extends Component {
 				].join(' ')}
 				style={{
 				backgroundImage: src === EMPTY_STILL_PATH ? src : `url(${src}), url(/images/loading-still.png)`,
-				width: width || '100%',
-				height: height || '100%'
+				width: !isNaN(width) ? width + 'px' : width ? width : '100%',
+				height: !isNaN(height) ? height + 'px' : height ? height : '100%'
 			}}>
 				{children}
 			</div>

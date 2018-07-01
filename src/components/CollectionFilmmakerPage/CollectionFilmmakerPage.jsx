@@ -11,6 +11,7 @@ import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import { toExternalWebUrl } from '../../utils/parse-data';
+import { ephemeraData } from '../../spoof-data';
 
 const mapStateToProps = state => ({
 	itemFilms: state.item.films.data,
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({
 class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, isLoading, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		console.log('ab', item.refName.indexOf('AbigailChild') !== -1, item.refName)
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
@@ -84,14 +86,16 @@ class CollectionFilmmakerPage extends Component {
 			conditionallyShow({
 				id: 'ephemera',
 				order: 3,
-				condition: item.ephemera && item.ephemera.length,
+				condition: item.refName.indexOf('AbigailChild') !== -1,
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
 				renderContent: () => (
-					item.ephemera.map((e, i) =>
+					ephemeraData.map((e, i) =>
 						<EphemeraMiniCard
 							key={i}
-							{...e}
+							title={e.termDisplayName}
+							shortIdentifier={'AbigailChildEphemera' + i}
+							item={e}
 						/>
 					)
 				)
