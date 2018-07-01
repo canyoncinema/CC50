@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import './CollectionItemPage.css';
 
+import { Helmet } from 'react-helmet';
 import { getSpoofDataObj } from '../../spoof-data';
-import { getItem } from '../../actions/item-actions';
+import { getItem, setItemData } from '../../actions/item-actions';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
@@ -16,9 +17,11 @@ import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
 import { addItemMenuHeader } from '../../actions/item-menu-headers-actions';
 import { config } from '../../store';
+import { ephemeraData } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
   getItem: (...args) => dispatch(getItem(...args)),
+  setItemData: (...args) => dispatch(setItemData(...args)),
   addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args))
 })
 
@@ -44,6 +47,16 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
+			if (this.props.collectionItems === 'ephemera') {
+			// TODO: UNHACK -- we do not want to get items for ephemera (not yet ready)
+				this.props.setItemData(
+					this.props.collectionItems,
+					ephemeraData,
+					this.props.shortIdentifier
+				);
+				return;
+			}
+
 			this.props.getItem(
 				this.props.collectionItems,
 				this.props.shortIdentifier,
@@ -135,6 +148,9 @@ function CollectionItemPage(ComposedComponent) {
 			const singularItemForm = collectionItemsToSingularTitlecased(collectionItems);
 			return (
 				<div className="CollectionItemPage">
+					<Helmet>
+		        <title>{item ? item.termDisplayName : 'CC50'} | Canyon Cinema</title>
+		      </Helmet>
 					<ScrollToTopOnMount />
 					<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
 						<MainNav
@@ -150,10 +166,14 @@ function CollectionItemPage(ComposedComponent) {
 					}
 					<div className="container">
 						<Row>
-							<Col md={3}>
-								<CollectionItemPageMenu />
-							</Col>
-							<Col md={9}>
+							{
+								collectionItems !== 'ephemera' ?
+								<Col md={3}>
+									<CollectionItemPageMenu />
+								</Col>
+								: null
+							}
+							<Col md={collectionItems !== 'ephemera' ? 9 : 12}>
 								<div className="descriptive-content">
 									{
 										isLoading ?

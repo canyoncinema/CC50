@@ -1,0 +1,26 @@
+.RichText {
+  font-family: Karla;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.7;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+  white-space: normal;
+  white-space: pre-wrap;
+}
+.RichText blockquote {
+	border-left: solid 1px var(--light-grey);
+	border-color: #888;
+	padding-left: 33px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.7;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
+}

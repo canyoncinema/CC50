@@ -52,9 +52,9 @@ class App extends Component {
                 shortIdentifier={match.params.shortIdentifier}
                 collectionItems="programs" />
             } />
-            <Route exact path="/collection/ephemera/:itemId" component={({ match }) =>
+            <Route exact path="/collection/ephemera/:shortIdentifier" component={({ match }) =>
               <CollectionEphemeraPage
-                itemId={match.params.itemId}
+                shortIdentifier={match.params.shortIdentifier}
                 collectionItems="ephemera" />
             } />
             <Route exact

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'reactstrap';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import Filmmakers from '../Filmmakers/Filmmakers';
@@ -10,7 +11,7 @@ import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
-import { toExternalWebUrl } from '../../utils/parse-data';
+import { toExternalWebUrl, toItemsData } from '../../utils/parse-data';
 import { ephemeraData } from '../../spoof-data';
 
 const mapStateToProps = state => ({
@@ -21,7 +22,6 @@ const mapStateToProps = state => ({
 class CollectionFilmmakerPage extends Component {
 	render() {
 		const { item, isLoading, itemFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		console.log('ab', item.refName.indexOf('AbigailChild') !== -1, item.refName)
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
@@ -90,14 +90,18 @@ class CollectionFilmmakerPage extends Component {
 				menuHeader: 'Ephemera',
 				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
 				renderContent: () => (
-					ephemeraData.map((e, i) =>
-						<EphemeraMiniCard
-							key={i}
-							title={e.termDisplayName}
-							shortIdentifier={'AbigailChildEphemera' + i}
-							item={e}
-						/>
-					)
+					<Row>
+					{ toItemsData(ephemeraData).map((e, i) =>
+						<Col xs={4} key={i}>
+							<EphemeraMiniCard
+								key={i}
+								title={e.termDisplayName}
+								shortIdentifier={'AbigailChildEphemera' + i}
+								item={e}
+							/>
+						</Col>
+					) }
+					</Row>
 				)
 			})
 			,

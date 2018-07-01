@@ -7,7 +7,8 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
-// import { getSpoofDataList } from '../../spoof-data';
+import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
+import { Helmet } from 'react-helmet';
 
 const mapDispatchToProps = dispatch => ({
   getItems: (...args) => dispatch(getItems(...args))
@@ -40,6 +41,9 @@ class CollectionPageItems extends Component {
 			{
 				context => 
 				<div className="CollectionPageItems">
+					<Helmet>
+		        <title>{collectionItems ? toCollectionSearchLabel(collectionItems) : 'CC50'} | Canyon Cinema</title>
+		      </Helmet>
 					<ScrollToTopOnMount />
 					{
 						error ?

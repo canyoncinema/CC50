@@ -8,12 +8,12 @@ import './Filmmaker.css';
 
 class Filmmaker extends Component {
 	render() {
-		const { id, test, avatarUrl, displayName, tags, history } = this.props;
+		const { id, test, avatarUrl, termDisplayName, shortIdentifier, tags, history } = this.props;
 		return (
 			<div className="Filmmaker shadow-on-hover"
 				onClick={(e) => {
 					e.stopPropagation();
-					const path = `/collection/filmmakers/${id}`;
+					const path = `/collection/filmmakers/${shortIdentifier}`;
 					history.push(path);
 				}}>
 				<div className="media">
@@ -22,19 +22,8 @@ class Filmmaker extends Component {
 						height="115px"
 						url={avatarUrl} />
 				</div>
-				<div className="content">
-					<h4 className="displayName single-line">{displayName} {test}</h4>
-					{
-						tags && tags.length ?
-						<Tags className="single-line">
-							{
-								tags.map((tag, i) => (
-									<Tag key={i}>{tag}</Tag>
-								))
-							}
-						</Tags>
-						: null
-					}
+				<div className="content list-center-wrapper">
+					<h4 className="displayName single-line">{termDisplayName}</h4>
 				</div>
 			</div>
 		);

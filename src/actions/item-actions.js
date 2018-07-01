@@ -7,7 +7,7 @@ import { getItemFilmmaker } from './item-filmmaker-actions';
 import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
-import { toItemData, toDisplayName } from '../utils/parse-data';
+import { toItemData, toItemsData, toDisplayName } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 
 function fetchItem() {
@@ -16,9 +16,9 @@ function fetchItem() {
 	}
 }
 
-function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions) {
-	const item = toItemData(payload);
-	item.termDisplayName = toDisplayName(item.refName);
+function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions, skipPayload) {
+	const item = skipPayload ? payload : toItemData(payload);
+	item.termDisplayName = skipPayload ? item.termDisplayName : toDisplayName(item.refName);
 	if (!item.termDisplayName) console.error('Should have a displayName field. Check refName field parsing');
 	const filmmakerRefName = item &&
 					item.creatorGroupList &&
@@ -102,3 +102,11 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 			);
 	}
 };
+
+export function setItemData(collectionItems, itemsPayload, shortIdentifier) {
+	return (dispatch) => {
+		const items = toItemsData(itemsPayload);
+		const item = items.find(item => item.shortIdentifier === shortIdentifier);
+		dispatch(receiveItem(dispatch, collectionItems, item, shortIdentifier, false, true));
+	}
+}

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 class EphemeraMiniCard extends Component {
 	render() {
 		const { item, shortIdentifier, title } = this.props;
+		console.log('EphemeraMiniCard', item);
 		return (
 			<Link to={`/collection/ephemera/${shortIdentifier}`}>
 				<div
@@ -15,7 +16,7 @@ class EphemeraMiniCard extends Component {
 					<PhotoFill
 						width={225}
 						height={225*3/4}
-						src={item.photoSrc}
+						src={item.photoSrc.large}
 					/>
 					<div className="content single-line-ellipsed">
 						{title}
