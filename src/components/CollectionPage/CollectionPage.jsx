@@ -61,6 +61,7 @@ class CollectionPage extends Component {
 
 	state = {
 		searchText: this.props.searchedText || '',
+		searchedItemsSearchedText: this.props.searchedItemsSearchedText || '',
 		searchedText: this.props.searchedText || '',
 		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText,

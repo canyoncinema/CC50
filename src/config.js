@@ -136,11 +136,11 @@ class Config {
 				})
 				.then(payload => {
 					try {
-						const data = this.convertPayloadToChoices(payload);
+						const choices = this.convertPayloadToChoices(payload);
 						const totalCount = toTotalCount(payload);
 						const pageCount = toPageCount(payload);
 						resolve({
-							data,
+							choices,
 							totalCount,
 							pageCount
 						});
@@ -165,17 +165,17 @@ class Config {
 		return url;
 	}
 
-	fetchItemMedia({ refName, isFilmStills, pgSz }) {
-		// ((media_canyon:filmSubject+%3D+"urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)'8+Million'"+AND+media_common:typeList%2F*+%3D+"film_still"))&pgNum=0&pgSz=20&wf_deleted=false
-		let as = `((media_canyon:filmSubject+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
-		// let as = `((media_canyon:filmSubject+%3D+%22urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(8Million1530129130281)%278+Million%27%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+	fetchItemMedia({ refName, isByFilmmaker, isFilmStills, pgSz }) {
+		let as;
+		if (isByFilmmaker) {
+			as = `((media_common:creator+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+		} else {
+			as = `((media_canyon:filmSubject+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+		}
 		const queryParams = {
 			as,
 			pgSz
 		};
-		if (refName.indexOf('BlackandWhiteTrypps41529866733480') !== -1) {
-			console.log('fetch as', as);
-		}
 		return fetch(this.getMediaUrl(queryParams), {
 			headers: this.authHeaders
 		});
@@ -190,7 +190,7 @@ class Config {
 		return new Promise((resolve, reject) => {
 			Promise.all(choicesPromises)
 				.then((sets) => {
-					const setsOfChoices = sets.map(s => s.data);
+					const setsOfChoices = sets.map(s => s.choices);
 					const setsOfTotalCounts = sets.map(s => s.totalCount);
 					const totalCountSum = setsOfTotalCounts
 						.reduce((total, count) =>
@@ -202,7 +202,6 @@ class Config {
 							total += count,
 						0)
 					// TODO: PAGINATION
-					const [ filmChoices, filmmakerChoices, ephemeraChoices, programChoices ] = setsOfChoices;
 					const lastElIndices = setsOfChoices.reduce((lastIndices, choiceSet, i) => {
 						if (i === 0) {
 							lastIndices.push(choiceSet.length - 1);
@@ -222,7 +221,7 @@ class Config {
 					}, []);
 					const shuffledChoices = shuffle(allChoices);
 					resolve({
-						data: shuffledChoices,
+						choices: shuffledChoices,
 						totalCount: totalCountSum,
 						pageCount: pageCountSum
 					});

@@ -13,14 +13,14 @@ import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
 import { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
-import { blobCsidToSrc } from '../../utils/parse-data';
+import { blobCsidToSrc, getShortIdentifierFromRefName } from '../../utils/parse-data';
 
 const getPhotoSrcs = mediaObjs =>
 	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
 
 const mapStateToProps = (state, ownProps) => ({
-	media: state.itemsMedia.dataByCsid &&
-	state.itemsMedia.dataByCsid.get(ownProps.csid)
+	media: 	state.itemsMedia.dataByShortIdentifier &&
+					state.itemsMedia.dataByShortIdentifier.get(getShortIdentifierFromRefName(ownProps.data.refName))
 });
 
 class SearchCard extends Component {
@@ -33,7 +33,7 @@ class SearchCard extends Component {
 			itemType, // film, program, ephemera, or filmmaker
 			photos,
 			viewMode,
-			onFilmmakerPage,
+			onFilmmakerPage, // TODO fix use of isItemPageFilmCard || onFilmmakerPage
 			isItemPageFilmCard,
 			history
 		} = this.props;
@@ -64,7 +64,13 @@ class SearchCard extends Component {
 						<Carousel
 							fromCSpace={true}
 							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
-							canvasSize={listView ? CSpaceCanvasSize.list : CSpaceCanvasSize.grid}
+							canvasSize={
+								listView ?
+									(isItemPageFilmCard || onFilmmakerPage) ?
+										CSpaceCanvasSize.large
+									: CSpaceCanvasSize.list
+								: CSpaceCanvasSize.grid
+							}
 							id={csid}
 							title={data.termDisplayName}
 							itemType={itemType} />

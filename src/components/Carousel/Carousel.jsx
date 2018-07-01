@@ -151,7 +151,8 @@ class Carousel extends Component {
 					canvasSize={canvasSize} />
 				:
 				<PhotoFill
-					width="100%" height="100%"
+					width={canvasSize.width + 'px'}
+					height={canvasSize.height + 'px'}
 					src={activePhotoSrc} />
 			}
 			</div>

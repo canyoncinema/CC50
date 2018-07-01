@@ -31,10 +31,6 @@ const mapStateToProps = state => ({
 
 function CollectionItemPage(ComposedComponent) {
 	class CollectionItemPageContainer extends Component {
-		constructor(props) {
-			super(props);
-		}
-
 		filmmakerOptions(collectionItems) {
 			let filmmakerOptions;
 			if (this.props.collectionItems === 'films') {

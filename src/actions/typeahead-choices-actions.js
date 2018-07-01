@@ -44,6 +44,7 @@ export function getChoices(collectionItems, choiceText) {
 		return makeRequest()
 			.then(choiceData => {
 				const { choices, totalCount, pageCount } = choiceData;
+				console.log('choiceData', choiceData);
 				dispatch(receiveChoices(choices, collectionItems))
 			})
 			.catch(error =>

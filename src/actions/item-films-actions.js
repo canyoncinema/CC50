@@ -5,6 +5,7 @@ import {
 } from '../actionTypes';
 import { config } from '../store';
 import { toItemsData, toDisplayName } from '../utils/parse-data';
+import { getItemsMedia } from './items-media-actions';
 
 function fetchItemFilms() {
 	return {
@@ -12,12 +13,14 @@ function fetchItemFilms() {
 	}
 }
 
-function receiveItemFilms(payload) {
-	const data = toItemsData(payload);
-	// dispatch(getItemFilms());
+function receiveItemFilms(dispatch, payload) {
+	const films = toItemsData(payload);
+
+	// show media on films
+	films.forEach(film => dispatch(getItemsMedia(film, 'film')));
 	return {
 		type: RECEIVED_ITEM_FILMS,
-		data: data
+		data: films
 	}
 }
 
@@ -45,7 +48,7 @@ export function getItemFilms({ filmmakerRefName, pgSz, exceptShortIdentifier }) 
 			return response.json();
 		})
 		.then(payload => {
-			dispatch(receiveItemFilms(payload));
+			dispatch(receiveItemFilms(dispatch, payload));
 		}, error =>
 			dispatch(failItemFilms(error))
 		);

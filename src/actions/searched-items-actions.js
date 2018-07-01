@@ -18,10 +18,10 @@ function fetchSearchedItems() {
 
 function receiveSearchedItems(dispatch, dataWithItemType, totalCount, pageCount, collectionItems, searchedText) {
 	dataWithItemType.forEach(item => {
-		if (item.itemType === 'film') {
+		if (item.itemType === 'film' || item.itemType === 'filmmaker') {
 			// return up to 3 film stills per film item
 			// and indicate num of stills per film (for carousel 'see more')
-			dispatch(getItemsMedia(item));
+			dispatch(getItemsMedia(item, item.itemType));
 		}
 	});
 	return {
@@ -55,10 +55,10 @@ export function getSearchedItems(collectionItems, searchText) {
 			() => config.fetchAllChoices(queryParams);
 		return makeRequest()
 			.then(choiceData => {
-				const { data, totalCount, pageCount } = choiceData;
+				const { choices, totalCount, pageCount } = choiceData;
 				// since choices can vary by item type, attach it here
 				// and listen for it on Search Cards/Collection Sections
-				const dataWithItemType = data.map(d => {
+				const dataWithItemType = choices.map(d => {
 					d.itemType = getItemTypeFromRefName(d.refName);
 					return d;
 				});

@@ -54,3 +54,8 @@
 .list .Carousel .Caret.left {
 	margin-top: -14px;
 }
+
+.SearchCard.list.is-item-page-film-card .media .Carousel {
+	height: 184px;
+	width: 245px;
+}

@@ -19,6 +19,7 @@ class CollectionItemPageMenu extends Component {
 	render() {
 		const { headers, isScrollNav } = this.props;
 		const orderedHeaders = headers.filter(h => !!h);
+		// TODO: known attempted memory leak with Scrollspy. Report/fix.
 		return (
 			<Scrollspy
 				className={isScrollNav ? 'CollectionItemPageMenu fixed' : 'CollectionItemPageMenu'}

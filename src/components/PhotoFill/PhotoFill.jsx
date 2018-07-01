@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './PhotoFill.css';
 
 const fallbackImgSrc = require('../Carousel/empty-still.png');
 
-const PhotoFill = ({src, className, width, children, height}) => {
-	return (
-		<div className={[
-				className,
-				'PhotoFill'
-			].join(' ')}
-			style={{
-			backgroundImage: src.indexOf('empty-still') != -1 ? src : `url(${src}), url(/images/loading-still.png)`,
-			width: width || '100%',
-			height: height || '100%'
-		}}>
-			{children}
-		</div>
-	)
-};
+const EMPTY_STILL_PATH = 'images/empty-still.png';
+
+class PhotoFill extends Component {
+	render() {
+		// TODO handle 403s, loading errors
+		const {src, className, width, children, height} = this.props;
+		return (
+			<div className={[
+					className,
+					'PhotoFill'
+				].join(' ')}
+				style={{
+				backgroundImage: src === EMPTY_STILL_PATH ? src : `url(${src}), url(/images/loading-still.png)`,
+				width: width || '100%',
+				height: height || '100%'
+			}}>
+				{children}
+			</div>
+		);
+	}
+}
 
 export default PhotoFill;

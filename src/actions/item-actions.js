@@ -9,6 +9,7 @@ import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData, toDisplayName } from '../utils/parse-data';
 import { getItemMedia } from './item-media-actions';
+import { getItemsMedia } from './items-media-actions';
 
 function fetchItem() {
 	return {
@@ -18,27 +19,19 @@ function fetchItem() {
 
 function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions) {
 	const item = toItemData(payload);
-	// HACKS FOR CSPACE
-	// films: workauthorities
-	// filmmakers: personauthorities
-	// ephemera: 
-	// programs: 
-	// events/exhibiitons: 
-	// news: 
-
-	// CSPACE: parse name
-	// TODO: MARKDOWN RENDERING
 	item.termDisplayName = toDisplayName(item.refName);
 	if (!item.termDisplayName) console.error('Should have a displayName field. Check refName field parsing');
 	const filmmakerRefName = item &&
 					item.creatorGroupList &&
 					item.creatorGroupList.creatorGroup &&
 					item.creatorGroupList.creatorGroup.creator;
+
 	// display filmmaker info (for films)
 	if (filmmakerRefName) dispatch(getItemFilmmaker(
 		filmmakerRefName,
 		shortIdentifier,
 		filmmakerOptions));
+
 	if (collectionItems === 'filmmakers') {
 		// show films by this filmmaker
 		dispatch(getItemFilms({
@@ -48,10 +41,7 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 		}));
 	} else if (collectionItems === 'films') {
 		// show film stills on film
-		dispatch(getItemMedia({
-			refName: item.refName,
-			isFilmStills: true
-		}));
+		dispatch(getItemsMedia(item, 'film'));
 	}
 	return {
 		type: RECEIVED_ITEM,

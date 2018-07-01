@@ -68,6 +68,10 @@
 	font-size: 26px;
 	line-height: 1.77;
 	margin-bottom: 0 !important;
+	white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .CollectionItemHeader.collapsed .metadata {

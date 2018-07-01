@@ -105,8 +105,8 @@ class CSpacePhotoFill extends Component {
 				className={['CSpacePhotoFill', className].join(' ')}
 				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, adjustedPhotoSize)}
 				onerror={this.onLoadError}
-				width={canvasSize && canvasSize.width || width}
-				height={canvasSize && canvasSize.height || height}
+				width={canvasSize && (canvasSize.width + 'px') || width}
+				height={canvasSize && (canvasSize.height + 'px') || height}
 			>
 				{children}
 			</PhotoFill>

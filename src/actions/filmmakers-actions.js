@@ -4,6 +4,8 @@ import {
 	FAILED_FILMMAKERS
 } from '../actionTypes';
 import { config } from '../store';
+import { toItemsData } from '../utils/parse-data';
+import { getItemsMedia } from './items-media-actions';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -14,12 +16,14 @@ function fetchFilmmakers() {
 	}
 }
 
-function receiveFilmmakers(payload) {
-	let data = payload['ns2:abstract-common-list']['list-item'];
-	if (data.length === undefined) data = [data];
+function receiveFilmmakers(dispatch, payload) {
+	const items = toItemsData(payload);
+	items.forEach(item => {
+		dispatch(getItemsMedia(item, 'filmmaker'));
+	});
 	return {
 		type: RECEIVED_FILMMAKERS,
-		data
+		data: items
 	}
 }
 
@@ -43,7 +47,7 @@ export function getFilmmakers(queryParams) {
 				return response.json();
 			})
 			.then(data => {
-				dispatch(receiveFilmmakers(data))
+				dispatch(receiveFilmmakers(dispatch, data))
 			})
 			.catch(error =>
 				dispatch(failFilmmakers(error))

@@ -89,7 +89,7 @@ class TypeAheadChoices extends Component {
 				<li
 					className="TypeAheadChoice d-flex"
 					key={i}
-					title={`${collectionItemsToSingularTitlecased(collectionItems || choice.collectionItems)}: ${choice.termDisplayName}`}
+					title={choice.termDisplayName}
 					onClick={(e) => {
 						e.stopPropagation();
 						const path = `/collection/${collectionItems || choice.collectionItems}/${getShortIdentifierFromRefName(choice.refName)}`;

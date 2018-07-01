@@ -4,39 +4,50 @@ import {
 	FAILED_ITEMS_MEDIA
 } from '../actionTypes';
 import { config } from '../store';
-import { toItemsData } from '../utils/parse-data';
+import { toItemsData,
+	getShortIdentifierFromRefName,
+	getItemTypeFromRefName
+} from '../utils/parse-data';
 
-function fetchFilmStills(itemCsid) {
+const fetchedMediaForItemCsids = [];
+const fetchedMediaForShortIdentifiers = [];
+
+function fetchItemsMedia(shortIdentifier) {
 	return {
 		type: FETCH_ITEMS_MEDIA,
-		itemCsid
+		shortIdentifier
 	}
 }
 
-function receiveFilmStills(itemCsid, data) {
+function receiveItemsMedia(shortIdentifier, data) {
 	return {
 		type: RECEIVED_ITEMS_MEDIA,
-		itemCsid,
+		shortIdentifier,
 		data
 	};
 }
 
-function failedFilmStills(itemCsid, error) {
+function failedItemsMedia(shortIdentifier, error) {
 	return {
 		type: FAILED_ITEMS_MEDIA,
-		itemCsid,
+		shortIdentifier,
 		error
 	}
 }
 
-export function getItemsMedia(item) {
-	fetchFilmStills(item.csid);
+export function getItemsMedia(item,
+	itemType=getItemTypeFromRefName(item.refName),
+	isItemsMedia=true) {
+	const shortIdentifier = getShortIdentifierFromRefName(item.refName);
+	const queryParams = {
+		refName: item.refName,
+		pgSz: 3,
+		isItemsMedia: itemType === 'film' || itemType === 'filmmaker',
+		isByFilmmaker: itemType === 'filmmaker'
+	};
 	return dispatch => {
-		config.fetchItemMedia({
-			refName: item.refName,
-			pgSz: 3,
-			isFilmStills: true
-		})
+		if (fetchedMediaForShortIdentifiers.includes(shortIdentifier)) return;
+		config.fetchItemMedia(queryParams)
 		.then(response => {
 			if (response.status >= 400) {
 				// fail silently (still return rest of page)
@@ -45,9 +56,10 @@ export function getItemsMedia(item) {
 			return response.json();
 		})
 		.then(payload => {
+			fetchedMediaForShortIdentifiers.push(shortIdentifier);
 			const media = toItemsData(payload, true);
-			dispatch(receiveFilmStills(item.csid, media));
+			dispatch(receiveItemsMedia(shortIdentifier, media));
 		})
-		.catch(err => dispatch(failedFilmStills(err)));
+		.catch(err => dispatch(failedItemsMedia(shortIdentifier, err)));
 	}
 }

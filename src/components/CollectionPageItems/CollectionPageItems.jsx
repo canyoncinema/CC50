@@ -48,7 +48,7 @@ class CollectionPageItems extends Component {
 						<LoadingMessage />
 						: null
 					}
-					{	!isLoading && !error && !context.searchedText ?
+					{	!isLoading && !error && !context.searchedItemsSearchedText ?
 						<CollectionSort
 							collectionItems={collectionItems}
 							itemLabel={toCollectionSearchLabel(collectionItems)} />

@@ -25,7 +25,7 @@ function receiveItemsWithMedia(data) {
 
 function receiveItems(dispatch, collectionItems, payload, sort) {
 	let items = toItemsData(payload);
-	if (collectionItems === 'films') {
+	if (collectionItems === 'films' || collectionItems == 'filmmakers') {
 		// return up to 3 film stills per film item
 		// and indicate num of stills per film (for carousel 'see more')
 		items.forEach(item => {

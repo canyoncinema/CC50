@@ -8,20 +8,20 @@ const initialState = {
 
 const itemMediaReducer = (state=initialState, action) => {
 	switch (action.type) {
-		case types.FETCH_ITEMS_MEDIA:
+		case types.FETCH_FILMMAKERS_MEDIA:
 			return Object.assign(state, {
 				isLoadingByShortIdentifier: new Map(state.isLoadingByShortIdentifier)
-					.set(action.shortIdentifier, true)
+					.set(action.itemCsid, true)
 			});
-		case types.FAILED_ITEMS_MEDIA:
+		case types.FAILED_FILMMAKERS_MEDIA:
 			return Object.assign(state, {
 				errorByShortIdentifier: new Map(state.errorByShortIdentifier)
-					.set(action.shortIdentifier, action.error)
+					.set(action.itemCsid, action.error)
 			});
-		case types.RECEIVED_ITEMS_MEDIA:
+		case types.RECEIVED_FILMMAKERS_MEDIA:
 			return Object.assign(state, {
 				dataByShortIdentifier: new Map(state.dataByShortIdentifier)
-					.set(action.shortIdentifier, action.data)
+					.set(action.itemCsid, action.data)
 			});
 		default:
 			return state;
