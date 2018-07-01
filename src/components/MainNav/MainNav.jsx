@@ -49,7 +49,7 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 							<NavLink href="/support">Support Us</NavLink>
 						</NavItem>
 						<NavItem className="ml-auto p-2">
-							<NavLink href="#">canyoncinema.com <IconNewWindow /></NavLink>
+							<a target="_blank" href="//canyoncinema.com">canyoncinema.com <IconNewWindow /></a>
 						</NavItem>
 					</Nav>
 			</Navbar>
