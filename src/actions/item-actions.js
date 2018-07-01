@@ -8,7 +8,6 @@ import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData, toDisplayName } from '../utils/parse-data';
-import { getItemMedia } from './item-media-actions';
 import { getItemsMedia } from './items-media-actions';
 
 function fetchItem() {

@@ -8,10 +8,11 @@ import CreatorLink from '../CreatorLink/CreatorLink';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import FilmTags from '../FilmTags/FilmTags';
 import ThumbnailCarousel from '../ThumbnailCarousel/ThumbnailCarousel';
+import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
 	item: state.item.data,
-	itemMedia: state.item.media.data,
+	itemMedia: state.itemsMedia.dataByShortIdentifier.get(ownProps.shortIdentifier),
 	isLoading: state.item.isLoading,
 	itemCreator: state.item.data &&
 		state.item.data.creatorGroupList &&
