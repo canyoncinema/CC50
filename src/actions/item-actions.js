@@ -35,7 +35,7 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 		// show films by this filmmaker
 		dispatch(getItemFilms({
 			filmmakerRefName: item.refName,
-			pgSz: 40,
+			pgSz: 39,
 			exceptShortIdentifier: null
 		}));
 	} else if (collectionItems === 'films') {

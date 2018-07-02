@@ -30,11 +30,11 @@ class CollectionPageHome extends Component {
   componentDidMount() {
     this.props.getFilmmakers({
       pgSz: 3,
-      'persons:sortBy': 'addedDate+DESC'
+      // 'persons:sortBy': 'addedDate+DESC'
     });
     this.props.getFilms({
       pgSz: 3,
-      'works:sortBy': 'addedDate+DESC'
+      // 'works:sortBy': 'addedDate+DESC'
     });
   }
 

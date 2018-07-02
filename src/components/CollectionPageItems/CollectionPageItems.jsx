@@ -23,15 +23,20 @@ const mapStateToProps = state => ({
 });
 
 class CollectionPageItems extends Component {
+	queryParams = (props) => ({
+		pgSz: 39,
+		// sortBy: props.sortVal
+	})
+
 	componentDidMount() {
-    this.props.getItems(this.props.collectionItems, this.props.sortVal);
+    this.props.getItems(this.props.collectionItems, this.queryParams(this.props));
   }
 
   componentWillReceiveProps(nextProps) {
   	if (nextProps.collectionItems !== this.props.collectionItems ||
   			nextProps.sortVal !== this.props.sortVal) {
   		// change items shown
-  		this.props.getItems(nextProps.collectionItems, nextProps.sortVal);
+  		this.props.getItems(nextProps.collectionItems, this.queryParams(nextProps));
   	}
   }
 

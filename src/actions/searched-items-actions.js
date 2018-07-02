@@ -44,7 +44,7 @@ function failSearchedItems(error) {
 
 export function getSearchedItems(collectionItems, searchText) {
 	const queryParams = {
-		pgSz: 40,
+		pgSz: 39,
 		kw: searchText
 	};
 	console.log('getSearchedItems', collectionItems, searchText);

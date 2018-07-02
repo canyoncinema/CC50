@@ -187,6 +187,7 @@ function CollectionItemPage(ComposedComponent) {
 										<ComposedComponent
 											item={item}
 											viewMode={viewMode}
+											shortIdentifier={shortIdentifier}
 											setViewMode={this.setViewMode}
 											conditionallyShow={this.conditionallyShow}
 											singularItemForm={singularItemForm} />
