@@ -28,13 +28,17 @@ class ClampedDescription extends Component {
 	  	// at least on firefox, cannot take (any?) styles like pre-wrap
 	  	// -> omit classname entirely to be safe
 	  	const { children, title, maxLines } = this.props;
+	  	if (this.props.maxLines === 1) {
+	  		return (
+	  			<div className="ClampedDescription single-line-ellipsed">
+	  				{children}
+	  			</div>
+	  		);
+	  	}
 	  	return (
 		  	<Dotdotdot
 					title={title}
-					className={[
-						'ClampedDescription',
-						this.props.maxLines === 1 ? 'single-line-ellipsed' : ''
-					].join(' ')}
+					className="ClampedDescription"
 					clamp={maxLines}>
 					{children}
 				</Dotdotdot>
