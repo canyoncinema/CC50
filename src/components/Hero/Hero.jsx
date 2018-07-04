@@ -23,7 +23,7 @@ class Hero extends Component {
           <VideoCover
             videoOptions={{
               id: 'hero-video',
-              src: `Home_${videoIndex}.mp4`,
+              src: `https://s3-us-west-1.amazonaws.com/cc50/Home_${videoIndex}.mp4`,
               title: 'Canyon Cinema',
               autoPlay: true,
               muted: 'muted',
