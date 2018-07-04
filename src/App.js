@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import {
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import store, { history } from './store';
@@ -64,12 +65,12 @@ class App extends Component {
                   collectionItems={match.params.collectionItems}
                   itemId={match.params.itemId} />
               } />
-            <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera)?*" render={({match, location}) => {
+            <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera|films/|filmmakers/|programs/|ephemera/)?*" render={({match, location}) => {
               const searchedText = getQueryVal(location.search, 'search');
               const viewMode = getQueryVal(location.search, 'view') || 'grid';
               return <CollectionPage
                 match={match}
-                nonCollectionItemsString={match.params[1]}
+                nonCollectionItemsString={match.params[1].replace(/^\//,'')}
                 collectionItems={match.params.collectionItems}
                 searchedText={searchedText}
                 viewMode={viewMode}>

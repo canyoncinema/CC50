@@ -96,7 +96,6 @@ class CollectionPage extends Component {
 			viewMode
 		} = this.state;
 		// TODO PAGINATE
-
 		return (
 			<CollectionContext.Provider value={this.state}>
 				<div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
