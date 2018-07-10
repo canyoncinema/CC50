@@ -132,7 +132,7 @@
 	margin-right: 25px;
 }
 
-.SearchCard .Carousel {
+.SearchCard .CoverCarousel {
 	height: 270px;
 }
 
@@ -152,7 +152,7 @@
 	height: 105px;
 }
 
-.SearchCard.list .media .Carousel {
+.SearchCard.list .media .CoverCarousel {
 	height: 105px;
 	width: 140px;
 }

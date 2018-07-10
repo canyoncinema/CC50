@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import PhotoFill from '../PhotoFill/PhotoFill';
+import PhotoFill, { EMPTY_STILL_PATH } from '../PhotoFill/PhotoFill';
 
 const ORIGINAL_PHOTO_SIZE_SUFFIX = '_o';
 
@@ -98,7 +98,7 @@ class CSpacePhotoFill extends Component {
 		// SPEC: if image fails to load, go next size up
 		// if that fails to load, return CarouselPhotoFiller
 		if (!blobCsid) {
-			return <PhotoFill src="images/empty-still.png" />
+			return <PhotoFill src={EMPTY_STILL_PATH} />
 		}
 		return (
 			<PhotoFill

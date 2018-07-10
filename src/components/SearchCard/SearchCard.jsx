@@ -11,7 +11,7 @@ import FilmmakerContent from './FilmmakerContent';
 import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
-import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/Carousel';
+import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/CoverCarousel';
 import { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
 import { blobCsidToSrc, getShortIdentifierFromRefName } from '../../utils/parse-data';
 

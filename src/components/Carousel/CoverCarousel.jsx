@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import './Carousel.css';
+import './CoverCarousel.css';
 import PropTypes from 'prop-types';
 
 import Caret from '../Caret/Caret';
 import CSpacePhotoFill from '../CSpacePhotoFill/CSpacePhotoFill';
-import PhotoFill from '../PhotoFill/PhotoFill';
+import PhotoFill, { EMPTY_STILL_PATH } from '../PhotoFill/PhotoFill';
 import CarouselShowMoreForeground from './CarouselShowMoreForeground';
 
 export const MAX_CAROUSEL_IMAGES = 3;
 
 
-const CarouselPhotoFiller = ({id, bgPhotoSrc, title}) => {
+const CarouselShowMoreSlide = ({id, bgPhotoSrc, title}) => {
 	return (
 		<PhotoFill
-			className="CarouselPhotoFiller"
+			className="CarouselShowMoreSlide"
 			src={bgPhotoSrc}
 			width="100%"
 			height="100%">
@@ -22,7 +22,7 @@ const CarouselPhotoFiller = ({id, bgPhotoSrc, title}) => {
 	);
 };
 
-CarouselPhotoFiller.propTypes = {
+CarouselShowMoreSlide.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	bgPhotoSrc: PropTypes.string.isRequired
@@ -115,10 +115,10 @@ class Carousel extends Component {
 		let activePhotoSrc;
 		if (photoSrces) {
 			activePhotoSrc = photoSrces.length ? photoSrces[activePhotoIndex]
-			: '/images/empty-still.png';
+			: EMPTY_STILL_PATH;
 		}
 		return (
-			<div className="Carousel">
+			<div className="CoverCarousel">
 			{
 				(photoSrces && photoSrces.length > 1) ||
 				(blobCsids && blobCsids.length > 1) ?
@@ -140,7 +140,7 @@ class Carousel extends Component {
 					<CarouselShowMoreForeground title={title} />
 				</CSpacePhotoFill>
 				: showViewMore ?
-				<CarouselPhotoFiller
+				<CarouselShowMoreSlide
 					id={String(id)}
 					title={title}
 					bgPhotoSrc={activePhotoSrc} />

@@ -1,18 +1,18 @@
-.Carousel {
+.CoverCarousel {
 	width: 100%;
 	position: relative;
 	cursor: pointer;
 	background-color: #8b8b8b;
 }
 
-.Carousel .nav {
+.CoverCarousel .nav {
 	position: absolute;
 	top: 50%;
 	left: 0;
 	right: 0;
 }
 
-.Carousel .Caret {
+.CoverCarousel .Caret {
 	position: absolute;
 	top: 0;
 	opacity: 0.66;
@@ -20,42 +20,42 @@
 	cursor: pointer;
 }
 
-.Carousel .Caret:hover,
-.Carousel .Caret:focus {
+.CoverCarousel .Caret:hover,
+.CoverCarousel .Caret:focus {
 	opacity: 1;
 } 
 
-.Carousel .Caret.left {
+.CoverCarousel .Caret.left {
 	left: 0;
 }
 
-.Carousel .Caret.right {
+.CoverCarousel .Caret.right {
 	right: 0;
 }
 
-.CarouselPhotoFiller {
+.CarouselShowMoreSlide {
   height: 100%;
   text-align: center;
 }
 
-.CarouselPhotoFiller a h4 {
+.CarouselShowMoreSlide a h4 {
 	color: #ffffff;
 }
 
-.CarouselPhotoFiller a p {
+.CarouselShowMoreSlide a p {
 	color: rgba(255, 255, 255, 0.5);
 	margin-bottom: 3px;
 }
 
 /* TODO: reorder CSS */
-.list .Carousel .Caret.right {
+.list .CoverCarousel .Caret.right {
 	margin-top: -14px;
 }
-.list .Carousel .Caret.left {
+.list .CoverCarousel .Caret.left {
 	margin-top: -14px;
 }
 
-.SearchCard.list.is-item-page-film-card .media .Carousel {
+.SearchCard.list.is-item-page-film-card .media .CoverCarousel {
 	height: 184px;
 	width: 245px;
 }

@@ -3,7 +3,8 @@ import './PhotoFill.css';
 
 const fallbackImgSrc = require('../Carousel/empty-still.png');
 
-const EMPTY_STILL_PATH = 'images/empty-still.png';
+export const EMPTY_STILL_PATH = '../images/empty-still.png';
+const LOADING_STILL_PATH = '../images/loading-still.png';
 
 class PhotoFill extends Component {
 	render() {
@@ -15,7 +16,7 @@ class PhotoFill extends Component {
 					'PhotoFill'
 				].join(' ')}
 				style={{
-				backgroundImage: src && src !== EMPTY_STILL_PATH ? `url(${src}), url(/images/loading-still.png)` : null,
+				backgroundImage: src && src !== EMPTY_STILL_PATH ? `url(${src}), url(${LOADING_STILL_PATH})` : `url(${EMPTY_STILL_PATH})`,
 				width: !isNaN(width) ? width + 'px' : width ? width : '100%',
 				height: !isNaN(height) ? height + 'px' : height ? height : '100%'
 			}}>
