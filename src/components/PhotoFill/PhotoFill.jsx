@@ -9,12 +9,17 @@ const LOADING_STILL_PATH = '../images/loading-still.png';
 class PhotoFill extends Component {
 	render() {
 		// TODO handle 403s, loading errors
-		const {src, className, width, children, height} = this.props;
+		const {src,
+			onClick, onMouseEnter, onMouseLeave,
+			className, width, children, height} = this.props;
 		return (
 			<div className={[
 					className,
 					'PhotoFill'
 				].join(' ')}
+				onClick={onClick}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
 				style={{
 				backgroundImage: src && src !== EMPTY_STILL_PATH ? `url(${src}), url(${LOADING_STILL_PATH})` : `url(${EMPTY_STILL_PATH})`,
 				width: !isNaN(width) ? width + 'px' : width ? width : '100%',

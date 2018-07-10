@@ -10,7 +10,20 @@ const PAGE_NUM_MEDIA = 1; // page by this # of media items on arrow press
 
 class ThumbnailCarousel extends Component {
 	state = {
-		page: 0
+		page: 0,
+		pagedPage: 0 // from hitting the carets
+	}
+
+	onMouseEnterPhoto = (page) => {
+		this.setState({
+			page
+		});
+	}
+
+	onMouseLeavePhoto = () => {
+		this.setState({
+			page: this.state.pagedPage
+		});	
 	}
 
 	render() {
@@ -19,9 +32,9 @@ class ThumbnailCarousel extends Component {
 		let { media } = this.props;
 		if (!media.length) return null;
 
-		const { page } = this.state;
+		const { page, pagedPage } = this.state;
 
-		// TODO: DEV ONLY
+		// DEV ONLY
 		// media = media.concat(media);
 
 		const hasMore = media.length > 4;
@@ -40,13 +53,17 @@ class ThumbnailCarousel extends Component {
 							].join(' ')}>
 						<div className="nav-photos"
 							style={{
-								marginTop: -1 * (page * MEDIA_HEIGHT) + 'px'
+								marginTop: -1 * (pagedPage * MEDIA_HEIGHT) + 'px'
 							}}>
 						{
 							media.map((m, i) =>
 								<CSpacePhotoFill key={i}
 									canvasSize={CSpaceCanvasSize.thumbnail}
+									className={page === i ? 'active' : null}
 									blobCsid={m.blobCsid}
+									onClick={() => console.log('TODO: FullSizedCarousel')}
+									onMouseEnter={() => this.onMouseEnterPhoto(i)}
+									onMouseLeave={this.onMouseLeavePhoto}
 								/>
 							)
 						}
@@ -54,22 +71,24 @@ class ThumbnailCarousel extends Component {
 						{
 							hasMore && (lastPage = Math.ceil(media.length / PAGE_NUM_MEDIA) - 1) ?
 							<div class="nav-buttons">
+								<Caret
+									isDisabled={ pagedPage === 0 }
+									key={0} direction="up" height="14px"
+									onClick={() => pagedPage !== firstPage && this.setState({
+										page: page - 1,
+										pagedPage: page - 1
+									})}
+								/>
 								<div className="top-fade" />
 								<Caret
-									isDisabled={ page === 0 }
-									key={0} direction="up" height="14px"
-									onClick={() => page !== firstPage && this.setState({
-										page: page - 1
+									isDisabled={ pagedPage >= lastPage }
+									key={1} direction="down" height="14px"
+									onClick={() => pagedPage < lastPage && this.setState({
+										page: page + 1,
+										pagedPage: page + 1
 									})}
 								/>
 								<div className="bottom-fade" />
-								<Caret
-									isDisabled={ page >= lastPage }
-									key={1} direction="down" height="14px"
-									onClick={() => page < lastPage && this.setState({
-										page: page + 1
-									})}
-								/>
 							</div>
 							: null
 							

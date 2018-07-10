@@ -33,6 +33,11 @@
 	margin-left: 20px;
 }
 
+.ThumbnailCarousel .top-fade,
+.ThumbnailCarousel .bottom-fade {
+	pointer-events: none;
+}
+
 .collapsed .ThumbnailCarousel .carousel.has-more .top-fade {
 	transform: rotate(90deg);
 	left: 0;
@@ -165,7 +170,7 @@
 .ThumbnailCarousel .Caret[disabled]:hover,
 .ThumbnailCarousel .Caret[disabled]:focus,
 .ThumbnailCarousel .Caret[disabled]:active {
-	opacity: 0.33;
+	display: none;
 
 	cursor: auto;
 }
@@ -183,8 +188,12 @@
 	cursor: pointer;
 }
 
-.ThumbnailCarousel .carousel:hover .PhotoFill {
-	opacity: 0.66;
+.ThumbnailCarousel .carousel:hover .PhotoFill:not(.active) {
+	opacity: 0.15;
+}
+
+.ThumbnailCarousel .PhotoFill {
+	transition: opacity 0.33 linear;
 }
 
 .ThumbnailCarousel .carousel:hover .PhotoFill:hover {

@@ -91,7 +91,10 @@ class CSpacePhotoFill extends Component {
 			children,
 			canvasSize,
 			width,
-			height
+			height,
+			onClick,
+			onMouseEnter,
+			onMouseLeave
 		} = this.props;
 		const { adjustedPhotoSize } = this.state;
 
@@ -102,11 +105,14 @@ class CSpacePhotoFill extends Component {
 		}
 		return (
 			<PhotoFill
+				onClick={onClick}
 				className={['CSpacePhotoFill', className].join(' ')}
 				src={CSpacePhotoFill.blobCsidToSrc(blobCsid, adjustedPhotoSize)}
 				onerror={this.onLoadError}
 				width={canvasSize && (canvasSize.width + 'px') || width}
 				height={canvasSize && (canvasSize.height + 'px') || height}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
 			>
 				{children}
 			</PhotoFill>
