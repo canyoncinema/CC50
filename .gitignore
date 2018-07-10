@@ -3,6 +3,8 @@ yarn.lock
 # dependencies
 /node_modules
 /cc50
+/cc50/
+cc50
 # testing
 /coverage
 

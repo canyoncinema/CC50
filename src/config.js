@@ -287,8 +287,43 @@ class Config {
 		});
 	}
 
-	fetchSpotlight() {
-		// SPEC: 3 randomized items
+	MIN_MEDIA_COUNT = 321
+
+	fetchSpotlightMediaItems() {
+		// SPEC: 3 randomized items on media
+		let mediaItems = [];
+		let totalItems = this.MIN_MEDIA_COUNT;
+		const queryParams = () => ({
+			pgSz: 1,
+			pgNum: Math.ceil(Math.random() * Number(totalItems))
+		});
+
+		const fetchSpotlightMediaItem = () =>
+			fetch(encodeURI(this.getMediaUrl(queryParams())), { headers: this.authHeaders });
+
+		const getSpotlightMediaItem = response => {
+			return new Promise((resolve, reject) => {
+				if (response.status >= 400) {
+					reject('Bad response from server: ' + response.status);
+				}
+				response.json()
+					.then(payload => {
+						totalItems = payload['ns2:abstract-common-list'].totalItems;
+						const items = toItemsData(payload, true);
+						resolve(items[0]);
+					})
+					.catch(err => reject(err));
+			})
+			.then(item => mediaItems.push(item));
+		};
+
+		return fetchSpotlightMediaItem()
+			.then(response => getSpotlightMediaItem(response))
+			.then(fetchSpotlightMediaItem)
+			.then(response => getSpotlightMediaItem(response))
+			.then(fetchSpotlightMediaItem)
+			.then(response => getSpotlightMediaItem(response))
+			.then(() => mediaItems);
 	}
 
 	get authHeaders() {

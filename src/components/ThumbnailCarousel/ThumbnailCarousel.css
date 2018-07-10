@@ -1,5 +1,6 @@
 .ThumbnailCarousel {
 	font-size: 0;
+	position: relative;
 }
 
 .ThumbnailCarousel > * {
@@ -27,18 +28,95 @@
 	margin-right: 20px;
 }
 
+.ThumbnailCarousel .carousel.order-1 {
+	margin-right: 0;
+	margin-left: 20px;
+}
+
+.collapsed .ThumbnailCarousel .carousel.has-more .top-fade {
+	transform: rotate(90deg);
+	left: 0;
+	top: 14px;
+	bottom: 0;
+}
+
+.collapsed .ThumbnailCarousel .nav-buttons {
+	display: none !important;
+}
+
+.collapsed .ThumbnailCarousel .Caret.up {
+	transform: rotate(90deg);
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 30px;
+}
+
+.collapsed .ThumbnailCarousel .carousel {
+	width: 350px;
+	overflow: hidden;
+	padding-left: 30px;
+}
+
+.collapsed .ThumbnailCarousel .carousel:nth-child(3n+3) {
+	margin-right: 0;
+	margin-bottom: 0;
+}
+
+.collapsed .ThumbnailCarousel .carousel.has-more .bottom-fade {
+	transform: rotate(-90deg);
+	right: -20px;
+	top: 13px;
+	bottom: 0;
+}
+
+.collapsed .ThumbnailCarousel .Caret.down {
+	transform: rotate(-90deg);
+	width: 30px;
+	right: -30px;
+	top: 0;
+}
+
+.collapsed .ThumbnailCarousel .carousel .PhotoFill {
+	display: inline-block !important;
+	margin-left: 27px;
+}
+
+.collapsed .ThumbnailCarousel .nav-photos {
+	white-space: nowrap;
+}
+
 .ThumbnailCarousel .carousel.has-more .bottom-fade {
+	bottom: 0;
   width: 80px;
-  height: 43px;
+  height: 40px;
   background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), #231f20);
   background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), var(--black));
 }
 
 .ThumbnailCarousel .carousel.has-more .top-fade {
+	top: 0;
   width: 80px;
-  height: 43px;
+  height: 40px;
   background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), #231f20);
   background-image: linear-gradient(to bottom, rgba(35, 31, 32, 0), rgba(35, 31, 32, 0.05), var(--black));
+  transform: rotate(180deg);
+}
+
+.ThumbnailCarousel .top-fade,
+.ThumbnailCarousel .bottom-fade {
+	position: absolute;
+}
+
+.ThumbnailCarousel .nav-photos {
+	overflow: hidden;
+	margin-top: 0;
+	transition: margin-top 0.33s ease-in-out;
+}
+
+.ThumbnailCarousel .carousel.has-more {
+	height: 255px;
+	overflow: hidden;
 }
 
 .ThumbnailCarousel .carousel .PhotoFill {
@@ -55,9 +133,60 @@
 	margin-bottom: 30px;
 }
 
+.ThumbnailCarousel .PhotoFill:last-child {
+	margin-bottom: 0;
+}
+
 .collapsed .ThumbnailCarousel .PhotoFill {
 	width: 80px !important;
 	height: 60px !important;
 	margin-top: 5px;
 	margin-bottom: 0;
+}
+
+.ThumbnailCarousel .Caret {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.75;
+  padding: 1rem 0;
+
+  cursor: pointer;
+}
+
+.ThumbnailCarousel .Caret:hover,
+.ThumbnailCarousel .Caret:active,
+.ThumbnailCarousel .Caret:focus {
+	opacity: 1;
+}
+
+.ThumbnailCarousel .Caret[disabled],
+.ThumbnailCarousel .Caret[disabled]:hover,
+.ThumbnailCarousel .Caret[disabled]:focus,
+.ThumbnailCarousel .Caret[disabled]:active {
+	opacity: 0.33;
+
+	cursor: auto;
+}
+
+.ThumbnailCarousel .Caret.up {
+	top: -1rem;
+}
+
+.ThumbnailCarousel .Caret.down {
+	bottom: -1rem;
+}
+
+.ThumbnailCarousel .carousel .PhotoFill {
+	transition: opacity 0.33 linear;
+	cursor: pointer;
+}
+
+.ThumbnailCarousel .carousel:hover .PhotoFill {
+	opacity: 0.66;
+}
+
+.ThumbnailCarousel .carousel:hover .PhotoFill:hover {
+	opacity: 1;
 }

@@ -6,12 +6,17 @@
 	padding: 0 8.5px;
 }
 
+.Caret {
+	display: inline-block;
+	text-align: center;
+}
+
 .Caret.down {
   /*transform: rotate(-270deg);*/
 }
 
 .Caret.up {
-  /*transform: rotate(-90deg);*/
+  transform: rotate(-180deg);
 }
 
 .Caret.left {

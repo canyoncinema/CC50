@@ -41,6 +41,9 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 	} else if (collectionItems === 'films') {
 		// show film stills on film
 		dispatch(getItemsMedia(item, 'film'));
+		item.creator = item.creatorGroupList &&
+			item.creatorGroupList.creatorGroup &&
+			item.creatorGroupList.creatorGroup.creator;
 	}
 	return {
 		type: RECEIVED_ITEM,

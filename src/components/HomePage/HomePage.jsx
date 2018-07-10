@@ -5,6 +5,7 @@ import './HomePage.css';
 
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
+import { getSpotlight } from '../../actions/spotlight-actions';
 // import Spotlight from '../Spotlight/Spotlight';
 import Button from '../Button/Button';
 import EventTiles from '../EventTiles/EventTiles';
@@ -31,10 +32,15 @@ const mapStateToProps = state => ({
   news: state.news.data,
   posts: state.posts.data,
   spotlight: state.spotlight.data
-})
+});
+
+const mapDispatchToProps = dispatch => ({
+  getSpotlight: () => dispatch(getSpotlight())
+});
 
 class HomePage extends Component {
   componentDidMount() {
+    this.props.getSpotlight();
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
@@ -172,4 +178,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -15,9 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
 	itemMedia: state.itemsMedia.dataByShortIdentifier.get(ownProps.shortIdentifier),
 	isLoading: state.item.isLoading,
 	itemCreator: state.item.data &&
-		state.item.data.creatorGroupList &&
-		state.item.data.creatorGroupList.creatorGroup &&
-		state.item.data.creatorGroupList.creatorGroup.creator
+		state.item.data.creator
 })
 
 class CollectionItemHeader extends Component {
@@ -82,7 +80,9 @@ class CollectionItemHeader extends Component {
 						hasSideComponent ?
 						<Col sm={6}>
 							<div className="d-flex">
-								<ThumbnailCarousel className="ml-auto" media={itemMedia} />
+								<ThumbnailCarousel
+									isCollapsed={isCollapsed}
+									className="ml-auto" media={itemMedia} />
 							</div>
 						</Col>
 						: null
