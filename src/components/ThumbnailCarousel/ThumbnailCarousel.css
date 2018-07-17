@@ -8,6 +8,11 @@
 	vertical-align: top;
 }
 
+.ThumbnailCarousel .PhotoFill {
+	background-position-y: top;
+	cursor: pointer;
+}
+
 .collapsed .ThumbnailCarousel > .carousel {
 	display: block;
 	width: 100%;

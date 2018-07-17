@@ -1,0 +1,45 @@
+.FullSizedCarousel {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(35, 31, 32, 0.9);
+	z-index: 999;
+	cursor: pointer;
+}
+
+.FullSizedCarousel img {
+	max-height: 600px; /* matches MAX_IMAGE_HEIGHT */
+	/*max-height: 90vh;*/
+	transition: max-height 0.33s linear;
+}
+
+.FullSizedCarousel .img-wrapper:not(.main-img-wrapper) img {
+	max-height: 315px !important;
+}
+
+.FullSizedCarousel .img-wrapper:first-child {
+	margin-left: 50vw;
+}
+
+.FullSizedCarousel .img-wrapper:last-child {
+	margin-right: 50vw;
+}
+
+.FullSizedCarousel .img-wrapper {
+  display: inline-block;
+  margin-right: 80px;
+}
+
+.FullSizedCarousel .main-img-wrapper {
+	box-shadow: 0 2px 74px 0 rgba(0, 0, 0, 0.5);
+	height: auto;
+}
+
+.FullSizedCarousel .media-list {
+	white-space: nowrap;
+	position: relative;
+	left: 0;
+	transition: left 0.33s linear;
+}

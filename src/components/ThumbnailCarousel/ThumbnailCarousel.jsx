@@ -2,11 +2,25 @@ import React, { Component } from 'react';
 import './ThumbnailCarousel.css';
 import PhotoFill from '../PhotoFill/PhotoFill';
 import Caret from '../Caret/Caret';
-import CSpacePhotoFill, { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
+import FullSizedCarousel from '../Carousel/FullSizedCarousel';
+import { connect } from 'react-redux';
+import CSpacePhotoFill from '../CSpacePhotoFill/CSpacePhotoFill';
+import { CSpaceCanvasSize } from '../CSpacePhoto/CSpacePhoto';
 import { blobCsidToSrc } from '../../utils/parse-data';
+import { hideFullSizedCarousel, setFullSizedCarouselPhoto } from '../../actions/full-sized-carousel-actions';
 
 const MEDIA_HEIGHT = 74; // pixels. Fixed by CSS styles.
 const PAGE_NUM_MEDIA = 1; // page by this # of media items on arrow press
+
+// document.body.classList.add('fixed')
+const mapStateToProps = state => ({
+	showFullSizedCarousel: state.fullSizedCarousel.show
+})
+
+const mapDispatchToProps = dispatch => ({
+	setFullSizedCarouselPhoto: (i) => dispatch(setFullSizedCarouselPhoto(i)),
+	hideFullSizedCarousel: () => dispatch(hideFullSizedCarousel())
+});
 
 class ThumbnailCarousel extends Component {
 	state = {
@@ -26,9 +40,16 @@ class ThumbnailCarousel extends Component {
 		});	
 	}
 
+	onClickPhoto = (i) => {
+		console.log('setFullSizedCarouselPhoto', i)
+		this.props.setFullSizedCarouselPhoto(i);
+	}
+
 	render() {
 
-		const { className, navDirection, isCollapsed } = this.props;
+		const { className, navDirection,
+			isCollapsed,
+			showFullSizedCarousel } = this.props;
 		let { media } = this.props;
 		if (!media.length) return null;
 
@@ -61,9 +82,10 @@ class ThumbnailCarousel extends Component {
 									canvasSize={CSpaceCanvasSize.thumbnail}
 									className={page === i ? 'active' : null}
 									blobCsid={m.blobCsid}
-									onClick={() => console.log('TODO: FullSizedCarousel')}
+									onClick={() => this.onClickPhoto(i)}
 									onMouseEnter={() => this.onMouseEnterPhoto(i)}
 									onMouseLeave={this.onMouseLeavePhoto}
+									onClickPhoto={() => this.onClickPhoto(i)}
 								/>
 							)
 						}
@@ -99,10 +121,18 @@ class ThumbnailCarousel extends Component {
 				<PhotoFill
 					src={blobCsidToSrc(media[(page * PAGE_NUM_MEDIA)].blobCsid, '360x270')}
 					height="254px"
+					onClick={() => this.onClickPhoto(page * PAGE_NUM_MEDIA)}
 					width="339px" />
+				{
+					!isCollapsed && showFullSizedCarousel ?
+					<FullSizedCarousel
+						media={media}
+					/>
+					: null
+				}
 			</div>
 		);
 	}
 }
 
-export default ThumbnailCarousel;
+export default connect(mapStateToProps, mapDispatchToProps)(ThumbnailCarousel);

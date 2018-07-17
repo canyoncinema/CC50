@@ -64,6 +64,10 @@
   --light-grey: #888888;
 }
 
+body.fixed {
+  overflow: hidden;
+}
+
 a {
   color: #a5721a;
   color: var(--gold);

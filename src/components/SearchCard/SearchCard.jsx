@@ -12,7 +12,7 @@ import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
 import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/CoverCarousel';
-import { CSpaceCanvasSize } from '../CSpacePhotoFill/CSpacePhotoFill';
+import { CSpaceCanvasSize } from '../CSpacePhoto/CSpacePhoto';
 import { blobCsidToSrc, getShortIdentifierFromRefName } from '../../utils/parse-data';
 
 const getPhotoSrcs = mediaObjs =>
