@@ -41,7 +41,6 @@ class ThumbnailCarousel extends Component {
 	}
 
 	onClickPhoto = (i) => {
-		console.log('setFullSizedCarouselPhoto', i)
 		this.props.setFullSizedCarouselPhoto(i);
 	}
 

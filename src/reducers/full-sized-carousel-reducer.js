@@ -30,6 +30,10 @@ function fullSizedCarousel(state=initialState, action) {
 			return Object.assign(state, {
 				itemAspects
 			});
+		case types.OFFSET_FULL_SIZED_CAROUSEL_PHOTO:
+			return Object.assign(state, {
+				activeIndex: ((state.activeIndex + action.offset + action.totalCount)  % action.totalCount)
+			});
 		default:
 			return state;
 	}

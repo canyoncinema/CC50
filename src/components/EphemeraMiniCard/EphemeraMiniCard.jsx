@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 class EphemeraMiniCard extends Component {
 	render() {
 		const { item, shortIdentifier, title } = this.props;
-		console.log('EphemeraMiniCard', item);
 		return (
 			<Link to={`/collection/ephemera/${shortIdentifier}`}>
 				<div

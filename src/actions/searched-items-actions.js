@@ -47,7 +47,6 @@ export function getSearchedItems(collectionItems, searchText) {
 		pgSz: 39,
 		kw: searchText
 	};
-	console.log('getSearchedItems', collectionItems, searchText);
 	return (dispatch) => {
 		dispatch(fetchSearchedItems());
 		const makeRequest = collectionItems ?

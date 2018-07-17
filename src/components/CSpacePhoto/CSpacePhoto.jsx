@@ -32,7 +32,7 @@ export const CSpaceOrderedSizes = [{
 }];
 
 export const blobCsidToSrc = (blobCsid, canvasSize, isOriginalSize) =>
-	`https://s3-us-west-2.amazonaws.com/cc50-images/${
+	`http://cc50-test-1.azureedge.net/${
 		isOriginalSize || canvasSize.name === 'original' ?
 		'' : 'thumbs/'}` +
 	`${blobCsid}${(!isOriginalSize && canvasSize) ? canvasSize.suffix : ORIGINAL_PHOTO_SIZE_SUFFIX}` +

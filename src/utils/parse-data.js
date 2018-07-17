@@ -16,7 +16,7 @@ const ORIGINAL_PHOTO_SIZE_SUFFIX = 'o';
 // 170x128
 // 360x270
 export const blobCsidToSrc = (blobCsid, size) =>
-	`https://s3-us-west-2.amazonaws.com/cc50-images/thumbs/${blobCsid}${size ? '_' + size : ORIGINAL_PHOTO_SIZE_SUFFIX}.jpeg`;
+	`http://cc50-test-1.azureedge.net/thumbs/${blobCsid}${size ? '_' + size : ORIGINAL_PHOTO_SIZE_SUFFIX}.jpeg`;
 
 export const toItemData = (payload) => {
 	// expect item payload from CollectionSpace

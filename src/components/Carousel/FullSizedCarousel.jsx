@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { hideFullSizedCarousel,
 	setFullSizedCarouselPhoto,
+	offsetFullSizedCarouselPhoto,
 	setFullSizedCarouselItemAspect } from '../../actions/full-sized-carousel-actions';
 import './FullSizedCarousel.css';
 
@@ -21,7 +22,9 @@ const mapDispatchToProps = dispatch => ({
 	hideFullSizedCarousel: () =>
 		dispatch(hideFullSizedCarousel()),
 	setFullSizedCarouselItemAspect: (i, w, h) =>
-		dispatch(setFullSizedCarouselItemAspect(i, w, h))
+		dispatch(setFullSizedCarouselItemAspect(i, w, h)),
+	offsetFullSizedCarouselPhoto: (...args) =>
+		dispatch(offsetFullSizedCarouselPhoto(...args))
 });
 
 const BETWEEN_IMAGES_MARGIN_RIGHT = 80; // pixels
@@ -43,22 +46,27 @@ class FullSizedCarousel extends Component {
 
 	componentDidMount() {
 		document.body.classList.add('fixed');
-		console.log('max ht', Math.round(window.innerHeight * FULL_SIZED_IMG_HEIGHT_RATIO))
 		this.setState({
 			maxImageHeight: Math.max(600, Math.round(window.innerHeight * FULL_SIZED_IMG_HEIGHT_RATIO))
 		});
-    document.addEventListener('keydown', this.escFunction, false);
+    document.addEventListener('keydown', this.onKeydown, false);
 	}
 
 	componentWillUnmount() {
 		document.body.classList.remove('fixed');
-    document.removeEventListener('keydown', this.escFunction, false);
+    document.removeEventListener('keydown', this.onKeydown, false);
 	}
 
-  escFunction = event => {
+  onKeydown = event => {
     if (event.keyCode === 27) {
-      //Do whatever when esc is pressed
+    	// ESC
 			this.props.hideFullSizedCarousel();
+    } else if (event.keyCode === 37) {
+    	// LEFT ARROW
+    	this.props.offsetFullSizedCarouselPhoto(-1, this.props.media.length);
+    } else if (event.keyCode === 39) {
+    	// RIGHT ARROW
+    	this.props.offsetFullSizedCarouselPhoto(+1, this.props.media.length);
     }
   }
 
@@ -80,28 +88,20 @@ class FullSizedCarousel extends Component {
 		const { itemAspects, activeIndex } = this.props;
 		const { maxImageHeight } = this.state;
 		if (itemAspects.slice(0, activeIndex + 1).filter(x => x).length !== activeIndex + 1) return;
-		console.log('activeIndex', activeIndex);
 		let i = 0, totalOffset = 0;
 		while (i < activeIndex) {
-			console.log('i', i, 'aspect', itemAspects[i]);
 			if (itemAspects[i]) {
-				console.log('+offset', SHRUNK_IMAGE_HEIGHT * aspectRatio(itemAspects[i]));
 				totalOffset += SHRUNK_IMAGE_HEIGHT * aspectRatio(itemAspects[i]);
 				totalOffset += BETWEEN_IMAGES_MARGIN_RIGHT;
 			}
 			i++;
 		}
 		if (itemAspects[activeIndex]) {
-			console.log('+offset on active img',
-				maxImageHeight < itemAspects[activeIndex].height,
-				maxImageHeight * aspectRatio(itemAspects[activeIndex]) / 2,
-				itemAspects[activeIndex].width / 2)
 			// image will take maxImageHeight if it is smaller than actual image height
 			totalOffset += maxImageHeight < itemAspects[activeIndex].height ?
 				maxImageHeight * aspectRatio(itemAspects[activeIndex]) / 2 :
 				itemAspects[activeIndex].width / 2;
 		}
-		console.log('totalOffset', totalOffset);
 
 		return Math.round(totalOffset);
 	}
@@ -113,8 +113,6 @@ class FullSizedCarousel extends Component {
 			itemAspects
 		} = this.props;
 		const { maxImageHeight } = this.state;
-		console.log('itemAspects', itemAspects, 
-			'activeIndex', activeIndex);
 
 		return (
 			<div className="FullSizedCarousel list-center-wrapper"
