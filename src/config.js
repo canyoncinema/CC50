@@ -24,7 +24,7 @@ const config = {
 	production: {
 		username: process.env.REACT_APP_CC50_USERNAME_PRODUCTION,
 		password: process.env.REACT_APP_CC50_PASSWORD_PRODUCTION,
-		baseUrl: 'http://cs.cancf.com:8180/cspace-services',
+		baseUrl: 'http://beta.canyoncinema.com/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
