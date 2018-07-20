@@ -9,6 +9,7 @@ import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
 import { toItemData, toItemsData, toDisplayName } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
+import { wrappedFetch } from '../config';
 
 function fetchItem() {
 	return {
@@ -63,7 +64,7 @@ function failItem(error) {
 function getItemPromise(urn) {
 	const url = config.getUrlFromRefName(urn);
 	return new Promise((resolve, reject) => {
-		fetch(config.getUrlFromRefName(urn), { headers: config.authHeaders })
+		wrappedFetch(config.getUrlFromRefName(urn))
 			.then(response => {
 				if (response.status >= 400) {
 					reject('Bad response from server');

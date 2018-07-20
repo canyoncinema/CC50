@@ -5,8 +5,7 @@ import './HomePage.css';
 
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
-import { getSpotlight } from '../../actions/spotlight-actions';
-// import Spotlight from '../Spotlight/Spotlight';
+import Spotlight from '../Spotlight/Spotlight';
 import Button from '../Button/Button';
 import EventTiles from '../EventTiles/EventTiles';
 import DarkBox from '../DarkBox/DarkBox';
@@ -31,16 +30,10 @@ const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,
   news: state.news.data,
   posts: state.posts.data,
-  spotlight: state.spotlight.data
-});
-
-const mapDispatchToProps = dispatch => ({
-  getSpotlight: () => dispatch(getSpotlight())
 });
 
 class HomePage extends Component {
   componentDidMount() {
-    this.props.getSpotlight();
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
@@ -55,19 +48,19 @@ class HomePage extends Component {
     // Turn on when discover component is ready (posts are in)
     const discoverReady = false;
 
-    var spotlightData = [{
-      name: 'Portland (1996)',
-      note: 'Film by Greta Snider',
-      description: 'The film is a documentary road movie about travel, the fallibility of photographs, and the merging of memory and imagination. Three friends, including the lorem ipsum other text goes here.',
-    }, {
-      name: 'Scott Stark',
-      note: 'Filmmaker',
-      description: 'Scott Stark has made over 65 films and videos since the early 1980s, and has created numerous installations, performances and photo-collages as well. His work has shown nationally lorem ispuem other stuff'
-    }, {
-      name: 'Fake Fruit Factory (1986)',
-      note: 'By Chick Strand',
-      description: 'Intimate documentary about young women who make papier mache fruit and vegetables in a small factory in Mexico. They have a gringo boss, but the factory is owned by his Mexican wife lorem ipsum and stuff'      
-    }];
+    // var spotlightData = [{
+    //   name: 'Portland (1996)',
+    //   note: 'Film by Greta Snider',
+    //   description: 'The film is a documentary road movie about travel, the fallibility of photographs, and the merging of memory and imagination. Three friends, including the lorem ipsum other text goes here.',
+    // }, {
+    //   name: 'Scott Stark',
+    //   note: 'Filmmaker',
+    //   description: 'Scott Stark has made over 65 films and videos since the early 1980s, and has created numerous installations, performances and photo-collages as well. His work has shown nationally lorem ispuem other stuff'
+    // }, {
+    //   name: 'Fake Fruit Factory (1986)',
+    //   note: 'By Chick Strand',
+    //   description: 'Intimate documentary about young women who make papier mache fruit and vegetables in a small factory in Mexico. They have a gringo boss, but the factory is owned by his Mexican wife lorem ipsum and stuff'      
+    // }];
     return (
       <div className="HomePage">
         <Hero active={true}>
@@ -76,6 +69,7 @@ class HomePage extends Component {
           </div>
         </Hero>
         <div className="container padded-container">
+          <Spotlight />
           { upcomingEvents && upcomingEvents.length ?
             [
               <Row key={0}>
@@ -178,4 +172,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps)(HomePage);

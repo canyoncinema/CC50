@@ -1,7 +1,7 @@
 import * as types from '../actionTypes';
 
 const initialState = {
-	data: undefined,
+	data: [],
 	isLoading: false,
 	error: undefined,
 	items: [{

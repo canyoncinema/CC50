@@ -3,6 +3,7 @@ import {
 	RECEIVED_FILMMAKER,
 	FAILED_FILMMAKER
 } from '../actionTypes';
+import { wrappedFetch } from '../config';
 import { config } from '../store';
 
 function fetchFilmmakers() {
@@ -31,7 +32,7 @@ function failFilmmaker(error) {
 export function getFilmmaker(uri) {
 	return (dispatch) => {
 		dispatch(fetchFilmmakers())
-		return fetch(config.getUrl(uri), { headers: config.authHeaders })
+		return wrappedFetch(config.getUrl(uri))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilmmaker("Bad response from server"));

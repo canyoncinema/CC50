@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import './Spotlight.css';
+import { getSpotlight } from '../../actions/spotlight-actions';
 
 import Button from '../Button/Button';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
 
 const SpotlightListItem = ({isActive, name, note, description}) => {
+	console.log('SpotlightItem', arguments);
 	return (
 		<div className="container-fluid">
 			<Row className={`SpotlightListItem${isActive ? ' active' : ''}`}>
@@ -22,9 +26,36 @@ const SpotlightListItem = ({isActive, name, note, description}) => {
 	);
 };
 
+const mapStateToProps = state => ({
+  spotlightItems: state.spotlight.data,
+  isLoading: state.spotlight.isLoading,
+  error: state.spotlight.error
+});
+
+const mapDispatchToProps = dispatch => ({
+  getSpotlight: () => dispatch(getSpotlight())
+});
+
 class Spotlight extends Component {
+	componentDidMount() {
+    this.props.getSpotlight();
+	}
+
 	render() {
-		const { data } = this.props;
+		const {
+			spotlightItems,
+			isLoading,
+			error
+		} = this.props;
+
+		if (isLoading) {
+			return <LoadingMessage />;
+		}
+
+		if (error) {
+			// fail silently
+			return null;
+		}
 
 		return (
 			<div className="Spotlight">
@@ -34,7 +65,7 @@ class Spotlight extends Component {
             <Row>
 							<Col md="6">
 								{
-									data.map((d, i) => {
+									spotlightItems.map((d, i) => {
 										d.isActive = i === 0;
 										return (
 											<SpotlightListItem {...d} key={i} />
@@ -60,4 +91,4 @@ class Spotlight extends Component {
 	}
 }
 
-export default Spotlight;
+export default connect(mapStateToProps, mapDispatchToProps)(Spotlight);

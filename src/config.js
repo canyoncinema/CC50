@@ -24,10 +24,11 @@ const config = {
 	production: {
 		username: process.env.REACT_APP_CC50_USERNAME_PRODUCTION,
 		password: process.env.REACT_APP_CC50_PASSWORD_PRODUCTION,
-		baseUrl: 'http://beta.canyoncinema.com/cspace-services',
+		// baseUrl: 'http://cs.cancf.com:8180/cspace-services',
+		baseUrl: 'http://beta.canyoncinema50.org/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
-			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
+			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
 			exhibitions: '/exhibitions/_ALL_/items',
 			media: '/media'
 		}
@@ -35,6 +36,18 @@ const config = {
 		// Note: CSID changes on db reset, shortIdentifier stays
 
 	}
+}
+
+
+export const wrappedFetch = (...args) => {
+	let headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('Accept', 'application/json');
+	// headers.append('Authorization', 'Basic ' + base64.encode(
+	// 	config.production.username + ":" + config.production.password)
+	// );
+	args[1] = { headers };
+	return fetch(...args);
 }
 
 function shuffle(array) {
@@ -96,9 +109,7 @@ class Config {
 	}
 
 	fetchItems(...args) {
-		return fetch(encodeURI(this.getItemsUrl(...args)), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
 
 	// note: ephemera and program search are not yet there
@@ -106,9 +117,7 @@ class Config {
 	collectionItemTypes = ['films', 'filmmakers']
 
 	fetchSearchedItems(collectionItems, queryParams) {
-		return fetch(encodeURI(this.getItemsUrl(collectionItems, queryParams)), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(encodeURI(this.getItemsUrl(collectionItems, queryParams)));
 	}
 
 	convertPayloadToChoices(payload) {
@@ -125,9 +134,7 @@ class Config {
 	fetchItemChoices(...args) {
 		return new Promise((resolve, reject) => {
 			try {
-				fetch(encodeURI(this.getItemsUrl(...args)), {
-					headers: this.authHeaders
-				})
+				wrappedFetch(encodeURI(this.getItemsUrl(...args)))
 				.then(response => {
 					if (response.status >= 400) {
 						reject('Bad response from server');
@@ -176,9 +183,7 @@ class Config {
 			as,
 			pgSz
 		};
-		return fetch(this.getMediaUrl(queryParams), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(this.getMediaUrl(queryParams));
 	}
 
 	fetchAllChoices(queryParams) {
@@ -231,9 +236,7 @@ class Config {
 	}
 
 	fetchEvents(...args) {
-		return fetch(encodeURI(this.getEventsUrl(...args)), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(encodeURI(this.getEventsUrl(...args)));
 	}
 
 	getItemUrl({ collectionItems, cspaceCollection, shortIdentifier }) {
@@ -249,9 +252,7 @@ class Config {
 	}
 
 	fetchItem(...args) {
-		return fetch(encodeURI(this.getItemUrl(...args)), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(encodeURI(this.getItemUrl(...args)));
 	}
 
 	getRetrieveUri({ collectionItems, shortIdentifier, cspaceCollection }) {
@@ -282,9 +283,7 @@ class Config {
 	}
 
 	fetchFilmmakerFilms(...args) {
-		return fetch(encodeURI(this.getFilmmakerFilmsUrl(...args)), {
-			headers: this.authHeaders
-		});
+		return wrappedFetch(encodeURI(this.getFilmmakerFilmsUrl(...args)));
 	}
 
 	MIN_MEDIA_COUNT = 321
@@ -299,7 +298,7 @@ class Config {
 		});
 
 		const fetchSpotlightMediaItem = () =>
-			fetch(encodeURI(this.getMediaUrl(queryParams())), { headers: this.authHeaders });
+			wrappedFetch(encodeURI(this.getMediaUrl(queryParams())));
 
 		const getSpotlightMediaItem = response => {
 			return new Promise((resolve, reject) => {
@@ -324,16 +323,6 @@ class Config {
 			.then(fetchSpotlightMediaItem)
 			.then(response => getSpotlightMediaItem(response))
 			.then(() => mediaItems);
-	}
-
-	get authHeaders() {
-		const { username, password } = config[this.env];
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		headers.append('Accept', 'application/json');
-		headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
-
-		return headers;
 	}
 
 	getUrlFromRefName(refName) {

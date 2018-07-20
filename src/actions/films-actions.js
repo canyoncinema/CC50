@@ -6,6 +6,7 @@ import {
 import { config } from '../store';
 import { parseFilm, toItemsData } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
+import { wrappedFetch } from '../config';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -40,8 +41,7 @@ function failFilms(error) {
 export function getFilms(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchFilms());
-		return fetch(config.listFilmsUrl(queryParams),
-			{ headers: config.authHeaders })
+		return wrappedFetch(config.listFilmsUrl(queryParams))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilms("Bad response from server"));

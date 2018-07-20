@@ -34,7 +34,7 @@ function failFilmmakers(error) {
 export function getFilmmakers() {
 	return (dispatch) => {
 		dispatch(fetchFilmmakers())
-		return fetch(config.filmmakersUrl, { headers: config.authHeaders })
+		return wrappedFetchconfig.filmmakersUrl)
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilmmakers("Bad response from server"));

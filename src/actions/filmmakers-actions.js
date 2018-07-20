@@ -6,6 +6,7 @@ import {
 import { config } from '../store';
 import { toItemsData } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
+import { wrappedFetch } from '../config';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -38,8 +39,7 @@ function failFilmmakers(error) {
 export function getFilmmakers(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchFilmmakers());
-		return fetch(config.listFilmmakersUrl(queryParams),
-			{ headers: config.authHeaders })
+		return wrappedFetch(config.listFilmmakersUrl(queryParams))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilmmakers("Bad response from server"));

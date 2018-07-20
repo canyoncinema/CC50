@@ -6,6 +6,7 @@ import {
 import { config } from '../store';
 import { getItemFilmmakerFilms } from './item-filmmaker-films-actions';
 import { toItemData, toDisplayName } from '../utils/parse-data';
+import { wrappedFetch } from '../config';
 
 function fetchItemFilmmaker() {
 	return {
@@ -40,8 +41,7 @@ export function getItemFilmmaker(filmmakerRefName, filmShortIdentifier, filmmake
 	const { filmsByFilmmakerPgSz } = filmmakerOptions;
 	return (dispatch) => {
 		dispatch(fetchItemFilmmaker());
-		fetch(config.getUrlFromRefName(filmmakerRefName),
-			{ headers: config.authHeaders })
+		wrappedFetch(config.getUrlFromRefName(filmmakerRefName))
 			.then(response => {
 				if (response.status >= 400) {
 					console.error("Bad response from server");
