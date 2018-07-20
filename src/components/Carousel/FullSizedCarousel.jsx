@@ -58,16 +58,21 @@ class FullSizedCarousel extends Component {
 	}
 
   onKeydown = event => {
-    if (event.keyCode === 27) {
-    	// ESC
-			this.props.hideFullSizedCarousel();
-    } else if (event.keyCode === 37) {
-    	// LEFT ARROW
-    	this.props.offsetFullSizedCarouselPhoto(-1, this.props.media.length);
-    } else if (event.keyCode === 39) {
-    	// RIGHT ARROW
-    	this.props.offsetFullSizedCarouselPhoto(+1, this.props.media.length);
-    }
+  	switch (event.key) {
+  		case 'Escape':
+  			this.props.hideFullSizedCarousel();
+  			break;
+  		case 'ArrowLeft':
+  		case 'ArrowUp':
+  			this.props.offsetFullSizedCarouselPhoto(-1, this.props.media.length);
+  			break;
+  		case 'ArrowRight':
+  		case 'ArrowDown':
+  			this.props.offsetFullSizedCarouselPhoto(+1, this.props.media.length);
+  			break;
+  		default:
+  			return;
+  	}
   }
 
 	onClick = (e) => {
