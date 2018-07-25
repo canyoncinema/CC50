@@ -30,7 +30,7 @@ class PhotoFill extends Component {
 				{
 					caption ?
 					<div className={fadedCaption ? 'faded caption' : 'caption'}>
-						{caption}
+						Film: <em>{caption}</em>
 					</div>
 					: null
 				}

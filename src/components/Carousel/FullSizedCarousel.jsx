@@ -5,6 +5,7 @@ import { hideFullSizedCarousel,
 	offsetFullSizedCarouselPhoto,
 	setFullSizedCarouselItemAspect } from '../../actions/full-sized-carousel-actions';
 import './FullSizedCarousel.css';
+import { fullSizedCarouselCaption } from '../../utils/parse-data';
 
 import { CSpaceCanvasSize } from '../CSpacePhoto/CSpacePhoto';
 import CSpacePhotoImg from '../CSpacePhotoImg/CSpacePhotoImg';
@@ -138,6 +139,7 @@ class FullSizedCarousel extends Component {
 							}}
 							onClick={() => this.onImgClick(i)}>
 							<CSpacePhotoImg
+								caption={fullSizedCarouselCaption(m)}
 								onLoad={e => this.onLoadImg(e, i)}
 								canvasSize={CSpaceCanvasSize.original}
 								blobCsid={m.blobCsid}

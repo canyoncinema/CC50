@@ -1,0 +1,18 @@
+.CSpacePhotoImg {
+	position: relative;
+}
+
+.CSpacePhotoImg .caption {
+	position: absolute;
+	bottom: -28px;
+	left: 0;
+	right: 0;
+	text-align: left;
+	color: rgba(255, 255, 255, 0.66);
+	padding: 0;
+	font-size: 0.9rem;
+}
+
+.CSpacePhotoImg .faded.caption {
+	opacity: 0.6;
+}
