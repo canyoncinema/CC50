@@ -36,8 +36,7 @@ function failedItemsMedia(shortIdentifier, error) {
 }
 
 export function getItemsMedia(item,
-	itemType=getItemTypeFromRefName(item.refName),
-	isItemsMedia=true) {
+	itemType=getItemTypeFromRefName(item.refName)) {
 	const shortIdentifier = getShortIdentifierFromRefName(item.refName);
 	const queryParams = {
 		refName: item.refName,
@@ -58,7 +57,15 @@ export function getItemsMedia(item,
 		.then(payload => {
 			fetchedMediaForShortIdentifiers.push(shortIdentifier);
 			const media = toItemsData(payload, true);
+			// for a film short identifier, will associate this media to that film
 			dispatch(receiveItemsMedia(shortIdentifier, media));
+			if (item.creator) {
+				// also associate this film media to film's Filmmaker
+				// allowing a filmmaker's page to have all possibly retrieved film stills
+					// IMPORTANT: this only grabs the top 3 (via CoverCarousel media num limit)
+					// stills per film; does not NOT grab all filmmaker's films' stills w/n collxn
+				dispatch(receiveItemsMedia(getShortIdentifierFromRefName(item.creator), media));
+			}
 		})
 		.catch(err => dispatch(failedItemsMedia(shortIdentifier, err)));
 	}

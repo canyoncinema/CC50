@@ -51,6 +51,7 @@ class ThumbnailCarousel extends Component {
 			showFullSizedCarousel } = this.props;
 		let { media } = this.props;
 		if (!media.length) return null;
+		console.log('thumbnail media', media);
 
 		const { page, pagedPage } = this.state;
 

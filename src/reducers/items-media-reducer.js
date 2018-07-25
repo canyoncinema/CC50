@@ -21,7 +21,10 @@ const itemMediaReducer = (state=initialState, action) => {
 		case types.RECEIVED_ITEMS_MEDIA:
 			return Object.assign(state, {
 				dataByShortIdentifier: new Map(state.dataByShortIdentifier)
-					.set(action.shortIdentifier, action.data)
+					.set(
+						action.shortIdentifier,
+						(state.dataByShortIdentifier.get(action.shortIdentifier) || []).concat(action.data)
+					)
 			});
 		default:
 			return state;

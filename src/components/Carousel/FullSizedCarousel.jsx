@@ -139,6 +139,7 @@ class FullSizedCarousel extends Component {
 							}}
 							onClick={() => this.onImgClick(i)}>
 							<CSpacePhotoImg
+								fadedCaption={i !== activeIndex}
 								caption={fullSizedCarouselCaption(m)}
 								onLoad={e => this.onLoadImg(e, i)}
 								canvasSize={CSpaceCanvasSize.original}

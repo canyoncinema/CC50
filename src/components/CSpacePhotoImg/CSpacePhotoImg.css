@@ -11,8 +11,9 @@
 	color: rgba(255, 255, 255, 0.66);
 	padding: 0;
 	font-size: 0.9rem;
+	transition: opacity 0.33s linear;
 }
 
 .CSpacePhotoImg .faded.caption {
-	opacity: 0.6;
+	opacity: 0.15;
 }
