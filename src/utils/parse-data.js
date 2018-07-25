@@ -87,6 +87,12 @@ export const getDisplayNameFromMatch = (match) => {
 	return match[4];
 };
 
+// TODO: get film year exposed on media item (Nima)
+export const fullSizedCarouselCaption = mediaItem =>
+	mediaItem.filmSubject ?
+	getDisplayNameFromRefName(mediaItem.filmSubject) :
+	'';
+
 export const getShortIdentifierFromMatch = (match) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	return match[3];

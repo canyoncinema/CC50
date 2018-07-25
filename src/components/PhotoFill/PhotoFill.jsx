@@ -11,7 +11,8 @@ class PhotoFill extends Component {
 		// TODO handle 403s, loading errors
 		const {src,
 			onClick, onMouseEnter, onMouseLeave,
-			className, width, children, height} = this.props;
+			className, width, children, height,
+			caption, fadedCaption} = this.props;
 		return (
 			<div className={[
 					className,
@@ -26,6 +27,13 @@ class PhotoFill extends Component {
 				height: !isNaN(height) ? height + 'px' : height ? height : '100%'
 			}}>
 				{children}
+				{
+					caption ?
+					<div className={fadedCaption ? 'faded caption' : 'caption'}>
+						{caption}
+					</div>
+					: null
+				}
 			</div>
 		);
 	}

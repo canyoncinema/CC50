@@ -6,14 +6,18 @@ import {
 import './SearchCard.css';
 
 import { itemTypeToCollectionSearchVal } from '../../collection-context';
-
 import FilmmakerContent from './FilmmakerContent';
 import FilmContent from './FilmContent';
 import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
-import Carousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/CoverCarousel';
+import CoverCarousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/CoverCarousel';
 import { CSpaceCanvasSize } from '../CSpacePhoto/CSpacePhoto';
-import { blobCsidToSrc, getShortIdentifierFromRefName } from '../../utils/parse-data';
+import {
+	blobCsidToSrc,
+	getShortIdentifierFromRefName,
+	getDisplayNameFromRefName,
+	fullSizedCarouselCaption
+} from '../../utils/parse-data';
 
 const getPhotoSrcs = mediaObjs =>
 	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
@@ -61,8 +65,12 @@ class SearchCard extends Component {
 				<div className={listView && (onFilmmakerPage || isItemPageFilmCard) ?
 						'filmmaker-film-still' :  ''}>
 					<div className="media">
-						<Carousel
+						<CoverCarousel
 							fromCSpace={true}
+							captions={itemType !== 'filmmaker' ?
+								null :
+								(media || []).map(m => fullSizedCarouselCaption(m))
+							}
 							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
 							canvasSize={
 								listView ?
