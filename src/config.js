@@ -28,7 +28,7 @@ const config = {
 		baseUrl: 'http://beta.canyoncinema50.org/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
-			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
+			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
 			exhibitions: '/exhibitions/_ALL_/items',
 			media: '/media'
 		}
