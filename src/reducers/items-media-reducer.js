@@ -1,4 +1,5 @@
 import * as types from '../actionTypes';
+import { uniqArray } from '../utils/array-helpers';
 
 const initialState = {
 	dataByShortIdentifier: new Map(),
@@ -23,7 +24,11 @@ const itemMediaReducer = (state=initialState, action) => {
 				dataByShortIdentifier: new Map(state.dataByShortIdentifier)
 					.set(
 						action.shortIdentifier,
-						(state.dataByShortIdentifier.get(action.shortIdentifier) || []).concat(action.data)
+						uniqArray(
+							(state.dataByShortIdentifier.get(action.shortIdentifier) || [])
+							.concat(action.data),
+							m => m.blobCsid
+						)
 					)
 			});
 		default:

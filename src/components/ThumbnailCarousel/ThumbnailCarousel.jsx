@@ -51,7 +51,6 @@ class ThumbnailCarousel extends Component {
 			showFullSizedCarousel } = this.props;
 		let { media } = this.props;
 		if (!media.length) return null;
-		console.log('thumbnail media', media);
 
 		const { page, pagedPage } = this.state;
 
@@ -92,7 +91,7 @@ class ThumbnailCarousel extends Component {
 						</div>
 						{
 							hasMore && (lastPage = Math.ceil(media.length / PAGE_NUM_MEDIA) - 1) ?
-							<div class="nav-buttons">
+							<div className="nav-buttons">
 								<Caret
 									isDisabled={ pagedPage === 0 }
 									key={0} direction="up" height="14px"

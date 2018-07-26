@@ -16,7 +16,8 @@ import {
 	blobCsidToSrc,
 	getShortIdentifierFromRefName,
 	getDisplayNameFromRefName,
-	fullSizedCarouselCaption
+	fullSizedCarouselCaption,
+	fullSizedCarouselCaptionLink
 } from '../../utils/parse-data';
 
 const getPhotoSrcs = mediaObjs =>
@@ -70,6 +71,10 @@ class SearchCard extends Component {
 							captions={itemType !== 'filmmaker' ?
 								null :
 								(media || []).map(m => fullSizedCarouselCaption(m))
+							}
+							captionLinks={itemType !== 'filmmaker' ?
+								null :
+								(media || []).map(m => fullSizedCarouselCaptionLink(m))
 							}
 							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
 							canvasSize={

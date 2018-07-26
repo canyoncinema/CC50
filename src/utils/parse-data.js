@@ -93,6 +93,11 @@ export const fullSizedCarouselCaption = mediaItem =>
 	getDisplayNameFromRefName(mediaItem.filmSubject) :
 	'';
 
+export const fullSizedCarouselCaptionLink = mediaItem =>
+	mediaItem.filmSubject ?
+	`/collection/films/${getShortIdentifierFromRefName(mediaItem.filmSubject)}` :
+	'';
+
 export const getShortIdentifierFromMatch = (match) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	return match[3];

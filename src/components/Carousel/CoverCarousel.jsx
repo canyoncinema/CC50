@@ -107,10 +107,13 @@ class Carousel extends Component {
 
 	render() {
 		const { id, media, canvasSize, photoSrces, title,
-			fromCSpace, blobCsids, captions } = this.props;
+			fromCSpace, blobCsids, captions, captionLinks } = this.props;
 		const { showViewMore, activePhotoIndex } = this.state;
 		const caption = captions && captions.length ?
 			captions[activePhotoIndex] :
+			null;
+		const captionLink = captionLinks && captionLinks.length ?
+			captionLinks[activePhotoIndex] :
 			null;
 		if (!blobCsids && !photoSrces) {
 			throw new Error('Must include blobCsids or photoSrces');
@@ -139,6 +142,7 @@ class Carousel extends Component {
 				showViewMore && blobCsids ?
 				<CSpacePhotoFill
 					caption={caption}
+					captionLink={captionLink}
 					fadedCaption={true}
 					blobCsid={blobCsids[activePhotoIndex]}
 					canvasSize={canvasSize}>
@@ -153,11 +157,13 @@ class Carousel extends Component {
 				fromCSpace ?
 				<CSpacePhotoFill
 					caption={caption}
+					captionLink={captionLink}
 					blobCsid={blobCsids[activePhotoIndex]}
 					canvasSize={canvasSize} />
 				:
 				<PhotoFill
 					caption={caption}
+					captionLink={captionLink}
 					width={canvasSize.width + 'px'}
 					height={canvasSize.height + 'px'}
 					src={activePhotoSrc} />

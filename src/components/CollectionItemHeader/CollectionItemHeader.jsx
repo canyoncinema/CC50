@@ -33,7 +33,6 @@ class CollectionItemHeader extends Component {
 			return <LoadingMessage />;
 		}
 		const hasSideComponent = item.avatar || (itemMedia && itemMedia.length);
-		console.log('ItemHeader>itemMedia', itemMedia);
 		return <header className={[
 				'CollectionItemHeader',
 				'container-fluid',

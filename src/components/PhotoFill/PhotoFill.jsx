@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './PhotoFill.css';
 
 const fallbackImgSrc = require('../Carousel/empty-still.png');
@@ -12,7 +13,7 @@ class PhotoFill extends Component {
 		const {src,
 			onClick, onMouseEnter, onMouseLeave,
 			className, width, children, height,
-			caption, fadedCaption} = this.props;
+			caption, captionLink, fadedCaption} = this.props;
 		return (
 			<div className={[
 					className,
@@ -30,7 +31,9 @@ class PhotoFill extends Component {
 				{
 					caption ?
 					<div className={fadedCaption ? 'faded caption' : 'caption'}>
-						Film: <em>{caption}</em>
+						Film: <Link to={captionLink}>
+							<em>{caption}</em>
+						</Link>
 					</div>
 					: null
 				}
