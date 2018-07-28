@@ -2,12 +2,35 @@
 	margin-bottom: 80px;
 }
 
+.Spotlight .photo-wrapper {
+	background: black;
+}
+
+.Spotlight .preload-images {
+	display: none !important;
+}
+
 .SpotlightListItem {
 	padding: 28px 40px;
 	background-color: #ffffff;
 	border-bottom: solid 1px #d8d8d8;
 	border-left: solid 6px transparent;
 	box-sizing: border-box;
+
+	transition: border-left-color 0.33s linear;
+	cursor: pointer;
+}
+
+.Spotlight .PhotoFill {
+	display: none;
+}
+
+.Spotlight .PhotoFill.active {
+	display: block;
+}
+
+.SpotlightListItem h6 {
+	line-height: 1.5;
 }
 
 .SpotlightListItem > * {
@@ -18,6 +41,11 @@
 	opacity: 0.6;
 }
 
-.SpotlightListItem.active {
+.SpotlightListItem.active,
+.SpotlightListItem:hover {
 	border-left-color: var(--gold);
+}
+
+.SpotlightListItem:hover > * {
+	opacity: 1;
 }

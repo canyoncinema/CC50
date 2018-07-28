@@ -7,7 +7,7 @@ import {
 	FAILED_SPOTLIGHT_ITEM_DATA
 } from '../actionTypes';
 import { config } from '../store';
-import { parseFilm, getShortIdentifierFromRefName, toItemData } from '../utils/parse-data';
+import { parseItemCreator, parseFilm, getShortIdentifierFromRefName, toItemData } from '../utils/parse-data';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -18,9 +18,7 @@ function fetchSpotlight() {
 	}
 }
 
-function receiveSpotlight(items, sort) {
-	// const data = toSpotlightData(payload);
-	// data = data.map(d => parseFilm(d));
+function receiveSpotlightMediaItems(items, sort) {
 	items = items.map(item => ({ blobCsid: item.blobCsid }));
 	return {
 		type: RECEIVED_SPOTLIGHT,
@@ -35,7 +33,14 @@ function fetchSpotlightItemData(itemIndex, item) {
 	};
 }
 
-function receiveSpotlightItemData(itemIndex, item) {
+function receiveSpotlightItemData(itemIndex, item, collectionItems) {
+	const creator = parseItemCreator(item);
+	item = {
+		name: item.termDisplayName,
+		description: item.bioNote || item.shortDescription,
+		note: creator ? 'Film by ' + creator : '',
+		link: `/collection/${collectionItems}/${item.shortIdentifier}`
+	};
 	return {
 		type: RECEIVED_SPOTLIGHT_ITEM_DATA,
 		itemIndex,
@@ -62,7 +67,7 @@ function getSpotlightItemsData(dispatch, items=[]) {
 			})
 			.then(response => response.json())
 			.then(payload => toItemData(payload))
-			.then(item => dispatch(receiveSpotlightItemData(itemIndex, item)))
+			.then(item => dispatch(receiveSpotlightItemData(itemIndex, item, 'films')))
 		} else {
 			// TODO: structure for filmmaker media, etc.?? ask Nima
 		}
@@ -74,7 +79,7 @@ export function getSpotlight() {
 		dispatch(fetchSpotlight());
 		return config.fetchSpotlightMediaItems()
 			.then(items => {
-				dispatch(receiveSpotlight(items));
+				dispatch(receiveSpotlightMediaItems(items));
 				getSpotlightItemsData(dispatch, items);
 			})
 			.catch(error =>

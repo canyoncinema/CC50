@@ -13,6 +13,9 @@ const Img = (props) => props.caption ?
 			</div>
 	</div>
 	:
-	<img {...props} fadedCaption={null} captionLink={null} />;
+	<img {...props}
+		fadedCaption={null}
+		captionLink={null}
+	/>;
 
 export default CSpacePhoto(Img);

@@ -7,7 +7,7 @@ import { getItemFilmmaker } from './item-filmmaker-actions';
 import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
-import { toItemData, toItemsData, toDisplayName } from '../utils/parse-data';
+import { toItemData, toItemsData, toDisplayName, parseCreatorRefName } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
 
@@ -21,10 +21,7 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 	const item = skipPayload ? payload : toItemData(payload);
 	item.termDisplayName = skipPayload ? item.termDisplayName : toDisplayName(item.refName);
 	if (!item.termDisplayName) console.error('Should have a displayName field. Check refName field parsing');
-	const filmmakerRefName = item &&
-					item.creatorGroupList &&
-					item.creatorGroupList.creatorGroup &&
-					item.creatorGroupList.creatorGroup.creator;
+	const filmmakerRefName = parseCreatorRefName(item);
 
 	// display filmmaker info (for films)
 	if (filmmakerRefName) dispatch(getItemFilmmaker(

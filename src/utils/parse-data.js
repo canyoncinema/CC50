@@ -1,7 +1,20 @@
-export const parseCreator = creator =>
-	creator &&
-	creator.match(/\'(.+)\'$/) &&
-	creator.match(/\'(.+)\'$/)[1];
+export const parseCreator = creatorRefName =>
+	creatorRefName &&
+	creatorRefName.match(/\'(.+)\'$/) &&
+	creatorRefName.match(/\'(.+)\'$/)[1];
+
+export const parseCreatorRefName = item =>
+	item &&
+	item.creatorGroupList &&
+	item.creatorGroupList.creatorGroup &&
+	item.creatorGroupList.creatorGroup.creator;
+
+export const parseItemCreator = item =>
+	item &&
+	item.creatorGroupList &&
+	item.creatorGroupList.creatorGroup &&
+	item.creatorGroupList.creatorGroup.creator &&
+	parseCreator(item.creatorGroupList.creatorGroup.creator);
 
 export const toExternalWebUrl = url => {
   if (url.indexOf('://') != -1) {

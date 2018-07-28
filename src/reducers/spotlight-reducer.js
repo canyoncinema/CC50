@@ -1,8 +1,8 @@
 import * as types from '../actionTypes';
 
 const initialState = {
-	data: [],
-	isLoading: false,
+	media: [],
+	isLoadingMedia: false,
 	error: undefined,
 	items: [{
 		isLoading: false,
@@ -23,20 +23,20 @@ const spotlight = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_SPOTLIGHT:
 				return Object.assign(state, {
-					isLoading: true,
+					isLoadingMedia: true,
 					error: undefined
 				});
 		case types.RECEIVED_SPOTLIGHT:
 			return Object.assign(state, {
-				isLoading: false,
+				isLoadingMedia: false,
 				error: undefined,
-				data: action.data
+				media: action.data
 			});
 		case types.FAILED_SPOTLIGHT:
 			return Object.assign(state, {
-				isLoading: false,
+				isLoadingMedia: false,
 				error: action.error,
-				data: undefined
+				media: undefined
 			});
 		case types.FETCH_SPOTLIGHT_ITEM_DATA: {
 			const newItems = state.items.slice();

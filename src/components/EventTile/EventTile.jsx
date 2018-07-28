@@ -37,7 +37,8 @@ class EventTile extends Component {
 						<ClampedDescription maxLines={2}>
 							<ReactMarkdown source={name} renderers={{
 								'paragraph': ChildrenOnly,
-								'root': ChildrenOnly
+								'root': ChildrenOnly,
+								'listItem': ChildrenOnly
 							}} />
 						</ClampedDescription>
 					</h4>
