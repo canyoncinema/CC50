@@ -25,13 +25,13 @@ function receiveItemsWithMedia(data) {
 
 function receiveItems(dispatch, collectionItems, payload, sort) {
 	let items = toItemsData(payload);
-	if (collectionItems === 'films' || collectionItems == 'filmmakers') {
-		// return up to 3 film stills per film item
-		// and indicate num of stills per film (for carousel 'see more')
-		items.forEach(item => {
-			dispatch(getItemsMedia(item));
-		});
-	}
+	// if (collectionItems === 'films' || collectionItems == 'filmmakers') {
+	// 	// return up to 3 film stills per film item
+	// 	// and indicate num of stills per film (for carousel 'see more')
+	// 	items.forEach(item => {
+	// 		dispatch(getItemsMedia(item));
+	// 	});
+	// }
 	return {
 		type: RECEIVED_ITEMS,
 		data: items

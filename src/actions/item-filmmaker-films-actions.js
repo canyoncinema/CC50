@@ -13,11 +13,10 @@ function fetchItemFilmmakerFilms() {
 }
 
 function receiveItemFilmmakerFilms(payload) {
-	const data = toItemsData(payload);
-	// dispatch(getItemFilmmakerFilms());
+	const films = toItemsData(payload);
 	return {
 		type: RECEIVED_ITEM_FILMMAKER_FILMS,
-		data: data
+		data: films
 	}
 }
 

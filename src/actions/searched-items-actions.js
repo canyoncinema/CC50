@@ -17,13 +17,13 @@ function fetchSearchedItems() {
 }
 
 function receiveSearchedItems(dispatch, dataWithItemType, totalCount, pageCount, collectionItems, searchedText) {
-	dataWithItemType.forEach(item => {
-		if (item.itemType === 'film' || item.itemType === 'filmmaker') {
-			// return up to 3 film stills per film item
-			// and indicate num of stills per film (for carousel 'see more')
-			dispatch(getItemsMedia(item, item.itemType));
-		}
-	});
+	// dataWithItemType.forEach(item => {
+	// 	if (item.itemType === 'film' || item.itemType === 'filmmaker') {
+	// 		// return up to 3 film stills per film item
+	// 		// and indicate num of stills per film (for carousel 'see more')
+	// 		dispatch(getItemsMedia(item, item.itemType));
+	// 	}
+	// });
 	return {
 		type: RECEIVED_SEARCHED_ITEMS,
 		data: dataWithItemType,

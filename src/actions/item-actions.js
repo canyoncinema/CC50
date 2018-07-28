@@ -28,7 +28,6 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 		filmmakerRefName,
 		shortIdentifier,
 		filmmakerOptions));
-
 	if (collectionItems === 'filmmakers') {
 		// show films by this filmmaker
 		dispatch(getItemFilms({

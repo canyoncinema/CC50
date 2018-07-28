@@ -12,6 +12,7 @@ import EphemeraContent from './EphemeraContent';
 import ProgramContent from './ProgramContent';
 import CoverCarousel, { MAX_CAROUSEL_IMAGES } from '../Carousel/CoverCarousel';
 import { CSpaceCanvasSize } from '../CSpacePhoto/CSpacePhoto';
+import { getItemsMedia } from '../../actions/items-media-actions';
 import {
 	blobCsidToSrc,
 	getShortIdentifierFromRefName,
@@ -28,7 +29,17 @@ const mapStateToProps = (state, ownProps) => ({
 					state.itemsMedia.dataByShortIdentifier.get(getShortIdentifierFromRefName(ownProps.data.refName))
 });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	getItemsMedia: 	(...args) => dispatch(getItemsMedia(...args))
+});
+
 class SearchCard extends Component {
+	componentDidMount() {
+		// get media for this card
+		const { data, itemType } = this.props;
+		if (!itemType) throw new Error('Requires itemType');
+		this.props.getItemsMedia(data, itemType);
+	}
 	render() {
 		const {
 			data,
@@ -129,4 +140,4 @@ class SearchCard extends Component {
 	}
 }
 
-export default withRouter(connect(mapStateToProps)(SearchCard));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchCard));

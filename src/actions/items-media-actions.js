@@ -36,7 +36,9 @@ function failedItemsMedia(shortIdentifier, error) {
 }
 
 export function getItemsMedia(item,
-	itemType=getItemTypeFromRefName(item.refName)) {
+	itemType=getItemTypeFromRefName(item.refName),
+	mappedShortIdentifier) {
+	console.log('getItemsMedia', item);
 	const shortIdentifier = getShortIdentifierFromRefName(item.refName);
 	const queryParams = {
 		refName: item.refName,

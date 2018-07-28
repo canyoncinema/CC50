@@ -75,7 +75,7 @@ class CollectionFilmPage extends Component {
 				menuHeader: 'Other Films by this Filmmaker',
 				renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
-						{'Other Films by ' + filmmaker.termDisplayName}
+						Other Films by {filmmaker.termDisplayName}
 					</h3>
 					<span className="ml-auto">
 						<ViewModeToggler

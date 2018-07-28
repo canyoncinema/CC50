@@ -4,8 +4,8 @@ import './PhotoFill.css';
 
 const fallbackImgSrc = require('../Carousel/empty-still.png');
 
-export const EMPTY_STILL_PATH = '../images/empty-still.png';
-const LOADING_STILL_PATH = '../images/loading-still.png';
+export const EMPTY_STILL_PATH = '/images/empty-still.png';
+const LOADING_STILL_PATH = '/images/loading-still.png';
 
 class PhotoFill extends Component {
 	render() {
