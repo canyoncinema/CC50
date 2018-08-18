@@ -2,8 +2,9 @@
 	margin-bottom: 80px;
 }
 
-.Spotlight .photo-wrapper {
-	background: black;
+.Spotlight .photo-wrapper,
+.Spotlight .photo-wrapper .PhotoFill {
+	background-color: black;
 }
 
 .Spotlight .preload-images {

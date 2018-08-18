@@ -37,7 +37,7 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 		}));
 	} else if (collectionItems === 'films') {
 		// show film stills on film
-		dispatch(getItemsMedia(item, 'film'));
+		dispatch(getItemsMedia({ item, itemType: 'film' }));
 		item.creator = item.creatorGroupList &&
 			item.creatorGroupList.creatorGroup &&
 			item.creatorGroupList.creatorGroup.creator;

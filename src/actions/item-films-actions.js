@@ -5,7 +5,6 @@ import {
 } from '../actionTypes';
 import { config } from '../store';
 import { toItemsData, toDisplayName, getShortIdentifierFromRefName } from '../utils/parse-data';
-import { getItemsMedia } from './items-media-actions';
 
 function fetchItemFilms() {
 	return {

@@ -16,6 +16,57 @@ export const parseItemCreator = item =>
 	item.creatorGroupList.creatorGroup.creator &&
 	parseCreator(item.creatorGroupList.creatorGroup.creator);
 
+
+export const parseItemExhibitionWorks = item =>
+	item &&
+	item.exhibitionWorkGroupList &&
+	item.exhibitionWorkGroupList.exhibitionWorkGroup &&
+	item.exhibitionWorkGroupList.exhibitionWorkGroup.map(x => x.exhibitionWork);
+	/* EXAMPLE:
+	"exhibitionWorkGroupList": {
+    "exhibitionWorkGroup": [
+      {
+        "exhibitionWork": "urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(ReleasingHumanEnergies1529513486096)'Releasing Human Energies'"
+      },
+      {
+        "exhibitionWork": "urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(WhatisaMan1529514241097)'What is a Man?'"
+      },
+      {
+        "exhibitionWork": "urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(Associations1529514649225)'Associations'"
+      },
+      {
+        "exhibitionWork": "urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(HotLeatherette1529449911276)'Hot Leatherette'"
+      }
+    ]
+  }
+  ->>  [
+  	"urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(ReleasingHumanEnergies1529513486096)'Releasing Human Energies'",
+  	"urn:cspace:canyoncinema.com:workauthorities:name(work):item:name(WhatisaMan1529514241097)'What is a Man?'",
+  	...
+  ]
+	 */
+
+export const parseExhibitionVenueGroup = exhibition =>
+	exhibition.venueGroupList &&
+	exhibition.venueGroupList.venueGroup
+
+export const parseExhibitionVenueRefName = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+	venueGroup && venueGroup.venue;
+
+export const parseExhibitionVenueDisplayName = exhibition => {
+	const refName = parseExhibitionVenueRefName(exhibition);
+	return refName && getDisplayNameFromRefName(refName);
+}
+
+export const parseExhibitionStartTime = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+	venueGroup && venueGroup.venueOpeningDate;
+
+export const parseExhibitionEndTime = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+	venueGroup && venueGroup.venueClosingDate;
+
+export const parseExhibitionVenueUrl = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+	venueGroup && venueGroup.venueUrl;
+
 export const toExternalWebUrl = url => {
   if (url.indexOf('://') != -1) {
   	// is valid external link already
@@ -86,10 +137,20 @@ export const getDisplayNameFromRefName = (refName, match) => {
 	return match ? match[4] : matchRefName(refName)[4];
 };
 
-export const getShortIdentifierFromRefName = (refName, match) => {
+export const getShortIdentifierFromRefName = (refName, match, nullVal) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
-	return match ? match[3] : matchRefName(refName)[3];
+	// replace with nullVal if none returned
+	try {
+		return match ? match[3] : matchRefName(refName)[3];
+	} catch(e) {
+		return nullVal;
+	}
 };
+
+export const getCsidFromRefName = refName =>
+	// e.g. 'urn:cspace:canyoncinema.com:exhibitions:id(1d157bfe-e1f3-4acf-8aa5)'
+	// => '1d157bfe-e1f3-4acf-8aa5'
+	refName.match(/\:id\((\S+)\)/)[1];
 
 export function toDisplayName(refName) {
 	return refName.match(/\'(.+)\'$/)[1];

@@ -26,7 +26,7 @@
 	font-size: 0.9rem;
 }
 
-.list .CarouselShowMoreForeground h4 {
+.list:not(.is-item-page-film-card) .CarouselShowMoreForeground h4 {
 	width: 65px;
 	font-size: 1rem;
 	padding: 0;

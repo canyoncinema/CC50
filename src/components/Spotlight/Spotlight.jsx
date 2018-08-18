@@ -29,11 +29,11 @@ const SpotlightListItem = ({isActive,
 		>
 			<Link to={data.link || '/collection'}>
 				<Row className={isActive ? 'SpotlightListItem active' : 'SpotlightListItem'}>
-					<Col md="6">
-						<h3>{data.name}</h3>
+					<Col lg="6">
+						<h3 title={data.name} className="single-line-ellipsed">{data.name}</h3>
 						<h6 className="uppercase">{data.note}</h6>
 					</Col>
-					<Col md="6">
+					<Col lg="6">
 						<p className="small">
 							{data.description}
 						</p>
@@ -169,9 +169,11 @@ class Spotlight extends Component {
         </Row>
         <Row>
           <Col sm="12">
-            <Button className="explore-collection-btn" size="large">
-              Explore the Collection
-            </Button>
+            <Link to="/collection">
+	            <Button className="explore-collection-btn" size="large">
+	              Explore the Collection
+	            </Button>
+            </Link>
           </Col>
         </Row>
 			</div>

@@ -5,6 +5,7 @@ import './EventTiles.css';
 import EventTile from '../EventTile/EventTile';
 
 const EventTiles = ({className, customColSize, data}) => {
+	console.log('events', data);
 	return (
 		<Row className={[className, 'EventTiles'].join(' ')}>
 			{

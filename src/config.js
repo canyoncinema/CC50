@@ -3,21 +3,24 @@ import { matchRefName,
 	toItemsData,
 	toTotalCount,
 	toPageCount,
+	getShortIdentifierFromRefName,
 	getDisplayNameFromRefName,
 	collectionItemsToItemName,
 	cspaceCollectionToItemName,
 	collectionItemsToCSpaceCollection } from './utils/parse-data';
 import { queryParamsToString } from './utils/query-string';
 
+const toRefNameUriVal = refName => refName.replace('#', '%23');
+
 const config = {
 	development: {
 		username: process.env.REACT_APP_CC50_USERNAME_DEVELOPMENT,
 		password: process.env.REACT_APP_CC50_PASSWORD_DEVELOPMENT,
-		baseUrl: 'http://dev-cs45-2.cancf.com/cspace-services',
+		baseUrl: 'http://dev-cs45-2.cancf.com:8180/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
 			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
-			exhibitions: '/exhibitions/_ALL_/items',
+			exhibitions: '/exhibitions',
 			media: '/media'
 		}
 	},
@@ -29,7 +32,7 @@ const config = {
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
-			exhibitions: '/exhibitions/_ALL_/items',
+			exhibitions: '/exhibitions',
 			media: '/media'
 		}
 		// _ALL_ only works for LISTS
@@ -92,6 +95,11 @@ class Config {
 			+ queryParamsToString(queryParams);
 	}
 
+	listEventsUrl(queryParams) {
+		return this.baseUrl + config[this.env].list.exhibitions
+			+ queryParamsToString(queryParams);
+	}
+
 	getItemsUrl(collectionItems, queryParams) {
 		const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
@@ -112,8 +120,8 @@ class Config {
 		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
 
-	// note: ephemera and program search are not yet there
-	// collectionItemTypes = ['films', 'filmmakers', 'ephemera', 'programs']
+	// note: ephemera and event search are not yet there
+	// collectionItemTypes = ['films', 'filmmakers', 'ephemera', 'events']
 	collectionItemTypes = ['films', 'filmmakers']
 
 	fetchSearchedItems(collectionItems, queryParams) {
@@ -172,12 +180,20 @@ class Config {
 		return url;
 	}
 
-	fetchItemMedia({ refName, isByFilmmaker, isFilmStills, pgSz }) {
+	fetchItemMedia({ refName, isEvent, isByFilmmaker, isFilmStills, pgSz }) {
 		let as;
+		const asWrapper = (...args) => `((${args.join('')}))`;
+		const isByCreator = creatorRefName => `media_common:creator+%3D+%22${encodeURIComponent(toRefNameUriVal(creatorRefName))}%22`;
+		const isFilmSubject = filmRefName => `media_canyon:filmSubject+%3D+%22${encodeURIComponent(toRefNameUriVal(filmRefName))}%22`;
+		const andIsFilmSubjectMedia = '+AND+media_common:typeList%2F*+%3D+%22film_still%22';
 		if (isByFilmmaker) {
-			as = `((media_common:creator+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+			// get film stills whose creator = the filmmaker (by refName)
+			as = asWrapper(isByCreator(refName), andIsFilmSubjectMedia);
+		} else if (isEvent) {
+			as = ``
 		} else {
-			as = `((media_canyon:filmSubject+%3D+%22${encodeURIComponent(refName.replace('#', '%23'))}%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))`;
+			console.log('as', refName)
+			as = asWrapper(isFilmSubject(refName), andIsFilmSubjectMedia);
 		}
 		const queryParams = {
 			as,
@@ -239,8 +255,8 @@ class Config {
 		return wrappedFetch(encodeURI(this.getEventsUrl(...args)));
 	}
 
-	getItemUrl({ collectionItems, cspaceCollection, shortIdentifier }) {
-		if (!shortIdentifier || !(collectionItems || cspaceCollection)) {
+	getItemUrl({ collectionItems, cspaceCollection, csid, shortIdentifier }) {
+		if (!(shortIdentifier || csid) || !(collectionItems || cspaceCollection)) {
 			throw new Error('collectionItems + shortIdentifier are required');
 		}
 		// example: "http://cs.cancf.com/cspace-services/personauthorities/urn:cspace:name(person)/items/urn:cspace:name(AbigailChild1529446292368)"
@@ -248,11 +264,18 @@ class Config {
 		const itemName = collectionItems ?
 			collectionItemsToItemName(collectionItems, false) :
 			cspaceCollectionToItemName(cspaceCollection, false);
-		return `${this.baseUrl}/${cllxn}/urn:cspace:name(${itemName})/items/urn:cspace:name(${shortIdentifier})`;
+		return `${this.baseUrl}/${cllxn}/${csid ? csid : `urn:cspace:name(${itemName})/items/urn:cspace:name(${shortIdentifier})`}`;
 	}
 
 	fetchItem(...args) {
 		return wrappedFetch(encodeURI(this.getItemUrl(...args)));
+	}
+
+	fetchEvent(csid) {
+		return this.fetchItem({
+			cspaceCollection: 'exhibitions',
+			csid
+		});
 	}
 
 	getRetrieveUri({ collectionItems, shortIdentifier, cspaceCollection }) {
@@ -284,6 +307,25 @@ class Config {
 
 	fetchFilmmakerFilms(...args) {
 		return wrappedFetch(encodeURI(this.getFilmmakerFilmsUrl(...args)));
+	}
+
+	fetchFilms(filmRefNames) {
+		const promises = filmRefNames.map(refName =>
+			this.fetchItem({
+				collectionItems: 'films',
+				shortIdentifier: getShortIdentifierFromRefName(refName)
+			})
+		);
+		return Promise.all(promises)
+			.then(responses => {
+				return Promise.all(responses
+					.map(r => r.status >= 400 ? { error: 'Bad response from server' } : r) // fail silently
+					.map(r => {
+						console.log('r', r);
+						return r.error ? r.error : r.json();
+					})
+				)
+			});
 	}
 
 	MIN_MEDIA_COUNT = 321

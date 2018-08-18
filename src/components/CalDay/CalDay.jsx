@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './CalDay.css';
 
 const getMonthString = dateTime => {
@@ -7,12 +8,19 @@ const getMonthString = dateTime => {
 	return label[dateTime.getMonth()];
 };
 
-const CalDay = ({dateTime}) => {
+const CalDay = ({ dateTime, className }) => {
+	console.log('CalDay', dateTime);
+	if (!(dateTime instanceof Date)) {
+		dateTime = new Date(dateTime);
+		if (!(dateTime instanceof Date)) {
+			return null;
+		}
+	}
 	const date = dateTime.getDate(),
 				month = getMonthString(dateTime),
 				year = dateTime.getFullYear();
 	return (
-		<div className="CalDay">
+		<div className={['CalDay', className].join(' ')}>
 			<div className="month">{month}</div>
 			<div className="date">{date}</div>
 			<div className="year">{year}</div>

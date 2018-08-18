@@ -4,7 +4,10 @@ import {
 	FAILED_EVENTS
 } from '../actionTypes';
 import { config } from '../store';
-import { toEventsData, parseFilm } from '../utils/parse-data';
+import { parseFilm, getCsidFromRefName, toItemData, toItemsData, parseItemExhibitionWorks } from '../utils/parse-data';
+import { getItemsMedia } from './items-media-actions';
+import { wrappedFetch } from '../config';
+import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -15,12 +18,42 @@ function fetchEvents() {
 	}
 }
 
-function receiveEvents(payload, sort) {
-	const data = toEventsData(payload);
-	// data = data.map(d => parseFilm(d));
+// MAX_EVENT_FILM_STILLS: show up to this many film stills, per film on an event
+export const MAX_EVENT_FILM_STILLS = 3;
+
+function fetchEventMedia(eventRefName) {
+	// return up to 3 film stills per film in the Event
+	// NOTE: Events do not have a shortIdentifier. use its csid
+	config.fetchEvent(getCsidFromRefName(eventRefName))
+		.then(response => {
+			if (response.status >= 400) {
+				// fail silently
+				return false;
+			}
+			return response.json();
+		})
+		.then(data => {
+			if (data) {
+				const filmRefNames = parseItemExhibitionWorks(toItemData(data));
+				console.log('works', filmRefNames);
+				filmRefNames.forEach(filmRefName => getItemsMedia({
+					itemRefName: filmRefName,
+					itemType: 'event',
+					mappedShortIdentifier: eventRefName 
+				}))
+
+				// SPEC: pick 1 from each work, until up to MAX_CAROUSEL_IMAGES
+				
+			}
+		});
+}
+
+function receiveEvents(payload) {
+	const items = toItemsData(payload, true);
+	// items.forEach(item => fetchEventMedia(item.refName));
 	return {
 		type: RECEIVED_EVENTS,
-		data
+		data: items
 	}
 }
 
@@ -32,19 +65,20 @@ function failEvents(error) {
 	}
 }
 
-export function getEvents(collectionEvents, queryParams) {
+export function getEvents(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchEvents());
-		return config.fetchEvents(collectionEvents, queryParams)
+		return wrappedFetch(config.listEventsUrl(queryParams))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failEvents("Bad response from server"));
 				}
 				return response.json();
 			})
-			.then(data =>
-				dispatch(receiveEvents(data))
-			)
+			.then(data => {
+				if (data) dispatch(receiveEvents(data));
+				return null;
+			})
 			.catch(error =>
 				dispatch(failEvents(error))
 			);

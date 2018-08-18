@@ -20,7 +20,7 @@ function fetchFilmmakers() {
 function receiveFilmmakers(dispatch, payload) {
 	const items = toItemsData(payload);
 	items.forEach(item => {
-		dispatch(getItemsMedia(item, 'filmmaker'));
+		dispatch(getItemsMedia({ item, itemType: 'filmmaker' }));
 	});
 	return {
 		type: RECEIVED_FILMMAKERS,

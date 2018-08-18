@@ -7,7 +7,7 @@ import './SearchCards.css';
 
 class SearchCards extends Component {
 	render() {
-		const { itemType, mediaByShortIdentifier, data, customColWidth, viewMode,
+		const { itemType, mediaIsByCsid, data, customColWidth, viewMode,
 			onFilmmakerPage, isItemPageFilmCard } = this.props;
 		let customColSize = this.props.customColSize;
 		// SPEC: list view is ALWAYS 12-cols wide, no matter what
@@ -21,13 +21,13 @@ class SearchCards extends Component {
 						(customColWidth === 'xs' ? '' : customColWidth + '-') +
 						customColSize}>
 							<SearchCard
+								mediaIsByCsid={mediaIsByCsid}
 								key={i}
 								itemType={itemType || d.itemType}
 								onFilmmakerPage={onFilmmakerPage}
 								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}
 								data={d}
-								media={mediaByShortIdentifier && mediaByShortIdentifier.get(d.csid)}
 								{...d} />
 						</div>
 					)
@@ -49,7 +49,6 @@ class SearchCards extends Component {
 								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}
 								data={d}
-								media={mediaByShortIdentifier && mediaByShortIdentifier.get(d.csid)}
 								{...d} />
 						</Col>
 					)
@@ -62,13 +61,13 @@ class SearchCards extends Component {
 			{
 				data.map((d, i) =>
 					<SearchCard
+						mediaIsByCsid={mediaIsByCsid}
 						key={i}
 						itemType={itemType}
 						onFilmmakerPage={onFilmmakerPage}
 						isItemPageFilmCard={isItemPageFilmCard}
 						viewMode={viewMode}
 						data={d}
-						media={mediaByShortIdentifier && mediaByShortIdentifier.get(d.csid)}
 						{...d} />
 				)
 			}

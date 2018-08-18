@@ -1,35 +1,40 @@
 import * as types from '../actionTypes';
 
 const initialState = {
-	data: undefined,
+	data: [],
+	mediaByCsid: [],
 	isLoading: false,
-	error: undefined,
-	upcoming: undefined,
-	past: undefined
+	error: null
 };
 
-const eventsReducer = (state=initialState, action) => {
+const programsReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_EVENTS:
 				return {
 					isLoading: true,
-					error: undefined
+					error: null
 				};
 		case types.RECEIVED_EVENTS:
 			return {
 				isLoading: false,
-				error: undefined,
+				error: null,
 				data: action.data
 			};
+		case types.RECEIVED_EVENT_MEDIA:
+			// TODO
+			const newStateData = state.data.slice();
+			return Object.assign(state, {
+				data: newStateData
+			})
 		case types.FAILED_EVENTS:
 			return {
 				isLoading: false,
 				error: action.error,
-				data: undefined
+				data: []
 			};
 		default:
 			return state;
 	}
 };
 
-export default eventsReducer;
+export default programsReducer;

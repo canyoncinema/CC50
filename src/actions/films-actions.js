@@ -22,7 +22,7 @@ function receiveFilms(dispatch, payload) {
 	// return up to 3 film stills per film item
 	// and indicate num of stills per film (for carousel 'see more')
 	items.forEach(item => {
-		dispatch(getItemsMedia(item));
+		dispatch(getItemsMedia({ item }));
 	});
 	return {
 		type: RECEIVED_FILMS,

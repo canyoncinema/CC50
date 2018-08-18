@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import FilmTags from '../FilmTags/FilmTags';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import ChildrenOnly from '../ChildrenOnly/ChildrenOnly';
@@ -7,12 +7,33 @@ import CreatorLink from '../CreatorLink/CreatorLink';
 import ReactMarkdown from 'react-markdown';
 
 class FilmContent extends Component {
+	renderTags(listView) {
+		const { isItemPageFilmCard, item } = this.props;
+		return listView ?
+			isItemPageFilmCard ?
+				<FilmTags film={item} />
+			:
+			<div className="col-4 order-3">
+				<div className="list-center-wrapper">
+					<div className="tags-wrapper">
+						<FilmTags film={item} />
+					</div>
+				</div>
+			</div>
+		:
+		<div className="tags-wrapper">
+			<FilmTags film={item} />
+		</div>;
+	}
 	render() {
 		const {
 			item,
 			viewMode,
-			isItemPageFilmCard
+			isItemPageFilmCard,
+			hideTags,
+			showFilmFilmmaker
 		} = this.props;
+		const displayTags = !hideTags && !showFilmFilmmaker;
 		const listView = viewMode === 'list';
 		return (
 			<div className={listView && !isItemPageFilmCard ? 'row no-gutters FilmContent' : 'FilmContent'}>
@@ -41,7 +62,7 @@ class FilmContent extends Component {
 						}
 					</h4>
 					{
-						item.creator && !isItemPageFilmCard ?
+						showFilmFilmmaker || item.creator && !isItemPageFilmCard ?
 						<div className="creator">
 							<CreatorLink creatorRefName={item.creator} />
 						</div>
@@ -63,15 +84,7 @@ class FilmContent extends Component {
 					</div>
 				</div>
 				{
-					<div className={listView && !isItemPageFilmCard ?
-													'col-4 order-3' : null}>
-						<div className={listView && !isItemPageFilmCard ?
-							'list-center-wrapper' : null}>
-							<div className="tags-wrapper">
-								<FilmTags film={item} />
-							</div>
-						</div>
-					</div>
+					displayTags ? this.renderTags(listView) : null
 				}
 			</div>
 		);

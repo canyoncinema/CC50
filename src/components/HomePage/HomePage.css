@@ -13,6 +13,7 @@
 }
 
 .HomePage .Hero {
+  overflow: hidden;
 	padding-top: 106px;
   /* video placement */
   position: relative;

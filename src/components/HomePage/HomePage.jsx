@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import './HomePage.css';
 
+import { getEvents } from '../../actions/events-actions';
+
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
 import Spotlight from '../Spotlight/Spotlight';
@@ -30,18 +32,27 @@ const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,
   news: state.news.data,
   posts: state.posts.data,
+  events: state.events.data
 });
+
+const mapDispatchToProps = dispatch => ({
+  getEvents: (...args) => dispatch(getEvents(...args))
+})
 
 class HomePage extends Component {
   componentDidMount() {
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
+
+    this.props.getEvents({
+      pgSz: 3
+    });
   }
 
   render() {
     const {
-      upcomingEvents,
+      events, // TODO: upcoming only
       news,
       posts
     } = this.props;
@@ -70,7 +81,7 @@ class HomePage extends Component {
         </Hero>
         <div className="container padded-container">
           <Spotlight />
-          { upcomingEvents && upcomingEvents.length ?
+          { events && events.length ?
             [
               <Row key={0}>
                 <Col sm="12">
@@ -85,7 +96,7 @@ class HomePage extends Component {
                 </Col>
               </Row>
               ,
-              <EventTiles key={1} className="single-line" data={upcomingEvents} />
+              <EventTiles key={1} className="single-line" data={events} />
             ]
           : null }
 
@@ -172,4 +183,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

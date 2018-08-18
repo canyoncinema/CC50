@@ -1,0 +1,21 @@
+.EventDetailHeader {
+	background-color: #231f20;
+  background-color: var(--black);
+  padding: 45px 70px;
+}
+
+
+.EventDetailHeader .date-wrapper {
+	border-right-color: #4a4a4a;
+	border-right: solid 2px var(--darkest-gray);
+	padding-right: 24px;
+	margin-right: 45px;
+}
+
+.EventDetailHeader h1 {
+	margin: 0;
+}
+
+.EventDetailHeader .title-wrapper {
+	min-height: 105px;
+}

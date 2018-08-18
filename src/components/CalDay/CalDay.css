@@ -2,6 +2,8 @@
 	width: 110px;
   padding: 10px;
   display: inline-block;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
 }
 
 .CalDay .month {
@@ -11,8 +13,6 @@
   letter-spacing: 3px;
   text-align: center;
   text-transform: uppercase;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
 }
 
 .CalDay .date {
@@ -20,8 +20,6 @@
   font-size: 42px;
   line-height: 1.14;
   text-align: center;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
 }
 
 .CalDay .year {
@@ -32,6 +30,4 @@
   line-height: 1.44;
   letter-spacing: 3px;
   text-align: center;
-  color: #4a4a4a;
-  color: var(--darkest-gray);
 }

@@ -24,9 +24,16 @@ import {
 const getPhotoSrcs = mediaObjs =>
 	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
 
+const mappedMediaShortIdentifier = (props) =>
+	getShortIdentifierFromRefName(props.data.refName, null, props.data.refName);
+
 const mapStateToProps = (state, ownProps) => ({
-	media: 	state.itemsMedia.dataByShortIdentifier &&
-					state.itemsMedia.dataByShortIdentifier.get(getShortIdentifierFromRefName(ownProps.data.refName))
+	// note: exhibitions do not have short identifiers; only refNames
+	// enable an option on SearchCard to fetch its media keyed by RefName
+	media: state.itemsMedia.dataByShortIdentifier &&
+		state.itemsMedia.dataByShortIdentifier.get(
+			mappedMediaShortIdentifier(ownProps)
+		)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -36,9 +43,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 class SearchCard extends Component {
 	componentDidMount() {
 		// get media for this card
-		const { data, itemType } = this.props;
+		const { data, csid, itemType, mediaIsByCsid } = this.props;
 		if (!itemType) throw new Error('Requires itemType');
-		this.props.getItemsMedia(data, itemType);
+		this.props.getItemsMedia({
+			item: data,
+			itemType: itemType,
+			mappedShortIdentifier: mappedMediaShortIdentifier(this.props)
+		});
 	}
 	render() {
 		const {
@@ -48,9 +59,11 @@ class SearchCard extends Component {
 			shortIdentifier,
 			itemType, // film, program, ephemera, or filmmaker
 			photos,
+			hideTags,
 			viewMode,
 			onFilmmakerPage, // TODO fix use of isItemPageFilmCard || onFilmmakerPage
 			isItemPageFilmCard,
+			showFilmFilmmaker,
 			history
 		} = this.props;
 		// Note: certain design rules exist for cards on filmmaker pages.
@@ -116,6 +129,8 @@ class SearchCard extends Component {
 								isItemPageFilmCard={isItemPageFilmCard || onFilmmakerPage}
 								viewMode={viewMode}
 								item={data}
+								showFilmFilmmaker={showFilmFilmmaker}
+								hideTags={hideTags}
 							/> : null
 						}
 						{

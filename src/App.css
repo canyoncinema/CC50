@@ -100,7 +100,7 @@ body {
   margin: 0;
   padding: 0;
   /* desktop only */
-  min-width: 1200px;
+  /*min-width: 1200px;*/
   
   font-family: Karla, sans-serif;
   color: #231f20;
@@ -215,10 +215,6 @@ input:active {
   .CollectionPageItem > .content {
     padding: 70px 15px 100px;
   }
-}
-
-.container {
-  margin-left: 0 !important;
 }
 
 .no-padding {

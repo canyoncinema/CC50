@@ -12,6 +12,8 @@ import './App.css';
 import { getQueryVal } from './utils/query-string';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
+import EventsPage from './components/EventsPage/EventsPage';
+import EventDetail from './components/EventDetail/EventDetail';
 import AboutPage from './components/AboutPage/AboutPage';
 import TourPage from './components/TourPage/TourPage';
 import SupportUsPage from './components/SupportUsPage/SupportUsPage';
@@ -89,14 +91,18 @@ class App extends Component {
                 </Switch>
               </CollectionPage>
             }} />
+            <Route exact path="/events" component={EventsPage} />
+            <Route exact path="/events/:csid"
+              component={({match}) =>
+                <EventDetail
+                  csid={match.params.csid} />
+              } />
             <Route path="*" component={Page404} />
           </Switch>
           
           <Route exact path="/features/writings-and-essays" component={CollectionPage} />
           <Route exact path="/features/tour" component={CollectionPage} />
 
-          <Route exact path="/events" component={CollectionPage} />
-          <Route exact path="/events/:id" component={CollectionPage} />
 
           <Route exact path="/news" component={CollectionPage} />
           <Route exact path="/news/:id" component={CollectionPage} />

@@ -7,6 +7,7 @@ import itemMenuHeaders from './item-menu-headers-reducer';
 import collectionSort from './collection-sort-reducer';
 import typeAheadChoices from './typeahead-choices-reducer';
 import events from './events-reducer';
+import eventDetail from './event-detail-reducer';
 import news from './news-reducer';
 import posts from './posts-reducer';
 import programs from './programs-reducer';
@@ -26,6 +27,7 @@ export default combineReducers({
   collectionSort,
   typeAheadChoices,
   events,
+  eventDetail,
   news,
   posts,
   programs,

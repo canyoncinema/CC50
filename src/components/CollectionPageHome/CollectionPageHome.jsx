@@ -21,6 +21,7 @@ const mapStateToProps = state => ({
   programs: state.programs.data,
   programsIsLoading: state.programs.isLoading,
   programsError: state.programs.error,
+  programsMediaByCsid: state.programs.mediaByCsid,
   ephemera: state.ephemera.data,
   ephemeraIsLoading: state.ephemera.isLoading,
   ephemeraError: state.ephemera.error
@@ -50,19 +51,19 @@ class CollectionPageHome extends Component {
       programs,
       programsIsLoading,
       programsError,
+      programsMediaByCsid,
       ephemera,
       ephemeraIsLoading,
       ephemeraError
     } = this.props;
-    const programData = getSpoofDataList('programs'),
-          ephemeraData = getSpoofDataList('ephemera');
-    return [
+    const ephemeraData = getSpoofDataList('ephemera');
+    return <div className="container">
       <CollectionSection key={0}
         className="CollectionPageHomeSection"
         viewMode={viewMode}
         customColSize={viewMode !== 'list' ? 4 : null}
         customColWidth="sm"
-        header="Recently Added Films"
+        header="Films"
         description="New acquisitions to the Canyon Cinema collection"
         buttonText="See all films"
         buttonLink="/collection/films"
@@ -70,13 +71,13 @@ class CollectionPageHome extends Component {
         searchData={films}
         isLoading={filmsIsLoading}
         error={filmsError}
-      />,
+      />
       <CollectionSection key={1}
         className="CollectionPageHomeSection"
         viewMode={viewMode}
         customColSize={viewMode !== 'list' ? 4 : null}
         customColWidth="sm"
-        header="Recently Added Filmmakers"
+        header="Filmmakers"
         description="Spotlight on some of Canyon Cinema’s filmmakers"
         buttonText="See all filmmakers"
         buttonLink="/collection/filmmakers"
@@ -84,40 +85,44 @@ class CollectionPageHome extends Component {
         searchData={filmmakers}
         isLoading={filmmakersIsLoading}
         error={filmmakersError}
-      />,
-      programs && programs.length ?
-      <CollectionSection key={2}
-        className="CollectionPageHomeSection"
-        viewMode={viewMode}
-        customColSize={viewMode !== 'list' ? 4 : null}
-        customColWidth="sm"
-        header="Recently Added Curated Programs"
-        description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
-        buttonText="See all curated programs"
-        buttonLink="/collection/programs"
-        itemType="program"
-        searchData={programs}
-        isLoading={programsIsLoading}
-        error={programsError}
       />
-      : null,
-      ephemera && ephemera.length ?
-      <CollectionSection key={3}
-        className="CollectionPageHomeSection"
-        viewMode={viewMode}
-        customColSize={viewMode !== 'list' ? 4 : null}
-        customColWidth="sm"
-        header="Recently Added Ephemera"
-        description="Printed pieces, photos, stills, videos, and other related materials"
-        buttonText="See all ephemera"
-        buttonLink="/collection/ephemera"
-        itemType="ephemera"
-        searchData={ephemera}
-        isLoading={ephemeraIsLoading}
-        error={ephemeraError}
-      />
-      : null
-  	];
+      {
+        programs && programs.length ?
+        <CollectionSection key={2}
+          className="CollectionPageHomeSection"
+          viewMode={viewMode}
+          customColSize={viewMode !== 'list' ? 4 : null}
+          customColWidth="sm"
+          header="Curated Programs"
+          description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
+          buttonText="See all curated programs"
+          buttonLink="/collection/programs"
+          itemType="program"
+          searchData={programs}
+          isLoading={programsIsLoading}
+          error={programsError}
+        />
+        : null
+      }
+      {
+        ephemera && ephemera.length ?
+        <CollectionSection key={3}
+          className="CollectionPageHomeSection"
+          viewMode={viewMode}
+          customColSize={viewMode !== 'list' ? 4 : null}
+          customColWidth="sm"
+          header="Recently Added Ephemera"
+          description="Printed pieces, photos, stills, videos, and other related materials"
+          buttonText="See all ephemera"
+          buttonLink="/collection/ephemera"
+          itemType="ephemera"
+          searchData={ephemera}
+          isLoading={ephemeraIsLoading}
+          error={ephemeraError}
+        />
+        : null
+      }
+    </div>;
   }
 }
 

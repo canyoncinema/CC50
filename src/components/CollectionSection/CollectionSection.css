@@ -6,7 +6,7 @@
 		avoid card overflows + fix search card widths to
 		preserve desired image sizing
 	*/
-	/*width: 1300px;*/
+	min-width: 1300px;
 }
 
 .CollectionPage .CollectionSection:last-child {

@@ -20,6 +20,7 @@ function fetchItemsMedia(shortIdentifier) {
 }
 
 function receiveItemsMedia(shortIdentifier, data) {
+	fetchedMediaForShortIdentifiers.push(shortIdentifier);
 	return {
 		type: RECEIVED_ITEMS_MEDIA,
 		shortIdentifier,
@@ -35,33 +36,41 @@ function failedItemsMedia(shortIdentifier, error) {
 	}
 }
 
-export function getItemsMedia(item,
-	itemType=getItemTypeFromRefName(item.refName),
-	mappedShortIdentifier) {
-	console.log('getItemsMedia', item);
-	const shortIdentifier = getShortIdentifierFromRefName(item.refName);
+export function getItemsMedia({
+	item,
+	itemRefName=item.refName,
+	itemType=getItemTypeFromRefName(itemRefName),
+	mappedShortIdentifier
+}) {
+	const shortIdentifier = mappedShortIdentifier || getShortIdentifierFromRefName(itemRefName);
 	const queryParams = {
-		refName: item.refName,
+		refName: itemRefName,
 		pgSz: 3,
 		isItemsMedia: itemType === 'film' || itemType === 'filmmaker',
-		isByFilmmaker: itemType === 'filmmaker'
+		isByFilmmaker: itemType === 'filmmaker',
+		isProgram: itemType === 'program'
 	};
 	return dispatch => {
 		if (fetchedMediaForShortIdentifiers.includes(shortIdentifier)) return;
-		config.fetchItemMedia(queryParams)
+		return config.fetchItemMedia(queryParams)
 		.then(response => {
 			if (response.status >= 400) {
 				// fail silently (still return rest of page)
-				console.warn('WARNING: images could not be retrieved for ' + item.termDisplayName);
+				console.warn('WARNING: images could not be retrieved' +
+					item ? 'for ' + item.termDisplayName : '');
 			}
 			return response.json();
 		})
 		.then(payload => {
-			fetchedMediaForShortIdentifiers.push(shortIdentifier);
 			const media = toItemsData(payload, true);
 			// for a film short identifier, will associate this media to that film
 			dispatch(receiveItemsMedia(shortIdentifier, media));
-			if (item.creator) {
+			if (mappedShortIdentifier &&
+					mappedShortIdentifier !== shortIdentifier) {
+				// also, do not upload this still again, if on the item's item page/search card
+				dispatch(receiveItemsMedia(getShortIdentifierFromRefName(itemRefName), media));
+			}
+			if (item && item.creator) {
 				// also associate this film media to film's Filmmaker
 				// allowing a filmmaker's page to have all possibly retrieved film stills
 					// IMPORTANT: this only grabs the top 3 (via CoverCarousel media num limit)

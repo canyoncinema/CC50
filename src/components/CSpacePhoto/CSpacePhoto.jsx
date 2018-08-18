@@ -62,13 +62,14 @@ function CSpacePhoto(ComposedComponent) {
 			return sizeIndex;
 		}
 
-		onLoadError() {
+		onLoadError = () => {
 			const sizeIndex = this.findCanvasSizeIndex(
-					this.props.canvasSize,
-					this.props.canvasWidth,
-					this.props.canvasHeight
-				);
+				this.props.canvasSize,
+				this.props.canvasWidth,
+				this.props.canvasHeight
+			);
 			if (sizeIndex >= CSpaceOrderedSizes.length - 1) {
+				// fail silently
 				console.warn('Sorry, no size up for image ' + this.props.blobCsid +
 					'. Cannot load. Silently failing.');
 			} else {

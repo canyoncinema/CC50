@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './EventTile.css';
 
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
@@ -13,40 +14,47 @@ class EventTile extends Component {
 	constructor(props) {
 		super(props);
 		this.eventNameRef = React.createRef();
-	}
+	} 
 
 	render() {
 		const {
+			csid,
 			startDateTime,
 			photos,
-			name,
+			title,
+			venueName,
 			location,
 			ticketPrice,
 			ticketNote
 		} = this.props;
 
-		const dateTime = new Date(startDateTime);
+		const dateTime = startDateTime ? new Date(startDateTime) : null;
 		return (
+			<Link to={`/events/${csid}`}>
 			<div className="EventTile shadow-on-hover">
 				<div className="banner">
 					<CalDay dateTime={dateTime} />
-					<PhotoFill src={photos[0]} height="100%" />
+					<PhotoFill src={photos && photos[0]} height="100%" />
 				</div>
 				<div className="content">
 					<h4 className="hover-effect" ref={this.eventNameRef}>
 						<ClampedDescription maxLines={2}>
-							<ReactMarkdown source={name} renderers={{
+							<ReactMarkdown source={title} renderers={{
 								'paragraph': ChildrenOnly,
 								'root': ChildrenOnly,
 								'listItem': ChildrenOnly
 							}} />
 						</ClampedDescription>
 					</h4>
-					<div className="single-line-ellipsed location">{location.name}</div>
+					<div className="single-line-ellipsed location">{venueName}</div>
 					<div><DateTimeString format="time" dateTime={dateTime} /></div>
-					<div><TicketPriceString price={ticketPrice} note={ticketNote} /></div>
+					{	ticketPrice || ticketNote ?
+						<div><TicketPriceString price={ticketPrice} note={ticketNote} /></div>
+						: null
+					}
 				</div>
 			</div>
+			</Link>
 		);
 	}
 }

@@ -12,8 +12,13 @@ cd $CC50_DIR_PATH && yarn build && mv build/ cc50/ && sudo scp -r $CC50_DIR_PATH
 
 Please contact Amy Hua at [amy@canyoncinema.com](mailto:amy@canyoncinema.com) or Nima Khazaei at [nima@canyoncinema.com](mailto:nima@canyoncinema.com) for credentials.
 
+## Data
+
+```
+http://beta.canyoncinema50.org/cspace-services/media?as=((media_canyon:filmSubject+%3D+%22urn%3Acspace%3Acanyoncinema.com%3Aworkauthorities%3Aname(work)%3Aitem%3Aname(17ReasonsWhy1533599384370)%2717%20Reasons%20Why%27%22+AND+media_common:typeList%2F*+%3D+%22film_still%22))&pgSz=3&wf_deleted=false
+
+
 ## Contributors:
 
 * Amy Hua
-* Olivia Kumar
 * Backend shout-out to Nima Khazaei

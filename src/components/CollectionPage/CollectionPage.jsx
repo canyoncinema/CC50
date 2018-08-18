@@ -104,12 +104,14 @@ class CollectionPage extends Component {
 				</div>
 				<div className="CollectionPage">
 					<header className="search-sort">
-						<h1 className="white">Explore the collection</h1>
-						<div className="filters">
-							<Search id={0} collectionItems={collectionItems} />
-							<ViewModeToggler
-								activeMode={viewMode || 'grid'}
-								onClick={this.setViewMode} />
+						<div className="container">
+							<h1 className="white">Explore the collection</h1>
+							<div className="filters">
+								<Search id={0} collectionItems={collectionItems} />
+								<ViewModeToggler
+									activeMode={viewMode || 'grid'}
+									onClick={this.setViewMode} />
+							</div>
 						</div>
 					</header>
 					{
