@@ -12,6 +12,7 @@ import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import RichText from '../RichText/RichText';
 import ReactMarkdown from 'react-markdown';
+import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
 const mapStateToProps = state => ({
 	event: state.eventDetail.data,
@@ -39,6 +40,7 @@ class EventDetail extends Component {
 		}
 		return (
 			<div className="EventDetail">
+				<ScrollToTopOnMount />
 				<EventDetailHeader
 					startDateTime={event.startDateTime}
 					endDateTime={event.endDateTime}

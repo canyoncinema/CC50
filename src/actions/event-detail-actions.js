@@ -16,7 +16,6 @@ import { wrappedFetch } from '../config';
 import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
 
 function fetchEventDetail() {
-	console.log('fetchEventDetail');
 	return {
 		type: FETCH_EVENT_DETAIL
 	}
@@ -43,7 +42,6 @@ function receiveEventDetail(dispatch, payload) {
 	const filmRefNames = parseItemExhibitionWorks(item);
 	item.films = getEventFilms(filmRefNames);
 	dispatch(getEventDetailFilms(filmRefNames));
-	console.log('receiveEventDetail', item);
 
 	return {
 		type: RECEIVED_EVENT_DETAIL,

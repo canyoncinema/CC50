@@ -5,7 +5,6 @@ import CalDay from '../CalDay/CalDay';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
 const EventDetailHeader = ({ startDateTime, endDateTime, title }) =>
-	// console.log('startDateTime', startDateTime);
 	<div className="EventDetailHeader container-fluid d-flex">
 		<div className="date-wrapper">
 			{

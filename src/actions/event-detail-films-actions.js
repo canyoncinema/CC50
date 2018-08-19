@@ -48,7 +48,6 @@ export function getEventDetailFilms(filmRefNames) {
 		dispatch(fetchEventFilms(filmRefNames));
 		config.fetchFilms(filmRefNames)
 		.then(payloads => {
-			console.log('payloads', payloads);
 			payloads.forEach((payload, i) => {
 				if (payload.error) {
 					dispatch(failEventFilm(filmRefNames[i], payload.error));

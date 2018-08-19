@@ -35,7 +35,6 @@ function fetchEventMedia(eventRefName) {
 		.then(data => {
 			if (data) {
 				const filmRefNames = parseItemExhibitionWorks(toItemData(data));
-				console.log('works', filmRefNames);
 				filmRefNames.forEach(filmRefName => getItemsMedia({
 					itemRefName: filmRefName,
 					itemType: 'event',

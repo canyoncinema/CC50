@@ -22,7 +22,6 @@ const eventDetailFilmsReducer = (state=initialState, action) => {
 				error: undefined,
 				data: action.data
 			});
-			console.log('get', newState.get(action.filmRefName))
 			return newState;
 		case types.FAILED_EVENT_DETAIL_FILM:
 			newState = new Map(state);

@@ -192,7 +192,6 @@ class Config {
 		} else if (isEvent) {
 			as = ``
 		} else {
-			console.log('as', refName)
 			as = asWrapper(isFilmSubject(refName), andIsFilmSubjectMedia);
 		}
 		const queryParams = {
@@ -321,7 +320,6 @@ class Config {
 				return Promise.all(responses
 					.map(r => r.status >= 400 ? { error: 'Bad response from server' } : r) // fail silently
 					.map(r => {
-						console.log('r', r);
 						return r.error ? r.error : r.json();
 					})
 				)
