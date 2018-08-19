@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import './HomePage.css';
 
@@ -37,7 +38,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getEvents: (...args) => dispatch(getEvents(...args))
-})
+});
 
 class HomePage extends Component {
   componentDidMount() {
@@ -88,9 +89,11 @@ class HomePage extends Component {
                   <h1 className="lead upcoming-events d-flex">
                     Upcoming events
                     <span className="ml-auto">
-                      <Button size="default">
-                        See all Events
-                      </Button>
+                      <Link to="/events">
+                        <Button size="default">
+                          See all Events
+                        </Button>
+                      </Link>
                     </span>
                   </h1>
                 </Col>

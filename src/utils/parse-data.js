@@ -1,3 +1,24 @@
+function getEventFilms(filmRefNames) {
+	return (filmRefNames || []).map(filmRefName => ({
+		termDisplayName: getDisplayNameFromRefName(filmRefName),
+		shortIdentifier: getShortIdentifierFromRefName(filmRefName),
+		refName: filmRefName
+	}));
+}
+
+export const addEventFields = (item,filmRefNames) => {
+	// TODO: price string
+	item.price = null;
+	item.startDateTime = parseExhibitionStartTime(item);
+	item.endDateTime = parseExhibitionEndTime(item);
+	const venueGroup = parseExhibitionVenueGroup(item);
+	item.venueDisplayName = parseExhibitionVenueDisplayName(item);
+	item.venueUrl = parseExhibitionVenueUrl(item);
+	// TODO: differ date from dateTime (incl. midnight)
+	item.films = getEventFilms(filmRefNames);
+	return item;
+}
+
 export const parseCreator = creatorRefName =>
 	creatorRefName &&
 	creatorRefName.match(/\'(.+)\'$/) &&

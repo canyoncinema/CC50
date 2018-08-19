@@ -2,8 +2,8 @@
 		
 }
 
-.EventsPage .content {
-	padding: 0 70px;
+.EventsPage > .content {
+	padding: 70px;
 }
 
 .EventsPage section {

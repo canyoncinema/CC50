@@ -8,7 +8,8 @@ import { parseFilm, getCsidFromRefName, toItemData,
 	parseItemExhibitionWorks,
 	parseExhibitionVenueGroup, parseExhibitionVenueUrl, parseExhibitionVenueDisplayName,
 	parseExhibitionStartTime, parseExhibitionEndTime,
-	getDisplayNameFromRefName, getShortIdentifierFromRefName
+	getDisplayNameFromRefName, getShortIdentifierFromRefName,
+	addEventFields
 } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { getEventDetailFilms } from './event-detail-films-actions';
@@ -21,26 +22,11 @@ function fetchEventDetail() {
 	}
 }
 
-function getEventFilms(filmRefNames) {
-	return (filmRefNames || []).map(filmRefName => ({
-		termDisplayName: getDisplayNameFromRefName(filmRefName),
-		shortIdentifier: getShortIdentifierFromRefName(filmRefName),
-		refName: filmRefName
-	}));
-}
-
 function receiveEventDetail(dispatch, payload) {
 	const item = toItemData(payload);
-	// TODO: price string
-	item.price = null;
-	item.startDateTime = parseExhibitionStartTime(item);
-	item.endDateTime = parseExhibitionEndTime(item);
-	const venueGroup = parseExhibitionVenueGroup(item);
-	item.venueDisplayName = parseExhibitionVenueDisplayName(item);
-	item.venueUrl = parseExhibitionVenueUrl(item);
-	// TODO: differ date from dateTime (incl. midnight)
 	const filmRefNames = parseItemExhibitionWorks(item);
-	item.films = getEventFilms(filmRefNames);
+	addEventFields(item, filmRefNames);
+
 	dispatch(getEventDetailFilms(filmRefNames));
 
 	return {

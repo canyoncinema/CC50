@@ -4,7 +4,9 @@ import {
 	FAILED_EVENTS
 } from '../actionTypes';
 import { config } from '../store';
-import { parseFilm, getCsidFromRefName, toItemData, toItemsData, parseItemExhibitionWorks } from '../utils/parse-data';
+import { parseFilm, getCsidFromRefName,
+	toItemData, toItemsData,
+	parseItemExhibitionWorks, addEventFields } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
 import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
@@ -49,6 +51,7 @@ function fetchEventMedia(eventRefName) {
 
 function receiveEvents(payload) {
 	const items = toItemsData(payload, true);
+	items.forEach(item => addEventFields(item));
 	// items.forEach(item => fetchEventMedia(item.refName));
 	return {
 		type: RECEIVED_EVENTS,
