@@ -23,21 +23,21 @@ class NewsTile extends Component {
 		const authorByline = author ? ` by ${author}` : null;
 		return (
 			<Link to={`/news/${slug}`}>
-			<div className="NewsTile shadow-on-hover">
-				<PhotoFill src={featureImage} backgroundSize="cover" height="202px" />
-				<div className="content">
-					<h4 className="hover-effect" ref={this.newsNameRef}>
-						{title}
-					</h4>
-					<div className="by-line">
-						<DateTimeString dateTime={publishedAt} format="long-date" />
-						{authorByline}
-					</div>
-					<div className="read-more">
-						Read More →
+				<div className="NewsTile shadow-on-hover">
+					<PhotoFill src={featureImage} backgroundSize="cover" height="202px" />
+					<div className="content">
+						<h4 className="hover-effect" ref={this.newsNameRef}>
+							{title}
+						</h4>
+						<div className="by-line">
+							<DateTimeString dateTime={publishedAt} format="long-date" />
+							{authorByline}
+						</div>
+						<div className="read-more">
+							Read More →
+						</div>
 					</div>
 				</div>
-			</div>
 			</Link>
 		);
 	}

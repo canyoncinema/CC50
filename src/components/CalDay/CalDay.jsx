@@ -9,7 +9,6 @@ const getMonthString = dateTime => {
 };
 
 const CalDay = ({ dateTime, className }) => {
-	console.log('CalDay', dateTime);
 	if (!(dateTime instanceof Date)) {
 		dateTime = new Date(dateTime);
 		if (!(dateTime instanceof Date)) {

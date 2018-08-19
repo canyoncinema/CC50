@@ -147,9 +147,9 @@ class HomePage extends Component {
               News
               <span className="ml-auto">
                 <Link to="/news">
-                <Button size="default">
-                  Read All News
-                </Button>
+                  <Button size="default">
+                    Read All News
+                  </Button>
                 </Link>
               </span>
             </h1>

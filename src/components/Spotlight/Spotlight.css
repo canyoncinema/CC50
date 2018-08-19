@@ -2,6 +2,10 @@
 	margin-bottom: 0;
 }
 
+.Spotlight .spotlight-items {
+	background-color: white;
+}
+
 .Spotlight .photo-wrapper,
 .Spotlight .photo-wrapper .PhotoFill {
 	background-color: black;

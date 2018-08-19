@@ -6,7 +6,7 @@ import { getEventDetail } from '../../actions/event-detail-actions';
 
 import EventDetailSide from '../EventDetailSide/EventDetailSide';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
-import EventDetailHeader from '../EventDetailHeader/EventDetailHeader';
+import CalDayTitleHeader from '../CalDayTitleHeader/CalDayTitleHeader';
 import EventDetailFilm from '../EventDetailFilm/EventDetailFilm';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -41,7 +41,7 @@ class EventDetail extends Component {
 		return (
 			<div className="EventDetail">
 				<ScrollToTopOnMount />
-				<EventDetailHeader
+				<CalDayTitleHeader
 					startDateTime={event.startDateTime}
 					endDateTime={event.endDateTime}
 					title={event.title}

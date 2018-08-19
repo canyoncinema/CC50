@@ -14,6 +14,7 @@ import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import EventsPage from './components/EventsPage/EventsPage';
 import NewsPage from './components/NewsPage/NewsPage';
+import NewsDetail from './components/NewsDetail/NewsDetail';
 import EventDetail from './components/EventDetail/EventDetail';
 import AboutPage from './components/AboutPage/AboutPage';
 import TourPage from './components/TourPage/TourPage';
@@ -99,6 +100,8 @@ class App extends Component {
                   csid={match.params.csid} />
               } />
               <Route exact path="/news" component={NewsPage} />
+            <Route exact path="/news" component={NewsPage} />
+            <Route exact path="/news/:slug" component={({match}) => <NewsDetail slug={match.params.slug} /> } />
             <Route path="*" component={Page404} />
           </Switch>
           
@@ -106,8 +109,6 @@ class App extends Component {
           <Route exact path="/features/tour" component={CollectionPage} />
 
 
-          <Route exact path="/news" component={CollectionPage} />
-          <Route exact path="/news/:id" component={CollectionPage} />
 
           <Route exact path="/about" component={CollectionPage} />
           <Route exact path="/press" component={CollectionPage} />

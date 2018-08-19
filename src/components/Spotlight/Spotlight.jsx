@@ -128,7 +128,7 @@ class Spotlight extends Component {
           <Col sm="12">
             <h1 className="lead">Spotlight</h1>
             <Row className="no-gutters">
-							<Col md="6">
+							<Col md="6" className="spotlight-items">
 								{
 									spotlightMedia.map((mediaItem, i) => {
 										const isActive = i === activePhotoIndex;

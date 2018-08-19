@@ -25,11 +25,6 @@ function withScrollNav(Component, headerHeight=361) {
 		}
 
 		toggleCollapsedNav = (e) => {
-			// if (this.toggleCollapsedNavTimeout) {
-			// 	clearTimeout(this.toggleCollapsedNavTimeout);
-			// 	this.toggleCollapsedNavTimeout = null;
-			// }
-			// this.toggleCollapsedNavTimeout = setTimeout(() => this.toggle, 0);
 			this.toggle();
     }
 

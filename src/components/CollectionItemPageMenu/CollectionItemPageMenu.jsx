@@ -22,6 +22,8 @@ class CollectionItemPageMenu extends Component {
 		// TODO: known attempted memory leak with Scrollspy. Report/fix.
 		return (
 			<Scrollspy
+				threshold={{ x: 0, y: 0 }}
+  			offset={{ top: 0, right: 0, bottom: 0, left: 0 }}
 				className={isScrollNav ? 'CollectionItemPageMenu fixed' : 'CollectionItemPageMenu'}
 				items={orderedHeaders.map((h, i) => h.id)}
 				currentClassName="active">
