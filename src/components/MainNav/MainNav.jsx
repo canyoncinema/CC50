@@ -42,8 +42,8 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 						<NavItem className={isActive('/about') ? 'p-2 active' : 'p-2'}>
 							<NavLink href="/about">About</NavLink>
 						</NavItem>
-						<NavItem className={isActive('/tour') ? 'p-2 active' : 'p-2'}>
-							<NavLink href="/tour">Tour</NavLink>
+						<NavItem className={isActive('/events') ? 'p-2 active' : 'p-2'}>
+							<NavLink href="/events">Events</NavLink>
 						</NavItem>
 						<NavItem className={isActive('/support') ? 'p-2 active' : 'p-2'}>
 							<NavLink href="/support">Support Us</NavLink>
