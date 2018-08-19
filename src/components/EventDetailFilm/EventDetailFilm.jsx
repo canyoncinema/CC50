@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { getShortIdentifierFromRefName } from './../../utils/parse-data';
 
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
@@ -26,6 +28,7 @@ class EventDetailFilm extends Component {
 			<SearchCard
 				itemType="film"
 				viewMode="list"
+				shortIdentifier={getShortIdentifierFromRefName(film.refName)}
 				isItemPageFilmCard={true}
 				showFilmFilmmaker={true}
 				data={film}

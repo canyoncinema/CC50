@@ -3,6 +3,14 @@
 	position: relative;
 	cursor: pointer;
 	width: 360px;
+	font-size: 16px;
+}
+
+.NewsTile .by-line {
+	font-size: 14px;line-height: 1.64;
+  letter-spacing: normal;
+  color: #4a4a4a;
+  color: var(--darkest-gray);
 }
 
 .NewsTile h4 {

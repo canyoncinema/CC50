@@ -5,6 +5,7 @@ import { Row, Col } from 'reactstrap';
 import './HomePage.css';
 
 import { getEvents } from '../../actions/events-actions';
+import { getNews } from '../../actions/news-actions';
 
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
@@ -37,7 +38,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getEvents: (...args) => dispatch(getEvents(...args))
+  getEvents: (...args) => dispatch(getEvents(...args)),
+  getNews: (...args) => dispatch(getNews(...args))
 });
 
 class HomePage extends Component {
@@ -48,6 +50,9 @@ class HomePage extends Component {
 
     this.props.getEvents({
       pgSz: 3
+    });
+    this.props.getNews({
+      limit: 3
     });
   }
 
@@ -141,9 +146,11 @@ class HomePage extends Component {
             <h1 className="lead d-flex news">
               News
               <span className="ml-auto">
+                <Link to="/news">
                 <Button size="default">
                   Read All News
                 </Button>
+                </Link>
               </span>
             </h1>
             : null

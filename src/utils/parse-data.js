@@ -1,3 +1,22 @@
+function toGhostImage(imgSrc) {
+	return imgSrc.match(/\:\/\//) ?
+		imgSrc : `http://ghost.cancf.com${imgSrc}`;
+}
+
+export function toNewsItemData(item) {
+	return {
+		id: item.id,
+		title: item.title,
+		publishedAt: new Date(item.published_at),
+		author: item.primary_author.name,
+		featureImage: toGhostImage(item.feature_image),
+		slug: item.slug
+	}
+}
+export function toNewsItemsData(items) {
+	return items.map(toNewsItemData);
+}
+
 function getEventFilms(filmRefNames) {
 	return (filmRefNames || []).map(filmRefName => ({
 		termDisplayName: getDisplayNameFromRefName(filmRefName),

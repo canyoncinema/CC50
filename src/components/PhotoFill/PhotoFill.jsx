@@ -13,7 +13,8 @@ class PhotoFill extends Component {
 		const {src,
 			onClick, onMouseEnter, onMouseLeave,
 			className, width, children, height,
-			caption, captionLink, fadedCaption} = this.props;
+			caption, captionLink, fadedCaption,
+			backgroundSize} = this.props;
 		return (
 			<div className={[
 					className,
@@ -25,7 +26,8 @@ class PhotoFill extends Component {
 				style={{
 				backgroundImage: src && src !== EMPTY_STILL_PATH ? `url(${src}), url(${LOADING_STILL_PATH})` : `url(${EMPTY_STILL_PATH})`,
 				width: !isNaN(width) ? width + 'px' : width ? width : '100%',
-				height: !isNaN(height) ? height + 'px' : height ? height : '100%'
+				height: !isNaN(height) ? height + 'px' : height ? height : '100%',
+				backgroundSize: backgroundSize || 'contain'
 			}}>
 				{children}
 				{

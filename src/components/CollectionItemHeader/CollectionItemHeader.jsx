@@ -4,7 +4,7 @@ import './CollectionItemHeader.css';
 import { Row, Col } from 'reactstrap';
 import { toCollectionSearchLabel } from '../../collection-context';
 
-import CreatorLink from '../CreatorLink/CreatorLink';
+import RefNameLink from '../RefNameLink/RefNameLink';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import FilmTags from '../FilmTags/FilmTags';
 import ThumbnailCarousel from '../ThumbnailCarousel/ThumbnailCarousel';
@@ -63,7 +63,7 @@ class CollectionItemHeader extends Component {
 									}
 									{
 										itemCreator ?
-										<CreatorLink creatorRefName={itemCreator} />
+										<RefNameLink collection="filmmakers" refName={itemCreator} />
 										: null
 									}
 									{

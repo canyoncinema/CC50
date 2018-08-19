@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import $clamp from 'clamp-js';
 import './NewsTile.css';
 import ReactMarkdown from 'react-markdown';
@@ -18,17 +19,18 @@ class NewsTile extends Component {
 	}
 
 	render() {
-		const { name, created, photo, author } = this.props;
+		const { title, publishedAt, slug, featureImage, author } = this.props;
 		const authorByline = author ? ` by ${author}` : null;
 		return (
+			<Link to={`/news/${slug}`}>
 			<div className="NewsTile shadow-on-hover">
-				<PhotoFill src={photo} height="202px" />
+				<PhotoFill src={featureImage} backgroundSize="cover" height="202px" />
 				<div className="content">
 					<h4 className="hover-effect" ref={this.newsNameRef}>
-						<ReactMarkdown source={name} disallowedTypes={['paragraph']} />
+						{title}
 					</h4>
-					<div>
-						<DateTimeString dateTime={created} format="long-date" />
+					<div className="by-line">
+						<DateTimeString dateTime={publishedAt} format="long-date" />
 						{authorByline}
 					</div>
 					<div className="read-more">
@@ -36,6 +38,7 @@ class NewsTile extends Component {
 					</div>
 				</div>
 			</div>
+			</Link>
 		);
 	}
 };

@@ -10,7 +10,7 @@ const EventTiles = ({className, customColSize, data}) => {
 			{
 				data.map((d, i) => {
 					return (
-						<Col key={i} sm={customColSize || 4}>
+						<Col key={i} md={customColSize || 4}>
 							<EventTile {...d} key={i} />
 						</Col>
 					);

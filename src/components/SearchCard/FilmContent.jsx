@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FilmTags from '../FilmTags/FilmTags';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import ChildrenOnly from '../ChildrenOnly/ChildrenOnly';
-import CreatorLink from '../CreatorLink/CreatorLink';
+import RefNameLink from '../RefNameLink/RefNameLink';
 import ReactMarkdown from 'react-markdown';
 
 class FilmContent extends Component {
@@ -62,9 +62,9 @@ class FilmContent extends Component {
 						}
 					</h4>
 					{
-						showFilmFilmmaker || item.creator && !isItemPageFilmCard ?
+						item.creator && (showFilmFilmmaker || !isItemPageFilmCard) ?
 						<div className="creator">
-							<CreatorLink creatorRefName={item.creator} />
+							<RefNameLink collection="filmmakers" refName={item.creator} />
 						</div>
 						: null
 					}

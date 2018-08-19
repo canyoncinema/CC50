@@ -20,7 +20,7 @@
   margin-bottom: 5px;
 }
 
-.CollectionItemHeader .CreatorLink {
+.CollectionItemHeader .RefNameLink {
   font-size: 14px;
   line-height: 1.64;
   margin-top: 6px;
@@ -28,7 +28,7 @@
   display: inline-block;
 }
 
-.CollectionItemHeader.collapsed .CreatorLink {
+.CollectionItemHeader.collapsed .RefNameLink {
 	margin-top: 0;
 	margin-bottom: 0;
 }

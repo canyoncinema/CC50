@@ -14,6 +14,9 @@ const toRefNameUriVal = refName => refName.replace('#', '%23');
 
 const config = {
 	development: {
+		ghost: {
+			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+		},
 		username: process.env.REACT_APP_CC50_USERNAME_DEVELOPMENT,
 		password: process.env.REACT_APP_CC50_PASSWORD_DEVELOPMENT,
 		baseUrl: 'http://dev-cs45-2.cancf.com:8180/cspace-services',
@@ -25,6 +28,9 @@ const config = {
 		}
 	},
 	production: {
+		ghost: {
+			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+		},
 		username: process.env.REACT_APP_CC50_USERNAME_PRODUCTION,
 		password: process.env.REACT_APP_CC50_PASSWORD_PRODUCTION,
 		// baseUrl: 'http://cs.cancf.com:8180/cspace-services',
@@ -324,6 +330,16 @@ class Config {
 					})
 				)
 			});
+	}
+
+	GHOST_CLIENT_SECRET = 'de4b915ccc25' // not so secret secret (read-only access)
+
+	listNews({ limit }) {
+		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&limit=${limit}&include=authors&fields=id,slug,primary_author,feature_image,title,published_at&order=published_at+desc&filter=visibility:public`);
+	}
+
+	retrieveNewsItem({ slug }) {
+		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/slug/${slug}/??client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}`);
 	}
 
 	MIN_MEDIA_COUNT = 321
