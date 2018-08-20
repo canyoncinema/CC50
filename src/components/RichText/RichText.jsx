@@ -1,6 +1,10 @@
 import React from 'react';
 import './RichText.css';
 
-const RichText = ({children}) => <pre className="RichText">{children}</pre>;
+const RichText = ({children, dangerouslySetInnerHTML}) => <pre
+	dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+	className="RichText">
+	{children}
+</pre>;
 
 export default RichText;

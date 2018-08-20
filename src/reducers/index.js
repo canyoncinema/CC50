@@ -9,6 +9,7 @@ import typeAheadChoices from './typeahead-choices-reducer';
 import events from './events-reducer';
 import eventDetail from './event-detail-reducer';
 import news from './news-reducer';
+import newsDetail from './news-detail-reducer';
 import posts from './posts-reducer';
 import programs from './programs-reducer';
 import ephemera from './ephemera-reducer';
@@ -29,6 +30,7 @@ export default combineReducers({
   events,
   eventDetail,
   news,
+  newsDetail,
   posts,
   programs,
   ephemera,

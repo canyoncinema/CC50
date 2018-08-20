@@ -1,3 +1,38 @@
-.NewsDetail {
-	
+.NewsDetail > .content {
+	max-width: 768px;
+	margin: auto;
+	padding: 70px 0;
+}
+
+.NewsDetail li {
+	display: block;
+}
+
+.NewsDetail ol,
+.NewsDetail ul {
+	counter-reset: item;
+}
+
+p {
+	margin: 0;
+}
+
+li {
+	counter-increment: item;
+}
+
+li > p:first-child {
+	position: relative;
+}
+
+li > p:last-child {
+	margin-bottom: 0;
+}
+
+li > p:first-child:before {
+	content: counter(item) '. ';
+	display: inline-block;
+	position: absolute;
+	text-align: right;
+	left: -1.5em;
 }

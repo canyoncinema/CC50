@@ -1,6 +1,19 @@
-function toGhostImage(imgSrc) {
-	return imgSrc.match(/\:\/\//) ?
-		imgSrc : `http://ghost.cancf.com${imgSrc}`;
+function toGhostSrc(src) {
+	return src.match(/\:\/\//) ?
+		src : `http://ghost.cancf.com${src}`;
+}
+
+export function convertGhostHtml(ghostHtml) {
+	// for every image src instance, replace to include ghost domain
+	const strings = ghostHtml.match(/src=\"(\S+)\"/g);
+	if (strings) {
+		strings.forEach(str => {
+			const match = str.match(/src=\"(\S+)\"/);
+			const srcVal = match[1];
+			ghostHtml = ghostHtml.replace(str, 'src="' + toGhostSrc(srcVal) + '"');
+		});
+	}
+	return ghostHtml;
 }
 
 export function toNewsItemData(item) {
@@ -8,9 +21,13 @@ export function toNewsItemData(item) {
 		id: item.id,
 		title: item.title,
 		publishedAt: new Date(item.published_at),
-		author: item.primary_author.name,
-		featureImage: toGhostImage(item.feature_image),
-		slug: item.slug
+		author: item.primary_author ?
+			item.primary_author.name : item.authors && item.authors.length ?
+			item.authors.map(a => a.name).join(', ') : '', 
+		featureImage: toGhostSrc(item.feature_image),
+		slug: item.slug,
+		html: item.html && convertGhostHtml(item.html),
+		status: item.status
 	}
 }
 export function toNewsItemsData(items) {
