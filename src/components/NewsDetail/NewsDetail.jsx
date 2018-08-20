@@ -31,13 +31,13 @@ class NewsDetail extends Component {
 		const { isLoading, error, newsDetail } = this.props;
 		if (isLoading) return <LoadingMessage />;
 		if (error) return <ErrorMessage />;
-		const { slug, title, html, feature_image, status, authorName } = newsDetail;
+		const { slug, title, html, feature_image, status, publishedAt, author } = newsDetail;
 		return (
 			<div className="post-template NewsDetail post-full post">
 				<CalDayTitleHeader
-					startDateTime={new Date()}
-					title="Test Title"
-					creator={authorName}
+					startDateTime={publishedAt}
+					title={title}
+					author={author}
 				/>
 				<div className="content post-full-content">
 					{

@@ -30,7 +30,7 @@ class EventsPage extends Component {
 			<div className="EventsPage">
 				<ScrollToTopOnMount />
 				<EventsPageHeader />
-				<div className="content">
+				<div className="container content">
 				{
 					events && events.length ?
 					<EventTiles data={events} />

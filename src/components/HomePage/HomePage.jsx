@@ -33,7 +33,7 @@ const optimalColWidths = (num) => {
 const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,
   news: state.news.data,
-  posts: state.posts.data,
+  featuredPosts: state.featuredPosts.data,
   events: state.events.data
 });
 
@@ -60,7 +60,7 @@ class HomePage extends Component {
     const {
       events, // TODO: upcoming only
       news,
-      posts
+      featuredPosts
     } = this.props;
     // Turn on when discover component is ready (posts are in)
     const discoverReady = false;
@@ -173,11 +173,11 @@ class HomePage extends Component {
           }
         </div>
         {
-          posts ?
+          featuredPosts ?
           <Row className="no-gutters featured-posts">
             {
-              optimalColWidths(posts.length).map((colWidth) => (
-                posts.slice(0, colWidth).map((d, i) => {
+              optimalColWidths(featuredPosts.length).map((colWidth) => (
+                featuredPosts.slice(0, colWidth).map((d, i) => {
                   return (
                     <Col sm={12 / colWidth} key={i}>
                       <FeaturedPost {...d} key={i} />

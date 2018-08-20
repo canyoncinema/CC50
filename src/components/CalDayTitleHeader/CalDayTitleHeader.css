@@ -1,7 +1,15 @@
 .CalDayTitleHeader {
 	background-color: #231f20;
   background-color: var(--black);
-  padding: 45px 70px;
+}
+
+.CalDayTitleHeader > .container {
+	
+}
+
+.CalDayTitleHeader > .container > * {
+	padding-top: 45px;
+	padding-bottom: 45px;
 }
 
 
@@ -13,9 +21,27 @@
 }
 
 .CalDayTitleHeader h1 {
-	margin: 0;
+	margin-bottom: 3px;
 }
 
 .CalDayTitleHeader .title-wrapper {
 	min-height: 105px;
+}
+
+.CalDayTitleHeader .author {
+	color: white;
+	font-size: 16px;
+	text-align: left;
+	padding: 0 10px;
+	color: #a5721a;
+	color: var(--gold);
+}
+
+.NewsDetail .CalDayTitleHeader .CalDay {
+	width: 145px;
+	padding: 10px;
+}
+
+.NewsDetail .CalDayTitleHeader .CalDay > * {
+	text-align: left;
 }

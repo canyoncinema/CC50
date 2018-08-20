@@ -10,7 +10,7 @@ import events from './events-reducer';
 import eventDetail from './event-detail-reducer';
 import news from './news-reducer';
 import newsDetail from './news-detail-reducer';
-import posts from './posts-reducer';
+import featuredPosts from './featured-posts-reducer';
 import programs from './programs-reducer';
 import ephemera from './ephemera-reducer';
 import spotlight from './spotlight-reducer';
@@ -31,7 +31,7 @@ export default combineReducers({
   eventDetail,
   news,
   newsDetail,
-  posts,
+  featuredPosts,
   programs,
   ephemera,
   spotlight,
