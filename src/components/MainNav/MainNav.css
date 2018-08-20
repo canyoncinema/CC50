@@ -30,6 +30,15 @@
 
 .MainNav .nav-item:last-child a {
   padding-right: 42px;
+  font-size: 18px;
+  color: #e6e6e6;
+  font-weight: bold;
+  opacity: 0.6;
+  transition: opacity 0.33s ease-in-out;
+}
+
+.MainNav .nav-item:last-child a:hover {
+  opacity: 1;
 }
 
 .MainNav .IconNewWindow {

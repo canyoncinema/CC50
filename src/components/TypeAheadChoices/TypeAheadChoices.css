@@ -17,6 +17,15 @@
 	display: none;
 }
 
+.HomePage .TypeAheadChoice {
+	background-color: transparent;
+}
+
+.HomePage .TypeAheadChoice:hover {
+	background-color: #f6f5ec;
+	background-color: var(--offwhite);
+}
+
 .TypeAheadChoice:hover,
 .TypeAheadChoice:focus,
 .TypeAheadChoice:active {

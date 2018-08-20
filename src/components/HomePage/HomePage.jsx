@@ -15,6 +15,8 @@ import EventTiles from '../EventTiles/EventTiles';
 import DarkBox from '../DarkBox/DarkBox';
 import NewsTile from '../NewsTile/NewsTile';
 import FeaturedPost from '../FeaturedPost/FeaturedPost';
+import MainNav from '../MainNav/MainNav';
+import withScrollNav from '../withScrollNav/withScrollNav';
 
 const optimalColWidths = (num) => {
   const widths = []
@@ -60,7 +62,8 @@ class HomePage extends Component {
     const {
       events, // TODO: upcoming only
       news,
-      featuredPosts
+      featuredPosts,
+      isScrollNav
     } = this.props;
     // Turn on when discover component is ready (posts are in)
     const discoverReady = false;
@@ -80,6 +83,9 @@ class HomePage extends Component {
     // }];
     return (
       <div className="HomePage">
+        <div className={isScrollNav ? 'isScrollNav active' : 'isScrollNav'}>
+          <MainNav isCollapsed={true} />
+        </div>
         <Hero active={true}>
           <div className="container padded-container">
             <HomeIntro />
@@ -193,4 +199,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default withScrollNav(connect(mapStateToProps, mapDispatchToProps)(HomePage));
