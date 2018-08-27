@@ -56,3 +56,20 @@ form.SearchBar {
 .SearchBar input:active {
 	outline: none;
 }
+
+.SearchBar .cancel {
+	font-size: 1.5em;
+	color: #ffffff4a;
+	padding: 0 17px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	line-height: 46px;
+}
+
+.SearchBar .cancel:hover,
+.SearchBar .cancel:active,
+.SearchBar .cancel:focus {
+	color: #fff;
+}

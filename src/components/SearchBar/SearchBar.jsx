@@ -123,7 +123,7 @@ class SearchBar extends Component {
 				<div className="input-wrapper"
 					onClick={this.onInsideClick}>
 					<input
-						type="text"
+						type="search"
 						className="TypeAhead input"
 						ref={this.inputRef}
 						value={searchText}
@@ -146,6 +146,13 @@ class SearchBar extends Component {
 						/>
 					</TypeAheadChoiceList>
 				</div>
+				{
+					searchText.length ?
+					<div
+						onClick={() => setSearchText(null, '', searchLabel)}
+						className="cancel">&times;</div>
+					: null
+				}
 				{
 					searchLabel === FILMS_SEARCH_LABEL ||
 					searchLabel === EPHEMERA_SEARCH_LABEL ?
