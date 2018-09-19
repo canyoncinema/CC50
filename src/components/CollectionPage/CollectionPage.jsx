@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 class CollectionPage extends Component {
 	setSearchText = (e, searchTextVal, searchLabelVal, searchTextAutocompleted=false) => {
 		// TODO: simplify
-		const searchText = searchTextVal || e.target.value;
+		const searchText = searchTextVal || e ? e.target.value : '';
 		this.setState({
 			searchText,
 			searchTextAutocompleted

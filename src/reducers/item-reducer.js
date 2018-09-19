@@ -37,6 +37,10 @@ const itemReducer = (state=initialState, action) => {
 				films: itemFilms(state.films, action),
 				collectionItems: undefined
 			};
+		case types.REMOVE_ITEM:
+			return Object.assign(state, {
+				data: undefined
+			});
 		default:
 			return {
 				...state,

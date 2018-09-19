@@ -1,7 +1,8 @@
 import {
 	FETCH_ITEM,
 	RECEIVED_ITEM,
-	FAILED_ITEM
+	FAILED_ITEM,
+	REMOVE_ITEM
 } from '../actionTypes';
 import { getItemFilmmaker } from './item-filmmaker-actions';
 import { getItemFilms } from './item-films-actions';
@@ -54,6 +55,12 @@ function failItem(error) {
 	return {
 		type: FAILED_ITEM,
 		error
+	}
+}
+
+export function removeItem() {
+	return {
+		type: REMOVE_ITEM
 	}
 }
 

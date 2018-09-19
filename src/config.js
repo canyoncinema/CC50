@@ -335,7 +335,8 @@ class Config {
 	GHOST_CLIENT_SECRET = 'de4b915ccc25' // not so secret secret (read-only access)
 
 	listNews({ limit }) {
-		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&limit=${limit}&include=authors&fields=id,slug,primary_author,feature_image,title,published_at&order=published_at+desc&filter=visibility:public`);
+		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
+			`limit=${limit}&include=authors,tags&fields=id,slug,primary_author,feature_image,title,published_at&order=published_at+desc&filter=visibility:public`);
 	}
 
 	retrieveNewsDetail({ slug }) {

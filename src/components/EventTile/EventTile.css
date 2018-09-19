@@ -2,10 +2,17 @@
 	font-size: 14px;
 	line-height: 1.57;
 	background-color: #ffffff;
+	color: inherit;
 	cursor: pointer;
 	width: 360px;
 	margin-bottom: 40px;
 	display: inline-block;
+}
+
+.EventTile:hover,
+.EventTile:active,
+.EventTile:focus {
+	color: inherit;
 }
 
 .EventTile:hover .content h4 {

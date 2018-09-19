@@ -51,7 +51,7 @@ function fetchEventMedia(eventRefName) {
 
 function receiveEvents(payload) {
 	const items = toItemsData(payload, true);
-	items.forEach(item => addEventFields(item));
+	items.forEach(item => addEventFields(item, null, true));
 	// items.forEach(item => fetchEventMedia(item.refName));
 	return {
 		type: RECEIVED_EVENTS,
