@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 const BETWEEN_IMAGES_MARGIN_RIGHT = 80; // pixels
 const SHRUNK_IMAGE_HEIGHT = 315; // pixels
 let MAX_IMAGE_HEIGHT = 600; // pixels
-const FULL_SIZED_IMG_HEIGHT_RATIO = 0.95; // ratio of window height
+const FULL_SIZED_IMG_HEIGHT_RATIO = 0.8; // ratio of window height
 
 class FullSizedCarousel extends Component {
 
