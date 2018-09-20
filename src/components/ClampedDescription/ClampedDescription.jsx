@@ -30,7 +30,7 @@ class ClampedDescription extends Component {
 	  	const { children, title, maxLines } = this.props;
 	  	if (this.props.maxLines === 1) {
 	  		return (
-	  			<div className="ClampedDescription single-line-ellipsed">
+	  			<div title={title} className="ClampedDescription single-line-ellipsed">
 	  				{children}
 	  			</div>
 	  		);

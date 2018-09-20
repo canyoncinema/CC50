@@ -113,7 +113,7 @@ class SearchCard extends Component {
 							itemType={itemType} />
 					</div>
 				</div>
-				<div className={listView && (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-content' : ''}>
+				<div className={listView && (onFilmmakerPage || isItemPageFilmCard) ? 'filmmaker-content' : 'container-fluid'}>
 					<div className="content">
 						{
 							itemType === 'filmmaker' ?
