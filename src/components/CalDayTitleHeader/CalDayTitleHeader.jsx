@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './CalDayTitleHeader.css';
 
+
+import Tags from '../Tags/Tags';
 import CalDay from '../CalDay/CalDay';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
-const CalDayTitleHeader = ({ startDateTime, author, endDateTime, title }) =>
+const CalDayTitleHeader = ({ startDateTime, tags, author, endDateTime, title }) =>
 	<div className="CalDayTitleHeader container-fluid">
 		<div className="container d-flex">
 			<div className="date-wrapper">
@@ -13,7 +15,6 @@ const CalDayTitleHeader = ({ startDateTime, author, endDateTime, title }) =>
 					<CalDay className="white" dateTime={startDateTime} />
 					: null
 				}
-				<div className="author">{author}</div>
 			</div>
 			<div className="title-wrapper list-center-wrapper">
 				<div>
@@ -22,6 +23,9 @@ const CalDayTitleHeader = ({ startDateTime, author, endDateTime, title }) =>
 							{title}
 						</h1>
 					</ClampedDescription>
+					{ author && <div className="author">By {author}</div> }
+					{ tags && <Tags isReadOnly={true} tags={tags} />
+					}
 				</div>
 			</div>
 		</div>

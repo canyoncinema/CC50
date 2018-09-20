@@ -36,7 +36,7 @@ class App extends Component {
       <Provider store={store}>
       <ConnectedRouter history={history}>
         <div className="App">
-          <MainNav includesCollapsedItemPageNav={true} />
+          <MainNav includesCollapsedItemPageNav={false} />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />

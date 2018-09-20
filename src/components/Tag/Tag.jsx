@@ -5,10 +5,10 @@ export const tagId = (field, value) => `${field}__${value}`;
 
 class Tag extends Component {
 	render() {
-		const { children, onTagSelect, disabled } = this.props;
+		const { children, isReadOnly, onTagSelect, disabled } = this.props;
 		return (
 			<div disabled={disabled}
-				className="Tag"
+				className={isReadOnly ? 'Tag read-only' : 'Tag'}
 				onClick={onTagSelect && this.onClick}>
 				{children}
 			</div>

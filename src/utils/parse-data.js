@@ -20,12 +20,14 @@ export function toNewsItemData(item) {
 	return {
 		id: item.id,
 		title: item.title,
+		published_at: item.published_at,
 		publishedAt: new Date(item.published_at),
 		author: item.primary_author ?
 			item.primary_author.name : item.authors && item.authors.length ?
 			item.authors.map(a => a.name).join(', ') : '', 
-		featureImage: toGhostSrc(item.feature_image),
+		featureImage: item.feature_image && toGhostSrc(item.feature_image),
 		slug: item.slug,
+		tags: item.tags && item.tags.map(tag => tag.name),
 		html: item.html && convertGhostHtml(item.html),
 		status: item.status
 	}
@@ -45,11 +47,16 @@ function getEventFilms(filmRefNames) {
 export const addEventFields = (item,filmRefNames) => {
 	// TODO: price string
 	item.price = null;
-	item.startDateTime = parseExhibitionStartTime(item);
-	item.endDateTime = parseExhibitionEndTime(item);
-	const venueGroup = parseExhibitionVenueGroup(item);
-	item.venueDisplayName = parseExhibitionVenueDisplayName(item);
-	item.venueUrl = parseExhibitionVenueUrl(item);
+	const showingGroup = parseExhibitionShowingGroup(item);
+	item.showingOpeningDate = item.showingOpeningDate || parseExhibitionOpeningDate(item, showingGroup);
+	item.showingOpeningTime = item.showingOpeningTime || parseExhibitionOpeningTime(item, showingGroup);
+	item.showingClosingDate = item.showingClosingDate || parseExhibitionClosingDate(item, showingGroup);
+	item.showingClosingTime = item.showingClosingTime || parseExhibitionClosingTime(item, showingGroup);
+	item.showingTicketUrl = item.showingTicketUrl || parseExhibitionTicketUrl(item, showingGroup);
+	item.showingPrice = item.showingPrice || parseExhibitionPrice(item, showingGroup);
+
+	item.venueDisplayName = item.showingLocation ? getDisplayNameFromRefName(item.showingLocation) : parseExhibitionVenueDisplayName(item, showingGroup);
+	// item.venueUrl = parseExhibitionVenueUrl(item, venueGroup);
 	// TODO: differ date from dateTime (incl. midnight)
 	item.films = getEventFilms(filmRefNames);
 	return item;
@@ -78,8 +85,10 @@ export const parseItemExhibitionWorks = item =>
 	item &&
 	item.exhibitionWorkGroupList &&
 	item.exhibitionWorkGroupList.exhibitionWorkGroup &&
-	item.exhibitionWorkGroupList.exhibitionWorkGroup.map(x => x.exhibitionWork);
-	/* EXAMPLE:
+	item.exhibitionWorkGroupList.exhibitionWorkGroup.length ?
+		item.exhibitionWorkGroupList.exhibitionWorkGroup.map(x => x.exhibitionWork) :
+		[item.exhibitionWorkGroupList.exhibitionWorkGroup.exhibitionWork];
+	/* EXAMPLE: FOR 2 OR MORE
 	"exhibitionWorkGroupList": {
     "exhibitionWorkGroup": [
       {
@@ -103,25 +112,44 @@ export const parseItemExhibitionWorks = item =>
   ]
 	 */
 
-export const parseExhibitionVenueGroup = exhibition =>
-	exhibition.venueGroupList &&
-	exhibition.venueGroupList.venueGroup
+export const parseExhibitionShowingGroup = exhibition =>
+	exhibition &&
+	exhibition.showingGroupList &&
+	exhibition.showingGroupList.showingGroup &&
+	(exhibition.showingGroupList.showingGroup.length ? exhibition.showingGroupList.showingGroup[0] : exhibition.showingGroupList.showingGroup);
 
-export const parseExhibitionVenueRefName = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+export const parseExhibitionOpeningDate = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingOpeningDate;
+
+export const parseExhibitionOpeningTime = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingOpeningTime;
+
+export const parseExhibitionClosingDate = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingClosingDate;
+
+export const parseExhibitionClosingTime = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingClosingTime;
+
+export const parseExhibitionTicketUrl = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingTicketUrl;
+
+export const parseExhibitionPrice = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
+	showingGroup && showingGroup.showingPrice;
+
+export const parseExhibitionVenueGroup = exhibition =>
+	exhibition &&
+	exhibition.venueGroupList &&
+	exhibition.venueGroupList.venueGroup;
+
+export const parseExhibitionVenueRefName = (exhibition, venueGroup=parseExhibitionShowingGroup(exhibition)) =>
 	venueGroup && venueGroup.venue;
 
-export const parseExhibitionVenueDisplayName = exhibition => {
-	const refName = parseExhibitionVenueRefName(exhibition);
+export const parseExhibitionVenueDisplayName = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) => {
+	const refName = showingGroup && showingGroup.showingLocation;
 	return refName && getDisplayNameFromRefName(refName);
-}
+};
 
-export const parseExhibitionStartTime = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
-	venueGroup && venueGroup.venueOpeningDate;
-
-export const parseExhibitionEndTime = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
-	venueGroup && venueGroup.venueClosingDate;
-
-export const parseExhibitionVenueUrl = (exhibition, venueGroup=parseExhibitionVenueGroup(exhibition)) =>
+export const parseExhibitionVenueUrl = (exhibition, venueGroup=parseExhibitionShowingGroup(exhibition)) =>
 	venueGroup && venueGroup.venueUrl;
 
 export const toExternalWebUrl = url => {

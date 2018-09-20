@@ -24,3 +24,7 @@
   color: #4a4a4a;
   color: var(--darkest-gray);
 }
+
+.RichText img {
+  max-width: 100%;
+}

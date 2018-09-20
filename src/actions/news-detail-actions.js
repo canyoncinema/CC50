@@ -1,7 +1,10 @@
 import {
 	FETCH_NEWS_DETAIL,
 	RECEIVED_NEWS_DETAIL,
-	FAILED_NEWS_DETAIL
+	FAILED_NEWS_DETAIL,
+	FETCH_NEWS_DETAIL_OTHER_NEWS,
+	RECEIVED_NEWS_DETAIL_OTHER_NEWS,
+	FAILED_NEWS_DETAIL_OTHER_NEWS
 } from '../actionTypes';
 import { config } from '../store';
 import { toNewsItemData } from '../utils/parse-data';

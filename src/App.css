@@ -109,6 +109,10 @@ body {
   position: relative;
 }
 
+.time-string {
+  text-transform: uppercase;
+}
+
 .list-center-wrapper {
   display: table !important;
   height: 100%;

@@ -5,7 +5,7 @@ import './CollectionItemPage.css';
 
 import { Helmet } from 'react-helmet';
 import { getSpoofDataObj } from '../../spoof-data';
-import { getItem, setItemData } from '../../actions/item-actions';
+import { getItem, removeItem, setItemData } from '../../actions/item-actions';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
@@ -21,6 +21,7 @@ import { ephemeraData } from '../../spoof-data';
 
 const mapDispatchToProps = dispatch => ({
   getItem: (...args) => dispatch(getItem(...args)),
+  removeItem: (...args) => dispatch(removeItem(...args)),
   setItemData: (...args) => dispatch(setItemData(...args)),
   addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args))
 })
@@ -62,6 +63,10 @@ function CollectionItemPage(ComposedComponent) {
 				this.props.shortIdentifier,
 				this.filmmakerOptions(this.props.collectionItems)
 			);
+		}
+
+		componentWillUnmount() {
+			this.props.removeItem();
 		}
 
 		conditionallyShow = ({

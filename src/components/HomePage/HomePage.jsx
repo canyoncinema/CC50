@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
+import { optimalColWidths } from '../../utils/view-helpers';
 import './HomePage.css';
 
 import { getEvents } from '../../actions/events-actions';
@@ -17,20 +18,6 @@ import NewsTile from '../NewsTile/NewsTile';
 import FeaturedPost from '../FeaturedPost/FeaturedPost';
 import MainNav from '../MainNav/MainNav';
 import withScrollNav from '../withScrollNav/withScrollNav';
-
-const optimalColWidths = (num) => {
-  const widths = []
-  if (num === 1) widths.push(1);
-  if (num === 2) widths.push(2);
-  if (num === 3) widths.push(3);
-  if (num > 3) {
-    while (num > 0) {
-      widths.push(3);
-      num -= 3;
-    }
-  }
-  return widths;
-};
 
 const mapStateToProps = state => ({
   upcomingEvents: state.events.upcoming,

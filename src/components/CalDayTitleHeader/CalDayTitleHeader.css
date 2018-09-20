@@ -8,8 +8,8 @@
 }
 
 .CalDayTitleHeader > .container > * {
-	padding-top: 45px;
-	padding-bottom: 45px;
+	padding-top: 40px;
+	padding-bottom: 40px;
 }
 
 
@@ -32,9 +32,12 @@
 	color: white;
 	font-size: 16px;
 	text-align: left;
-	padding: 0 10px;
-	color: #a5721a;
-	color: var(--gold);
+	padding-top: 10px;
+	opacity: 0.5;
+}
+
+.NewsDetail .CalDayTitleHeader {
+	margin-bottom: 70px;
 }
 
 .NewsDetail .CalDayTitleHeader .CalDay {
@@ -43,5 +46,14 @@
 }
 
 .NewsDetail .CalDayTitleHeader .CalDay > * {
-	text-align: left;
+	text-align: center;
+}
+
+.NewsDetail .CalDayTitleHeader .Tags {
+	margin-top: 1em;
+}
+
+.NewsDetail .CalDayTitleHeader .title-wrapper {
+	padding-top: 30px;
+	padding-bottom: 30px;
 }

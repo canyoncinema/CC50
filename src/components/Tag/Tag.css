@@ -22,3 +22,7 @@
 	background-color: #888888;
   background-color: var(--light-grey);
 }
+
+.Tag.read-only {
+	cursor: initial;
+}

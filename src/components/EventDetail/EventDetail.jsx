@@ -42,8 +42,8 @@ class EventDetail extends Component {
 			<div className="EventDetail">
 				<ScrollToTopOnMount />
 				<CalDayTitleHeader
-					startDateTime={event.startDateTime}
-					endDateTime={event.endDateTime}
+					startDateTime={event.showingOpeningDate}
+					endDateTime={event.showingClosingDate}
 					title={event.title}
 				/>
 				<Row className="content">

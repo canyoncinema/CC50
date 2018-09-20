@@ -28,12 +28,10 @@ function failNews(error) {
 	}
 }
 
-export function getNews({ limit }) {
+export function getNews(queryParams={ limit: 3 }) {
 	return (dispatch) => {
 		dispatch(fetchNews());
-		return config.listNews({
-			limit
-		})
+		return config.listNews(queryParams)
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failNews("Bad response from server"));

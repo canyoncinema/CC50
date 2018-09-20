@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './EventDetailSide.css';
 
 import Button from '../Button/Button';
+import EventPriceMultiline from '../EventPriceMultiline/EventPriceMultiline';
 import OutsideLink from '../OutsideLink/OutsideLink';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import DateTimeString from '../DateTimeString/DateTimeString';
@@ -24,40 +25,31 @@ class EventDetailSide extends Component {
 			>
 				<ul>
 					<li className="times">
-						{
-							event.startDateTime ?
-							<span className="time"><DateTimeString format="time" dateTime={event.startDateTime} /></span>
-							: null
-						}
+						{ event.showingOpeningTime && <span className="time-string">{event.showingOpeningTime}</span> }
 					</li>
-					<li className="venue">
-						{
-							event.venueUrl ?
+					<li>
+						{ event.venueUrl ?
 							<OutsideLink href={event.venueUrl}>{event.venueDisplayName}</OutsideLink>
 							: event.venueDisplayName
 						}
 					</li>
-					<li className="venue">
-						{
-							event.socialmediaUrl ?
-							<OutsideLink href={event.socialmediaUrl}>Facebook Event</OutsideLink>
-							: null
-						}
+					<li>
+						{ event.socialmediaUrl &&
+							<OutsideLink href={event.socialmediaUrl}>Facebook Event</OutsideLink> }
 					</li>
 				</ul>
+				{ event.showingPrice && <EventPriceMultiline price={event.showingPrice} /> }
 				{
-					event.price ?
-					<div className="price">
-						{event.price}
-					</div>
-					: null
+					event.showingTicketUrl &&
+					<OutsideLink href={event.showingTicketUrl}>
+						<Button size="small" style="default">Tickets</Button>
+					</OutsideLink>
 				}
 				{
-					event.infoUrl ?
+					event.infoUrl &&
 					<OutsideLink href={event.infoUrl}>
 						<Button size="small" style="default">More Info</Button>
 					</OutsideLink>
-					: null
 				}
 			</div>
 		);
