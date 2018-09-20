@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 
 import PhotoFill from '../PhotoFill/PhotoFill';
 import DateTimeString from '../DateTimeString/DateTimeString';
+import Tags from '../Tags/Tags';
 
 class NewsTile extends Component {
 	constructor(props) {
@@ -19,7 +20,8 @@ class NewsTile extends Component {
 	}
 
 	render() {
-		const { title, publishedAt, slug, featureImage, author } = this.props;
+		const { title, tags, publishedAt, slug, featureImage, author } = this.props;
+		console.log(this.props);
 		const authorByline = author ? ` by ${author}` : null;
 		return (
 			<Link to={`/news/${slug}`}>
@@ -33,6 +35,7 @@ class NewsTile extends Component {
 							<DateTimeString dateTime={publishedAt} format="long-date" />
 							{authorByline}
 						</div>
+						{ tags && <Tags isReadOnly={true} tags={tags} /> }
 						<div className="read-more">
 							Read More →
 						</div>

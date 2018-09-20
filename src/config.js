@@ -335,10 +335,12 @@ class Config {
 	GHOST_CLIENT_SECRET = 'de4b915ccc25' // not so secret secret (read-only access)
 
 	listNews({ limit, filter }) {
+		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields
 		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
 			`limit=${limit}` +
-			`&include=authors,tags&fields=id,slug,primary_author,feature_image,title,published_at&order=published_at+desc` +
-			`&filter=visibility:public%2B${filter}`);
+			`&include=tags,authors` +
+			`&order=published_at+desc` +
+			`&filter=visibility:public${filter ? '%2B' + filter : ''}`);
 	}
 
 	retrieveNewsDetail({ slug }) {

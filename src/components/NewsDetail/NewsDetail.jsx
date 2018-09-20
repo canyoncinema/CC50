@@ -7,6 +7,7 @@ import { optimalColWidths } from '../../utils/view-helpers';
 import { getNewsDetail } from '../../actions/news-detail-actions';
 import { getNews } from '../../actions/news-actions';
 
+import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import Caret from '../Caret/Caret';
 import NewsTile from '../NewsTile/NewsTile';
 import CalDayTitleHeader from '../CalDayTitleHeader/CalDayTitleHeader';
@@ -73,6 +74,7 @@ class NewsDetail extends Component {
 		const { slug, title, html, tags, eature_image, status, publishedAt, author } = newsDetail;
 		return (
 			<div className="post-template NewsDetail post-full post">
+				<ScrollToTopOnMount />
 				<CalDayTitleHeader
 					startDateTime={publishedAt}
 					title={title}

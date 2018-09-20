@@ -97,11 +97,14 @@ class App extends Component {
             <Route exact path="/events/:csid"
               component={({match}) =>
                 <EventDetail
+                  key={match.params.csid}
                   csid={match.params.csid} />
               } />
               <Route exact path="/news" component={NewsPage} />
             <Route exact path="/news" component={NewsPage} />
-            <Route exact path="/news/:slug" component={({match}) => <NewsDetail slug={match.params.slug} /> } />
+            <Route exact path="/news/:slug" component={({match}) =>
+              <NewsDetail slug={match.params.slug} key={match.params.slug} />
+            } />
             <Route path="*" component={Page404} />
           </Switch>
           

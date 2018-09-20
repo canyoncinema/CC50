@@ -1,3 +1,8 @@
-.NewsPage {
-	
+.NewsPage > .content {
+	padding: 70px;
+}
+
+.NewsPage .NewsTile {
+	margin-right: 40px;
+	margin-bottom: 40px;
 }

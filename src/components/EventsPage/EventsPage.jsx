@@ -3,7 +3,7 @@ import './EventsPage.css';
 import { connect } from 'react-redux';
 import { getEvents } from '../../actions/events-actions';
 
-import EventsPageHeader from '../EventsPageHeader/EventsPageHeader';
+import PageHeader from '../PageHeader/PageHeader';
 import EventTiles from '../EventTiles/EventTiles';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
@@ -29,7 +29,7 @@ class EventsPage extends Component {
 		return (
 			<div className="EventsPage">
 				<ScrollToTopOnMount />
-				<EventsPageHeader />
+				<PageHeader headline="Events" />
 				<div className="container content">
 				{
 					events && events.length ?

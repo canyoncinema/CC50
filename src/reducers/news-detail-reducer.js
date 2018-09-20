@@ -1,11 +1,9 @@
 import * as types from '../actionTypes';
-import otherNews from './news-detail-other-news-reducer';
 
 const initialState = {
 	data: {},
 	isLoading: false,
-	error: undefined,
-	otherNews: undefined
+	error: undefined
 };
 
 const newsDetailReducer = (state=initialState, action) => {
@@ -14,30 +12,24 @@ const newsDetailReducer = (state=initialState, action) => {
 				return {
 					...state,
 					isLoading: true,
-					error: undefined,
-					otherNews: otherNews(state.otherNews, action)
+					error: undefined
 				};
 		case types.RECEIVED_NEWS_DETAIL:
 			return {
 				...state,
 				isLoading: false,
 				error: undefined,
-				data: action.data,
-				otherNews: otherNews(state.otherNews, action)
+				data: action.data
 			};
 		case types.FAILED_NEWS_DETAIL:
 			return {
 				...state,
 				isLoading: false,
 				error: action.error,
-				data: undefined,
-				otherNews: otherNews(state.otherNews, action)
+				data: undefined
 			};
 		default:
-			return {
-				...state,
-				otherNews: otherNews(state.otherNews, action)
-			};
+			return state;
 	}
 };
 

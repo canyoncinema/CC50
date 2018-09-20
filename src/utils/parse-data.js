@@ -18,6 +18,7 @@ export function convertGhostHtml(ghostHtml) {
 
 export function toNewsItemData(item) {
 	return {
+		...item,
 		id: item.id,
 		title: item.title,
 		published_at: item.published_at,

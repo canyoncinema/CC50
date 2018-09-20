@@ -13,6 +13,10 @@
   color: var(--darkest-gray);
 }
 
+.NewsTile .Tags {
+	margin-top: 10px;
+}
+
 .NewsTile h4 {
 	min-height: 71px;
 	margin-bottom: 10px;
@@ -21,7 +25,7 @@
 .NewsTile .content {
 	padding: 25px 30px;
 	background-color: #ffffff;
-	height: 200px;
+	height: 230px;
 	color: #4a4a4a;
 	color: var(--darkest-grey);
 }
