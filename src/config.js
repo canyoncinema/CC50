@@ -119,7 +119,8 @@ class Config {
 	}
 
 	getEventsUrl(queryParams) {
-		let url = this.baseUrl + config[this.env].list['exhibitions'];
+		return this.baseUrl + config[this.env].list.exhibitions
+			+ queryParamsToString(queryParams);
 	}
 
 	fetchItems(...args) {

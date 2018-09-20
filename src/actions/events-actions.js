@@ -69,7 +69,10 @@ function failEvents(error) {
 
 export function getEvents(queryParams) {
 	return (dispatch) => {
-		dispatch(fetchEvents());
+		dispatch(fetchEvents({
+			sort: 'showingOpeningDate+DESC',
+			...queryParams
+		}));
 		return wrappedFetch(config.listEventsUrl(queryParams))
 			.then(response => {
 				if (response.status >= 400) {

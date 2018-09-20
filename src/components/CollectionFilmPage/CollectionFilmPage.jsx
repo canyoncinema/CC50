@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 import ReactMarkdown from 'react-markdown';
 
+import { getEvents } from '../../actions/events-actions';
+
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import EventTiles from '../EventTiles/EventTiles';
@@ -15,6 +17,7 @@ import LoadingMessage from '../LoadingMessage/LoadingMessage';
 
 const mapStateToProps = state => ({
 	item: state.item.data,
+	events: state.events.data,
 	isLoading: state.item.isLoading,
 	filmmaker: state.item.filmmaker && state.item.filmmaker.data,
 	filmmakerOtherFilms: state.item.filmmaker &&
@@ -22,9 +25,23 @@ const mapStateToProps = state => ({
 		state.item.filmmaker.otherFilms.data
 });
 
+const mapDispatchToProps = dispatch => ({
+	getEvents: (...args) => dispatch(getEvents(...args))
+});
+
 class CollectionFilmPage extends Component {
+	componentDidMount() {
+		this.props.getEvents({
+			as: `(exhibitions_canyon:exhibitionWorkGroupList/*/exhibitionWork+%3D+%22urn:cspace:canyoncinema.com:workauthorities:name(work):` +
+			`item:name(${this.props.item.shortIdentifier})%27${encodeURIComponent(this.props.item.termDisplayName)}%27%22)`,
+			pgNum: 0,
+			pgSz: 20,
+			wf_deleted: false
+		});
+	}
+
 	render() {
-		const { item, isLoading, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const { item, events, isLoading, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
@@ -115,13 +132,13 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'events',
 				order: 5,
-				condition: item.events && item.events.length,
+				condition: events && events.length,
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<EventTiles
 						customColSize={6}
-						data={item.events}
+						data={events}
 					/>
 				)
 			})
@@ -161,4 +178,4 @@ class CollectionFilmPage extends Component {
 	}
 }
 
-export default CollectionItemPage(connect(mapStateToProps)(CollectionFilmPage));
+export default CollectionItemPage(connect(mapStateToProps, mapDispatchToProps)(CollectionFilmPage));
