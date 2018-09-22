@@ -1,3 +1,23 @@
-.AboutPage {
-	
+.AboutPage .nav-tabs {
+  padding: 0 70px 0 45px;
+  background-color: var(--black);
+}
+
+.AboutPage .PageHeader {
+  padding-bottom: 45px;
+}
+
+.AboutPage .nav-tabs .nav-item a {
+  color: #888888;
+  color: var(--light-grey);
+  font-size: 24px;
+  padding: 25px;
+  display: inline-block;
+  border-bottom: solid 4px transparent;
+}
+
+.AboutPage .nav-tabs .nav-item a.active {
+  color: white;
+  font-weight: bold;
+  border-bottom-color: white;
 }

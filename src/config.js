@@ -335,13 +335,21 @@ class Config {
 
 	GHOST_CLIENT_SECRET = 'de4b915ccc25' // not so secret secret (read-only access)
 
-	listNews({ limit, filter }) {
+	// NOTE: GHOST TAGS CANNOT CONTAIN SPACES. Breaks Ghost API on filtering posts.
+	GHOST_PAGE_TAGS = '[About,Support]'
+
+	listNews({ limit, filter, page }) {
 		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields
 		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
 			`limit=${limit}` +
 			`&include=tags,authors` +
 			`&order=published_at+desc` +
-			`&filter=visibility:public${filter ? '%2B' + filter : ''}`);
+			(
+				page ?
+				`&filter=tag%3A${page}` :
+				`&filter=visibility:public%2Btags:-${this.GHOST_PAGE_TAGS}${filter ? '%2B' + filter : ''}`
+			)
+		);
 	}
 
 	retrieveNewsDetail({ slug }) {

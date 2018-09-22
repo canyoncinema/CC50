@@ -7,6 +7,7 @@ import { optimalColWidths } from '../../utils/view-helpers';
 import { getNewsDetail } from '../../actions/news-detail-actions';
 import { getNews } from '../../actions/news-actions';
 
+import GhostPostContent from '../GhostPostContent/GhostPostContent';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import Caret from '../Caret/Caret';
 import NewsTile from '../NewsTile/NewsTile';
@@ -73,56 +74,57 @@ class NewsDetail extends Component {
 		if (error) return <ErrorMessage />;
 		const { slug, title, html, tags, eature_image, status, publishedAt, author } = newsDetail;
 		return (
-			<div className="post-template NewsDetail post-full post">
-				<ScrollToTopOnMount />
-				<CalDayTitleHeader
-					startDateTime={publishedAt}
-					title={title}
-					author={author}
-					tags={tags}
-				/>
-				<div className="content post-full-content">
-					{
-						status !== 'published' ?
-						<div className="container"><p>Sorry, this post is not published yet.</p></div>
-						: <RichText dangerouslySetInnerHTML={this.setHtml()}></RichText>
-					}
-				</div>
-				<div className="container other-entries">
-					<hr />
-					<h3>Older Entries {
-						newsDetailOtherNews && newsDetailOtherNews.length === MAX_NUM_OLDER_ENTRIES && 
-						<span className="click-arrow" title="Get even older entries"
-						onClick={() => this.getOlderEntries(newsDetailOtherNews[MAX_NUM_OLDER_ENTRIES - 1])}
-						>></span>
-					}</h3>
-						{
-							newsDetailOtherNewsIsLoading &&
-							<LoadingMessage />
-						}
-						{
-							newsDetailOtherNewsError &&
-							<ErrorMessage />
-						}
-						{
-	            newsDetailOtherNews &&
-	            !newsDetailOtherNewsIsLoading &&
-	            newsDetailOtherNews.length ?
-	            <Row>
-	              {
-	              	newsDetailOtherNews.map((d, i) => {
-                    return (
-                      <Col sm={4} key={i}>
-                        <NewsTile {...d} key={i} />
-                      </Col>
-                    );
-	                })
-	              }
-	            </Row>
-	            : null
-	          }
-				</div>
-			</div>
+			<GhostPostContent key={1}
+				className="NewsDetail"
+				html={newsDetail.html}
+				published={status === 'published'}
+				renderTop={() => [
+					<ScrollToTopOnMount key={0} />,
+					<CalDayTitleHeader
+						key={1}
+						startDateTime={publishedAt}
+						title={title}
+						author={author}
+						tags={tags}
+					/>
+				]}
+				renderBottom={() => (
+					<div className="container other-entries">
+						<hr />
+						<h3>Older Entries {
+							newsDetailOtherNews && newsDetailOtherNews.length === MAX_NUM_OLDER_ENTRIES && 
+							<span className="click-arrow" title="Get even older entries"
+							onClick={() => this.getOlderEntries(newsDetailOtherNews[MAX_NUM_OLDER_ENTRIES - 1])}
+							>></span>
+						}</h3>
+							{
+								newsDetailOtherNewsIsLoading &&
+								<LoadingMessage />
+							}
+							{
+								newsDetailOtherNewsError &&
+								<ErrorMessage />
+							}
+							{
+		            newsDetailOtherNews &&
+		            !newsDetailOtherNewsIsLoading &&
+		            newsDetailOtherNews.length ?
+		            <Row>
+		              {
+		              	newsDetailOtherNews.map((d, i) => {
+	                    return (
+	                      <Col sm={4} key={i}>
+	                        <NewsTile {...d} key={i} />
+	                      </Col>
+	                    );
+		                })
+		              }
+		            </Row>
+		            : null
+		          }
+					</div>
+				)}>
+			</GhostPostContent>
 		);
 	}
 }

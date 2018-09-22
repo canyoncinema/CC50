@@ -39,7 +39,6 @@ class App extends Component {
           <MainNav includesCollapsedItemPageNav={false} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/about" component={AboutPage} />
             <Route exact path="/tour" component={TourPage} />
             <Route exact path="/support" component={SupportUsPage} />
             <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
@@ -105,15 +104,17 @@ class App extends Component {
             <Route exact path="/news/:slug" component={({match}) =>
               <NewsDetail slug={match.params.slug} key={match.params.slug} />
             } />
+            <Route exact path="/about" component={({history}) =>
+              <AboutPage activeTab="about" />
+            } />
+            <Route exact path="/support" component={({history}) =>
+              <AboutPage activeTab="support" />
+            } />
             <Route path="*" component={Page404} />
           </Switch>
           
           <Route exact path="/features/writings-and-essays" component={CollectionPage} />
           <Route exact path="/features/tour" component={CollectionPage} />
-
-
-
-          <Route exact path="/about" component={CollectionPage} />
           <Route exact path="/press" component={CollectionPage} />
           <Footer className="no-gutters" />
         </div>

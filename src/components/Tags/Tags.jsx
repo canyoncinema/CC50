@@ -37,7 +37,7 @@ const Tags = ({ isReadOnly, className, tags, children, onTagSelect, tagsDisabled
 }
 
 Tags.propTypes = {
-	tags: PropTypes.string
+	tags: PropTypes.array
 }
 
 export default Tags;

@@ -28,3 +28,8 @@
 .RichText img {
   max-width: 100%;
 }
+
+.RichText iframe {
+  display: block;
+  margin: auto;
+}
