@@ -3,7 +3,10 @@ import * as types from '../actionTypes';
 const initialState = {
 	data: undefined,
 	isLoading: false,
-	error: undefined
+	error: undefined,
+	// specific news pages
+	aboutPage: undefined,
+	supportUsPage: undefined
 };
 
 const newsReducer = (state=initialState, action) => {
@@ -18,6 +21,16 @@ const newsReducer = (state=initialState, action) => {
 				isLoading: false,
 				error: undefined,
 				data: action.data
+			};
+		case types.RECEIVED_NEWS_PAGE_ABOUT:
+			return {
+				...state,
+				aboutPage: action.data && action.data[0]
+			};
+		case types.RECEIVED_NEWS_PAGE_SUPPORT_US:
+			return {
+				...state,
+				supportUsPage: action.data && action.data[0]
 			};
 		case types.FAILED_NEWS:
 			return {

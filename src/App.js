@@ -40,7 +40,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/tour" component={TourPage} />
-            <Route exact path="/support" component={SupportUsPage} />
             <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
               <CollectionFilmPage
                 shortIdentifier={match.params.shortIdentifier}

@@ -1,7 +1,9 @@
 import {
 	FETCH_NEWS,
 	RECEIVED_NEWS,
-	FAILED_NEWS
+	FAILED_NEWS,
+	RECEIVED_NEWS_PAGE_ABOUT,
+	RECEIVED_NEWS_PAGE_SUPPORT_US,
 } from '../actionTypes';
 import { config } from '../store';
 import { toNewsItemsData } from '../utils/parse-data';
@@ -12,10 +14,10 @@ function fetchNews() {
 	}
 }
 
-function receiveNews(dispatch, payload) {
+function receiveNews(dispatch, payload, receiveActionType) {
 	const items = toNewsItemsData(payload.posts); // TODO
 	return {
-		type: RECEIVED_NEWS,
+		type: receiveActionType || RECEIVED_NEWS,
 		data: items
 	}
 }
@@ -28,7 +30,7 @@ function failNews(error) {
 	}
 }
 
-export function getNews(queryParams={ limit: 3 }) {
+export function getNews(queryParams={ limit: 3 }, receiveActionType) {
 	return (dispatch) => {
 		dispatch(fetchNews());
 		return config.listNews(queryParams)
@@ -39,7 +41,7 @@ export function getNews(queryParams={ limit: 3 }) {
 				return response.json();
 			})
 			.then(payload =>
-				dispatch(receiveNews(dispatch, payload))
+				dispatch(receiveNews(dispatch, payload, receiveActionType))
 			)
 			.catch(error =>
 				dispatch(failNews(error))

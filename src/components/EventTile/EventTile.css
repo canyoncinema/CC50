@@ -5,8 +5,13 @@
 	color: inherit;
 	cursor: pointer;
 	width: 360px;
+	height: 260px;
 	margin-bottom: 40px;
 	display: inline-block;
+}
+
+.EventTile .shadow-on-hover {
+	height: 100%;
 }
 
 .EventTile:hover,

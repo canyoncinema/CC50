@@ -5,6 +5,10 @@ import { NavHashLink as NavLink } from 'react-router-hash-link';
 import { Nav, NavItem, TabContent, TabPane } from 'reactstrap';
 import './AboutPage.css';
 
+import {
+	RECEIVED_NEWS_PAGE_ABOUT,
+	RECEIVED_NEWS_PAGE_SUPPORT_US
+} from '../../actionTypes';
 import { getNews } from '../../actions/news-actions';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
@@ -21,12 +25,18 @@ const validTabs = [{
 }];
 
 const mapStateToProps = state => ({
-  aboutPagePost: state.news.data && state.news.data[0]
+  aboutPageNews: state.news.aboutPage,
+  supportUsPageNews: state.news.supportUsPage,
 });
 
 const mapDispatchToProps = dispatch => ({
   getNews: (...args) => dispatch(getNews(...args))
 });
+
+const pageghostTag = activeTab => activeTab === 'about' ? 'AboutPage' : 'SupportUsPage';
+const headline = activeTab => activeTab === 'about' ? 'About Canyon Cinema 50' : 'Support Us';
+const title = activeTab => activeTab === 'about' ? 'About | Canyon Cinema' : 'Support Us | Canyon Cinema';
+const newsPageActionType = activeTab => activeTab === 'about' ? RECEIVED_NEWS_PAGE_ABOUT : RECEIVED_NEWS_PAGE_SUPPORT_US;
 
 class AboutPage extends Component {
 	constructor(props) {
@@ -41,27 +51,27 @@ class AboutPage extends Component {
 	componentDidMount() {
 		// PAGE HACK: to allow staff to edit these pages via Ghost,
 		// retrieve the one Ghost Post with the given page as ghost post tag
-		const PAGE_GHOST_TAG = 'About';
 		this.props.getNews({
 			limit: 1,
-			page: PAGE_GHOST_TAG
-		});
+			page: pageghostTag(this.state.activeTab)
+		}, newsPageActionType(this.state.activeTab));
 	}
 
 	toggle = tabId => this.state.activeTab !== tabId && this.setState({ activeTab: tabId })
 
 	render() {
-		const { aboutPagePost } = this.props;
+		const { aboutPageNews, supportUsPageNews } = this.props;
+		const { activeTab } = this.state;
 		return (
 			<SecondaryPage
-				headline="About Canyon Cinema 50"
+				headline={headline(activeTab)}
 				className="AboutPage"
 				renderBelowHeader={() =>
 		      <Nav tabs>
 		      	<NavItem>
 		      		<NavLink
 		      			to="/about"
-		      			className={this.state.activeTab === 'about' ? 'active' : ''}
+		      			className={activeTab === 'about' ? 'active' : ''}
 	              onClick={() => { this.toggle('about') }}
 		      		>
 		      			About
@@ -70,7 +80,7 @@ class AboutPage extends Component {
 		      	<NavItem>
 		      		<NavLink
 		      			to="/support"
-		      			className={this.state.activeTab === 'support' ? 'active' : ''}
+		      			className={activeTab === 'support' ? 'active' : ''}
 	              onClick={() => { this.toggle('support') }}
 		      		>
 		      			Support Us
@@ -79,16 +89,24 @@ class AboutPage extends Component {
 		      </Nav>
 				}>
 				<Helmet>
-	        <title>About | Canyon Cinema</title>
+	        <title>{title(activeTab)}</title>
 	      </Helmet>
-	      <TabContent activeTab={this.state.activeTab}>
+	      <TabContent activeTab={activeTab}>
 		      <TabPane tabId="about">
 		      	{
-		      		aboutPagePost &&
-		      		<GhostPostContent className="container" html={aboutPagePost.html}>
+		      		aboutPageNews &&
+		      		<GhostPostContent className="container" html={aboutPageNews.html}>
 		      		</GhostPostContent>
 		      	}
 		      </TabPane>
+		      <TabPane tabId="support">
+		      	{
+		      		supportUsPageNews &&
+		      		<GhostPostContent className="container" html={supportUsPageNews.html}>
+		      		</GhostPostContent>
+		      	}
+		      </TabPane>
+		      
 	      </TabContent>
 			</SecondaryPage>
 		);
