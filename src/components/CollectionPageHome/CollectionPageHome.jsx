@@ -5,6 +5,7 @@ import { getFilmmakers } from '../../actions/filmmakers-actions';
 import { getFilms } from '../../actions/films-actions';
 import { getSpoofDataList } from '../../spoof-data';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
 const mapDispatchToProps = dispatch => ({
   getFilmmakers: (...args) => dispatch(getFilmmakers(...args)),
@@ -59,6 +60,7 @@ class CollectionPageHome extends Component {
     } = this.props;
     const ephemeraData = getSpoofDataList('ephemera');
     return <div className="container">
+      <ScrollToTopOnMount />
       <CollectionSection key={0}
         className="CollectionPageHomeSection"
         viewMode={viewMode}

@@ -52,6 +52,7 @@ class CollectionPageItems extends Component {
   			nextProps.sortVal !== this.props.sortVal) {
   		// change items shown
   		this.props.getItems(nextProps.collectionItems, { pgSz: PAGE_COUNT });
+  		if (window) window.scrollTo(0, 0);
   	}
   }
 
@@ -67,6 +68,7 @@ class CollectionPageItems extends Component {
 					<Helmet>
 		        <title>{collectionItems ? toCollectionSearchLabel(collectionItems) : 'CC50'} | Canyon Cinema</title>
 		      </Helmet>
+		      <ScrollToTopOnMount />
 					{ error && <ErrorMessage /> }
 					{	!isLoading && !error && !context.searchedItemsSearchedText &&
 						<CollectionSort
