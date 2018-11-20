@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 class ScrollToTopOnMount extends Component {
   componentDidMount() {
+  	console.log('ScrollToTopOnMount')
     window.scrollTo(0, 0);
   }
 

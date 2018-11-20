@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './HomeIntro.css';
 
+import { RECEIVED_NEWS_PAGE_INTRO_TEXT } from '../../actionTypes';
+import { getNews } from '../../actions/news-actions';
+import { INTRO_TEXT_TAG } from '../../config';
+
 // import CollectonContext from '../../collection-context';
 import BrowseLinksList from '../BrowseLinksList/BrowseLinksList';
 import SearchBar from '../SearchBar/SearchBar';
+import GhostPostContent from '../GhostPostContent/GhostPostContent';
+
+const mapStateToProps = state => ({
+  introText: state.news.introTextPage,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getNews: (...args) => dispatch(getNews(...args))
+});
 
 class HomeIntro extends Component {
   constructor(props) {
@@ -27,8 +41,17 @@ class HomeIntro extends Component {
     this.props.history.push('/collection?search=' + encodeURIComponent(searchText));
   }
 
+  componentDidMount() {
+    this.props.getNews({
+      limit: 1,
+      page: INTRO_TEXT_TAG
+    }, RECEIVED_NEWS_PAGE_INTRO_TEXT);
+  }
+
   render() {
     const { searchText } = this.state;
+    const { introText } = this.props;
+    console.log('introText', introText);
   	return (
   		<Row className="HomeIntro">
         <Col m="6" className="left">
@@ -44,7 +67,11 @@ class HomeIntro extends Component {
         <Col m="6">
           <div className="divider divider-1" />
           <p className="intro">
-            For 50 years, Canyon Cinema has served as one of the world’s preeminent sources for artist-made moving image work, tracing the history of the experimental and avant-garde filmmaking movement from the 1930s to present.
+            {
+              introText &&
+              <GhostPostContent html={introText.html}>
+              </GhostPostContent>
+            }
           </p>
           <div className="divider" />
           <div className="browse">BROWSE</div>
@@ -55,4 +82,4 @@ class HomeIntro extends Component {
   }
 }
 
-export default withRouter(HomeIntro);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeIntro));

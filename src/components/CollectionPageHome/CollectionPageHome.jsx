@@ -12,19 +12,20 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
+  films: state.films.data,
   filmmakers: state.filmmakers.data,
+  programs: state.programs.data,
+  ephemera: state.ephemera.data,
+
   filmmakersIsLoading: state.filmmakers.isLoading,
   filmmakersError: state.filmmakers.error,
-  films: state.films.data,
   filmsIsLoading: state.films.isLoading,
   filmsError: state.films.error,
-  programs: state.programs.data,
   programsIsLoading: state.programs.isLoading,
   programsError: state.programs.error,
   programsMediaByCsid: state.programs.mediaByCsid,
-  ephemera: state.ephemera.data,
   ephemeraIsLoading: state.ephemera.isLoading,
-  ephemeraError: state.ephemera.error
+  ephemeraError: state.ephemera.error,
 });
 
 class CollectionPageHome extends Component {

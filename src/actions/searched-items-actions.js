@@ -34,9 +34,11 @@ function failSearchedItems(error) {
 	}
 }
 
+const NUM_ROWS = 13;
+const NUM_PER_ROW = 3;
 export function getSearchedItems(collectionItems, searchText) {
 	const queryParams = {
-		pgSz: 39,
+		pgSz: NUM_PER_ROW * NUM_ROWS,
 		kw: searchText
 	};
 	return (dispatch) => {

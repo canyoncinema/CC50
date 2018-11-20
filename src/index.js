@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-import App from './App';
+import Root from './Root';
 import Head from './components/Head/Head';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -16,7 +16,7 @@ import 'object-fit-images'; // TODO
 ReactDOM.render(
 	[
 		<Head key={0} />,
-		<App key={1} />
+		<Root key={1} />
 	]
 , document.getElementById('root'));
 registerServiceWorker();

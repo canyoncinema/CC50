@@ -8,9 +8,10 @@ import SearchCards from '../SearchCards/SearchCards';
 import Button from '../Button/Button';
 
 const CollectionSection = ({
-	isLoading, error,
+	isLoading, error, paginate,
 	customColSize, customColWidth, className, viewMode, itemType,
-	searchData, header, description,
+	searchData, searchTotalCount, searchPageCount,
+	header, description, id,
 	buttonText, buttonLink }) => {
 	return (
 		<div className={[className, 'CollectionSection'].join(' ')}>
@@ -37,14 +38,18 @@ const CollectionSection = ({
 				: null
 			}
 			{
-				searchData && searchData.length ?
+				searchData && searchData.length &&
 				<SearchCards
+					id={id}
+					paginate={paginate}
 					itemType={itemType}
 					customColSize={customColSize}
 					customColWidth={customColWidth}
 					viewMode={viewMode}
-					data={searchData} />
-				: null
+					data={searchData}
+					pageCount={searchPageCount}
+					totalCount={searchTotalCount}
+				/>
 			}
 		</div>
 	);

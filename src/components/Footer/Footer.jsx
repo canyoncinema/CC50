@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -9,9 +10,19 @@ import IconTumblr from '../Icon/IconTumblr';
 import IconFacebook from '../Icon/IconFacebook';
 import IconTwitter from '../Icon/IconTwitter';
 
+const mapStateToProps = state => ({
+  isLoadingFooter: state.items.isLoading ||
+    state.item.isLoading ||
+    state.searchedItems.isLoading || false || true
+    // whatever isLoading states we want to hide the header for
+    // + display "Loading" indicator where footer is, instead
+});
+
 const Footer = ({className}) => {
 	return (
-		<div className={['Footer', className].join(' ')}>
+		<div className={['Footer',
+			className,
+		].join(' ')}>
 			<div className="container">
 				<Row className="no-gutters">
 					<Col md={6}>
@@ -79,4 +90,4 @@ const Footer = ({className}) => {
 	);
 };
 
-export default Footer;
+export default connect(mapStateToProps)(Footer);

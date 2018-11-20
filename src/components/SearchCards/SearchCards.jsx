@@ -1,20 +1,71 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import SearchCard from '../SearchCard/SearchCard';
 import { getShortIdentifierFromRefName } from '../../utils/parse-data';
+import throttle from '../../utils/throttle';
 import './SearchCards.css';
 
+import InfiniteScroll from 'react-infinite-scroller';
+import LoadingMessage from '../LoadingMessage/LoadingMessage';
+
 class SearchCards extends Component {
+	// expects first page of data loaded in
+
+	// TODO: bidirectional infinite scroll. 1-direction only for now.
+	constructor(props) {
+		super(props);
+		this.loadMore = this.loadMore.bind(this);
+		this.isLoadingMore = false;
+	}
+
+	state = {
+		loadedCount: this.props.pageCount || this.props.data.length
+	}
+
+	loadMore() {
+		console.log('loadMore');
+		const { paginate } = this.props;
+		if (this.isLoadingMore) {
+			return;
+		}
+		this.isLoadingMore = true;
+		this.props.paginate().then(() => {
+			this.isLoadingMore = false;
+		});
+	}
+
+	throttledLoadMore = throttle(this.loadMore.bind(this), 1000)
+
+	componentDidUpdate(prevProps) {
+		// TODO: bidirectional scroll
+		if (prevProps.data.length !== this.props.data.length) {
+			this.isLoadingMore = false;
+		}
+	}
 	render() {
-		const { itemType, mediaIsByCsid, data, customColWidth, viewMode,
+		const {
+			id,
+			itemType, mediaIsByCsid,
+			data, totalCount, pageCount,
+			customColWidth, viewMode,
 			onFilmmakerPage, isItemPageFilmCard } = this.props;
 		let customColSize = this.props.customColSize;
 		// SPEC: list view is ALWAYS 12-cols wide, no matter what
 		if (viewMode === 'list') customColSize = 12;
 		if (customColSize && customColWidth) {
 			return data && data.length ?
-			<Row className="SearchCards">
+			<InfiniteScroll
+				id={id}
+				pageStart={0}
+				className="row SearchCards"
+				loadMore={this.throttledLoadMore}
+				hasMore={totalCount && data.length <= totalCount}
+				useWindow={true}
+				threshold={500}
+				loader={<LoadingMessage key={-1} />}
+			>
 				{
 					data.map((d, i) =>
 						<div key={i} className={'col-'+
@@ -22,7 +73,7 @@ class SearchCards extends Component {
 						customColSize}>
 							<SearchCard
 								mediaIsByCsid={mediaIsByCsid}
-								key={i}
+								key={d.csid}
 								itemType={itemType || d.itemType}
 								onFilmmakerPage={onFilmmakerPage}
 								isItemPageFilmCard={isItemPageFilmCard}
@@ -32,7 +83,7 @@ class SearchCards extends Component {
 						</div>
 					)
 				}
-			</Row>
+			</InfiniteScroll>
 			: null;
 		}
 

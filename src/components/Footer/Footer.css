@@ -1,7 +1,7 @@
 .Footer {
 	background-color: #231f20;
   background-color: var(--black);
-  padding: 125px 70px;
+  padding: 70px;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   margin-top: 60px;
@@ -9,6 +9,15 @@
   position: absolute;
   left: 0;
   right: 0;
+}
+
+.Footer.isLoadingFooter {
+  background-color: var(--offwhite);
+  background-color: #f6f5ec;
+  color: var(--black);
+  color: #231f20;
+  padding: 70px;
+  margin-top: 0;
 }
 
 .Footer ul.links {
@@ -53,4 +62,13 @@
   color: #ffffff;
   margin-bottom: 26px;
   margin-top: 112px;
+}
+
+.Footer.isLoadingFooter > .container {
+  display: none;
+}
+
+.Footer.isLoadingFooter:before {
+  content: "Loading...";
+  font-size: 1.5rem;
 }

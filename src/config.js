@@ -78,6 +78,9 @@ function shuffle(array) {
   return array;
 }
 
+export const ABOUT_PAGE_TAG = 'AboutPage';
+export const SUPPORT_US_PAGE_TAG = 'SupportUsPage';
+export const INTRO_TEXT_TAG = 'IntroTextPage';
 
 class Config {
 	constructor(env) {
@@ -336,7 +339,7 @@ class Config {
 	GHOST_CLIENT_SECRET = 'de4b915ccc25' // not so secret secret (read-only access)
 
 	// NOTE: GHOST TAGS CANNOT CONTAIN SPACES. Breaks Ghost API on filtering posts.
-	GHOST_PAGE_TAGS = '[About,Support]'
+	GHOST_PAGE_TAGS = `[${ABOUT_PAGE_TAG},${SUPPORT_US_PAGE_TAG},${INTRO_TEXT_TAG}]`
 
 	listNews({ limit, filter, page }) {
 		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields

@@ -8,6 +8,10 @@
 	margin-bottom: 24px;
 }
 
+.HomeIntro .GhostPostContent p {
+  color: white !important;
+}
+
 .HomeIntro .logo-wrapper {
 	margin-top: 155.6px;
 }

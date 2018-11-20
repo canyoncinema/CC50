@@ -1,7 +1,8 @@
 import React from 'react';
+import './GhostPostContent.css';
+
 import PropTypes from 'prop-types';
 import RichText from '../RichText/RichText';
-import './GhostPostContent.css';
 
 const GhostPostContent = ({ className, renderTop, renderBottom, html, published=true }) => (
 	<div className={[className, 'GhostPostContent post-template post-full post'].join(' ')}>

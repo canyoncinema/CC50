@@ -10,11 +10,16 @@ import {
 	RECEIVED_NEWS_PAGE_SUPPORT_US
 } from '../../actionTypes';
 import { getNews } from '../../actions/news-actions';
+import {
+	ABOUT_PAGE_TAG,
+	SUPPORT_US_PAGE_TAG
+} from '../../config';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
 import ComingSoonMessage from '../ComingSoonMessage/ComingSoonMessage';
 import PageHeader from '../PageHeader/PageHeader';
 import GhostPostContent from '../GhostPostContent/GhostPostContent';
+import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
 const validTabs = [{
 	id: 'about',
@@ -33,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
   getNews: (...args) => dispatch(getNews(...args))
 });
 
-const pageghostTag = activeTab => activeTab === 'about' ? 'AboutPage' : 'SupportUsPage';
+const pageghostTag = activeTab => activeTab === 'about' ? ABOUT_PAGE_TAG : SUPPORT_US_PAGE_TAG;
 const headline = activeTab => activeTab === 'about' ? 'About Canyon Cinema 50' : 'Support Us';
 const title = activeTab => activeTab === 'about' ? 'About | Canyon Cinema' : 'Support Us | Canyon Cinema';
 const newsPageActionType = activeTab => activeTab === 'about' ? RECEIVED_NEWS_PAGE_ABOUT : RECEIVED_NEWS_PAGE_SUPPORT_US;
@@ -91,6 +96,7 @@ class AboutPage extends Component {
 				<Helmet>
 	        <title>{title(activeTab)}</title>
 	      </Helmet>
+	      <ScrollToTopOnMount />
 	      <TabContent activeTab={activeTab}>
 		      <TabPane tabId="about">
 		      	{

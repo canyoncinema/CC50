@@ -25,17 +25,43 @@ const mapDispatchToProps = dispatch => ({
 class NewsPage extends Component {
 	componentDidMount() {
 		this.props.getNews({
-			limit: 40
+			limit: 50
 		});
 	}
 
 	render() {
 		const { news, newsIsLoading, newsError } = this.props;
+		const featuredNews = (news || []).filter(n => n.featured);
+		const normalNews = (news || []).filter(n => !n.featured);
 		return (
 			<div className="NewsPage">
 				<ScrollToTopOnMount />
 				<PageHeader headline="News" />
 				<div className="container content">
+					{
+						featuredNews.length &&
+						<React.Fragment>
+							<Row>
+								<Col sm={12}>
+									<h3>Featured News</h3>
+								</Col>
+							</Row>
+							<Row>
+								{
+									featuredNews.map((d, i) =>
+			            <Col sm={4} key={i}>
+			              <NewsTile {...d} key={i} />
+			            </Col>
+			          	)
+			          }
+							</Row>
+						</React.Fragment>
+					}
+					<Row>
+						<Col sm={12}>
+							<hr />
+						</Col>
+					</Row>
 					<Row>
 					{
 						newsIsLoading &&
@@ -46,8 +72,8 @@ class NewsPage extends Component {
 						<ErrorMessage />
 					}
 					{
-						news && !newsIsLoading && !newsError &&
-						news.map((d, i) =>
+						normalNews && !newsIsLoading && !newsError &&
+						normalNews.map((d, i) =>
 	            <Col sm={4} key={i}>
 	              <NewsTile {...d} key={i} />
 	            </Col>

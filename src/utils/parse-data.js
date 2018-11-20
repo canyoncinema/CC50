@@ -204,6 +204,10 @@ export const toPageCount = (payload) => {
 	return Number(payload['ns2:abstract-common-list'].itemsInPage);
 };
 
+export const toPageNum = (payload) => {
+	return Number(payload['ns2:abstract-common-list'].pageNum);
+};
+
 export const parseFilm = film => {
 	film.creator = parseCreator(film.creator);
 	return film;
