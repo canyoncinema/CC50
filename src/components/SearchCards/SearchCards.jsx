@@ -20,18 +20,14 @@ class SearchCards extends Component {
 		this.isLoadingMore = false;
 	}
 
-	state = {
-		loadedCount: this.props.pageCount || this.props.data.length
-	}
-
 	loadMore() {
-		console.log('loadMore');
 		const { paginate } = this.props;
+		if (!paginate) return;
 		if (this.isLoadingMore) {
 			return;
 		}
 		this.isLoadingMore = true;
-		this.props.paginate().then(() => {
+		paginate().then(() => {
 			this.isLoadingMore = false;
 		});
 	}
@@ -57,11 +53,14 @@ class SearchCards extends Component {
 		if (customColSize && customColWidth) {
 			return data && data.length ?
 			<InfiniteScroll
-				id={id}
 				pageStart={0}
 				className="row SearchCards"
 				loadMore={this.throttledLoadMore}
-				hasMore={totalCount && data.length <= totalCount}
+				hasMore={
+					this.props.paginate &&
+					totalCount &&
+					data.length <= totalCount
+				}
 				useWindow={true}
 				threshold={500}
 				loader={<LoadingMessage key={-1} />}

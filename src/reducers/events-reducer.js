@@ -4,7 +4,8 @@ const initialState = {
 	data: [],
 	mediaByCsid: [],
 	isLoading: false,
-	error: null
+	error: null,
+	totalCount: 0,
 };
 
 const programsReducer = (state=initialState, action) => {
@@ -18,7 +19,8 @@ const programsReducer = (state=initialState, action) => {
 			return {
 				isLoading: false,
 				error: null,
-				data: action.data
+				data: action.data,
+				totalCount: action.totalCount,
 			};
 		case types.RECEIVED_EVENT_MEDIA:
 			// TODO

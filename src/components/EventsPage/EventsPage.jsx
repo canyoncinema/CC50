@@ -8,7 +8,8 @@ import EventTiles from '../EventTiles/EventTiles';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
 const mapStateToProps = state => ({
-  events: state.events.data
+  events: state.events.data,
+  totalCount: state.events.totalCount,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -24,7 +25,7 @@ class EventsPage extends Component {
   }
 
 	render() {
-		const { events } = this.props;
+		const { events, totalCount } = this.props;
 
 		return (
 			<div className="EventsPage">
@@ -33,7 +34,9 @@ class EventsPage extends Component {
 				<div className="container content">
 				{
 					events && events.length ?
-					<EventTiles data={events} />
+					<EventTiles
+						totalCount={totalCount}
+						data={events} />
 					: null
 				}
 				</div>

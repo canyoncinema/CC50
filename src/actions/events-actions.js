@@ -6,6 +6,7 @@ import {
 import { config } from '../store';
 import { parseFilm, getCsidFromRefName,
 	toItemData, toItemsData,
+	toTotalCount,
 	parseItemExhibitionWorks, addEventFields } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
@@ -53,9 +54,11 @@ function receiveEvents(payload) {
 	const items = toItemsData(payload, true);
 	items.forEach(item => addEventFields(item, null, true));
 	// items.forEach(item => fetchEventMedia(item.refName));
+	const totalCount = toTotalCount(payload);
 	return {
 		type: RECEIVED_EVENTS,
-		data: items
+		data: items,
+		totalCount,
 	}
 }
 
