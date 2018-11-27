@@ -3,6 +3,10 @@ import VideoCover from 'react-video-cover';
 import './Hero.css';
 
 class Hero extends Component {
+  constructor(props) {
+    super(props);
+    this.videoIndex = Math.ceil(Math.random() * 4);
+  }
   componentWillUnmount() {
     if (this.playTimeout) {
       clearTimeout(this.playTimeout);
@@ -14,7 +18,6 @@ class Hero extends Component {
   }
 
   render() {
-    const videoIndex = Math.ceil(Math.random() * 4);
     const { active, children } = this.props;
   	return (
   		<div className={active ? 'Hero' : ''}>
@@ -23,7 +26,7 @@ class Hero extends Component {
           <VideoCover
             videoOptions={{
               id: 'hero-video',
-              src: `https://s3-us-west-1.amazonaws.com/cc50/Home_${videoIndex}.mp4`,
+              src: `https://s3-us-west-1.amazonaws.com/cc50/Home_${this.videoIndex}.mp4`,
               title: 'Canyon Cinema',
               autoPlay: true,
               muted: 'muted',
