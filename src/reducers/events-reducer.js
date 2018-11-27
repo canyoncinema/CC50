@@ -12,6 +12,7 @@ const programsReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_EVENTS:
 				return {
+					...state,
 					isLoading: true,
 					error: null
 				};

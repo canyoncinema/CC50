@@ -61,7 +61,7 @@ function failItems(error) {
 
 export function getItems(collectionItems, queryParams, pageNum=0, shouldAddItems=false) {
 	return (dispatch) => {
-		dispatch(fetchItems());
+		if (!shouldAddItems) dispatch(fetchItems());
 		return config.fetchItems(collectionItems, Object.assign(queryParams, {
 				pgNum: pageNum,
 			}))

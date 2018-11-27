@@ -63,7 +63,7 @@ class SearchCards extends Component {
 				}
 				useWindow={true}
 				threshold={500}
-				loader={<LoadingMessage key={-1} />}
+				loader={<LoadingMessage className="paginate-loader" key={-1} />}
 			>
 				{
 					data.map((d, i) =>

@@ -50,14 +50,14 @@ const ScreenIsLoading = () => {
 	);
 }
 
-const LoadingMessage = ({ isBottom, isFullWidth }) => {
+const LoadingMessage = ({ className, isBottom, isFullWidth }) => {
 	if (isBottom) {
 		return <FooterIsLoading />;
 	}
 	if (isFullWidth) {
 		return <ScreenIsLoading />;
 	}
-	return <span className="LoadingMessage">Loading...</span>;
+	return <span className={[className, 'LoadingMessage'].join(' ')}>Loading...</span>;
 }
 
 export default LoadingMessage;

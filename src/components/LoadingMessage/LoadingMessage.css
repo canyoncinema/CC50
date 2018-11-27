@@ -6,3 +6,13 @@
 .CollectionSection .LoadingMessage {
   padding: 0 0 70px;
 }
+
+.LoadingMessage.paginate-loader {
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-size: 1.4em;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: var(--off-white);
+}
