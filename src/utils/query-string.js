@@ -28,17 +28,3 @@ export const updateQueryString = function(search, paramsObj={}) {
 	});
 	return urlString;
 }
-
-export const queryParamsToString = (params) => {
-	// expects object with key-value pairs matching collectionspace params
-	return params &&
-		Object.keys(params).length ?
-		Object.keys(params).reduce((path, key, i) => {
-			path += key + '=' + params[key];
-			if (i !== Object.keys(params).length - 1) {
-				// not the last one; keep appending
-				path += '&';
-			}
-			return path;
-	}, '?') : '';
-};

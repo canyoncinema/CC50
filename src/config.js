@@ -82,6 +82,30 @@ export const ABOUT_PAGE_TAG = 'AboutPage';
 export const SUPPORT_US_PAGE_TAG = 'SupportUsPage';
 export const INTRO_TEXT_TAG = 'IntroTextPage';
 
+class QueryParams {
+	constructor(paramsObj, isDeleted=false) {
+		Object.assign(this, paramsObj, {
+			wf_deleted: isDeleted
+		});
+		this.keys = Object.keys(paramsObj);
+		this.params = paramsObj;
+		this.length = Object.keys(paramsObj).length;
+	}
+	toString = () => {
+		// expects object with key-value pairs matching collectionspace params
+		let path = '?';
+		this.keys.forEach((key, i) => {
+			path += path + '=' + this.params[key];
+			if (i !== this.length - 1) {
+				// not the last one; keep appending
+				path += '&';
+			}
+			i += 1;
+		});
+		return path;
+	}
+}
+
 class Config {
 	constructor(env) {
 		// FOR DEV:
@@ -96,17 +120,17 @@ class Config {
 
 	listFilmmakersUrl(queryParams) {
 		return this.baseUrl + config[this.env].list.personauthorities
-			+ queryParamsToString(queryParams);
+			+ new QueryParams(queryParams).toString();
 	}
 
 	listFilmsUrl(queryParams) {
 		return this.baseUrl + config[this.env].list.workauthorities
-			+ queryParamsToString(queryParams);
+			+ (new QueryParams(queryParams).toString());
 	}
 
 	listEventsUrl(queryParams) {
 		return this.baseUrl + config[this.env].list.exhibitions
-			+ queryParamsToString(queryParams);
+			+ new QueryParams(queryParams).toString();
 	}
 
 	getItemsUrl(collectionItems, queryParams) {
@@ -114,16 +138,15 @@ class Config {
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
 		let url = this.baseUrl + config[this.env].list[cspaceCollection];
 		if (queryParams) {
-			url += queryParamsToString(Object.assign(queryParams, {
-				wf_deleted: false
-			}));
+			url += new QueryParams(queryParams).toString();
 		}
 		return url;
 	}
 
 	getEventsUrl(queryParams) {
-		return this.baseUrl + config[this.env].list.exhibitions
-			+ queryParamsToString(queryParams);
+		return this.baseUrl +
+			config[this.env].list.exhibitions +
+			new QueryParams(queryParams).toString();
 	}
 
 	fetchItems(...args) {
@@ -135,7 +158,7 @@ class Config {
 	collectionItemTypes = ['films', 'filmmakers']
 
 	fetchSearchedItems(collectionItems, queryParams) {
-		return wrappedFetch(encodeURI(this.getItemsUrl(collectionItems, queryParams)));
+		return wrappedFetch(encodeURI(this.getItemsUrl(collectionItems, new QueryParams(queryParams))));
 	}
 
 	convertPayloadToChoices(payload) {
@@ -183,9 +206,7 @@ class Config {
 	getMediaUrl(queryParams) {
 		let url = this.baseUrl + config[this.env].list.media;
 		if (queryParams) {
-			url += queryParamsToString(Object.assign(queryParams, {
-				wf_deleted: false
-			}));
+			url += new QueryParams(queryParams, true).toString();
 		}
 		return url;
 	}
@@ -206,7 +227,8 @@ class Config {
 		}
 		const queryParams = {
 			as,
-			pgSz
+			pgSz,
+			wf_deleted: false
 		};
 		return wrappedFetch(this.getMediaUrl(queryParams));
 	}
@@ -215,7 +237,7 @@ class Config {
 		// SPEC: does a search across ALL collection item types,
 		// and returns a shuffled list of them
 		const choicesPromises = this.collectionItemTypes.map(items =>
-				this.fetchItemChoices(items, queryParams)
+				this.fetchItemChoices(items, new QueryParams(queryParams))
 			);
 		return new Promise((resolve, reject) => {
 			Promise.all(choicesPromises)
@@ -356,7 +378,8 @@ class Config {
 	}
 
 	retrieveNewsDetail({ slug }) {
-		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/slug/${slug}/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&include=authors,tags`);
+		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/slug/${slug}/?` +
+			`client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&include=authors,tags`);
 	}
 
 	MIN_MEDIA_COUNT = 321
@@ -367,7 +390,8 @@ class Config {
 		let totalItems = this.MIN_MEDIA_COUNT;
 		const queryParams = () => ({
 			pgSz: 1,
-			pgNum: Math.ceil(Math.random() * Number(totalItems))
+			pgNum: Math.ceil(Math.random() * Number(totalItems)),
+			wf_deleted: false,
 		});
 
 		const fetchSpotlightMediaItem = () =>
