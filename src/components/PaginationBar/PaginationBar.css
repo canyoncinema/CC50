@@ -1,0 +1,38 @@
+
+.PaginationBar, .btn-group {
+	display: flex;
+	padding-top: 0;
+}
+
+.PaginationButton {
+	padding: 30px 25px;
+	opacity: 0.5;
+  font-family: Karla;
+  font-size: 20px;
+  color: var(--darkest-gray);
+  text-align: center;
+  border-top: solid 1px;
+  border-top-color: #9b9b9b;
+  transition: border-top-color linear 0.15s;
+  color: var(--black);
+}
+
+.PaginationButton:hover {
+	border-top-color: var(--black);
+}
+
+.PaginationBar .page-num {
+	text-align: center;
+	border-top: solid 1px;
+	border-top-color: #9b9b9b;
+	transition: border-top-color linear 0.15s;
+	padding: 30px 15px;
+}
+
+.PaginationBar .page-num:hover,
+.PaginationBar .page-num.active {
+	border-top-color: var(--black);
+	color: var(--black);
+	color: #231f20;
+	border-top-color: #231f20;
+}
