@@ -48,6 +48,9 @@ class ClampedDescription extends Component {
 
 	render() {
 		const { children, className, title, maxLines } = this.props;
+		if (!isNaN(maxLines)) {
+			return <div title={title} className={className}>{ children }</div>;
+		}
 		return (
 			<BrowserDetection>
 			{ this.browserHandler }

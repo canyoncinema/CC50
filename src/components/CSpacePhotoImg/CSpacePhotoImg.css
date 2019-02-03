@@ -3,6 +3,7 @@
 }
 
 .CSpacePhotoImg .caption {
+	text-align: right;
 	position: absolute;
 	bottom: -28px;
 	left: 0;

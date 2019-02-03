@@ -84,7 +84,6 @@ class NewsDetail extends Component {
 						key={1}
 						startDateTime={publishedAt}
 						title={title}
-						author={author}
 						tags={tags}
 					/>
 				]}
