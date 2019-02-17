@@ -17,8 +17,6 @@ const config = {
 		ghost: {
 			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
 		},
-		username: process.env.REACT_APP_CC50_USERNAME_DEVELOPMENT,
-		password: process.env.REACT_APP_CC50_PASSWORD_DEVELOPMENT,
 		baseUrl: 'http://dev-cs45-2.cancf.com:8180/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
@@ -27,13 +25,22 @@ const config = {
 			media: '/media'
 		}
 	},
+    staging: {
+        ghost: {
+            apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+        },
+        baseUrl: 'http://staging.canyoncinema50.org/cspace-services',
+        list: {
+            personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
+            workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
+            exhibitions: '/exhibitions',
+            media: '/media'
+        }
+    },
 	production: {
 		ghost: {
 			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
 		},
-		username: process.env.REACT_APP_CC50_USERNAME_PRODUCTION,
-		password: process.env.REACT_APP_CC50_PASSWORD_PRODUCTION,
-		// baseUrl: 'http://cs.cancf.com:8180/cspace-services',
 		baseUrl: 'http://beta.canyoncinema50.org/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
@@ -108,14 +115,12 @@ class QueryParams {
 
 class Config {
 	constructor(env) {
-		// FOR DEV:
-		this.env = 'production' || env;
-		// FOR PRODUCTION:
-		// this.env = env;
+		this.env = process.env.REACT_APP_ENV || 'development';
 	}
 
 	get baseUrl() {
-		return config[this.env].baseUrl;
+        console.log(this.env);
+        return config[this.env].baseUrl;
 	}
 
 	listFilmmakersUrl(queryParams) {
@@ -173,6 +178,7 @@ class Config {
 	}
 
 	fetchItemChoices(...args) {
+		console.log('marlo: ', ...args);
 		return new Promise((resolve, reject) => {
 			try {
 				wrappedFetch(encodeURI(this.getItemsUrl(...args)))
