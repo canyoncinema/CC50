@@ -31,8 +31,8 @@ const config = {
         },
         baseUrl: 'http://staging.canyoncinema50.org/cspace-services',
         list: {
-            personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
-            workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
+            personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
+            workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
             exhibitions: '/exhibitions',
             media: '/media'
         }
@@ -119,7 +119,6 @@ class Config {
 	}
 
 	get baseUrl() {
-        console.log(this.env);
         return config[this.env].baseUrl;
 	}
 
@@ -178,7 +177,6 @@ class Config {
 	}
 
 	fetchItemChoices(...args) {
-		console.log('marlo: ', ...args);
 		return new Promise((resolve, reject) => {
 			try {
 				wrappedFetch(encodeURI(this.getItemsUrl(...args)))
