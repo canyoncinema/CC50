@@ -29,7 +29,7 @@ const MainNav = ({location, collectionItems, item, includesCollapsedItemPageNav,
 			isHomePageMainNav ? 'is-home' : null,
 		].join(' ')}>
 			<Navbar
-				style={{ backgroundColor: 'pink' }}>
+                style={{ backgroundColor: isTransparent ? 'transparent' : '#231f20' }}>
 					<Nav className=" container-fluid d-flex full-nav">
 						<NavItem className="p-2 logo-nav-item">
 							<NavLink className="logo" href="/">
