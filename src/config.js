@@ -102,7 +102,7 @@ class QueryParams {
 		// expects object with key-value pairs matching collectionspace params
 		let path = '?';
 		this.keys.forEach((key, i) => {
-			path += path + '=' + this.params[key];
+			path = path + key + '=' + this.params[key];
 			if (i !== this.length - 1) {
 				// not the last one; keep appending
 				path += '&';
@@ -128,7 +128,7 @@ class Config {
 	}
 
 	listFilmsUrl(queryParams) {
-		return this.baseUrl + config[this.env].list.workauthorities
+        return this.baseUrl + config[this.env].list.workauthorities
 			+ (new QueryParams(queryParams).toString());
 	}
 
@@ -138,7 +138,7 @@ class Config {
 	}
 
 	getItemsUrl(collectionItems, queryParams) {
-		const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
+        const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
 		let url = this.baseUrl + config[this.env].list[cspaceCollection];
 		if (queryParams) {
