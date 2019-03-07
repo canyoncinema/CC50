@@ -1,7 +1,8 @@
 import {
 	FETCH_SEARCHED_ITEMS,
 	RECEIVED_SEARCHED_ITEMS,
-	FAILED_SEARCHED_ITEMS
+	FAILED_SEARCHED_ITEMS,
+	CLEAR_FILTERED_ITEMS
 } from '../actionTypes';
 import { config } from '../store';
 import { getItemTypeFromRefName, parseFilm } from '../utils/parse-data';
@@ -13,6 +14,12 @@ function fetchSearchedItems() {
 	return {
 		type: FETCH_SEARCHED_ITEMS
 	}
+}
+
+function clearFilteredItems() {
+    return {
+        type: CLEAR_FILTERED_ITEMS
+    }
 }
 
 function receiveSearchedItems(dispatch, dataWithItemType, totalCount, pageCount, collectionItems, searchedText) {
@@ -36,6 +43,8 @@ function failSearchedItems(error) {
 
 const NUM_ROWS = 13;
 const NUM_PER_ROW = 3;
+
+
 export function getSearchedItems(collectionItems, searchText) {
 	const queryParams = {
 		pgSz: NUM_PER_ROW * NUM_ROWS,
@@ -43,7 +52,8 @@ export function getSearchedItems(collectionItems, searchText) {
 	};
 	return (dispatch) => {
 		dispatch(fetchSearchedItems());
-		const makeRequest = collectionItems ?
+        dispatch(clearFilteredItems());
+        const makeRequest = collectionItems ?
 			() => config.fetchItemChoices(collectionItems, queryParams) :
 			() => config.fetchAllChoices(queryParams);
 		return makeRequest()

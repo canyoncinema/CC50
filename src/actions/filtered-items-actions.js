@@ -6,7 +6,9 @@ import {
 import { config } from '../store';
 import { getItemTypeFromRefName, parseFilm } from '../utils/parse-data';
 
-const collectionId = '5b2486be-bc1f-4176-97fa';
+
+// function clearFilteredItems() {
+// }
 
 function fetchFilteredItems() {
     return {
@@ -36,22 +38,22 @@ function failFilteredItems(error) {
 
 const NUM_ROWS = 13;
 const NUM_PER_ROW = 3;
-export function getFilteredItems(collectionItems, filtersDisabled) {
+
+export function getFilteredItems(collectionItems, filtersDisabled, searchedText) {
     const queryParams = {
         pgSz: NUM_PER_ROW * NUM_ROWS,
-        filtersDisabled: filtersDisabled
+        kw: searchedText
     };
 
     return (dispatch) => {
         dispatch(fetchFilteredItems());
-
-        const makeRequest = filtersDisabled.length > 0 ?
-            () => config.fetchFilteredItems({filtersDisabled, collectionItems}) :
+        const hasActiveFilter = Object.values(filtersDisabled).some(val => val === true);
+        const makeRequest = hasActiveFilter ?
+            () => config.fetchFilteredItems({filtersDisabled, collectionItems, queryParams}) :
             () => config.fetchItemChoices(collectionItems, queryParams)
         return makeRequest()
 
         .then(choiceData => {
-            console.log(choiceData);
             const { choices, totalCount, pageCount } = choiceData;
             console.log("RETURNED", choices);
             // since choices can vary by item type, attach it here

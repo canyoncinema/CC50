@@ -179,7 +179,6 @@ class Config {
 	}
 
 	fetchItemChoices(...args) {
-		console.log("in config: ", ...args);
 		return new Promise((resolve, reject) => {
 			try {
 				wrappedFetch(encodeURI(this.getItemsUrl(...args)))
@@ -328,18 +327,10 @@ class Config {
 		}
 	}
 
-	getFilteredItemsUrl({collectionItems, filtersDisabled }) {
-
+	getFilteredItemsUrl({collectionItems, filtersDisabled, queryParams}) {
 		let as = getFilterUrl(collectionItems, filtersDisabled);
 		as = '(' + as + ')';
-        // const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
-        // let url = this.baseUrl + config[this.env].list[cspaceCollection] + '/urn:cspace:name(works)/items?as='+as;
-        let url = this.baseUrl + '/workauthorities' + '/urn:cspace:name(work)/items?as='+as;
-        let params = {
-        	pgNum: 0,
-			wf_deleted: false
-        }
-        console.log(url);
+        let url = this.baseUrl + '/workauthorities' + '/urn:cspace:name(work)/items?as='+as + '&' + new QueryParams(queryParams).toString();;
         return url;
     }
 

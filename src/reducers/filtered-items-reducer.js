@@ -10,8 +10,12 @@ const initialState = {
 };
 
 const filteredItems = (state=initialState, action) => {
-    // console.log('action', action);
     switch (action.type) {
+        case types.CLEAR_FILTERED_ITEMS:
+            return {
+                isLoading: false,
+                filtersDisabled: {},
+            };
         case types.FETCH_FILTERED_ITEMS:
             return {
                 isLoading: true,
@@ -23,7 +27,6 @@ const filteredItems = (state=initialState, action) => {
                 isLoading: false,
                 error: undefined,
                 data: action.data,
-                // disabledTags: action.disabledTags.slice or whatever the 'tagName'
                 filtersDisabled: action.filtersDisabled,
                 totalCount: action.totalCount,
                 pageCount: action.pageCount

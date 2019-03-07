@@ -75,7 +75,6 @@ class CollectionPage extends Component {
 		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText,
 		submitSearch: this.submitSearch.bind(this),
-		// toggleTag: this.toggleTag.bind(this),
 		isCollapsedNav: false,
 		viewMode: this.props.viewMode || 'grid',
 		setViewMode: this.setViewMode,
@@ -145,8 +144,6 @@ class CollectionPage extends Component {
             />
 						: null
 					}
-
-
 
 					{
 						filteredItems && filteredItemsFiltersDisabled &&

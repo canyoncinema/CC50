@@ -34,26 +34,12 @@ const urlLookup = {
     }
 };
 
-// not a negative search -- testing
-// export const getFilterUrlOrig = function(collectionItems, disabledTags) {
-//     let url = "";
-//     disabledTags.forEach(function(tag, index) {
-//         console.log(index);
-//         let splitTag = tag.split('__');
-//         let thisUrl = urlLookup[collectionItems][splitTag[0]][splitTag[1]];
-//         if (index !== disabledTags.length - 1) {
-//             url = url + thisUrl + '+AND+';
-//         } else { url = url + thisUrl }
-//     });
-//     return url;
-// };
-
 const filterOutDisabledTags = function(collectionItems, disabledTags, theseTags, tagType) {
     return Object.keys(theseTags)
         .map(tag => {
             return tagType + '__' + tag;
         })
-        .filter(tag => disabledTags.indexOf(tag) < 0);
+        .filter(tag => disabledTags[tag] !== true )
 };
 
 export const getFilterUrl = function(collectionItems, disabledTags) {
@@ -62,6 +48,7 @@ export const getFilterUrl = function(collectionItems, disabledTags) {
     tagTypeArr.forEach(function(tagType, index) {
         const theseTags = urlLookup[collectionItems][tagType];
         const tagArr = filterOutDisabledTags(collectionItems, disabledTags, theseTags, tagType);
+        console.log(tagArr);
         tagArr.forEach(function(tag, i) {
             // if the tag isn't one of the disabled, get its url piece
             // TODO make splitting/merging the tags less repetitive

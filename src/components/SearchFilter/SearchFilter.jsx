@@ -11,12 +11,13 @@ import { getFilteredItems } from "../../actions/filtered-items-actions";
 
 const mapStateToProps = state => ({
     filteredItems: state.filteredItems.data,
-    filtersDisabled: state.filteredItems.filtersDisabled
+    filtersDisabled: state.filteredItems.filtersDisabled,
+	searchedText: state.searchedItems.searchedText
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    getFilteredItems: (collectionItems, filters) =>
-        dispatch(getFilteredItems(collectionItems, filters))
+    getFilteredItems: (collectionItems, filters, searchedText) =>
+        dispatch(getFilteredItems(collectionItems, filters, searchedText))
 })
 
 
@@ -25,9 +26,8 @@ class SearchFilter extends Component {
 
 	state = {
 		isOpen: false,
-		// filtersDisabled: this.filtersDisabled || {}
-		filtersDisabled: this.props.filtersDisabled
-	}
+
+	};
 
 	toggleMenu = () => {
 		this.setState({
@@ -37,29 +37,16 @@ class SearchFilter extends Component {
 	}
 
     onTagSelect = (field, value) => {
-		const FIELD_VALUE_ID = tagId(field, value);
-		this.setState(prevState => {
-            const obj = {};
-			obj[FIELD_VALUE_ID] = !prevState.filtersDisabled[FIELD_VALUE_ID];
-			const newFiltersDisabled = Object.assign(prevState.filtersDisabled, obj);
-            return {
-				filtersDisabled: newFiltersDisabled
-			};
-		}, () => {
-            let activeFilters = [];
-            for (let k in this.state.filtersDisabled) {
-                if (this.state.filtersDisabled[k] === true) {
-                    activeFilters.push(k)
-                }
-            }
-            this.props.getFilteredItems(this.props.collectionItems, activeFilters);
-        });
-
-	}
+        const FIELD_VALUE_ID = tagId(field, value);
+        const obj = {};
+		obj[FIELD_VALUE_ID] = !this.props.filtersDisabled[FIELD_VALUE_ID];
+		const newFiltersDisabled = Object.assign(this.props.filtersDisabled, obj);
+        this.props.getFilteredItems(this.props.collectionItems, newFiltersDisabled, this.props.searchedText);
+	};
 
 	render() {
-		const { searchLabel } = this.props;
-		const { isOpen, filtersDisabled } = this.state;
+        const { searchLabel, filtersDisabled } = this.props;
+        const { isOpen } = this.state;
         return [
 			<span key={0}
 				className={isOpen ? 'SearchFilter label active' : 'SearchFilter label'}
@@ -143,4 +130,3 @@ class SearchFilter extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);
-// export default SearchFilter;
