@@ -6,10 +6,6 @@ import {
 import { config } from '../store';
 import { getItemTypeFromRefName, parseFilm } from '../utils/parse-data';
 
-
-// function clearFilteredItems() {
-// }
-
 function fetchFilteredItems() {
     return {
         type: FETCH_FILTERED_ITEMS
@@ -17,7 +13,6 @@ function fetchFilteredItems() {
 }
 
 function receiveFilteredItems(dispatch, dataWithItemType, totalCount, pageCount, collectionItems, filtersDisabled) {
-    console.log(filtersDisabled, 'fd');
     return {
         type: RECEIVED_FILTERED_ITEMS,
         data: dataWithItemType,

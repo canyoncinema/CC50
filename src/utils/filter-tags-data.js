@@ -48,7 +48,6 @@ export const getFilterUrl = function(collectionItems, disabledTags) {
     tagTypeArr.forEach(function(tagType, index) {
         const theseTags = urlLookup[collectionItems][tagType];
         const tagArr = filterOutDisabledTags(collectionItems, disabledTags, theseTags, tagType);
-        console.log(tagArr);
         tagArr.forEach(function(tag, i) {
             // if the tag isn't one of the disabled, get its url piece
             // TODO make splitting/merging the tags less repetitive
@@ -62,7 +61,6 @@ export const getFilterUrl = function(collectionItems, disabledTags) {
             url = url + ')+AND+('
         }
     });
-    console.log(url);
     return url;
 };
 

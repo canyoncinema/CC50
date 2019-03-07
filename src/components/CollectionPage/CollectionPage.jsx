@@ -13,7 +13,8 @@ import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import Search from '../Search/Search';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
-import SearchOrFilterResultsSummary from '../SearchOrFilterResultsSummary/SearchOrFilterResultsSummary';
+import SearchResultsSummary from '../SearchResultsSummary/SearchResultsSummary';
+import FilterResultsSummary from '../FilterResultsSummary/FilterResultsSummary';
 import CollectionSearchResults from '../CollectionSearchResults/CollectionSearchResults';
 
 const mapStateToProps = state => ({
@@ -128,22 +129,24 @@ class CollectionPage extends Component {
 							</div>
 						</div>
 					</header>
+					<div className="ResultSummaries">
 					{
-						nonCollectionItemsString ?
-						<SearchOrFilterResultsSummary key={1}
-              searchText={collectionItems ? collectionItems + nonCollectionItemsString : nonCollectionItemsString}
-              numResults={0}
-            />
-            : searchedText && isLoading ?
-            <LoadingMessage />
-						: searchedItemsSearchedText && !isLoading ?
-						<SearchOrFilterResultsSummary key={1}
-              searchText={searchedItemsSearchedText}
-			  filtersDisabled={filteredItemsFiltersDisabled}
-              numResults={searchedItemsTotalCount || 0}
-            />
-						: null
+                        nonCollectionItemsString ?
+                            <SearchResultsSummary key={0} searchText={collectionItems ? collectionItems + nonCollectionItemsString : nonCollectionItemsString} numResults={0} />
+							: !isLoading ?
+								filteredItems && filteredItemsFiltersDisabled ?
+									searchedItemsSearchedText && searchedItems ?
+										<span>
+											<FilterResultsSummary key={1} filtersDisabled={filteredItemsFiltersDisabled} numResults={filteredItemsTotalCount || 0} />
+											<SearchResultsSummary key={2} searchText={searchedItemsSearchedText} />
+										</span>
+										: <FilterResultsSummary key={3} filtersDisabled={filteredItemsFiltersDisabled} numResults={filteredItemsTotalCount || 0} />
+									: searchedItemsSearchedText && searchedItems ?
+										<SearchResultsSummary key={4} searchText={searchedItemsSearchedText} numResults={searchedItemsTotalCount || 0} />
+										: null
+							: null
 					}
+					</div>
 
 					{
 						filteredItems && filteredItemsFiltersDisabled &&

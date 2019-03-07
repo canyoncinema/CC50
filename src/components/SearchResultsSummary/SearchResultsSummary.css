@@ -6,4 +6,6 @@
   color: #231f20;
   color: var(--black);
   padding: 60px 70px 0;
+  display: inline-block;
+
 }

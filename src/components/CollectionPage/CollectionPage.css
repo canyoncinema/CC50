@@ -85,3 +85,7 @@
 .CollectionPage .Sort {
 	padding: 60px 70px 0;
 }
+
+.CollectionPage .ResultSummaries {
+	display: inline;
+}
