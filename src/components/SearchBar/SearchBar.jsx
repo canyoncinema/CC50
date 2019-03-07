@@ -156,7 +156,7 @@ class SearchBar extends Component {
 				{
 					searchLabel === FILMS_SEARCH_LABEL ||
 					searchLabel === EPHEMERA_SEARCH_LABEL ?
-					<SearchFilter searchLabel={searchLabel} />
+					<SearchFilter searchLabel={searchLabel} collectionItems={collectionItems} />
 					: null
 				}
 			</form>

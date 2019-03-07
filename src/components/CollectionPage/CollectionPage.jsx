@@ -6,26 +6,35 @@ import { updateQueryString } from '../../utils/query-string';
 import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import { getSearchedItems } from '../../actions/searched-items-actions';
+import { getFilteredItems } from '../../actions/filtered-items-actions';
 
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import Search from '../Search/Search';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
-import SearchResultsSummary from '../SearchResultsSummary/SearchResultsSummary';
+import SearchOrFilterResultsSummary from '../SearchOrFilterResultsSummary/SearchOrFilterResultsSummary';
 import CollectionSearchResults from '../CollectionSearchResults/CollectionSearchResults';
 
 const mapStateToProps = state => ({
 	searchedItems: state.searchedItems.data,
 	searchedItemsTotalCount: state.searchedItems.totalCount,
 	searchedItemsSearchedText: state.searchedItems.searchedText,
-	searchedItemsIsLoading: state.searchedItems.isLoading,
-	searchedItemsError: state.searchedItems.error
+	// searchedItemsIsLoading: state.searchedItems.isLoading,
+	searchedItemsError: state.searchedItems.error,
+	filteredItems: state.filteredItems.data,
+	filteredItemsFiltersDisabled: state.filteredItems.filtersDisabled,
+    filteredItemsTotalCount: state.filteredItems.totalCount,
+    // filteredItemsIsLoading: state.filteredItems.isLoading,
+    filteredItemsError: state.filteredItems.error,
+	isLoading: state.searchedItems.isLoading || state.filteredItems.isLoading
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	getSearchedItems: (...args) =>
-		dispatch(getSearchedItems(...args))
+		dispatch(getSearchedItems(...args)),
+	// getFilteredItems: (...args) =>
+    //     dispatch(getFilteredItems(...args)),
 })
 
 class CollectionPage extends Component {
@@ -66,6 +75,7 @@ class CollectionPage extends Component {
 		searchTextAutocompleted: false,
 		setSearchText: this.setSearchText,
 		submitSearch: this.submitSearch.bind(this),
+		// toggleTag: this.toggleTag.bind(this),
 		isCollapsedNav: false,
 		viewMode: this.props.viewMode || 'grid',
 		setViewMode: this.setViewMode,
@@ -83,12 +93,17 @@ class CollectionPage extends Component {
 	render() {
 		const {
 			children,
+			isLoading,
 			searchedItems,
-			searchedItemsIsLoading,
+			// searchedItemsIsLoading,
 			searchedItemsTotalCount,
 			searchedItemsSearchedText,
 			nonCollectionItemsString,
 			collectionItems,
+			filteredItems,
+            filteredItemsFiltersDisabled,
+            // filteredItemsIsLoading,
+			filteredItemsTotalCount,
 			isScrollNav
 		} = this.props;
 		const {
@@ -116,27 +131,37 @@ class CollectionPage extends Component {
 					</header>
 					{
 						nonCollectionItemsString ?
-						<SearchResultsSummary key={1}
+						<SearchOrFilterResultsSummary key={1}
               searchText={collectionItems ? collectionItems + nonCollectionItemsString : nonCollectionItemsString}
               numResults={0}
             />
-            : searchedText && searchedItemsIsLoading ?
+            : searchedText && isLoading ?
             <LoadingMessage />
-						: searchedItemsSearchedText && !searchedItemsIsLoading ?
-						<SearchResultsSummary key={1}
+						: searchedItemsSearchedText && !isLoading ?
+						<SearchOrFilterResultsSummary key={1}
               searchText={searchedItemsSearchedText}
+			  filtersDisabled={filteredItemsFiltersDisabled}
               numResults={searchedItemsTotalCount || 0}
             />
 						: null
 					}
+
+
+
 					{
-						searchedItemsSearchedText &&
+						filteredItems && filteredItemsFiltersDisabled &&
+                        !isLoading ?
+						<CollectionSearchResults
+							viewMode={viewMode}
+							items={filteredItems}
+							fitersDisabled={filteredItemsFiltersDisabled}/>
+						: searchedItemsSearchedText &&
 						searchedItems &&
-						!searchedItemsIsLoading ?
+						!isLoading ?
 						<CollectionSearchResults
 							viewMode={viewMode}
 							items={searchedItems} />
-						: !searchedItemsIsLoading ?
+						: !isLoading ?
 						children
 						: null
 					}

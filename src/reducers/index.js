@@ -17,6 +17,7 @@ import spotlight from './spotlight-reducer';
 import itemsMedia from './items-media-reducer';
 import filmmakersMedia from './filmmakers-media-reducer';
 import searchedItems from './searched-items-reducer';
+import filteredItems from './filtered-items-reducer';
 import fullSizedCarousel from './full-sized-carousel-reducer';
 
 export default combineReducers({
@@ -38,5 +39,6 @@ export default combineReducers({
   itemsMedia,
   filmmakersMedia,
   searchedItems,
+  filteredItems,
   fullSizedCarousel
 });

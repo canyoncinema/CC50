@@ -9,6 +9,7 @@ import { matchRefName,
 	cspaceCollectionToItemName,
 	collectionItemsToCSpaceCollection } from './utils/parse-data';
 import { queryParamsToString } from './utils/query-string';
+import { getFilterUrl } from './utils/filter-tags-data';
 
 const toRefNameUriVal = refName => refName.replace('#', '%23');
 
@@ -144,6 +145,7 @@ class Config {
 		if (queryParams) {
 			url += new QueryParams(queryParams).toString();
 		}
+		console.log(url);
 		return url;
 	}
 
@@ -177,6 +179,7 @@ class Config {
 	}
 
 	fetchItemChoices(...args) {
+		console.log("in config: ", ...args);
 		return new Promise((resolve, reject) => {
 			try {
 				wrappedFetch(encodeURI(this.getItemsUrl(...args)))
@@ -291,6 +294,7 @@ class Config {
 	}
 
 	getItemUrl({ collectionItems, cspaceCollection, csid, shortIdentifier }) {
+		console.log(shortIdentifier);
 		if (!(shortIdentifier || csid) || !(collectionItems || cspaceCollection)) {
 			throw new Error('collectionItems + shortIdentifier are required');
 		}
@@ -323,6 +327,55 @@ class Config {
 				')';
 		}
 	}
+
+	getFilteredItemsUrl({collectionItems, filtersDisabled }) {
+
+		let as = getFilterUrl(collectionItems, filtersDisabled);
+		as = '(' + as + ')';
+        // const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
+        // let url = this.baseUrl + config[this.env].list[cspaceCollection] + '/urn:cspace:name(works)/items?as='+as;
+        let url = this.baseUrl + '/workauthorities' + '/urn:cspace:name(work)/items?as='+as;
+        let params = {
+        	pgNum: 0,
+			wf_deleted: false
+        }
+        console.log(url);
+        return url;
+    }
+
+	fetchFilteredItems(...args) {
+        return new Promise((resolve, reject) => {
+            try {
+                wrappedFetch(this.getFilteredItemsUrl(...args))
+                    .then(response => {
+                        if (response.status >= 400) {
+                            reject('Bad response from server');
+                        }
+                        return response.json();
+                    })
+                    .then(payload => {
+                        try {
+                            const choices = this.convertPayloadToChoices(payload);
+                            const totalCount = toTotalCount(payload);
+                            const pageCount = toPageCount(payload);
+                            resolve({
+                                choices,
+                                totalCount,
+                                pageCount
+                            });
+                        } catch(e) {
+                            reject(e);
+                        }
+                    })
+                    .catch(err => reject(err));
+            } catch(e) {
+                reject(e);
+            }
+        });
+		// let data = wrappedFetch(this.getFilteredItemsUrl(...args));
+		// console.log(data);
+		// return data;
+    }
 
 	getFilmmakerFilmsUrl({ filmmakerRefName, pgSz=6, exceptShortIdentifier }) {
 		let as = '(works_common:creatorGroupList/*/creator+=+"' +

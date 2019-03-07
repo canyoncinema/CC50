@@ -5,36 +5,62 @@ import './SearchFilter.css';
 import { FILMS_SEARCH_LABEL, EPHEMERA_SEARCH_LABEL } from '../../collection-context';
 import Tags from '../Tags/Tags';
 import Tag, { tagId } from '../Tag/Tag';
+import connect from "react-redux/es/connect/connect";
+import { getFilteredItems } from "../../actions/filtered-items-actions";
+
+
+const mapStateToProps = state => ({
+    filteredItems: state.filteredItems.data,
+    filtersDisabled: state.filteredItems.filtersDisabled
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    getFilteredItems: (collectionItems, filters) =>
+        dispatch(getFilteredItems(collectionItems, filters))
+})
+
 
 // TODO: disabled filters list belongs on the Collection Context
 class SearchFilter extends Component {
+
 	state = {
 		isOpen: false,
-		filtersDisabled: {}
+		// filtersDisabled: this.filtersDisabled || {}
+		filtersDisabled: this.props.filtersDisabled
 	}
 
 	toggleMenu = () => {
 		this.setState({
-			isOpen: !this.state.isOpen
+			isOpen: !this.state.isOpen,
+			
 		});
 	}
 
-	onTagSelect = (field, value) => {
+    onTagSelect = (field, value) => {
 		const FIELD_VALUE_ID = tagId(field, value);
 		this.setState(prevState => {
-			const obj = {};
+            const obj = {};
 			obj[FIELD_VALUE_ID] = !prevState.filtersDisabled[FIELD_VALUE_ID];
 			const newFiltersDisabled = Object.assign(prevState.filtersDisabled, obj);
-			return {
+            return {
 				filtersDisabled: newFiltersDisabled
 			};
-		});
+		}, () => {
+            let activeFilters = [];
+            for (let k in this.state.filtersDisabled) {
+                if (this.state.filtersDisabled[k] === true) {
+                    activeFilters.push(k)
+                }
+            }
+            this.props.getFilteredItems(this.props.collectionItems, activeFilters);
+        });
+
 	}
 
 	render() {
 		const { searchLabel } = this.props;
 		const { isOpen, filtersDisabled } = this.state;
-		return [
+        return [
 			<span key={0}
 				className={isOpen ? 'SearchFilter label active' : 'SearchFilter label'}
 				onClick={this.toggleMenu}>
@@ -62,7 +88,6 @@ class SearchFilter extends Component {
 								tagsDisabled={filtersDisabled}>
 								<Tag field="image" value="bw">B/W</Tag>
 								<Tag field="image" value="color">Color</Tag>
-								<Tag field="image" value="opt">Opt</Tag>
 							</Tags>
 						</Col>
 						<Col sm={5} className="inline-group">
@@ -117,4 +142,5 @@ class SearchFilter extends Component {
 	}
 }
 
-export default SearchFilter;
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);
+// export default SearchFilter;
