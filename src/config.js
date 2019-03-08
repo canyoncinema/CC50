@@ -23,7 +23,8 @@ const config = {
 			personauthorities: '/personauthorities/0be54e66-1fa7-40a6-a94b/items',
 			workauthorities: '/workauthorities/ac2cb0c7-8339-497a-8d66/items',
 			exhibitions: '/exhibitions',
-			media: '/media'
+            groups: '/groups',
+            media: '/media'
 		}
 	},
     staging: {
@@ -35,6 +36,7 @@ const config = {
             personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
             workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
             exhibitions: '/exhibitions',
+            groups: '/groups',
             media: '/media'
         }
     },
@@ -47,7 +49,8 @@ const config = {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
 			exhibitions: '/exhibitions',
-			media: '/media'
+            groups: '/groups',
+            media: '/media'
 		}
 		// _ALL_ only works for LISTS
 		// Note: CSID changes on db reset, shortIdentifier stays
@@ -140,6 +143,11 @@ class Config {
 			+ new QueryParams(queryParams).toString();
 	}
 
+    listProgramsUrl(queryParams) {
+        return this.baseUrl + config[this.env].list.groups
+            + new QueryParams(queryParams).toString();
+    }
+
 	getItemsUrl(collectionItems, queryParams) {
         const cspaceCollection = collectionItemsToCSpaceCollection(collectionItems, false);
 		const collectionRefName = collectionItemsToCSpaceCollection(collectionItems, true);
@@ -147,7 +155,7 @@ class Config {
 		if (queryParams) {
 			url += new QueryParams(queryParams).toString();
 		}
-		console.log(url);
+		console.log('getItemsUrl in config',url);
 		return url;
 	}
 
@@ -158,6 +166,7 @@ class Config {
 	}
 
 	fetchItems(...args) {
+		console.log('fetch items')
 		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
 

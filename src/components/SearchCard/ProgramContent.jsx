@@ -7,11 +7,13 @@ import ReactMarkdown from 'react-markdown';
 
 const ProgramContent = ({
 	viewMode,
-	displayName,
-	description,
-	filmmakers
+	termDisplayName,
+	scopeNote,
+	filmmakers,
 }) => {
 	const listView = viewMode === 'list';
+	// TODO: not getting a shortDescription back from server like for other collections...
+	// const shortScopeNote = scopeNote.substring(0, 160)+'...';
 	return (
 		<div className={listView ? 'row no-gutters ProgramContent' : 'ProgramContent'}>
 			<div className={listView ? 'col-4' : null}>
@@ -20,8 +22,8 @@ const ProgramContent = ({
 					<ClampedDescription
 						className="displayName"
 						maxLines={2}
-						title={displayName}>
-						<ReactMarkdown source={displayName} />
+						title={termDisplayName}>
+						<ReactMarkdown source={termDisplayName} />
 					</ClampedDescription>
 				</h4>
 			</div>
@@ -30,7 +32,7 @@ const ProgramContent = ({
 					<ClampedDescription
 						className="description formatted-text"
 						maxLines={3}>
-						<ReactMarkdown source={description} />
+						<ReactMarkdown source={scopeNote}/>
 					</ClampedDescription>
 				</div>
 			</div>

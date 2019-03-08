@@ -192,7 +192,15 @@ export const toItemsData = (payload, skipTermDisplayName) => {
 	}
 	if (data.length && !skipTermDisplayName) {
 		data = data.map(d => {
-			if (d.refName) d.termDisplayName = toDisplayName(d.refName);
+			console.log(d)
+			if (d.title) {
+                d.termDisplayName = d.title
+			} else if (d.refName) {
+            	 d.termDisplayName = toDisplayName(d.refName);
+			}
+			if (d.scopeNote) {
+				d.scopeNote = d.scopeNote.substring(0, 160) + '...';
+			}
 			return d;
 		});
 	}
@@ -246,6 +254,7 @@ export const getCsidFromRefName = refName =>
 	refName.match(/\:id\((\S+)\)/)[1];
 
 export function toDisplayName(refName) {
+	// console.log('toDisplayName', refName);
 	return refName.match(/\'(.+)\'$/)[1];
 }
 
