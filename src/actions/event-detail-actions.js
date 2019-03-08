@@ -25,9 +25,10 @@ function fetchEventDetail() {
 function receiveEventDetail(dispatch, payload) {
 	const item = toItemData(payload);
 	const filmRefNames = parseItemExhibitionWorks(item);
-	addEventFields(item, filmRefNames);
-
-	dispatch(getEventDetailFilms(filmRefNames));
+    addEventFields(item, filmRefNames);
+    if (filmRefNames) {
+        dispatch(getEventDetailFilms(filmRefNames));
+	}
 
 	return {
 		type: RECEIVED_EVENT_DETAIL,

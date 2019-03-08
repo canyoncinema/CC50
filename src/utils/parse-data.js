@@ -59,7 +59,9 @@ export const addEventFields = (item,filmRefNames) => {
 	item.venueDisplayName = item.showingLocation ? getDisplayNameFromRefName(item.showingLocation) : parseExhibitionVenueDisplayName(item, showingGroup);
 	// item.venueUrl = parseExhibitionVenueUrl(item, venueGroup);
 	// TODO: differ date from dateTime (incl. midnight)
-	item.films = getEventFilms(filmRefNames);
+	if (filmRefNames) {
+        item.films = getEventFilms(filmRefNames);
+    }
 	return item;
 }
 
@@ -88,7 +90,8 @@ export const parseItemExhibitionWorks = item =>
 	item.exhibitionWorkGroupList.exhibitionWorkGroup &&
 	item.exhibitionWorkGroupList.exhibitionWorkGroup.length ?
 		item.exhibitionWorkGroupList.exhibitionWorkGroup.map(x => x.exhibitionWork) :
-		[item.exhibitionWorkGroupList.exhibitionWorkGroup.exhibitionWork];
+		null;
+
 	/* EXAMPLE: FOR 2 OR MORE
 	"exhibitionWorkGroupList": {
     "exhibitionWorkGroup": [

@@ -7,13 +7,15 @@ const eventDetailFilmsReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_EVENT_DETAIL_FILMS:
 			newState = new Map();
-			action.filmRefNames.forEach((filmRefName) => {
-			  newState.set(action.filmRefName, {
-			  	isLoading: true,
-			  	error: undefined,
-			  	data: undefined
-			  });
-			});
+			if (action.filmRefNames) {
+                action.filmRefNames.forEach((filmRefName) => {
+                    newState.set(action.filmRefName, {
+                        isLoading: true,
+                        error: undefined,
+                        data: undefined
+                    });
+                });
+			}
 			return newState;
 		case types.RECEIVED_EVENT_DETAIL_FILM:
 			newState = new Map(state);

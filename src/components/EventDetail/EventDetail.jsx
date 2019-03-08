@@ -61,7 +61,11 @@ class EventDetail extends Component {
 							</section>
 							: null
 						}
-						<h3>Films in this Event</h3>
+						{
+                            event.films && event.films.length ?
+								<h3>Films in this Event</h3> :
+                                <h3>No Films in this Event</h3>
+						}
 						{
 							event.films && event.films.length ?
 							event.films.map((film, i) =>
