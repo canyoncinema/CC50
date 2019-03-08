@@ -144,7 +144,7 @@ class CollectionPage extends Component {
 									: searchedItemsSearchedText && searchedItems ?
 										<SearchResultsSummary key={4} searchText={searchedItemsSearchedText} numResults={searchedItemsTotalCount || 0} />
 										: null
-							: null
+							: <LoadingMessage/>
 					}
 					</div>
 
