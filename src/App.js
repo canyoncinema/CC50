@@ -16,8 +16,6 @@ import NewsPage from './components/NewsPage/NewsPage';
 import NewsDetail from './components/NewsDetail/NewsDetail';
 import EventDetail from './components/EventDetail/EventDetail';
 import AboutPage from './components/AboutPage/AboutPage';
-import TourPage from './components/TourPage/TourPage';
-import SupportUsPage from './components/SupportUsPage/SupportUsPage';
 import CollectionPage from './components/CollectionPage/CollectionPage';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
@@ -36,7 +34,6 @@ class App extends Component {
         <MainNav includesCollapsedItemPageNav={false} />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/tour" component={TourPage} />
           <Route exact path="/collection/films/:shortIdentifier" component={({ match }) =>
             <CollectionFilmPage
               shortIdentifier={match.params.shortIdentifier}
@@ -106,12 +103,16 @@ class App extends Component {
           <Route exact path="/support" component={({history}) =>
             <AboutPage activeTab="support" />
           } />
+          <Route exact path="/tour" component={({history}) =>
+              <AboutPage activeTab="tour" />
+          } />
+          <Route exact path="/press" component={({history}) =>
+              <AboutPage activeTab="press" />
+          } />
           <Route path="*" component={Page404} />
         </Switch>
         
         <Route exact path="/features/writings-and-essays" component={CollectionPage} />
-        <Route exact path="/features/tour" component={CollectionPage} />
-        <Route exact path="/press" component={CollectionPage} />
         <Footer className="no-gutters" />
       </div>
     );

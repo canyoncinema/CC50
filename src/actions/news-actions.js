@@ -4,6 +4,8 @@ import {
 	FAILED_NEWS,
 	RECEIVED_NEWS_PAGE_ABOUT,
 	RECEIVED_NEWS_PAGE_SUPPORT_US,
+    RECEIVED_NEWS_PAGE_TOUR,
+    RECEIVED_NEWS_PAGE_PRESS,
 } from '../actionTypes';
 import { config } from '../store';
 import { toNewsItemsData } from '../utils/parse-data';

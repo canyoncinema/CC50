@@ -7,6 +7,8 @@ const initialState = {
 	// specific news pages
 	aboutPage: undefined,
 	supportUsPage: undefined,
+	tourPage: undefined,
+	pressPage: undefined,
 	introTextPage: undefined
 };
 

@@ -27,11 +27,19 @@ const validTabs = [{
 }, {
 	id: 'support',
 	label: 'Support Us'
+},{
+    id: 'tour',
+    label: 'Tour'
+},{
+    id: 'press',
+    label: 'Press'
 }];
 
 const mapStateToProps = state => ({
   aboutPageNews: state.news.aboutPage,
   supportUsPageNews: state.news.supportUsPage,
+  tourPageNews: state.news.tourPage,
+  pressPageNews: state.news.pressPage,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,6 +99,24 @@ class AboutPage extends Component {
 		      			Support Us
 		      		</NavLink>
 		      	</NavItem>
+				  <NavItem>
+					  <NavLink
+						  to="/tour"
+						  className={activeTab === 'tour' ? 'active' : ''}
+						  onClick={() => { this.toggle('tour') }}
+					  >
+						  Tour
+					  </NavLink>
+				  </NavItem>
+				  <NavItem>
+					  <NavLink
+						  to="/press"
+						  className={activeTab === 'press' ? 'active' : ''}
+						  onClick={() => { this.toggle('press') }}
+					  >
+						  Press
+					  </NavLink>
+				  </NavItem>
 		      </Nav>
 				}>
 				<Helmet>
@@ -112,9 +138,26 @@ class AboutPage extends Component {
 		      		</GhostPostContent>
 		      	}
 		      </TabPane>
+              <TabPane tabId="tour">
+                  {
+					  <p>Need to add Tour to Ghost.</p>
+                      // supportUsPageNews &&
+                      // <GhostPostContent className="container" html={supportUsPageNews.html}>
+                      // </GhostPostContent>
+                  }
+              </TabPane>
+              <TabPane tabId="press">
+                  {
+                      <p>Need to add Press to Ghost.</p>
+
+                      // supportUsPageNews &&
+                      // <GhostPostContent className="container" html={supportUsPageNews.html}>
+                      // </GhostPostContent>
+                  }
+              </TabPane>
 		      
 	      </TabContent>
-			</SecondaryPage>
+		</SecondaryPage>
 		);
 	}
 }
