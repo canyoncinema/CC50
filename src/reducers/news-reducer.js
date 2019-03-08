@@ -7,8 +7,8 @@ const initialState = {
 	// specific news pages
 	aboutPage: undefined,
 	supportUsPage: undefined,
-	tourPage: undefined,
-	pressPage: undefined,
+    tourPage: undefined,
+    pressPage: undefined,
 	introTextPage: undefined
 };
 
@@ -36,6 +36,16 @@ const newsReducer = (state=initialState, action) => {
 			return {
 				...state,
 				supportUsPage: action.data && action.data[0]
+			};
+        case types.RECEIVED_NEWS_PAGE_TOUR:
+            return {
+                ...state,
+                tourPage: action.data && action.data[0]
+            };
+        case types.RECEIVED_NEWS_PAGE_PRESS:
+			return {
+				...state,
+				pressPage: action.data && action.data[0]
 			};
 		case types.RECEIVED_NEWS_PAGE_INTRO_TEXT:
 			return {

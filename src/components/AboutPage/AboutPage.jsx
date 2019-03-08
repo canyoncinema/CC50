@@ -7,12 +7,16 @@ import './AboutPage.css';
 
 import {
 	RECEIVED_NEWS_PAGE_ABOUT,
-	RECEIVED_NEWS_PAGE_SUPPORT_US
+	RECEIVED_NEWS_PAGE_SUPPORT_US,
+	RECEIVED_NEWS_PAGE_PRESS,
+	RECEIVED_NEWS_PAGE_TOUR
 } from '../../actionTypes';
 import { getNews } from '../../actions/news-actions';
 import {
 	ABOUT_PAGE_TAG,
-	SUPPORT_US_PAGE_TAG
+	SUPPORT_US_PAGE_TAG,
+	TOUR_PAGE_TAG,
+	PRESS_PAGE_TAG
 } from '../../config';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
@@ -46,10 +50,32 @@ const mapDispatchToProps = dispatch => ({
   getNews: (...args) => dispatch(getNews(...args))
 });
 
-const pageghostTag = activeTab => activeTab === 'about' ? ABOUT_PAGE_TAG : SUPPORT_US_PAGE_TAG;
-const headline = activeTab => activeTab === 'about' ? 'About Canyon Cinema 50' : 'Support Us';
-const title = activeTab => activeTab === 'about' ? 'About | Canyon Cinema' : 'Support Us | Canyon Cinema';
-const newsPageActionType = activeTab => activeTab === 'about' ? RECEIVED_NEWS_PAGE_ABOUT : RECEIVED_NEWS_PAGE_SUPPORT_US;
+const tabLookup = {
+	about: {
+        pageghostTag: ABOUT_PAGE_TAG,
+		headline: 'About Canyon Cinema 50',
+		title: 'About | Canyon Cinema',
+		newsPageActionType: RECEIVED_NEWS_PAGE_ABOUT
+	},
+	support: {
+        pageghostTag: SUPPORT_US_PAGE_TAG,
+        headline: 'Support Us',
+        title: 'Support Us | Canyon Cinema',
+        newsPageActionType: RECEIVED_NEWS_PAGE_SUPPORT_US
+	},
+	tour: {
+        pageghostTag: TOUR_PAGE_TAG,
+        headline: 'Tour',
+        title: 'Tour | Canyon Cinema',
+        newsPageActionType: RECEIVED_NEWS_PAGE_TOUR
+	},
+	press: {
+        pageghostTag: PRESS_PAGE_TAG,
+        headline: 'Press',
+        title: 'Press | Canyon Cinema',
+        newsPageActionType: RECEIVED_NEWS_PAGE_PRESS
+	}
+}
 
 class AboutPage extends Component {
 	constructor(props) {
@@ -64,20 +90,21 @@ class AboutPage extends Component {
 	componentDidMount() {
 		// PAGE HACK: to allow staff to edit these pages via Ghost,
 		// retrieve the one Ghost Post with the given page as ghost post tag
+		console.log(this.state.activeTab);
 		this.props.getNews({
 			limit: 1,
-			page: pageghostTag(this.state.activeTab)
-		}, newsPageActionType(this.state.activeTab));
+			page: tabLookup[this.state.activeTab].pageghostTag
+		}, tabLookup[this.state.activeTab].newsPageActionType);
 	}
 
 	toggle = tabId => this.state.activeTab !== tabId && this.setState({ activeTab: tabId })
 
 	render() {
-		const { aboutPageNews, supportUsPageNews } = this.props;
+		const { aboutPageNews, supportUsPageNews, tourPageNews, pressPageNews } = this.props;
 		const { activeTab } = this.state;
 		return (
 			<SecondaryPage
-				headline={headline(activeTab)}
+				headline={tabLookup[activeTab].headline}
 				className="AboutPage"
 				renderBelowHeader={() =>
 		      <Nav tabs>
@@ -120,7 +147,7 @@ class AboutPage extends Component {
 		      </Nav>
 				}>
 				<Helmet>
-	        <title>{title(activeTab)}</title>
+	        <title>{tabLookup[activeTab].title}</title>
 	      </Helmet>
 	      <ScrollToTopOnMount />
 	      <TabContent activeTab={activeTab}>
@@ -140,19 +167,18 @@ class AboutPage extends Component {
 		      </TabPane>
               <TabPane tabId="tour">
                   {
-					  <p>Need to add Tour to Ghost.</p>
-                      // supportUsPageNews &&
-                      // <GhostPostContent className="container" html={supportUsPageNews.html}>
-                      // </GhostPostContent>
+					  // {/*<p>Need to add Tour to Ghost.</p>*/}
+                      tourPageNews &&
+                      <GhostPostContent className="container" html={tourPageNews.html}>
+                      </GhostPostContent>
                   }
               </TabPane>
               <TabPane tabId="press">
                   {
-                      <p>Need to add Press to Ghost.</p>
-
-                      // supportUsPageNews &&
-                      // <GhostPostContent className="container" html={supportUsPageNews.html}>
-                      // </GhostPostContent>
+                      // <p>Need to add Press to Ghost.</p>
+                      pressPageNews &&
+                      <GhostPostContent className="container" html={pressPageNews.html}>
+                      </GhostPostContent>
                   }
               </TabPane>
 		      
