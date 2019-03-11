@@ -6,8 +6,6 @@ import { updateQueryString } from '../../utils/query-string';
 import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import { getSearchedItems } from '../../actions/searched-items-actions';
-import { getFilteredItems } from '../../actions/filtered-items-actions';
-
 import MainNav from '../MainNav/MainNav';
 import MainNavFilterBar from '../MainNavFilterBar/MainNavFilterBar';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
@@ -21,12 +19,10 @@ const mapStateToProps = state => ({
 	searchedItems: state.searchedItems.data,
 	searchedItemsTotalCount: state.searchedItems.totalCount,
 	searchedItemsSearchedText: state.searchedItems.searchedText,
-	// searchedItemsIsLoading: state.searchedItems.isLoading,
 	searchedItemsError: state.searchedItems.error,
 	filteredItems: state.filteredItems.data,
 	filteredItemsFiltersDisabled: state.filteredItems.filtersDisabled,
     filteredItemsTotalCount: state.filteredItems.totalCount,
-    // filteredItemsIsLoading: state.filteredItems.isLoading,
     filteredItemsError: state.filteredItems.error,
 	isLoading: state.searchedItems.isLoading || state.filteredItems.isLoading
 });
@@ -34,8 +30,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	getSearchedItems: (...args) =>
 		dispatch(getSearchedItems(...args)),
-	// getFilteredItems: (...args) =>
-    //     dispatch(getFilteredItems(...args)),
 })
 
 class CollectionPage extends Component {
@@ -95,14 +89,12 @@ class CollectionPage extends Component {
 			children,
 			isLoading,
 			searchedItems,
-			// searchedItemsIsLoading,
 			searchedItemsTotalCount,
 			searchedItemsSearchedText,
 			nonCollectionItemsString,
 			collectionItems,
 			filteredItems,
             filteredItemsFiltersDisabled,
-            // filteredItemsIsLoading,
 			filteredItemsTotalCount,
 			isScrollNav
 		} = this.props;
