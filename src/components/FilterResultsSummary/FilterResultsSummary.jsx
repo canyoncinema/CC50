@@ -13,16 +13,14 @@ const FilterResultsSummary = ({numResults, filtersDisabled}) =>
         {
             numResults > 1 ? <span>{numResults} Results. </span> : null
         }
-
-        &nbsp;Deactivated tags:&nbsp;
         {
-            Object.keys(filtersDisabled).filter(f=> {
+            Object.keys(filtersDisabled).filter(f => {
                 return filtersDisabled[f] === true;
             }).map((f,i)=> {
                 const tag = f.split('__')[1];
                 if (i !== 0 ) {
                     return (<span key={i}><strong>, {tag}</strong></span>)
-                } else { return ( <span key={i}><strong>{tag}</strong></span>) }
+                } else { return (<span key={i}>&nbsp;Deactivated tags:&nbsp;<strong>{tag}</strong></span>) }
             })
         }
         </span>
