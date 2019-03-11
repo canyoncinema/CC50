@@ -8,7 +8,7 @@ const initialState = {
 	totalCount: 0,
 };
 
-const programsReducer = (state=initialState, action) => {
+const eventsReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case types.FETCH_EVENTS:
 				return {
@@ -40,4 +40,4 @@ const programsReducer = (state=initialState, action) => {
 	}
 };
 
-export default programsReducer;
+export default eventsReducer;
