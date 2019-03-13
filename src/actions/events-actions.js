@@ -74,6 +74,7 @@ export function getEvents(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchEvents({
 			sort: 'showingOpeningDate+DESC',
+			wf_deleted: false,
 			...queryParams
 		}));
 		return wrappedFetch(config.listEventsUrl(queryParams))

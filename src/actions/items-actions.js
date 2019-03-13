@@ -64,6 +64,7 @@ export function getItems(collectionItems, queryParams, pageNum=0, shouldAddItems
 		if (!shouldAddItems) dispatch(fetchItems());
 		return config.fetchItems(collectionItems, Object.assign(queryParams, {
 				pgNum: pageNum,
+				wf_deleted: false
 			}))
 			.then(response => {
 				if (response.status >= 400) {
