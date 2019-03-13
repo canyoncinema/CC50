@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => ({
 class EventsPage extends Component {
 	componentDidMount() {
     this.props.getEvents({
-      pgSz: 40
+      pgSz: 40,
+	  wf_deleted: false
     });
     // TODO: SORT & PAGINATE
   }
