@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import withScrollNav from '../withScrollNav/withScrollNav';
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
+import LoadingMessage from "../LoadingMessage/LoadingMessage";
+import ReactMarkdown from "react-markdown";
 import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import Filmmakers from '../Filmmakers/Filmmakers';
 import EventTiles from '../EventTiles/EventTiles';
@@ -9,18 +11,56 @@ import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import RentThis from '../RentThis/RentThis';
+import {addEventFields, addProgramFields, parseItemExhibitionWorks, toItemData, getShortIdentifierFromRefName} from '../../utils/parse-data';
+// import connect from "react-redux/es/connect/connect";
+// import {getEvents} from "../../actions/events-actions";
+// import { getProgramDetail } from "../../actions/program-detail-actions";
+import { connect } from 'react-redux';
+import {getEventDetailFilms} from "../../actions/event-detail-films-actions";
+import {getItemsMedia} from "../../actions/items-media-actions";
+import {RECEIVED_EVENT_DETAIL} from "../../actionTypes";
+
+const mapDispatchToProps = dispatch => ({
+    // getProgramDetail: (...args) => dispatch(getProgramDetail(...args))
+    getEventDetailFilms: (...args) => dispatch(getEventDetailFilms(...args))
+});
+
+
+const mapStateToProps = state => ({
+    item: state.item.data,
+	// films: state.item.films.map(m => getShortIdentifierFromRefName(m))
+    // events: state.events.data,
+    // isLoading: state.item.isLoading,
+    // filmmaker: state.item.filmmaker && state.item.filmmaker.data,
+    // filmmakerOtherFilms: state.item.filmmaker &&
+    //     state.item.filmmaker.otherFilms &&
+    //     state.item.filmmaker.otherFilms.data
+});
 
 class CollectionProgramPage extends Component {
+    componentDidMount() {
+    	// this.props.getEventDetailFilms(this.props.item);
+        // const item = addProgramFields(this.props.item);
+        // if (item.films) {
+        // this.props.getEventDetailFilms(item.films);
+        // }
+    }
+
 	render() {
-		const { item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
-		return [
+        const { isLoading, item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+        if (isLoading) {
+            return <LoadingMessage />;
+        }
+        console.log('item', item)
+        return [
 			conditionallyShow({
 				id: 'about',
-				condition: item.description,
-				menuHeader: 'About the Program',
+				condition: item.scopeNote,
+                order: 0,
+                menuHeader: 'About the Program',
 				renderContent: () => (
 					<pre className="rich-text">
-						{item.description}
+						{item.scopeNote}
 					</pre>
 				)
 			})
@@ -29,7 +69,8 @@ class CollectionProgramPage extends Component {
 				id: 'films',
 				condition: item.films && item.films.length,
 				menuHeader: 'Films',
-				renderHeader: () => <header className="d-flex">
+                order: 1,
+                renderHeader: () => <header className="d-flex">
 					<h3 className="single-line-ellipsed">
 						Films in this Program
 					</h3>
@@ -118,4 +159,4 @@ class CollectionProgramPage extends Component {
 	}
 }
 
-export default withScrollNav(CollectionItemPage(CollectionProgramPage));
+export default CollectionItemPage(connect(mapStateToProps, mapDispatchToProps)(CollectionProgramPage));
