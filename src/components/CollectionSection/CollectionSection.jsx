@@ -12,7 +12,9 @@ const CollectionSection = ({
 	customColSize, customColWidth, className, viewMode, itemType,
 	searchData, searchTotalCount, searchPageCount,
 	header, description, id,
-	buttonText, buttonLink }) => {
+	buttonText, buttonLink,
+	mediaIsByRtSbj = itemType === 'program' || itemType === 'event'
+	}) => {
 	return (
 		<div className={[className, 'CollectionSection'].join(' ')}>
 			{
@@ -49,6 +51,7 @@ const CollectionSection = ({
 					data={searchData}
 					pageCount={searchPageCount}
 					totalCount={searchTotalCount}
+					mediaIsByRtSbj={mediaIsByRtSbj}
 				/>
 			}
 		</div>

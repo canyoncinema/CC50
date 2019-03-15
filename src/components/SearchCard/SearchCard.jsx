@@ -20,19 +20,23 @@ import {
 	fullSizedCarouselCaption,
 	fullSizedCarouselCaptionLink
 } from '../../utils/parse-data';
-
-const getPhotoSrcs = mediaObjs =>
-	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
+//
+// const getPhotoSrcs = mediaObjs =>
+// 	(mediaObjs || []).map(m => blobCsidToSrc(m.blobCsid, '360x270'));
 
 const mappedMediaShortIdentifier = (props) =>
 	getShortIdentifierFromRefName(props.data.refName, null, props.data.refName);
 
 const mapStateToProps = (state, ownProps) => ({
-	// note: exhibitions do not have short identifiers; only refNames
+	// TODO note: exhibitions do not have short identifiers; only refNames
 	// enable an option on SearchCard to fetch its media keyed by RefName
 	media: state.itemsMedia.dataByShortIdentifier &&
 		state.itemsMedia.dataByShortIdentifier.get(
 			mappedMediaShortIdentifier(ownProps)
+	),
+	mediaByRtSbj: state.itemsMedia.dataByRtSbj &&
+		state.itemsMedia.dataByRtSbj.get(
+			ownProps.csid
 		)
 });
 
@@ -43,19 +47,25 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 class SearchCard extends Component {
 	componentDidMount() {
 		// get media for this card
-		const { data, csid, itemType, mediaIsByCsid } = this.props;
+		const { data, csid, itemType, mediaIsByRtSbj } = this.props;
 		if (!itemType) throw new Error('Requires itemType');
-		this.props.getItemsMedia({
+		const msid = mappedMediaShortIdentifier(this.props);
+		// console.log('search card mounted, getting ItemsMedia');
+        this.props.getItemsMedia({
 			item: data,
 			itemType: itemType,
-			mappedShortIdentifier: mappedMediaShortIdentifier(this.props)
-		});
+            mappedShortIdentifier: msid,
+			csid: csid,
+            mediaIsByRtSbj: mediaIsByRtSbj
+        });
 	}
 	render() {
 		const {
 			data,
 			csid,
 			media,
+			mediaIsByRtSbj,
+            mediaByRtSbj,
 			shortIdentifier,
 			itemType, // film, program, ephemera, or filmmaker
 			photos,
@@ -70,6 +80,7 @@ class SearchCard extends Component {
 		// See Cards design spec.
 		const itemTypeClassName = itemType.toLowerCase().replace(' ', '-');
 		const listView = viewMode === 'list';
+		const thisMedia = mediaIsByRtSbj ? mediaByRtSbj : media;
 		return (
 			<div
 				className={[
@@ -81,7 +92,15 @@ class SearchCard extends Component {
 					].join(' ')}
 				onClick={(e) => {
 					e.stopPropagation();
-					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${shortIdentifier}`;
+					/* the types of calls using shortId work for all collection item types OTHER than programs
+					 which work more like events, passing a csid not a (partially) human-readable id. But
+					 within the structure of this app programs are looped in with other collection items not Events.
+					 So they are missing a shortId but have a csid.
+					 TODO: share code between Events and Programs and don't make Programs an exception case from all other collection item types.
+					 in this temp setup the csid for Programs is getting passed and then labeled incorrectly as shortId from the url params.
+					 */
+					const id = shortIdentifier ? shortIdentifier : csid;
+					const path = `/collection/${itemTypeToCollectionSearchVal(itemType)}/${id}`;
 					history.push(path);
 				}}>
 				<div className={listView ?
@@ -94,13 +113,13 @@ class SearchCard extends Component {
 							fromCSpace={true}
 							captions={itemType !== 'filmmaker' ?
 								null :
-								(media || []).map(m => fullSizedCarouselCaption(m))
+								(thisMedia || []).map(m => fullSizedCarouselCaption(m))
 							}
 							captionLinks={itemType !== 'filmmaker' ?
 								null :
-								(media || []).map(m => fullSizedCarouselCaptionLink(m))
+								(thisMedia || []).map(m => fullSizedCarouselCaptionLink(m))
 							}
-							blobCsids={(media || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
+							blobCsids={(thisMedia || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
 							canvasSize={
 								listView ?
 									(isItemPageFilmCard || onFilmmakerPage) ?

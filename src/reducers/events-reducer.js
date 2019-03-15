@@ -23,12 +23,12 @@ const eventsReducer = (state=initialState, action) => {
 				data: action.data,
 				totalCount: action.totalCount,
 			};
-		case types.RECEIVED_EVENT_MEDIA:
-			// TODO
-			const newStateData = state.data.slice();
-			return Object.assign(state, {
-				data: newStateData
-			})
+		// case types.RECEIVED_EVENT_MEDIA:
+		// 	// TODO
+		// 	const newStateData = state.data.slice();
+		// 	return Object.assign(state, {
+		// 		data: newStateData
+		// 	})
 		case types.FAILED_EVENTS:
 			return {
 				isLoading: false,

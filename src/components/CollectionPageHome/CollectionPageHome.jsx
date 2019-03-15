@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import CollectionSection from '../CollectionSection/CollectionSection';
 import { getFilmmakers } from '../../actions/filmmakers-actions';
 import { getFilms } from '../../actions/films-actions';
+import { getPrograms } from '../../actions/programs-actions';
 import { getSpoofDataList } from '../../spoof-data';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
 const mapDispatchToProps = dispatch => ({
   getFilmmakers: (...args) => dispatch(getFilmmakers(...args)),
-  getFilms: (...args) => dispatch(getFilms(...args))
+  getFilms: (...args) => dispatch(getFilms(...args)),
+  getPrograms: (...args) => dispatch(getPrograms(...args))
+
 })
 
 const mapStateToProps = state => ({
@@ -38,6 +41,9 @@ class CollectionPageHome extends Component {
     this.props.getFilms({
       pgSz: 3,
       // 'works:sortBy': 'addedDate+DESC'
+    });
+    this.props.getPrograms({
+        pgSz: 3
     });
   }
 

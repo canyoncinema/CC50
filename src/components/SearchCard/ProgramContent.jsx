@@ -5,6 +5,9 @@ import RelatedLink from '../RelatedLink/RelatedLink';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 import ReactMarkdown from 'react-markdown';
 
+// TODO: remove manual clipping and use clamped content
+
+
 const ProgramContent = ({
 	viewMode,
 	termDisplayName,

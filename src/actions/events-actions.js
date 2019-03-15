@@ -1,7 +1,7 @@
 import {
-	FETCH_EVENTS,
-	RECEIVED_EVENTS,
-	FAILED_EVENTS
+    FETCH_EVENTS,
+    RECEIVED_EVENTS,
+    FAILED_EVENTS, RECEIVED_FILMS
 } from '../actionTypes';
 import { config } from '../store';
 import { parseFilm, getCsidFromRefName,
@@ -38,10 +38,10 @@ function fetchEventMedia(eventRefName) {
 		.then(data => {
 			if (data) {
 				const filmRefNames = parseItemExhibitionWorks(toItemData(data));
-				filmRefNames.forEach(filmRefName => getItemsMedia({
+                filmRefNames.forEach(filmRefName => getItemsMedia({
 					itemRefName: filmRefName,
 					itemType: 'event',
-					mappedShortIdentifier: eventRefName 
+					mappedShortIdentifier: eventRefName
 				}))
 
 				// SPEC: pick 1 from each work, until up to MAX_CAROUSEL_IMAGES
@@ -52,7 +52,7 @@ function fetchEventMedia(eventRefName) {
 
 function receiveEvents(payload) {
 	const items = toItemsData(payload, true);
-	items.forEach(item => addEventFields(item, null, true));
+	// items.forEach(item => addEventFields(item, null, true));
 	// items.forEach(item => fetchEventMedia(item.refName));
 	const totalCount = toTotalCount(payload);
 	return {
@@ -60,6 +60,19 @@ function receiveEvents(payload) {
 		data: items,
 		totalCount,
 	}
+}
+
+function receiveFilms(dispatch, payload) {
+    const items = toItemsData(payload);
+    // return up to 3 film stills per film item
+    // and indicate num of stills per film (for carousel 'see more')
+    items.forEach(item => {
+        dispatch(getItemsMedia({ item }));
+    });
+    return {
+        type: RECEIVED_FILMS,
+        data: items
+    }
 }
 
 function failEvents(error) {
@@ -73,11 +86,13 @@ function failEvents(error) {
 export function getEvents(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchEvents({
-			sort: 'showingOpeningDate+DESC',
-			wf_deleted: false,
 			...queryParams
 		}));
-		return wrappedFetch(config.listEventsUrl(queryParams))
+		return wrappedFetch(config.listEventsUrl({
+            sortBy: 'exhibitions_canyon:showingGroupList/0/showingOpeningDate+DESC',
+            wf_deleted: false,
+            ...queryParams
+        }))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failEvents("Bad response from server"));

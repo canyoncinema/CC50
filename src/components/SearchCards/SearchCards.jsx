@@ -43,7 +43,7 @@ class SearchCards extends Component {
 	render() {
 		const {
 			id,
-			itemType, mediaIsByCsid,
+			itemType, mediaIsByRtSbj,
 			data, totalCount, pageCount,
 			customColWidth, viewMode,
 			onFilmmakerPage, isItemPageFilmCard } = this.props;
@@ -71,7 +71,7 @@ class SearchCards extends Component {
 						(customColWidth === 'xs' ? '' : customColWidth + '-') +
 						customColSize}>
 							<SearchCard
-								mediaIsByCsid={mediaIsByCsid}
+                                mediaIsByRtSbj={mediaIsByRtSbj}
 								key={d.csid}
 								itemType={itemType || d.itemType}
 								onFilmmakerPage={onFilmmakerPage}
@@ -94,7 +94,8 @@ class SearchCards extends Component {
 						<Col key={i} xl={customColSize}>
 							<SearchCard
 								key={i}
-								itemType={itemType}
+                                mediaIsByRtSbj={mediaIsByRtSbj}
+                                itemType={itemType}
 								onFilmmakerPage={onFilmmakerPage}
 								isItemPageFilmCard={isItemPageFilmCard}
 								viewMode={viewMode}
@@ -111,9 +112,9 @@ class SearchCards extends Component {
 			{
 				data.map((d, i) =>
 					<SearchCard
-						mediaIsByCsid={mediaIsByCsid}
 						key={i}
-						itemType={itemType}
+                        mediaIsByRtSbj={mediaIsByRtSbj}
+                        itemType={itemType}
 						onFilmmakerPage={onFilmmakerPage}
 						isItemPageFilmCard={isItemPageFilmCard}
 						viewMode={viewMode}

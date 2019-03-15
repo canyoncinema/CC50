@@ -22,7 +22,7 @@ function fetchEventDetail() {
 	}
 }
 
-function receiveEventDetail(dispatch, payload) {
+function receiveEventDetail(dispatch, payload, csid) {
 	const item = toItemData(payload);
 	const filmRefNames = parseItemExhibitionWorks(item);
     addEventFields(item, filmRefNames);
@@ -30,6 +30,9 @@ function receiveEventDetail(dispatch, payload) {
         dispatch(getEventDetailFilms(filmRefNames));
 	}
 
+    item.mediaIsByRtSbj = true;
+    item.csid = csid;
+    dispatch(getItemsMedia({item, itemType: 'event'}));
 	return {
 		type: RECEIVED_EVENT_DETAIL,
 		data: item
@@ -55,7 +58,7 @@ export function getEventDetail(csid) {
 				return response.json();
 			})
 			.then(data =>
-				dispatch(receiveEventDetail(dispatch, data))
+				dispatch(receiveEventDetail(dispatch, data, csid))
 			)
 			.catch(error =>
 				dispatch(failEventDetail(error))

@@ -65,6 +65,21 @@ export const addEventFields = (item,filmRefNames) => {
 	return item;
 }
 
+export const addProgramFields = (item) => {
+	// TODO: curators? for now it seems like a weird data shape / string from cspace
+    // films
+    const films = item.programWorkGroupList.programWorkGroup.length ?
+        item.programWorkGroupList.programWorkGroup.map(x => x.programWork) :
+        // item.programWorkGroupList.programWorkGroup.map(x => getShortIdentifierFromRefName(x.programWork)) :
+        null;
+    item.films = films;
+    // filmmakers
+
+	// TODO: I don't see anything like events coming back in the data...?
+    // events
+	return item;
+}
+
 export const parseCreator = creatorRefName =>
 	creatorRefName &&
 	creatorRefName.match(/\'(.+)\'$/) &&
@@ -174,14 +189,24 @@ export const blobCsidToSrc = (blobCsid, size) =>
 export const toItemData = (payload) => {
 	// expect item payload from CollectionSpace
 	// TODO: MARKDOWN RENDERING
+	// TODO: what if there are conflicting/same fields in common, canyon, and/or core? Make sure not to overwrite.
 	const name = payload.document['@name'];
 	const commonField = 'ns2:' + name + '_common';
 	const canyonField = 'ns2:' + name + '_canyon';
-	const data = Object.assign(payload.document[commonField], payload.document[canyonField]);
-	if (data.refName) data.termDisplayName = toDisplayName(data.refName);
+    let data = Object.assign(payload.document[commonField], payload.document[canyonField]);
+
+    const isRtSbj = name === 'groups' || name === 'exhibitions';
+    if (isRtSbj) {
+        const coreField = 'ns2:collectionspace_core';
+        data = {...data, ...payload.document[coreField]}
+    }
+
+	if (!isRtSbj && data.refName) data.termDisplayName = toDisplayName(data.refName);
+	if (data.title) data.termDisplayName = data.title;
 	return data;
 };
 
+// TODO use skipTermDisplayName instead of d.title check
 export const toItemsData = (payload, skipTermDisplayName) => {
 	let data = payload['ns2:abstract-common-list'];
 	if (data.itemsInPage == 0) return [];
@@ -192,12 +217,13 @@ export const toItemsData = (payload, skipTermDisplayName) => {
 	}
 	if (data.length && !skipTermDisplayName) {
 		data = data.map(d => {
-			console.log(d)
+			// added this for curated programs
 			if (d.title) {
                 d.termDisplayName = d.title
 			} else if (d.refName) {
             	 d.termDisplayName = toDisplayName(d.refName);
 			}
+			// TODO remove and used ClampedDescription component
 			if (d.scopeNote) {
 				d.scopeNote = d.scopeNote.substring(0, 160) + '...';
 			}
@@ -241,9 +267,15 @@ export const getDisplayNameFromRefName = (refName, match) => {
 export const getShortIdentifierFromRefName = (refName, match, nullVal) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	// replace with nullVal if none returned
+	// if it's a group / curated program
+    if (refName.match(/^urn\:cspace\:canyoncinema.com\:groups/)) {
+        return null;
+    }
 	try {
 		return match ? match[3] : matchRefName(refName)[3];
-	} catch(e) {
+	}
+
+	catch(e) {
 		return nullVal;
 	}
 };
@@ -354,6 +386,8 @@ export const cspaceCollectionToItemType = (cspaceCollection, isPlural) => {
 			return 'ephemera';
 		case 'collectionobject':
 			return 'program';
+        case 'program':
+            return 'program';
 		case 'ephemera':
 			return 'ephemera';
 		case 'exhibitions':
@@ -364,9 +398,14 @@ export const cspaceCollectionToItemType = (cspaceCollection, isPlural) => {
 };
 
 export const getItemTypeFromRefName = refName => {
+    if (refName.match(/^urn\:cspace\:canyoncinema.com\:groups/)) {
+        return 'program';
+    }
+    if (refName.match(/^urn\:cspace\:canyoncinema.com\:exhibitions/)) {
+        return 'events';
+    }
 	return cspaceCollectionToItemType(getCspaceCllxnFromRefName(refName));
 }
-
 
 export const getNameFromFilmFormat = formatRefName => {
 	const formatShortIdentifier = getShortIdentifierFromRefName(formatRefName);

@@ -97,13 +97,14 @@ export const PRESS_PAGE_TAG = 'PressPage';
 
 class QueryParams {
 	constructor(paramsObj, isDeleted=false) {
-		Object.assign(this, paramsObj, {
+        // TODO: why is wf_deleted not being properly appended?
+        Object.assign(this, paramsObj, {
 			wf_deleted: isDeleted
 		});
-		this.keys = Object.keys(paramsObj);
-		this.params = paramsObj;
+        this.keys = Object.keys(paramsObj);
+        this.params = paramsObj;
 		this.length = Object.keys(paramsObj).length;
-	}
+    }
 	toString = () => {
 		// expects object with key-value pairs matching collectionspace params
 		let path = '?';
@@ -115,7 +116,7 @@ class QueryParams {
 			}
 			i += 1;
 		});
-		return path;
+        return path;
 	}
 }
 
@@ -155,7 +156,6 @@ class Config {
 		if (queryParams) {
 			url += new QueryParams(queryParams).toString();
 		}
-		console.log('getItemsUrl in config',url);
 		return url;
 	}
 
@@ -166,7 +166,6 @@ class Config {
 	}
 
 	fetchItems(...args) {
-		console.log('fetch items')
 		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
 
@@ -228,26 +227,26 @@ class Config {
 		return url;
 	}
 
-	fetchItemMedia({ refName, isEvent, isByFilmmaker, isFilmStills, pgSz }) {
+	fetchItemMedia({ refName, isByFilmmaker, isFilmStills, pgSz, rtSbj }) {
 		let as;
 		const asWrapper = (...args) => `((${args.join('')}))`;
 		const isByCreator = creatorRefName => `media_common:creator+%3D+%22${encodeURIComponent(toRefNameUriVal(creatorRefName))}%22`;
 		const isFilmSubject = filmRefName => `media_canyon:filmSubject+%3D+%22${encodeURIComponent(toRefNameUriVal(filmRefName))}%22`;
 		const andIsFilmSubjectMedia = '+AND+media_common:typeList%2F*+%3D+%22film_still%22';
+		let queryParams = {
+            pgSz,
+            wf_deleted: false
+        };
 		if (isByFilmmaker) {
 			// get film stills whose creator = the filmmaker (by refName)
 			as = asWrapper(isByCreator(refName), andIsFilmSubjectMedia);
-		} else if (isEvent) {
-			as = ``
-		} else {
+		} else if (rtSbj) {
+            queryParams["rtSbj"] = rtSbj;
+        } else {
 			as = asWrapper(isFilmSubject(refName), andIsFilmSubjectMedia);
 		}
-		const queryParams = {
-			as,
-			pgSz,
-			wf_deleted: false
-		};
-		return wrappedFetch(this.getMediaUrl(queryParams));
+		const queryParamsWithAs = as ? Object.assign({}, queryParams, { as: asWrapper(as) }) : queryParams;
+		return wrappedFetch(this.getMediaUrl(queryParamsWithAs));
 	}
 
 	fetchAllChoices(queryParams) {
@@ -298,13 +297,12 @@ class Config {
 				.catch(e => reject(e))
 		})
 	}
-
-	fetchEvents(...args) {
-		return wrappedFetch(encodeURI(this.getEventsUrl(...args)));
-	}
+    //
+	// fetchEvents(...args) {
+	// 	return wrappedFetch(encodeURI(this.getEventsUrl(...args)));
+	// }
 
 	getItemUrl({ collectionItems, cspaceCollection, csid, shortIdentifier }) {
-		console.log(shortIdentifier);
 		if (!(shortIdentifier || csid) || !(collectionItems || cspaceCollection)) {
 			throw new Error('collectionItems + shortIdentifier are required');
 		}
@@ -319,6 +317,13 @@ class Config {
 	fetchItem(...args) {
 		return wrappedFetch(encodeURI(this.getItemUrl(...args)));
 	}
+
+    fetchProgram(csid) {
+        return this.fetchItem({
+            cspaceCollection: 'groups',
+            csid
+        });
+    }
 
 	fetchEvent(csid) {
 		return this.fetchItem({
@@ -400,7 +405,7 @@ class Config {
 	}
 
 	fetchFilms(filmRefNames) {
-		const promises = filmRefNames.map(refName =>
+        const promises = filmRefNames.map(refName =>
 			this.fetchItem({
 				collectionItems: 'films',
 				shortIdentifier: getShortIdentifierFromRefName(refName)

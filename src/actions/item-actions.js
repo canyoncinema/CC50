@@ -20,10 +20,8 @@ function fetchItem() {
 
 function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions, skipPayload) {
 	const item = skipPayload ? payload : toItemData(payload);
-	item.termDisplayName = skipPayload ? item.termDisplayName : toDisplayName(item.refName);
 	if (!item.termDisplayName) console.error('Should have a displayName field. Check refName field parsing');
 	const filmmakerRefName = parseCreatorRefName(item);
-
 	// display filmmaker info (for films)
 	if (filmmakerRefName) dispatch(getItemFilmmaker(
 		filmmakerRefName,
@@ -37,11 +35,20 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
 			exceptShortIdentifier: null
 		}));
 	} else if (collectionItems === 'films') {
-		// show film stills on film
-		dispatch(getItemsMedia({ item, itemType: 'film' }));
-		item.creator = item.creatorGroupList &&
-			item.creatorGroupList.creatorGroup &&
-			item.creatorGroupList.creatorGroup.creator;
+        // show film stills on film
+        dispatch(getItemsMedia({item, itemType: 'film'}));
+        item.creator = item.creatorGroupList &&
+            item.creatorGroupList.creatorGroup &&
+            item.creatorGroupList.creatorGroup.creator;
+    // }
+	} else if (collectionItems === 'programs') {
+		// note: shortIdentifier at this stage is the name of the url param getting passed down
+		// slightly confusing that it's called this but from here on in the process it's called rtSbj instead
+        item.mediaIsByRtSbj = true;
+        // TODO: need both? clarify.
+        item.rtSbj = shortIdentifier;
+        item.csid = shortIdentifier;
+        dispatch(getItemsMedia({item, itemType: 'program'}));
 	}
 	return {
 		type: RECEIVED_ITEM,
@@ -88,7 +95,10 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 	 */
 	return (dispatch) => {
 		dispatch(fetchItem());
-		return config.fetchItem({ collectionItems, shortIdentifier })
+		const makeRequest = collectionItems === 'programs' ?
+            () => config.fetchProgram(shortIdentifier) :
+            () => config.fetchItem({ collectionItems, shortIdentifier })
+			return makeRequest()
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failItem("Bad response from server"));
@@ -103,6 +113,7 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 				// 	debugger
 				// }
 				dispatch(receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions));
+				console.log('resetting headers')
 				dispatch(resetItemMenuHeaders());
 			}, error =>
 				dispatch(failItem(error))

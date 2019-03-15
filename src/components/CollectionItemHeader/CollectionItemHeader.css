@@ -20,13 +20,17 @@
   margin-bottom: 5px;
 }
 
-.CollectionItemHeader .RefNameLink {
+.CollectionItemHeader .RefNameLink, .CollectionItemHeader .curator {
   font-size: 14px;
   line-height: 1.64;
   margin-top: 6px;
   margin-bottom: 22px;
   display: inline-block;
 }
+
+/*.CollectionItemHeader .curator.gold {*/
+	/*color: var(--gold);*/
+/*}*/
 
 .CollectionItemHeader.collapsed .RefNameLink {
 	margin-top: 0;
@@ -39,6 +43,14 @@
 	color: white;
 	font-weight: bold;
 	font-size: 12px;
+}
+
+.CollectionItemHeader .total-duration, .CollectionItemHeader .curator {
+	height: 18px;
+	line-height: 1.8;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 .CollectionItemHeader.films h1 {
