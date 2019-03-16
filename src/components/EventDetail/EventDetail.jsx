@@ -7,6 +7,7 @@ import { getEventDetail } from '../../actions/event-detail-actions';
 import EventDetailSide from '../EventDetailSide/EventDetailSide';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CalDayTitleHeader from '../CalDayTitleHeader/CalDayTitleHeader';
+import EventDetailHeader from '../EventDetailHeader/EventDetailHeader';
 import EventDetailFilm from '../EventDetailFilm/EventDetailFilm';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -18,7 +19,7 @@ const mapStateToProps = state => ({
 	event: state.eventDetail.data,
 	isLoading: state.eventDetail.isLoading,
 	error: state.eventDetail.error,
-	eventFilms: state.eventDetail.films,
+	eventFilms: state.eventDetail.films
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -31,20 +32,22 @@ class EventDetail extends Component {
 	}
 
 	render() {
-		const { csid, event, eventFilms, error, isLoading } = this.props;
+		const { csid, event, error, isLoading } = this.props;
 		if (error) {
 			return <ErrorMessage />
 		}
 		if (isLoading) {
 			return <LoadingMessage />
 		}
+		console.log('event', event);
 		return (
 			<div className="EventDetail">
 				<ScrollToTopOnMount />
-				<CalDayTitleHeader
+				<EventDetailHeader
 					startDateTime={event.showingOpeningDate}
 					endDateTime={event.showingClosingDate}
 					title={event.title}
+					rtSbj={csid}
 				/>
 				<Row className="content">
 					<Col md={3}>

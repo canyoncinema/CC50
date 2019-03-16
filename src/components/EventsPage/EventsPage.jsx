@@ -16,14 +16,31 @@ const mapDispatchToProps = dispatch => ({
   getEvents: (...args) => dispatch(getEvents(...args))
 });
 
+const PAGE_COUNT = 39;
+
 class EventsPage extends Component {
+    paginate = () => {
+        const { itemsPageNum } = this.props;
+        const page = itemsPageNum + 1;
+        console.log('paginate', page, itemsPageNum);
+        return this.props.appendItems(
+            this.props.collectionItems,
+            {
+                pgSz: PAGE_COUNT
+            },
+            page,
+        );
+        // return Promise.resolve();
+    }
+
+
 	componentDidMount() {
-    this.props.getEvents({
-      pgSz: 40,
-	  wf_deleted: false
-    });
-    // TODO: SORT & PAGINATE
-  }
+		this.props.getEvents({
+		  pgSz: 40,
+		  wf_deleted: false
+		});
+		// TODO: SORT & PAGINATE
+  	}
 
 	render() {
 		const { events, totalCount } = this.props;
