@@ -7,6 +7,7 @@ import './HomePage.css';
 
 import { getEvents } from '../../actions/events-actions';
 import { getNews } from '../../actions/news-actions';
+import { sortEventsByDate } from '../../utils/parse-data'
 
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
@@ -20,10 +21,10 @@ import MainNav from '../MainNav/MainNav';
 import withScrollNav from '../withScrollNav/withScrollNav';
 
 const mapStateToProps = state => ({
-  upcomingEvents: state.events.upcoming,
+  upcomingEvents: sortEventsByDate(state.events.data).futureEvents,
   news: state.news.data,
   featuredPosts: state.featuredPosts.data,
-  events: state.events.data
+  // events: state.events.data
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -47,7 +48,7 @@ class HomePage extends Component {
 
   render() {
     const {
-      events, // TODO: upcoming only
+      upcomingEvents,
       news,
       featuredPosts,
       isScrollNav
@@ -80,7 +81,7 @@ class HomePage extends Component {
         </Hero>
         <div className="container padded-container">
           <Spotlight />
-          { events && events.length ?
+          { upcomingEvents && upcomingEvents.length ?
             [
               <Row key={0}>
                 <Col sm="12">
@@ -97,7 +98,7 @@ class HomePage extends Component {
                 </Col>
               </Row>
               ,
-              <EventTiles key={1} className="single-line" data={events} />
+              <EventTiles key={1} className="single-line" data={upcomingEvents} />
             ]
           : null }
 
