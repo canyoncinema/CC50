@@ -21,7 +21,6 @@ class NewsTile extends Component {
 
 	render() {
 		const { title, tags, publishedAt, slug, featureImage, author } = this.props;
-		console.log(this.props);
 		const authorByline = author ? ` by ${author}` : null;
 		return (
 			<Link to={`/news/${slug}`}>

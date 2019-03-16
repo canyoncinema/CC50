@@ -51,7 +51,6 @@ class HomeIntro extends Component {
   render() {
     const { searchText } = this.state;
     const { introText } = this.props;
-    console.log('introText', introText);
   	return (
   		<Row className="HomeIntro">
         <Col m="6" className="left">
