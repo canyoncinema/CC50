@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './EventsPage.css';
 import { connect } from 'react-redux';
 import { getEvents } from '../../actions/events-actions';
-
+import { sortEventsByDate } from "../../utils/parse-data";
 import PageHeader from '../PageHeader/PageHeader';
 import EventTiles from '../EventTiles/EventTiles';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 
+// TODO: will this method of getting past/future events work with requesting more pages of events?
+// I think yes because the events query by default has a param to request in descending date.
 const mapStateToProps = state => ({
-  events: state.events.data,
-  totalCount: state.events.totalCount,
+	events: sortEventsByDate(state.events.data)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -43,34 +44,25 @@ class EventsPage extends Component {
   	}
 
 	render() {
-		const { events, totalCount } = this.props;
+		const { events } = this.props;
 
 		return (
 			<div className="EventsPage">
 				<ScrollToTopOnMount />
 				<PageHeader headline="Events" />
-				<div className="container content">
-				{
-					events && events.length ?
-					<EventTiles
-						totalCount={totalCount}
-						data={events} />
-					: null
-				}
+                <div className="container content">
+					<section>
+						<h3 className="event-section-header">Upcoming Events</h3>
+						<EventTiles data={events.futureEvents} totalCount={events.futureEvents.length} />
+					</section>
+					<section>
+						<h3 className="event-section-header">Past Events</h3>
+						<EventTiles data={events.pastEvents} totalCount={events.pastEvents.length} />
+					</section>
 				</div>
 			</div>
 		);
 	}
 }
-/*
-PUNT: UPCOMING VS PAST
-<section>
-	<h3>Upcoming Events</h3>
-	<EventTiles data={[]} />
-</section>
-<section>
-	<h3>Past Events</h3>
-	<EventTiles data={[]} />
-</section>
-*/
+
 export default connect(mapStateToProps, mapDispatchToProps)(EventsPage);
