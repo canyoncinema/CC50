@@ -24,7 +24,6 @@ const programsReducer = (state=initialState, action) => {
                 totalCount: action.totalCount,
             };
 		case types.RECEIVED_PROGRAM_MEDIA:
-            // TODO
             const newStateData = state.data.slice();
             return Object.assign(state, {
                 data: newStateData

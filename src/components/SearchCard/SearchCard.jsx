@@ -28,8 +28,6 @@ const mappedMediaShortIdentifier = (props) =>
 	getShortIdentifierFromRefName(props.data.refName, null, props.data.refName);
 
 const mapStateToProps = (state, ownProps) => ({
-	// TODO note: exhibitions do not have short identifiers; only refNames
-	// enable an option on SearchCard to fetch its media keyed by RefName
 	media: state.itemsMedia.dataByShortIdentifier &&
 		state.itemsMedia.dataByShortIdentifier.get(
 			mappedMediaShortIdentifier(ownProps)
@@ -50,7 +48,6 @@ class SearchCard extends Component {
 		const { data, csid, itemType, mediaIsByRtSbj } = this.props;
 		if (!itemType) throw new Error('Requires itemType');
 		const msid = mappedMediaShortIdentifier(this.props);
-		// console.log('search card mounted, getting ItemsMedia');
         this.props.getItemsMedia({
 			item: data,
 			itemType: itemType,

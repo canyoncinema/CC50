@@ -14,11 +14,10 @@ const mapStateToProps = (state, myProps) => ({
 
 class EventDetailFilm extends Component {
 	componentDidMount() {
-
 	}
 	render() {
-		const { filmRefName, film } = this.props;
-		if (film.isLoading) {
+		const { film } = this.props;
+        if (film.isLoading) {
 			return <LoadingMessage />
 		}
 		if (film.error) {
