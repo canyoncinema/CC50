@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import { optimalColWidths } from '../../utils/view-helpers';
 import './HomePage.css';
-
 import { getEvents } from '../../actions/events-actions';
 import { getNews } from '../../actions/news-actions';
-import { sortEventsByDate } from '../../utils/parse-data'
-
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
 import Spotlight from '../Spotlight/Spotlight';

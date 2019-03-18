@@ -37,19 +37,6 @@ export function toNewsItemsData(items) {
 	return items.map(toNewsItemData);
 }
 
-export function sortEventsByDate(events) {
-	const pastEvents = [];
-	const futureEvents = [];
-	const today = new Date();
-	events.forEach(e => {
-		new Date(e.showingOpeningDate) < today ? pastEvents.push(e) : futureEvents.push(e)
-	});
-	return {
-		pastEvents,
-		futureEvents
-	}
-}
-
 function getEventFilms(filmRefNames) {
 	return (filmRefNames || []).map(filmRefName => ({
 		termDisplayName: getDisplayNameFromRefName(filmRefName),

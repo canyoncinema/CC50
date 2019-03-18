@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './EventsPage.css';
 import { connect } from 'react-redux';
 import { getEvents } from '../../actions/events-actions';
-import { sortEventsByDate } from "../../utils/parse-data";
 import PageHeader from '../PageHeader/PageHeader';
 import EventTiles from '../EventTiles/EventTiles';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
