@@ -21,7 +21,7 @@ import MainNav from '../MainNav/MainNav';
 import withScrollNav from '../withScrollNav/withScrollNav';
 
 const mapStateToProps = state => ({
-  upcomingEvents: sortEventsByDate(state.events.data).futureEvents,
+  upcomingEvents: state.events.futureEvents,
   news: state.news.data,
   featuredPosts: state.featuredPosts.data,
   // events: state.events.data
