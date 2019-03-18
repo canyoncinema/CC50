@@ -61,6 +61,7 @@ class CollectionPageItems extends Component {
 			items, totalCount, pageCount,
 			isLoading, error, collectionItems, viewMode
 		} = this.props;
+		// TODO: reinstitute working sort
 		return <CollectionContext.Consumer>
 			{
 				context => 
@@ -70,11 +71,11 @@ class CollectionPageItems extends Component {
 		      </Helmet>
 		      <ScrollToTopOnMount />
 					{ error && <ErrorMessage /> }
-					{	!isLoading && !error && !context.searchedItemsSearchedText &&
-						<CollectionSort
-							collectionItems={collectionItems}
-							itemLabel={toCollectionSearchLabel(collectionItems)} />
-					}
+					{/*{	!isLoading && !error && !context.searchedItemsSearchedText &&*/}
+						{/*<CollectionSort*/}
+							{/*collectionItems={collectionItems}*/}
+							{/*itemLabel={toCollectionSearchLabel(collectionItems)} />*/}
+					{/*}*/}
 					{
 						!isLoading && !error &&
 						<CollectionSection
