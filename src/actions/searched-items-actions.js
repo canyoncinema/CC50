@@ -5,7 +5,7 @@ import {
 	CLEAR_FILTERED_ITEMS
 } from '../actionTypes';
 import { config } from '../store';
-import { getItemTypeFromRefName, parseFilm } from '../utils/parse-data';
+import {getItemTypeFromRefName} from '../utils/parse-data';
 
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
@@ -60,9 +60,13 @@ export function getSearchedItems(collectionItems, searchText) {
 			.then(choiceData => {
 				const { choices, totalCount, pageCount } = choiceData;
 				// since choices can vary by item type, attach it here
-				// and listen for it on Search Cards/Collection Sections
+				// and listen for it on Search Cards/Collection Sections]
 				const dataWithItemType = choices.map(d => {
 					d.itemType = getItemTypeFromRefName(d.refName);
+					if (collectionItems === 'events' || collectionItems === 'programs') {
+                        d.rtSbj = d.csid;
+                        d.mediaIsByRtSbj = true;
+                    }
 					return d;
 				});
 				dispatch(receiveSearchedItems(dispatch, dataWithItemType, totalCount, pageCount, collectionItems, searchText))

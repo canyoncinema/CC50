@@ -11,7 +11,6 @@ const CollectionSearchResults = ({viewMode, items}) => {
 				customColWidth="sm"
 				viewMode={viewMode} 
 				searchData={items.map(item => {
-					item.itemType = getItemTypeFromRefName(item.refName);
 					return item;
 				})}
 			/>
