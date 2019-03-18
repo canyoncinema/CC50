@@ -5,7 +5,7 @@ import {
 } from '../actionTypes';
 import { config } from '../store';
 import { parseFilm, getCsidFromRefName, toItemData,
-	parseItemExhibitionWorks,
+	parseItemExhibitionWorks, parseItemWorks,
 	parseExhibitionVenueGroup, parseExhibitionVenueUrl, parseExhibitionVenueDisplayName,
 	parseExhibitionStartTime, parseExhibitionEndTime,
 	getDisplayNameFromRefName, getShortIdentifierFromRefName,
@@ -24,7 +24,7 @@ function fetchEventDetail() {
 
 function receiveEventDetail(dispatch, payload, csid) {
 	const item = toItemData(payload);
-	const filmRefNames = parseItemExhibitionWorks(item);
+	const filmRefNames = parseItemWorks('exhibition', item);
     addEventFields(item, filmRefNames);
     if (filmRefNames) {
         dispatch(getEventDetailFilms(filmRefNames));

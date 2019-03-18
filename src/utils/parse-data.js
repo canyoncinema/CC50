@@ -78,21 +78,6 @@ export const addEventFields = (item,filmRefNames) => {
 	return item;
 }
 
-export const addProgramFields = (item) => {
-	// TODO: curators? for now it seems like a weird data shape / string from cspace
-    // films
-    const films = item.programWorkGroupList.programWorkGroup.length ?
-        item.programWorkGroupList.programWorkGroup.map(x => x.programWork) :
-        // item.programWorkGroupList.programWorkGroup.map(x => getShortIdentifierFromRefName(x.programWork)) :
-        null;
-    item.films = films;
-    // filmmakers
-
-	// TODO: I don't see anything like events coming back in the data...?
-    // events
-	return item;
-}
-
 export const parseCreator = creatorRefName =>
 	creatorRefName &&
 	creatorRefName.match(/\'(.+)\'$/) &&
@@ -110,6 +95,14 @@ export const parseItemCreator = item =>
 	item.creatorGroupList.creatorGroup &&
 	item.creatorGroupList.creatorGroup.creator &&
 	parseCreator(item.creatorGroupList.creatorGroup.creator);
+
+export const parseItemWorks = (type, item) =>
+    item &&
+    item[type + "WorkGroupList"] &&
+    item[type + "WorkGroupList"][type + "WorkGroup"] &&
+    item[type + "WorkGroupList"][type + "WorkGroup"].length ?
+        item[type + "WorkGroupList"][type + "WorkGroup"].map(x => x[type + "Work"]) :
+        null;
 
 
 export const parseItemExhibitionWorks = item =>
@@ -280,7 +273,7 @@ export const getDisplayNameFromRefName = (refName, match) => {
 export const getShortIdentifierFromRefName = (refName, match, nullVal) => {
 	// e.g. 'film_16mm' or 'TheDead1529309019213'
 	// replace with nullVal if none returned
-	// if it's a group / curated program
+	// if it's a group aka curated program
     if (refName.match(/^urn\:cspace\:canyoncinema.com\:groups/)) {
         return null;
     }
@@ -299,7 +292,6 @@ export const getCsidFromRefName = refName =>
 	refName.match(/\:id\((\S+)\)/)[1];
 
 export function toDisplayName(refName) {
-	// console.log('toDisplayName', refName);
 	return refName.match(/\'(.+)\'$/)[1];
 }
 

@@ -7,7 +7,7 @@ import { config } from '../store';
 import { parseFilm, getCsidFromRefName,
 	toItemData, toItemsData,
 	toTotalCount,
-	parseItemExhibitionWorks, addEventFields } from '../utils/parse-data';
+	parseItemWorks } from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
 import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
@@ -37,7 +37,7 @@ function fetchEventMedia(eventRefName) {
 		})
 		.then(data => {
 			if (data) {
-				const filmRefNames = parseItemExhibitionWorks(toItemData(data));
+                const filmRefNames = parseItemWorks('exhibition', toItemData(data));
                 filmRefNames.forEach(filmRefName => getItemsMedia({
 					itemRefName: filmRefName,
 					itemType: 'event',
@@ -45,15 +45,13 @@ function fetchEventMedia(eventRefName) {
 				}))
 
 				// SPEC: pick 1 from each work, until up to MAX_CAROUSEL_IMAGES
-				
+
 			}
 		});
 }
 
 function receiveEvents(payload) {
 	const items = toItemsData(payload, true);
-	// items.forEach(item => addEventFields(item, null, true));
-	// items.forEach(item => fetchEventMedia(item.refName));
 	const totalCount = toTotalCount(payload);
 	return {
 		type: RECEIVED_EVENTS,

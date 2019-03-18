@@ -8,9 +8,15 @@ import { getItemFilmmaker } from './item-filmmaker-actions';
 import { getItemFilms } from './item-films-actions';
 import { resetItemMenuHeaders } from './item-menu-headers-actions';
 import { config } from '../store';
-import { toItemData, toItemsData, toDisplayName, parseCreatorRefName } from '../utils/parse-data';
+import {
+    toItemData,
+    toItemsData,
+    parseCreatorRefName,
+    parseItemWorks,
+} from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
+import {getEventDetailFilms} from "./event-detail-films-actions";
 
 function fetchItem() {
 	return {
@@ -48,6 +54,10 @@ function receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmma
         // TODO: need both? clarify.
         item.rtSbj = shortIdentifier;
         item.csid = shortIdentifier;
+        item.films = parseItemWorks('program', item);
+        if (item.films) {
+            dispatch(getEventDetailFilms(item.films));
+        }
         dispatch(getItemsMedia({item, itemType: 'program'}));
 	}
 	return {
@@ -113,7 +123,6 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 				// 	debugger
 				// }
 				dispatch(receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions));
-				console.log('resetting headers')
 				dispatch(resetItemMenuHeaders());
 			}, error =>
 				dispatch(failItem(error))
