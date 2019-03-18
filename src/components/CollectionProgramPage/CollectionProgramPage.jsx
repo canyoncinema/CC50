@@ -7,51 +7,29 @@ import EphemeraMiniCard from '../EphemeraMiniCard/EphemeraMiniCard';
 import Filmmakers from '../Filmmakers/Filmmakers';
 import EventTiles from '../EventTiles/EventTiles';
 import NewsTiles from '../NewsTiles/NewsTiles';
-import SearchCards from '../SearchCards/SearchCards';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import RentThis from '../RentThis/RentThis';
 import {addEventFields, addProgramFields, parseItemExhibitionWorks, toItemData, getShortIdentifierFromRefName} from '../../utils/parse-data';
 // import connect from "react-redux/es/connect/connect";
-// import {getEvents} from "../../actions/events-actions";
-// import { getProgramDetail } from "../../actions/program-detail-actions";
 import { connect } from 'react-redux';
-import {getEventDetailFilms} from "../../actions/event-detail-films-actions";
-import {getItemsMedia} from "../../actions/items-media-actions";
-import {RECEIVED_EVENT_DETAIL} from "../../actionTypes";
+import EventDetailFilm from "../EventDetailFilm/EventDetailFilm";
+import RichText from "../RichText/RichText";
 
-const mapDispatchToProps = dispatch => ({
-    // getProgramDetail: (...args) => dispatch(getProgramDetail(...args))
-    getEventDetailFilms: (...args) => dispatch(getEventDetailFilms(...args))
-});
-
+const mapDispatchToProps = dispatch => ({});
 
 const mapStateToProps = state => ({
     item: state.item.data,
-	// films: state.item.films.map(m => getShortIdentifierFromRefName(m))
-    // events: state.events.data,
-    // isLoading: state.item.isLoading,
-    // filmmaker: state.item.filmmaker && state.item.filmmaker.data,
-    // filmmakerOtherFilms: state.item.filmmaker &&
-    //     state.item.filmmaker.otherFilms &&
-    //     state.item.filmmaker.otherFilms.data
+    isLoading: state.item.isLoading
 });
 
 class CollectionProgramPage extends Component {
-    componentDidMount() {
-    	// this.props.getEventDetailFilms(this.props.item);
-        // const item = addProgramFields(this.props.item);
-        // if (item.films) {
-        // this.props.getEventDetailFilms(item.films);
-        // }
-    }
 
 	render() {
         const { isLoading, item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
         if (isLoading) {
             return <LoadingMessage />;
         }
-        console.log('item', item)
         return [
 			conditionallyShow({
 				id: 'about',
@@ -59,9 +37,9 @@ class CollectionProgramPage extends Component {
                 order: 0,
                 menuHeader: 'About the Program',
 				renderContent: () => (
-					<pre className="rich-text">
-						{item.scopeNote}
-					</pre>
+                    <RichText>
+                        <ReactMarkdown source={item.scopeNote} />
+                    </RichText>
 				)
 			})
 			,
@@ -69,26 +47,24 @@ class CollectionProgramPage extends Component {
 				id: 'films',
 				condition: item.films && item.films.length,
 				menuHeader: 'Films',
-                order: 1,
-                renderHeader: () => <header className="d-flex">
-					<h3 className="single-line-ellipsed">
-						Films in this Program
-					</h3>
-					<span className="ml-auto">
-						<ViewModeToggler
-							activeMode={viewMode || 'list'}
-							onClick={setViewMode}
-							theme="dark" />
-					</span>
-				</header>,
+				order: 1,
+				// renderHeader: () => <header className="d-flex">
+				// 	<h3 className="single-line-ellipsed">
+				// 		Films in this Program
+				// 	</h3>
+				// 	<span className="ml-auto">
+				// 		<ViewModeToggler
+				// 			activeMode={viewMode || 'list'}
+				// 			onClick={setViewMode}
+				// 			theme="dark" />
+				// 	</span>
+				// </header>,
 				renderContent: () => (
-					<div className="container no-padding">
-						<SearchCards
-							itemType="film"
-							viewMode={viewMode || 'list'}
-							customColSize={(viewMode === 'list' || !viewMode) ? 12 : 6}
-							data={item.films} />
-					</div>
+                    item.films.map((film, i) =>
+                        <EventDetailFilm
+                            key={i}
+                            filmRefName={film} />
+                    )
 				)
 			})
 			,
