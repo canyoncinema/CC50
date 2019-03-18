@@ -9,7 +9,13 @@ export const CSpaceOrderedSizes = [{
 	width: 80,
 	height: 60,
 	suffix: '_80x60'
-}, {
+},
+{
+	name: 'event_thumbnail',
+	width: 250,
+	height: 110,
+	suffix: '_250x110'
+} ,{
 	name: 'list',
 	width: 140,
 	height: 105,

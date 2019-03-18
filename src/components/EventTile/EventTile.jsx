@@ -83,7 +83,7 @@ class EventTile extends Component {
                                 (mediaByRtSbj || []).map(m => fullSizedCarouselCaptionLink(m))
                             }
                             blobCsids={(mediaByRtSbj || []).map(m => m.blobCsid).slice(0, MAX_CAROUSEL_IMAGES)}
-                            canvasSize={CSpaceCanvasSize.grid}
+                            canvasSize={CSpaceCanvasSize.event_thumbnail}
                             id={csid}
                             title={title}
                             itemType='events' />
