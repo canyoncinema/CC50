@@ -5,11 +5,28 @@ const initialState = {
 	mediaByCsid: [],
 	isLoading: false,
 	error: null,
-	totalCount: 0,
+    pageNum: null,
+    pastEventsTotalCount: 0,
+	pastEvents: [],
+	futureEvents: []
 };
 
+function sortEventsByDate(events) {
+    const pastEvents = [];
+    const futureEvents = [];
+    const today = new Date();
+    events.forEach(e => {
+        new Date(e.showingOpeningDate) < today ? pastEvents.push(e) : futureEvents.push(e)
+    });
+    return {
+        pastEvents,
+        futureEvents
+    }
+}
+
 const eventsReducer = (state=initialState, action) => {
-	switch (action.type) {
+    const { data, totalCount, pageCount, pageNum } = action;
+    switch (action.type) {
 		case types.FETCH_EVENTS:
 				return {
 					...state,
@@ -17,18 +34,28 @@ const eventsReducer = (state=initialState, action) => {
 					error: null
 				};
 		case types.RECEIVED_EVENTS:
-			return {
+            const allReceivedEvents = sortEventsByDate(data);
+            const pastEventsTotalCount = totalCount - allReceivedEvents.futureEvents.length;
+            console.log(totalCount, allReceivedEvents, pastEventsTotalCount);
+            return {
 				isLoading: false,
 				error: null,
-				data: action.data,
-				totalCount: action.totalCount,
+				pastEvents: allReceivedEvents.pastEvents,
+				futureEvents: allReceivedEvents.futureEvents,
+                pastEventsTotalCount: pastEventsTotalCount,
+                pageCount,
+                pageNum,
 			};
-		// case types.RECEIVED_EVENT_MEDIA:
-		// 	// TODO
-		// 	const newStateData = state.data.slice();
-		// 	return Object.assign(state, {
-		// 		data: newStateData
-		// 	})
+        case types.ADD_EVENTS:
+            return {
+                ...state,
+                isLoading: false,
+                error: null,
+                pastEvents: (state.pastEvents || []).concat(data),
+                pastEventsTotalCount: state.pastEventsTotalCount,
+                pageCount,
+                pageNum,
+            };
 		case types.FAILED_EVENTS:
 			return {
 				isLoading: false,

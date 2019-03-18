@@ -1,19 +1,17 @@
 import {
     FETCH_EVENTS,
     RECEIVED_EVENTS,
-    FAILED_EVENTS, RECEIVED_FILMS
+    FAILED_EVENTS, RECEIVED_FILMS, ADD_EVENTS
 } from '../actionTypes';
 import { config } from '../store';
 import {
     parseFilm, getCsidFromRefName,
     toItemData, toItemsData,
     toTotalCount,
-    parseItemWorks, getItemTypeFromRefName, addEventFields
+    parseItemWorks, getItemTypeFromRefName, addEventFields, toPageCount, toPageNum
 } from '../utils/parse-data';
-import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
 import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
-
 const collectionPath = '/personauthorities';
 const collectionId = '5b2486be-bc1f-4176-97fa';
 
@@ -52,17 +50,7 @@ export const MAX_EVENT_FILM_STILLS = 3;
 // 		});
 // }
 
-function receiveEvents(payload) {
-	let items = toItemsData(payload, true);
-    items.map(e => {
-        addEventFields(e)
-    });
-	return {
-		type: RECEIVED_EVENTS,
-		data: items,
-		totalCount: toTotalCount(payload)
-	}
-}
+
 //
 // function receiveFilms(dispatch, payload) {
 //     const items = toItemsData(payload);
@@ -77,6 +65,38 @@ function receiveEvents(payload) {
 //     }
 // }
 
+function receiveEvents(payload) {
+	let items = toItemsData(payload, true);
+    const totalCount = toTotalCount(payload);
+    const pageCount = toPageCount(payload);
+    const pageNum = toPageNum(payload);
+    items.map(e => {
+        addEventFields(e)
+    });
+	return {
+		type: RECEIVED_EVENTS,
+		data: items,
+		totalCount,
+		pageCount,
+		pageNum
+	}
+}
+
+function addEvents(payload) {
+    let items = toItemsData(payload, true);
+    const pageCount = toPageCount(payload);
+    const pageNum = toPageNum(payload);
+    items.map(e => {
+        addEventFields(e)
+    });
+    return {
+        type: ADD_EVENTS,
+        data: items,
+        pageCount,
+        pageNum
+    }
+}
+
 function failEvents(error) {
 	console.error('Failed Events Request', error);
 	return {
@@ -85,28 +105,46 @@ function failEvents(error) {
 	}
 }
 
-export function getEvents(queryParams) {
+export function getEvents(queryParams, pageNum=0, shouldAddEvents=false) {
 	return (dispatch) => {
-		dispatch(fetchEvents({
-			...queryParams
-		}));
-		return wrappedFetch(config.listEventsUrl({
+        if (!shouldAddEvents) dispatch(fetchEvents());
+        let params = {
             sortBy: 'exhibitions_canyon:showingGroupList/0/showingOpeningDate+DESC',
             wf_deleted: false,
+            pgNum: pageNum,
             ...queryParams
-        }))
+        };
+		return wrappedFetch(config.listEventsUrl(params))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failEvents("Bad response from server"));
 				}
 				return response.json();
 			})
-			.then(data => {
-                if (data) dispatch(receiveEvents(data));
-				return null;
-			})
+            .then(data => {
+                if (shouldAddEvents) {
+                    dispatch(addEvents(data));
+                } else {
+                    if (data) {
+                        dispatch(receiveEvents(data));
+                    }
+                }
+            })
 			.catch(error =>
 				dispatch(failEvents(error))
 			);
 	}
+}
+
+let initializingAppendEvents = false;
+
+export function appendEvents(queryParams, pageNum=0) {
+    return dispatch => {
+        if (initializingAppendEvents) return Promise.resolve(true);
+        initializingAppendEvents = true;
+        return dispatch(getEvents(queryParams, pageNum, true))
+            .then(() => {
+                initializingAppendEvents = false;
+            });
+    };
 };

@@ -31,14 +31,13 @@ const PAGE_COUNT = 39;
 class CollectionPageItems extends Component {
 	paginate = () => {
 		const { itemsPageNum } = this.props;
-		const page = itemsPageNum + 1;
-		console.log('paginate', page, itemsPageNum);
+        const page = itemsPageNum + 1;
 	  return this.props.appendItems(
 	 	  this.props.collectionItems,
 	 	  {
 	  		pgSz: PAGE_COUNT
 	  	},
-	  	page,
+	  	page
 	  );
 		// return Promise.resolve();
 	}

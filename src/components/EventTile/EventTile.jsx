@@ -12,8 +12,8 @@ import ReactMarkdown from 'react-markdown';
 import CarouselShowMoreForeground from "../Carousel/CarouselShowMoreForeground";
 import CoverCarousel, {MAX_CAROUSEL_IMAGES} from "../Carousel/CoverCarousel";
 import {fullSizedCarouselCaption, fullSizedCarouselCaptionLink} from "../../utils/parse-data";
-import {CSpaceCanvasSize} from "../CSpacePhoto/CSpacePhoto";
-import { getEventsMedia } from "../../actions/events-media-actions";
+import { CSpaceCanvasSize } from "../CSpacePhoto/CSpacePhoto";
+// import { getEventsMedia } from "../../actions/events-media-actions";
 // import { getItemsMedia } from "../../actions/items-media-actions"
 import connect from "react-redux/es/connect/connect";
 import { getItemsMedia } from "../../actions/items-media-actions";
@@ -62,7 +62,6 @@ class EventTile extends Component {
 			location,
 			ticketNote,
 		} = this.props;
-		// console.log('EventTile', photos);
 		const openingDate = showingOpeningDate ? new Date(showingOpeningDate) : null;
         const listView = false;
         const itemType = 'events';

@@ -6,46 +6,52 @@ import { sortEventsByDate } from "../../utils/parse-data";
 import PageHeader from '../PageHeader/PageHeader';
 import EventTiles from '../EventTiles/EventTiles';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
+import throttle from "../../utils/throttle";
+import CollectionSection from "../CollectionSection/CollectionSection";
+import { appendEvents } from "../../actions/events-actions";
 
-// TODO: will this method of getting past/future events work with requesting more pages of events?
-// I think yes because the events query by default has a param to request in descending date.
 const mapStateToProps = state => ({
-	events: sortEventsByDate(state.events.data)
+	pastEvents: state.events.pastEvents,
+	futureEvents: state.events.futureEvents,
+    pastEventsPageNum: state.events.pageNum || 0,
+	pastEventsTotalCount: state.events.pastEventsTotalCount,
+    totalCount: state.events.totalCount,
+    isLoading: state.events.isLoading,
+    error: state.events.error,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getEvents: (...args) => dispatch(getEvents(...args))
+  getEvents: (...args) => dispatch(getEvents(...args)),
+  appendEvents: (...args) => dispatch(appendEvents(...args))
+
 });
 
 const PAGE_COUNT = 39;
 
 class EventsPage extends Component {
     paginate = () => {
-        const { itemsPageNum } = this.props;
-        const page = itemsPageNum + 1;
-        console.log('paginate', page, itemsPageNum);
-        return this.props.appendItems(
-            this.props.collectionItems,
+        const { pastEventsPageNum } = this.props;
+        const page = pastEventsPageNum + 1;
+        return this.props.appendEvents(
             {
                 pgSz: PAGE_COUNT
             },
             page,
         );
-        // return Promise.resolve();
     }
-
 
 	componentDidMount() {
 		this.props.getEvents({
-		  pgSz: 40,
+		  pgSz: PAGE_COUNT,
 		  wf_deleted: false
 		});
-		// TODO: SORT & PAGINATE
+		if (this.props.futureEvents && this.props.totalCount) {
+
+		}
   	}
 
 	render() {
-		const { events } = this.props;
-
+		const { events, totalCount, isLoading, error, pastEventsTotalCount, pastEvents, futureEvents } = this.props;
 		return (
 			<div className="EventsPage">
 				<ScrollToTopOnMount />
@@ -53,11 +59,23 @@ class EventsPage extends Component {
                 <div className="container content">
 					<section>
 						<h3 className="event-section-header">Upcoming Events</h3>
-						<EventTiles data={events.futureEvents} totalCount={events.futureEvents.length} />
+                        {!isLoading && !error &&
+                        <EventTiles
+                            data={futureEvents}
+                            noPagination={true}
+                        />
+                        }
 					</section>
 					<section>
 						<h3 className="event-section-header">Past Events</h3>
-						<EventTiles data={events.pastEvents} totalCount={events.pastEvents.length} />
+                        {!isLoading && !error &&
+                        <EventTiles
+                            data={pastEvents}
+                            totalCount={pastEventsTotalCount}
+                            noPagination={false}
+                            paginate={throttle(this.paginate, 1000)}
+                        />
+                        }
 					</section>
 				</div>
 			</div>
