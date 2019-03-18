@@ -4,10 +4,12 @@ import {
     FAILED_EVENTS, RECEIVED_FILMS
 } from '../actionTypes';
 import { config } from '../store';
-import { parseFilm, getCsidFromRefName,
-	toItemData, toItemsData,
-	toTotalCount,
-	parseItemWorks } from '../utils/parse-data';
+import {
+    parseFilm, getCsidFromRefName,
+    toItemData, toItemsData,
+    toTotalCount,
+    parseItemWorks, getItemTypeFromRefName, addEventFields
+} from '../utils/parse-data';
 import { getItemsMedia } from './items-media-actions';
 import { wrappedFetch } from '../config';
 import { MAX_CAROUSEL_IMAGES } from '../components/Carousel/CoverCarousel';
@@ -23,55 +25,57 @@ function fetchEvents() {
 
 // MAX_EVENT_FILM_STILLS: show up to this many film stills, per film on an event
 export const MAX_EVENT_FILM_STILLS = 3;
-
-function fetchEventMedia(eventRefName) {
-	// return up to 3 film stills per film in the Event
-	// NOTE: Events do not have a shortIdentifier. use its csid
-	config.fetchEvent(getCsidFromRefName(eventRefName))
-		.then(response => {
-			if (response.status >= 400) {
-				// fail silently
-				return false;
-			}
-			return response.json();
-		})
-		.then(data => {
-			if (data) {
-                const filmRefNames = parseItemWorks('exhibition', toItemData(data));
-                filmRefNames.forEach(filmRefName => getItemsMedia({
-					itemRefName: filmRefName,
-					itemType: 'event',
-					mappedShortIdentifier: eventRefName
-				}))
-
-				// SPEC: pick 1 from each work, until up to MAX_CAROUSEL_IMAGES
-
-			}
-		});
-}
+//
+// function fetchEventMedia(eventRefName) {
+// 	// return up to 3 film stills per film in the Event
+// 	// NOTE: Events do not have a shortIdentifier. use its csid
+// 	config.fetchEvent(getCsidFromRefName(eventRefName))
+// 		.then(response => {
+// 			if (response.status >= 400) {
+// 				// fail silently
+// 				return false;
+// 			}
+// 			return response.json();
+// 		})
+// 		.then(data => {
+// 			if (data) {
+//                 const filmRefNames = parseItemWorks('exhibition', toItemData(data));
+//                 filmRefNames.forEach(filmRefName => getItemsMedia({
+// 					itemRefName: filmRefName,
+// 					itemType: 'event',
+// 					mappedShortIdentifier: eventRefName
+// 				}))
+//
+// 				// SPEC: pick 1 from each work, until up to MAX_CAROUSEL_IMAGES
+//
+// 			}
+// 		});
+// }
 
 function receiveEvents(payload) {
-	const items = toItemsData(payload, true);
-	const totalCount = toTotalCount(payload);
+	let items = toItemsData(payload, true);
+    items.map(e => {
+        addEventFields(e)
+    });
 	return {
 		type: RECEIVED_EVENTS,
 		data: items,
-		totalCount,
+		totalCount: toTotalCount(payload)
 	}
 }
-
-function receiveFilms(dispatch, payload) {
-    const items = toItemsData(payload);
-    // return up to 3 film stills per film item
-    // and indicate num of stills per film (for carousel 'see more')
-    items.forEach(item => {
-        dispatch(getItemsMedia({ item }));
-    });
-    return {
-        type: RECEIVED_FILMS,
-        data: items
-    }
-}
+//
+// function receiveFilms(dispatch, payload) {
+//     const items = toItemsData(payload);
+//     // return up to 3 film stills per film item
+//     // and indicate num of stills per film (for carousel 'see more')
+//     items.forEach(item => {
+//         dispatch(getItemsMedia({ item }));
+//     });
+//     return {
+//         type: RECEIVED_FILMS,
+//         data: items
+//     }
+// }
 
 function failEvents(error) {
 	console.error('Failed Events Request', error);
@@ -98,7 +102,7 @@ export function getEvents(queryParams) {
 				return response.json();
 			})
 			.then(data => {
-				if (data) dispatch(receiveEvents(data));
+                if (data) dispatch(receiveEvents(data));
 				return null;
 			})
 			.catch(error =>
