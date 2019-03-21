@@ -1,9 +1,8 @@
 .PhotoFill {
 	background-repeat: no-repeat;
 	background-position: center center;
-  background-size: contain;
-  background-image: url(/images/empty-still.png);
-  background-color: #8b8b8b;
+  	background-size: contain;
+  	background-color: #8b8b8b;
 }
 
 .PhotoFill .caption {

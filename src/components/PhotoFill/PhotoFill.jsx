@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './PhotoFill.css';
 
-const fallbackImgSrc = require('../Carousel/empty-still.png');
+const fallbackImgSrc = require('../Carousel/moire-360-270.png');
 
-export const EMPTY_STILL_PATH = '/images/empty-still.png';
+// export const EMPTY_STILL_PATH = '/images/empty-still.png';
+export const EMPTY_STILL_PATH = '/images/moire-360-270.png';
 const LOADING_STILL_PATH = '/images/loading-still.png';
 
 class PhotoFill extends Component {
