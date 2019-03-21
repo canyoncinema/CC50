@@ -44,7 +44,7 @@ const config = {
 		ghost: {
 			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
 		},
-		baseUrl: '/cspace-services',
+		baseUrl: 'http://canyoncinema50.org/cspace-services',
 		list: {
 			personauthorities: '/personauthorities/4e269e3b-5449-43bf-8aac/items',
 			workauthorities: '/workauthorities/7a94c0cb-5341-4976-b854/items',
