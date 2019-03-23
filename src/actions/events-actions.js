@@ -109,7 +109,7 @@ export function getEvents(queryParams, pageNum=0, shouldAddEvents=false) {
 	return (dispatch) => {
         if (!shouldAddEvents) dispatch(fetchEvents());
         let params = {
-            sortBy: 'exhibitions_canyon:showingGroupList/0/showingOpeningDate+DESC',
+            sortBy: 'exhibitions_canyon:showingGroupList\\/0\\/showingOpeningDate+DESC',
             wf_deleted: false,
             pgNum: pageNum,
             ...queryParams
