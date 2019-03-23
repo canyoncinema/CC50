@@ -12,7 +12,6 @@ import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import { toExternalWebUrl, toItemsData } from '../../utils/parse-data';
-import { ephemeraData } from '../../spoof-data';
 
 const mapStateToProps = state => ({
 	itemFilms: state.item.films.data,
@@ -83,28 +82,28 @@ class CollectionFilmmakerPage extends Component {
 				)
 			})
 			,
-			conditionallyShow({
-				id: 'ephemera',
-				order: 3,
-				condition: shortIdentifier.indexOf('AbigailChild') !== -1,
-				menuHeader: 'Ephemera',
-				renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
-				renderContent: () => (
-					<Row>
-					{ toItemsData(ephemeraData).map((e, i) =>
-						<Col xs={4} key={i}>
-							<EphemeraMiniCard
-								key={i}
-								title={e.termDisplayName}
-								shortIdentifier={'AbigailChildEphemera' + i}
-								item={e}
-							/>
-						</Col>
-					) }
-					</Row>
-				)
-			})
-			,
+			// conditionallyShow({
+			// 	id: 'ephemera',
+			// 	order: 3,
+			// 	condition: shortIdentifier.indexOf('AbigailChild') !== -1,
+			// 	menuHeader: 'Ephemera',
+			// 	renderHeader: () => <h3>{'Ephemera Related to This ' + singularItemForm}</h3>,
+			// 	renderContent: () => (
+			// 		<Row>
+			// 		{ toItemsData(ephemeraData).map((e, i) =>
+			// 			<Col xs={4} key={i}>
+			// 				<EphemeraMiniCard
+			// 					key={i}
+			// 					title={e.termDisplayName}
+			// 					shortIdentifier={'AbigailChildEphemera' + i}
+			// 					item={e}
+			// 				/>
+			// 			</Col>
+			// 		) }
+			// 		</Row>
+			// 	)
+			// })
+			// ,
 			conditionallyShow({
 				id: 'curated-programs',
 				order: 4,
