@@ -123,7 +123,6 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 				// 	debugger
 				// }
 				dispatch(receiveItem(dispatch, collectionItems, payload, shortIdentifier, filmmakerOptions));
-				dispatch(resetItemMenuHeaders());
 			}, error =>
 				dispatch(failItem(error))
 			);

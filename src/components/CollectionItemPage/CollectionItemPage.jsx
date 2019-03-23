@@ -15,7 +15,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import CollectionItemPageMenu from '../CollectionItemPageMenu/CollectionItemPageMenu';
 import CollectionItemHeader from '../CollectionItemHeader/CollectionItemHeader';
 import { getQueryVal } from '../../utils/query-string';
-import { addItemMenuHeader } from '../../actions/item-menu-headers-actions';
+import {addItemMenuHeader, resetItemMenuHeaders} from '../../actions/item-menu-headers-actions';
 import { config } from '../../store';
 import { ephemeraData } from '../../spoof-data';
 
@@ -23,7 +23,8 @@ const mapDispatchToProps = dispatch => ({
   getItem: (...args) => dispatch(getItem(...args)),
   removeItem: (...args) => dispatch(removeItem(...args)),
   setItemData: (...args) => dispatch(setItemData(...args)),
-  addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args))
+  addItemMenuHeader: (...args) => dispatch(addItemMenuHeader(...args)),
+  resetItemMenuHeaders: (...args) => dispatch(resetItemMenuHeaders())
 })
 
 const mapStateToProps = state => ({
@@ -48,6 +49,7 @@ function CollectionItemPage(ComposedComponent) {
 		}
 
 		componentDidMount() {
+            this.props.resetItemMenuHeaders();
 			if (this.props.collectionItems === 'ephemera') {
 			// TODO: UNHACK -- we do not want to get items for ephemera (not yet ready)
 				this.props.setItemData(
@@ -80,7 +82,7 @@ function CollectionItemPage(ComposedComponent) {
 		}) => {
 			// note: renderHeader gets rendered over menuHeader, while menuHeader is added to headers
 			// for side menu rendering
-			if (!condition) return;
+            if (!condition) return;
 			if (!renderContent) {
 				throw new Error('Expected renderContent');
 			}
@@ -123,7 +125,7 @@ function CollectionItemPage(ComposedComponent) {
 
 		componentWillReceiveProps(nextProps) {
 			if (nextProps.shortIdentifier !== this.props.shortIdentifier) {
-				// new item, scroll back to top and reset headers
+                // new item, scroll back to top and reset headers
 				window.scrollTo(0, 0);
 				this.props.getItem(
 					nextProps.collectionItems,
