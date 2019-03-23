@@ -64,7 +64,8 @@ export function getItems(collectionItems, queryParams, pageNum=0, shouldAddItems
 		if (!shouldAddItems) dispatch(fetchItems());
 		return config.fetchItems(collectionItems, Object.assign(queryParams, {
 				pgNum: pageNum,
-				wf_deleted: false
+				wf_deleted: false,
+				sortBy: collectionItems === 'filmmakers'? 'persons_common\:personTermGroupList/0/surName+ASC' : ''
 			}))
 			.then(response => {
 				if (response.status >= 400) {
