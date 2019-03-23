@@ -172,12 +172,6 @@ class Config {
 		return url;
 	}
 
-	getEventsUrl(queryParams) {
-		return this.baseUrl +
-			config[this.env].list.exhibitions +
-			new QueryParams(queryParams).toString();
-	}
-
 	fetchItems(...args) {
 		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
@@ -310,10 +304,6 @@ class Config {
 				.catch(e => reject(e))
 		})
 	}
-    //
-	// fetchEvents(...args) {
-	// 	return wrappedFetch(encodeURI(this.getEventsUrl(...args)));
-	// }
 
 	getItemUrl({ collectionItems, cspaceCollection, csid, shortIdentifier }) {
 		if (!(shortIdentifier || csid) || !(collectionItems || cspaceCollection)) {
@@ -392,9 +382,6 @@ class Config {
                 reject(e);
             }
         });
-		// let data = wrappedFetch(this.getFilteredItemsUrl(...args));
-		// console.log(data);
-		// return data;
     }
 
 	getFilmmakerFilmsUrl({ filmmakerRefName, pgSz=6, exceptShortIdentifier }) {
