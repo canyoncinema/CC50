@@ -36,7 +36,6 @@ const eventsReducer = (state=initialState, action) => {
 		case types.RECEIVED_EVENTS:
             const allReceivedEvents = sortEventsByDate(data);
             const pastEventsTotalCount = totalCount - allReceivedEvents.futureEvents.length;
-            console.log(totalCount, allReceivedEvents, pastEventsTotalCount);
             return {
 				isLoading: false,
 				error: null,

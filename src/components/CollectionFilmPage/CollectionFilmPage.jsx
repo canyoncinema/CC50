@@ -17,8 +17,9 @@ import LoadingMessage from '../LoadingMessage/LoadingMessage';
 
 const mapStateToProps = state => ({
 	item: state.item.data,
-	events: state.events.data,
-	isLoading: state.item.isLoading,
+	pastEvents: state.events.pastEvents,
+    futureEvents: state.events.futureEvents,
+    isLoading: state.item.isLoading,
 	filmmaker: state.item.filmmaker && state.item.filmmaker.data,
 	filmmakerOtherFilms: state.item.filmmaker &&
 		state.item.filmmaker.otherFilms &&
@@ -41,7 +42,7 @@ class CollectionFilmPage extends Component {
 	}
 
 	render() {
-		const { item, events, isLoading, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+		const {item, pastEvents, futureEvents, isLoading, filmmaker, filmmakerOtherFilms, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
 		if (isLoading) {
 			return <LoadingMessage />;
 		}
@@ -132,13 +133,13 @@ class CollectionFilmPage extends Component {
 			conditionallyShow({
 				id: 'events',
 				order: 5,
-				condition: events && events.length,
+				condition: pastEvents && pastEvents.length || futureEvents && futureEvents.length,
 				menuHeader: 'Events',
 				renderHeader: () => <h3>{'Events Featuring This ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<EventTiles
 						customColSize={6}
-						data={events}
+						data={[...futureEvents, ...pastEvents]}
 					/>
 				)
 			})
