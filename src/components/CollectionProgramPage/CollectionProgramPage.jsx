@@ -15,18 +15,29 @@ import {addEventFields, addProgramFields, parseItemExhibitionWorks, toItemData, 
 import { connect } from 'react-redux';
 import EventDetailFilm from "../EventDetailFilm/EventDetailFilm";
 import RichText from "../RichText/RichText";
+import {getEvents} from "../../actions/events-actions";
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    getEvents: (...args) => dispatch(getEvents(...args))
+});
 
 const mapStateToProps = state => ({
-    item: state.item.data,
-    isLoading: state.item.isLoading
+    isLoading: state.item.isLoading,
+    pastEvents: state.events.pastEvents,
+    futureEvents: state.events.futureEvents
 });
 
 class CollectionProgramPage extends Component {
+    componentDidMount() {
+        this.props.getEvents({
+            rtSbj: encodeURI(this.props.item.rtSbj),
+            pgNum: 0,
+            pgSz: 20,
+        });
+    }
 
 	render() {
-        const { isLoading, item, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
+        const { isLoading, item, pastEvents, futureEvents, setViewMode, viewMode, singularItemForm, conditionallyShow } = this.props;
         if (isLoading) {
             return <LoadingMessage />;
         }
@@ -48,17 +59,17 @@ class CollectionProgramPage extends Component {
 				condition: item.films && item.films.length,
 				menuHeader: 'Films',
 				order: 1,
-				// renderHeader: () => <header className="d-flex">
-				// 	<h3 className="single-line-ellipsed">
-				// 		Films in this Program
-				// 	</h3>
-				// 	<span className="ml-auto">
-				// 		<ViewModeToggler
-				// 			activeMode={viewMode || 'list'}
-				// 			onClick={setViewMode}
-				// 			theme="dark" />
-				// 	</span>
-				// </header>,
+				renderHeader: () => <header className="d-flex">
+					<h3 className="single-line-ellipsed">
+						Films in this Program
+					</h3>
+					<span className="ml-auto">
+						<ViewModeToggler
+							activeMode={viewMode || 'list'}
+							onClick={setViewMode}
+							theme="dark" />
+					</span>
+				</header>,
 				renderContent: () => (
                     item.films.map((film, i) =>
                         <EventDetailFilm
@@ -91,19 +102,20 @@ class CollectionProgramPage extends Component {
 				)
 			})
 			,
-			conditionallyShow({
-				id: 'events',
-				condition: item.events && item.events.length,
-				menuHeader: 'Events',
-				renderHeader: () => <h3>Events Featuring this Program</h3>,
-				renderContent: () => (
-					<EventTiles
-						customColSize={6}
-						data={item.events}
-					/>
-				)
-			})
-			,
+            conditionallyShow({
+                id: 'events',
+                order: 5,
+                condition: pastEvents && pastEvents.length || futureEvents && futureEvents.length,
+                menuHeader: 'Events',
+                renderHeader: () => <h3>{'Events Featuring This Program'}</h3>,
+                renderContent: () => (
+                    <EventTiles
+                        customColSize={6}
+                        data={[...futureEvents, ...pastEvents]}
+                    />
+                )
+            })
+            ,
 			conditionallyShow({
 				id: 'news',
 				condition: item.news && item.news.length,
