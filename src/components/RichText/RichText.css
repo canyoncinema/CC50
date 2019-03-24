@@ -33,3 +33,7 @@
   display: block;
   margin: auto;
 }
+
+.RichText p {
+  margin-bottom: 15px;
+}

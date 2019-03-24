@@ -7,6 +7,7 @@ import Filmmakers from '../Filmmakers/Filmmakers';
 import EventTiles from '../EventTiles/EventTiles';
 import NewsTiles from '../NewsTiles/NewsTiles';
 import SearchCards from '../SearchCards/SearchCards';
+import RichText from '../RichText/RichText';
 import ViewModeToggler from '../ViewModeToggler/ViewModeToggler';
 import Button from '../Button/Button';
 import ReactMarkdown from 'react-markdown';
@@ -31,9 +32,9 @@ class CollectionFilmmakerPage extends Component {
 				condition: item.bioNote,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
-					<pre className="rich-text">
+					<RichText>
 						<ReactMarkdown source={item.bioNote} />
-					</pre>
+					</RichText>
 				)
 			})
 			,

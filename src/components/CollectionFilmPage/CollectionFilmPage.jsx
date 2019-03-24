@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 import ReactMarkdown from 'react-markdown';
-
+import RichText from '../RichText/RichText';
 import { getEvents } from '../../actions/events-actions';
 
 import CollectionItemPage from '../CollectionItemPage/CollectionItemPage';
@@ -53,9 +53,9 @@ class CollectionFilmPage extends Component {
 				condition: !!item.workDescription,
 				menuHeader: 'About the Film',
 				renderContent: () => (
-					<pre className="rich-text">
+					<RichText>
 						<ReactMarkdown source={item.workDescription} />
-					</pre>
+					</RichText>
 				)
 			})
 			,
@@ -65,9 +65,9 @@ class CollectionFilmPage extends Component {
 				condition: filmmaker && filmmaker.bioNote,
 				menuHeader: 'About the Filmmaker',
 				renderContent: () => (
-					<pre className="rich-text">
+                    <RichText>
 						<ReactMarkdown source={filmmaker.bioNote} />
-					</pre>
+					</RichText>
 				)
 			})
 			,

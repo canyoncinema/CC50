@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './CollectionPageItem.css';
-
+import RichText from '../RichText/RichText';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import { getSpoofDataObj } from '../../spoof-data';
 import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
@@ -101,9 +101,9 @@ class CollectionItemPage extends Component {
 									condition: !!item.description,
 									menuHeader: 'About the ' + singularItemForm,
 									renderContent: () => (
-										<pre className="rich-text">
+										<RichText>
 											{item.description}
-										</pre>
+										</RichText>
 									)
 								})}
 								{this.conditionallyShow({
@@ -234,9 +234,9 @@ class CollectionItemPage extends Component {
 									condition: item.filmmaker && !!item.filmmaker.description,
 									menuHeader: 'About the Filmmaker',
 									renderContent: () => (
-										<pre className="rich-text">
+										<RichText>
 											{item.filmmaker.description}
-										</pre>
+										</RichText>
 									)
 								})}
 								{this.conditionallyShow({
