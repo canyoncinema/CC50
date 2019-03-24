@@ -105,11 +105,17 @@ function failEvents(error) {
 	}
 }
 
-export function getEvents(queryParams, pageNum=0, shouldAddEvents=false) {
+export function getEvents(queryParams, isFromProgramPage=false, pageNum=0, shouldAddEvents=false) {
 	return (dispatch) => {
         if (!shouldAddEvents) dispatch(fetchEvents());
+        console.log('isFromProgramPage', isFromProgramPage)
         let params = {
-            sortBy: 'exhibitions_canyon:showingGroupList\\/0\\/showingOpeningDate+DESC',
+            // CSpace bug workaround / HACK!! isFromProgramPage.
+            // single escaped works for most Events calls
+            // need to DOUBLE escape when querying events from the Programs page because it breaks CSpace when combined w filter on rtSbj.
+            sortBy: isFromProgramPage ?
+                  'exhibitions_canyon:showingGroupList\\/0\\/showingOpeningDate+DESC'
+                : 'exhibitions_canyon:showingGroupList\/0\/showingOpeningDate+DESC',
             wf_deleted: false,
             pgNum: pageNum,
             ...queryParams
@@ -135,6 +141,8 @@ export function getEvents(queryParams, pageNum=0, shouldAddEvents=false) {
 			);
 	}
 }
+
+// http://staging.canyoncinema50.org/cspace-services/exhibitions?rtSbj=95605367-5ffc-43b6-b03e
 
 let initializingAppendEvents = false;
 

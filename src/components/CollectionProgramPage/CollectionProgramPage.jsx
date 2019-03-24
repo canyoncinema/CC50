@@ -30,10 +30,10 @@ const mapStateToProps = state => ({
 class CollectionProgramPage extends Component {
     componentDidMount() {
         this.props.getEvents({
-            rtSbj: encodeURI(this.props.item.rtSbj),
+            rtSbj: this.props.item.rtSbj,
             pgNum: 0,
             pgSz: 20,
-        });
+        }, true);
     }
 
 	render() {
