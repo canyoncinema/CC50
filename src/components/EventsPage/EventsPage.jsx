@@ -44,13 +44,10 @@ class EventsPage extends Component {
 		  pgSz: PAGE_COUNT,
 		  wf_deleted: false
 		});
-		if (this.props.futureEvents && this.props.totalCount) {
-
-		}
   	}
 
 	render() {
-		const { events, totalCount, isLoading, error, pastEventsTotalCount, pastEvents, futureEvents } = this.props;
+		const { isLoading, error, pastEventsTotalCount, pastEvents, futureEvents } = this.props;
 		return (
 			<div className="EventsPage">
 				<ScrollToTopOnMount />

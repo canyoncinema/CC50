@@ -63,13 +63,15 @@ class EventTiles extends React.Component {
 					}
 				</InfiniteScroll>
 				:
-				data.map((d, i) => {
-					return (
-						<Col key={i} md={customColSize || 4}>
-							<EventTile {...d} key={i} />
-						</Col>
-					);
-				})
+				<div className="row EventTiles">
+					{data.map((d, i) => {
+						return (
+							<Col key={i} md={customColSize || 4}>
+								<EventTile {...d} key={i} />
+							</Col>
+						);
+					})}
+                </div>
 		: null
 	}
 }
