@@ -73,7 +73,7 @@ class CollectionPageHome extends Component {
         customColSize={viewMode !== 'list' ? 4 : null}
         customColWidth="sm"
         header="Films"
-        description="New acquisitions to the Canyon Cinema collection"
+        description="Titles featured in Canyon Cinema 50 and beyond"
         buttonText="See all films"
         buttonLink="/collection/films"
         itemType="film"
@@ -87,7 +87,7 @@ class CollectionPageHome extends Component {
         customColSize={viewMode !== 'list' ? 4 : null}
         customColWidth="sm"
         header="Filmmakers"
-        description="Spotlight on some of Canyon Cinema’s filmmakers"
+        description="Filmmakers included in Canyon Cinema 50 and ongoing public programming"
         buttonText="See all filmmakers"
         buttonLink="/collection/filmmakers"
         itemType="filmmaker"
@@ -103,7 +103,7 @@ class CollectionPageHome extends Component {
           customColSize={viewMode !== 'list' ? 4 : null}
           customColWidth="sm"
           header="Curated Programs"
-          description="Curated by Canyon Cinema staff, Board of Directors, and Advisory Board"
+          description="Curated for the international Canyon Cinema 50 Tour"
           buttonText="See all curated programs"
           buttonLink="/collection/programs"
           itemType="program"
