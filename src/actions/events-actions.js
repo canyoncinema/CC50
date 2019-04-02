@@ -108,7 +108,6 @@ function failEvents(error) {
 export function getEvents(queryParams, isFromProgramPage=false, pageNum=0, shouldAddEvents=false) {
 	return (dispatch) => {
         if (!shouldAddEvents) dispatch(fetchEvents());
-        console.log('isFromProgramPage', isFromProgramPage)
         let params = {
             // CSpace bug workaround / HACK!! isFromProgramPage.
             // single escaped works for most Events calls
@@ -142,15 +141,13 @@ export function getEvents(queryParams, isFromProgramPage=false, pageNum=0, shoul
 	}
 }
 
-// http://staging.canyoncinema50.org/cspace-services/exhibitions?rtSbj=95605367-5ffc-43b6-b03e
-
 let initializingAppendEvents = false;
 
-export function appendEvents(queryParams, pageNum=0) {
+export function appendEvents(queryParams, isFromProgramPage, pageNum=0) {
     return dispatch => {
         if (initializingAppendEvents) return Promise.resolve(true);
         initializingAppendEvents = true;
-        return dispatch(getEvents(queryParams, pageNum, true))
+        return dispatch(getEvents(queryParams, isFromProgramPage, pageNum, true))
             .then(() => {
                 initializingAppendEvents = false;
             });
