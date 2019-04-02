@@ -6,6 +6,7 @@ import Tags from '../Tags/Tags';
 import CalDay from '../CalDay/CalDay';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
+// TODO: if showing the actual date is conditional, maybe this component sould be renamed
 const CalDayTitleHeader = ({ startDateTime, tags, author, endDateTime, title, maxLines=2, type }) =>
 	<div className="CalDayTitleHeader container-fluid">
 		<div className="container d-flex">
