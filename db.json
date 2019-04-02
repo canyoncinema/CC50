@@ -35,7 +35,7 @@
 		"curatedPrograms": [],
 		"related": [],
 		"events": [],
-		"news": []
+		"ghostContent": []
 	}],
 	"curatedPrograms": [{
 		"id": 6,
@@ -132,7 +132,7 @@
 		"about": "The personal and poetic cinema of Gunvor Nelson’s Red Shift and Marjorie Keller’s Daughters of Chaos explore relationships between mothers and daughters, the mysteries of growing up and growing old.",
 		"films": []
 	}],
-	"news": [{
+	"ghostContent": [{
 		"id": 235234,
 		"name": "Canyon Cinema 50 January 2018 Events",
 		"created": "Tue, 15 May 2018 20:00:00 GMT",

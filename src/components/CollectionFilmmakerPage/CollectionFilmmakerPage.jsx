@@ -150,15 +150,15 @@ class CollectionFilmmakerPage extends Component {
 			})
 			,
 			conditionallyShow({
-				id: 'news',
+				id: 'ghostContent',
 				order: 7,
-				condition: item.news && item.news.length,
+				condition: item.ghostContent && item.ghostContent.length,
 				menuHeader: 'News',
 				renderHeader: () => <h3>{'News Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<NewsTiles
 						customColSize={6}
-						data={item.news}
+						data={item.ghostContent}
 					/>
 				)
 			})

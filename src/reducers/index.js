@@ -8,7 +8,7 @@ import collectionSort from './collection-sort-reducer';
 import typeAheadChoices from './typeahead-choices-reducer';
 import events from './events-reducer';
 import eventDetail from './event-detail-reducer';
-import news from './news-reducer';
+import ghostContent from './ghost-reducer';
 import newsDetail from './news-detail-reducer';
 import featuredPosts from './featured-posts-reducer';
 import programs from './programs-reducer';
@@ -30,7 +30,7 @@ export default combineReducers({
   typeAheadChoices,
   events,
   eventDetail,
-  news,
+  ghostContent,
   newsDetail,
   featuredPosts,
   programs,

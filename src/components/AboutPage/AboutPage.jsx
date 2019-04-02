@@ -6,12 +6,12 @@ import { Nav, NavItem, TabContent, TabPane } from 'reactstrap';
 import './AboutPage.css';
 
 import {
-	RECEIVED_NEWS_PAGE_ABOUT,
-	RECEIVED_NEWS_PAGE_SUPPORT_US,
-	RECEIVED_NEWS_PAGE_PRESS,
-	RECEIVED_NEWS_PAGE_TOUR
+	RECEIVED_GHOST_PAGE_ABOUT,
+	RECEIVED_GHOST_PAGE_SUPPORT_US,
+	RECEIVED_GHOST_PAGE_PRESS,
+	RECEIVED_GHOST_PAGE_TOUR
 } from '../../actionTypes';
-import { getNews } from '../../actions/news-actions';
+import { getGhostContent } from '../../actions/ghost-actions';
 import {
 	ABOUT_PAGE_TAG,
 	SUPPORT_US_PAGE_TAG,
@@ -40,14 +40,14 @@ const validTabs = [{
 }];
 
 const mapStateToProps = state => ({
-  aboutPageNews: state.news.aboutPage,
-  supportUsPageNews: state.news.supportUsPage,
-  tourPageNews: state.news.tourPage,
-  pressPageNews: state.news.pressPage,
+  aboutPageNews: state.ghostContent.aboutPage,
+  supportUsPageNews: state.ghostContent.supportUsPage,
+  tourPageNews: state.ghostContent.tourPage,
+  pressPageNews: state.ghostContent.pressPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getNews: (...args) => dispatch(getNews(...args))
+  getGhostContent: (...args) => dispatch(getGhostContent(...args))
 });
 
 const tabLookup = {
@@ -55,25 +55,25 @@ const tabLookup = {
         pageghostTag: ABOUT_PAGE_TAG,
 		headline: 'About Canyon Cinema 50',
 		title: 'About | Canyon Cinema',
-		newsPageActionType: RECEIVED_NEWS_PAGE_ABOUT
+		newsPageActionType: RECEIVED_GHOST_PAGE_ABOUT
 	},
 	support: {
         pageghostTag: SUPPORT_US_PAGE_TAG,
         headline: 'Support Us',
         title: 'Support Us | Canyon Cinema',
-        newsPageActionType: RECEIVED_NEWS_PAGE_SUPPORT_US
+        newsPageActionType: RECEIVED_GHOST_PAGE_SUPPORT_US
 	},
 	tour: {
         pageghostTag: TOUR_PAGE_TAG,
         headline: 'Tour',
         title: 'Tour | Canyon Cinema',
-        newsPageActionType: RECEIVED_NEWS_PAGE_TOUR
+        newsPageActionType: RECEIVED_GHOST_PAGE_TOUR
 	},
 	press: {
         pageghostTag: PRESS_PAGE_TAG,
         headline: 'Press',
         title: 'Press | Canyon Cinema',
-        newsPageActionType: RECEIVED_NEWS_PAGE_PRESS
+        newsPageActionType: RECEIVED_GHOST_PAGE_PRESS
 	}
 }
 
@@ -91,7 +91,7 @@ class AboutPage extends Component {
 		// PAGE HACK: to allow staff to edit these pages via Ghost,
 		// retrieve the one Ghost Post with the given page as ghost post tag
 		console.log(this.state.activeTab);
-		this.props.getNews({
+		this.props.getGhostContent({
 			limit: 1,
 			page: tabLookup[this.state.activeTab].pageghostTag
 		}, tabLookup[this.state.activeTab].newsPageActionType);

@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CollectionSection from '../CollectionSection/CollectionSection';
+import { Row, Col } from 'reactstrap';
 import { getFilmmakers } from '../../actions/filmmakers-actions';
 import { getFilms } from '../../actions/films-actions';
 import { getPrograms } from '../../actions/programs-actions';
+import { getGhostContent } from '../../actions/ghost-actions';
 import { getSpoofDataList } from '../../spoof-data';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
+import NewsTile from "../NewsTile/NewsTile";
+import {Link} from "react-router-dom";
+import Button from "../Button/Button";
 
 const mapDispatchToProps = dispatch => ({
   getFilmmakers: (...args) => dispatch(getFilmmakers(...args)),
   getFilms: (...args) => dispatch(getFilms(...args)),
-  getPrograms: (...args) => dispatch(getPrograms(...args))
-
+  getPrograms: (...args) => dispatch(getPrograms(...args)),
+  getGhostContent: (...args) => dispatch(getGhostContent(...args))
 })
 
 const mapStateToProps = state => ({
   films: state.films.data,
   filmmakers: state.filmmakers.data,
   programs: state.programs.data,
-  ephemera: state.ephemera.data,
-
   filmmakersIsLoading: state.filmmakers.isLoading,
   filmmakersError: state.filmmakers.error,
   filmsIsLoading: state.films.isLoading,
@@ -28,22 +31,26 @@ const mapStateToProps = state => ({
   programsIsLoading: state.programs.isLoading,
   programsError: state.programs.error,
   programsMediaByCsid: state.programs.mediaByCsid,
-  ephemeraIsLoading: state.ephemera.isLoading,
-  ephemeraError: state.ephemera.error,
+  ephemera: state.ghostContent.ephemera,
+  ephemeraIsLoading: state.ghostContent.isLoading,
+  ephemeraError: state.ghostContent.error,
 });
 
 class CollectionPageHome extends Component {
   componentDidMount() {
     this.props.getFilmmakers({
       pgSz: 3,
-      // 'persons:sortBy': 'addedDate+DESC'
     });
     this.props.getFilms({
       pgSz: 3,
-      // 'works:sortBy': 'addedDate+DESC'
     });
     this.props.getPrograms({
         pgSz: 3
+    });
+    this.props.getGhostContent({
+        limit: 3,
+        type: 'ephemera',
+        page: 1
     });
   }
 
@@ -65,36 +72,36 @@ class CollectionPageHome extends Component {
       ephemeraError
     } = this.props;
     const ephemeraData = getSpoofDataList('ephemera');
-    return <div className="container">
+    // TODO: this sucks and is a hack for Ephemera
+      return <div className="container">
       <ScrollToTopOnMount />
-      <CollectionSection key={0}
-        className="CollectionPageHomeSection"
-        viewMode={viewMode}
-        customColSize={viewMode !== 'list' ? 4 : null}
-        customColWidth="sm"
-        header="Films"
-        description="Titles featured in Canyon Cinema 50 and beyond"
-        buttonText="See all films"
-        buttonLink="/collection/films"
-        itemType="film"
-        searchData={films}
-        isLoading={filmsIsLoading}
-        error={filmsError}
-      />
-      <CollectionSection key={1}
-        className="CollectionPageHomeSection"
-        viewMode={viewMode}
-        customColSize={viewMode !== 'list' ? 4 : null}
-        customColWidth="sm"
-        header="Filmmakers"
-        description="Filmmakers included in Canyon Cinema 50 and ongoing public programming"
-        buttonText="See all filmmakers"
-        buttonLink="/collection/filmmakers"
-        itemType="filmmaker"
-        searchData={filmmakers}
-        isLoading={filmmakersIsLoading}
-        error={filmmakersError}
-      />
+      {
+        ephemera && ephemera.length &&
+        <div className="CollectionSection col-xs-4">
+        <header className="section-header d-flex">
+            <div>
+                <h3>Ephemera</h3>
+                <p>
+                    Ephemera description??
+                </p>
+            </div>
+            <Link className="ml-auto" to="/collection/ephemera">
+                <Button size="default">
+                    See all Ephemera
+                </Button>
+            </Link>
+        </header>
+          <Row>
+            {
+                ephemera.map((d, i) => {
+                    return <Col sm={4} key={i}>
+                        <NewsTile {...d} key={i} type="ephemera" linkBase="/collection/ephemera"/>
+                    </Col>
+                })
+            }
+          </Row>
+        </div>
+      }
       {
         programs && programs.length ?
         <CollectionSection key={2}
@@ -113,24 +120,34 @@ class CollectionPageHome extends Component {
         />
         : null
       }
-      {
-        ephemera && ephemera.length ?
-        <CollectionSection key={3}
-          className="CollectionPageHomeSection"
-          viewMode={viewMode}
-          customColSize={viewMode !== 'list' ? 4 : null}
-          customColWidth="sm"
-          header="Recently Added Ephemera"
-          description="Printed pieces, photos, stills, videos, and other related materials"
-          buttonText="See all ephemera"
-          buttonLink="/collection/ephemera"
-          itemType="ephemera"
-          searchData={ephemera}
-          isLoading={ephemeraIsLoading}
-          error={ephemeraError}
-        />
-        : null
-      }
+      <CollectionSection key={3}
+        className="CollectionPageHomeSection"
+        viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
+        header="Films"
+        description="Titles featured in Canyon Cinema 50 and beyond"
+        buttonText="See all films"
+        buttonLink="/collection/films"
+        itemType="film"
+        searchData={films}
+        isLoading={filmsIsLoading}
+        error={filmsError}
+      />
+      <CollectionSection key={4}
+        className="CollectionPageHomeSection"
+        viewMode={viewMode}
+        customColSize={viewMode !== 'list' ? 4 : null}
+        customColWidth="sm"
+        header="Filmmakers"
+        description="Filmmakers included in Canyon Cinema 50 and ongoing public programming"
+        buttonText="See all filmmakers"
+        buttonLink="/collection/filmmakers"
+        itemType="filmmaker"
+        searchData={filmmakers}
+        isLoading={filmmakersIsLoading}
+        error={filmmakersError}
+      />
     </div>;
   }
 }

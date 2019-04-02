@@ -4,8 +4,8 @@ import { Row, Col } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './HomeIntro.css';
 
-import { RECEIVED_NEWS_PAGE_INTRO_TEXT } from '../../actionTypes';
-import { getNews } from '../../actions/news-actions';
+import { RECEIVED_GHOST_PAGE_INTRO_TEXT } from '../../actionTypes';
+import { getGhostContent } from '../../actions/ghost-actions';
 import { INTRO_TEXT_TAG } from '../../config';
 
 // import CollectonContext from '../../collection-context';
@@ -14,11 +14,11 @@ import SearchBar from '../SearchBar/SearchBar';
 import GhostPostContent from '../GhostPostContent/GhostPostContent';
 
 const mapStateToProps = state => ({
-  introText: state.news.introTextPage,
+  introText: state.ghostContent.introTextPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getNews: (...args) => dispatch(getNews(...args))
+  getGhostContent: (...args) => dispatch(getGhostContent(...args))
 });
 
 class HomeIntro extends Component {
@@ -42,10 +42,10 @@ class HomeIntro extends Component {
   }
 
   componentDidMount() {
-    this.props.getNews({
+    this.props.getGhostContent({
       limit: 1,
       page: INTRO_TEXT_TAG
-    }, RECEIVED_NEWS_PAGE_INTRO_TEXT);
+    }, RECEIVED_GHOST_PAGE_INTRO_TEXT);
   }
 
   render() {

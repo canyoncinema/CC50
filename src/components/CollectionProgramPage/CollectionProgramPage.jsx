@@ -117,14 +117,14 @@ class CollectionProgramPage extends Component {
             })
             ,
 			conditionallyShow({
-				id: 'news',
-				condition: item.news && item.news.length,
+				id: 'ghostContent',
+				condition: item.ghostContent && item.ghostContent.length,
 				menuHeader: 'News',
 				renderHeader: () => <h3>{'News Featuring this ' + singularItemForm}</h3>,
 				renderContent: () => (
 					<NewsTiles
 						customColSize={6}
-						data={item.news}
+						data={item.ghostContent}
 					/>
 				)
 			})

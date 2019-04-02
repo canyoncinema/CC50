@@ -6,7 +6,6 @@ import SearchCard from '../SearchCard/SearchCard';
 import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 import throttle from '../../utils/throttle';
 import './SearchCards.css';
-
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 

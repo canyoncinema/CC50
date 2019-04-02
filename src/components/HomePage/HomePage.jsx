@@ -5,7 +5,7 @@ import { Row, Col } from 'reactstrap';
 import { optimalColWidths } from '../../utils/view-helpers';
 import './HomePage.css';
 import { getEvents } from '../../actions/events-actions';
-import { getNews } from '../../actions/news-actions';
+import { getGhostContent } from '../../actions/ghost-actions';
 import Hero from '../Hero/Hero';
 import HomeIntro from '../HomeIntro/HomeIntro';
 import Spotlight from '../Spotlight/Spotlight';
@@ -19,14 +19,15 @@ import withScrollNav from '../withScrollNav/withScrollNav';
 
 const mapStateToProps = state => ({
   upcomingEvents: state.events.futureEvents,
-  news: state.news.data,
+  news: state.ghostContent.news,
+  ephemera: state.ghostContent.ephemera,
   featuredPosts: state.featuredPosts.data,
   // events: state.events.data
 });
 
 const mapDispatchToProps = dispatch => ({
   getEvents: (...args) => dispatch(getEvents(...args)),
-  getNews: (...args) => dispatch(getNews(...args))
+  getGhostContent: (...args) => dispatch(getGhostContent(...args))
 });
 
 class HomePage extends Component {
@@ -34,12 +35,16 @@ class HomePage extends Component {
     if (this.props.changeMainNavBg) {
       this.props.changeMainNavBg('transparent');
     }
-
     this.props.getEvents({
       pgSz: 3
     });
-    this.props.getNews({
-      limit: 3
+    this.props.getGhostContent({
+      limit: 3,
+      page: 'news'
+    });
+    this.props.getGhostContent({
+        limit: 3,
+        page: 'news'
     });
   }
 

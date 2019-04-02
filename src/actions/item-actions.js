@@ -100,7 +100,7 @@ export function getItem(collectionItems, shortIdentifier, filmmakerOptions) {
 	/*
 	 * Related Objects Reqs per item:
 	 * films: item.otherFilmsByFilmmaker, item.ephemera, item.events, item.programs
-	 * filmmakers: item.films, item.ephemera, item.programs, item.events, item.news
+	 * filmmakers: item.films, item.ephemera, item.programs, item.events, ghostContent
 	 * programs: item.films, item.filmmakers, item.ephemera, item.events
 	 */
 	return (dispatch) => {

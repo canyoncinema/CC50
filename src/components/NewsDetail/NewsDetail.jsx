@@ -4,8 +4,8 @@ import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { optimalColWidths } from '../../utils/view-helpers';
 
-import { getNewsDetail } from '../../actions/news-detail-actions';
-import { getNews } from '../../actions/news-actions';
+import { getNewsDetail } from '../../actions/ghost-detail-actions';
+import { getGhostContent } from '../../actions/ghost-actions';
 
 import GhostPostContent from '../GhostPostContent/GhostPostContent';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
@@ -22,15 +22,15 @@ const mapStateToProps = state => ({
 	newsDetail: state.newsDetail.data,
 	isLoading: state.newsDetail.isLoading,
 	error: state.newsDetail.error,
-	// recycle the news state for listing other news section
-	newsDetailOtherNews: state.news.data,
-	newsDetailOtherNewsIsLoading: state.news.isLoading,
-	newsDetailOtherNewsError: state.news.error
+	// recycle the ghostContent state for listing other ghostContent section
+	newsDetailOtherNews: state.ghostContent.news,
+	newsDetailOtherNewsIsLoading: state.ghostContent.isLoading,
+	newsDetailOtherNewsError: state.ghostContent.error
 });
 
 const mapDispatchToProps = dispatch => ({
 	getNewsDetail: (...args) => dispatch(getNewsDetail(...args)),
-	getNews: (...args) => dispatch(getNews(...args))
+	getGhostContent: (...args) => dispatch(getGhostContent(...args))
 })
 
 class NewsDetail extends Component {
@@ -61,18 +61,20 @@ class NewsDetail extends Component {
 	getOlderEntries(lastNewsItem) {
 		// get older than lastNewsItem publish date
 		if (!lastNewsItem) return; // no more older entries
-		this.props.getNews({
+		this.props.getGhostContent({
 			limit: MAX_NUM_OLDER_ENTRIES,
 			filter: `published_at%3A%3C'${lastNewsItem.published_at}'`,
+			type: 'news',
+			page: 0
 		});
 	}
 
 	render() {
 		const { isLoading, error, newsDetail,
-		newsDetailOtherNews, newsDetailOtherNewsIsLoading, newsDetailOtherNewsError } = this.props;
+		newsDetailOtherNews, newsDetailOtherNewsIsLoading, newsDetailOtherNewsError, type } = this.props;
 		if (isLoading) return <LoadingMessage />;
 		if (error) return <ErrorMessage />;
-		const { slug, title, html, tags, eature_image, status, publishedAt, author } = newsDetail;
+		const { title, tags, status, publishedAt } = newsDetail;
 		return (
 			<GhostPostContent key={1}
 				className="NewsDetail"
@@ -85,9 +87,12 @@ class NewsDetail extends Component {
 						startDateTime={publishedAt}
 						title={title}
 						tags={tags}
+						type={type}
 					/>
 				]}
+
 				renderBottom={() => (
+                    type !== 'ephemera' &&
 					<div className="container other-entries">
 						<hr />
 						<h3>Older Entries {
@@ -96,15 +101,15 @@ class NewsDetail extends Component {
 							onClick={() => this.getOlderEntries(newsDetailOtherNews[MAX_NUM_OLDER_ENTRIES - 1])}
 							>></span>
 						}</h3>
-							{
-								newsDetailOtherNewsIsLoading &&
-								<LoadingMessage />
-							}
-							{
-								newsDetailOtherNewsError &&
-								<ErrorMessage />
-							}
-							{
+						{
+							newsDetailOtherNewsIsLoading &&
+							<LoadingMessage />
+						}
+						{
+							newsDetailOtherNewsError &&
+							<ErrorMessage />
+						}
+						{
 		            newsDetailOtherNews &&
 		            !newsDetailOtherNewsIsLoading &&
 		            newsDetailOtherNews.length ?

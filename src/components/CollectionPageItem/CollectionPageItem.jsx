@@ -205,7 +205,7 @@ class CollectionItemPage extends Component {
 									)
 								})}
 								{this.conditionallyShow({
-									condition: item.news && item.news.length,
+									condition: item.ghostContent && item.ghostContent.length,
 									menuHeader: 'Events',
 									renderHeader: () => <h3>{'News Featuring This ' + singularItemForm}</h3>,
 									renderContent: () => (

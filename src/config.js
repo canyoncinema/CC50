@@ -427,15 +427,16 @@ class Config {
 	// NOTE: GHOST TAGS CANNOT CONTAIN SPACES. Breaks Ghost API on filtering posts.
 	GHOST_PAGE_TAGS = `[${ABOUT_PAGE_TAG},${SUPPORT_US_PAGE_TAG},${INTRO_TEXT_TAG},${TOUR_PAGE_TAG},${PRESS_PAGE_TAG}]`
 
-	listNews({ limit, filter, page }) {
+	listGhostContent({ limit, filter, type, page }) {
 		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields
 		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
 			`limit=${limit}` +
+            `&page=${page}` +
 			`&include=tags,authors` +
 			`&order=published_at+desc` +
 			(
-				page ?
-				`&filter=tag%3A${page}` :
+                type ?
+				`&filter=tag%3A${type}` :
 				`&filter=visibility:public%2Btags:-${this.GHOST_PAGE_TAGS}${filter ? '%2B' + filter : ''}`
 			)
 		);
