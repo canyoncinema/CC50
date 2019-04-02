@@ -17,13 +17,13 @@ import NewsDetail from './components/NewsDetail/NewsDetail';
 import EventDetail from './components/EventDetail/EventDetail';
 import AboutPage from './components/AboutPage/AboutPage';
 import CollectionPage from './components/CollectionPage/CollectionPage';
+import CollectionPageEphemera from './components/CollectionPageEphemera/CollectionPageEphemera';
 import CollectionPageHome from './components/CollectionPageHome/CollectionPageHome';
 import CollectionPageItems from './components/CollectionPageItems/CollectionPageItems';
 import CollectionPageItem from './components/CollectionPageItem/CollectionPageItem';
 import CollectionFilmPage from './components/CollectionFilmPage/CollectionFilmPage';
 import CollectionFilmmakerPage from './components/CollectionFilmmakerPage/CollectionFilmmakerPage';
 import CollectionProgramPage from './components/CollectionProgramPage/CollectionProgramPage';
-import CollectionEphemeraPage from './components/CollectionEphemeraPage/CollectionEphemeraPage';
 import MainNav from './components/MainNav/MainNav';
 import Page404 from './components/Page404/Page404';
 
@@ -49,18 +49,26 @@ class App extends Component {
               shortIdentifier={match.params.shortIdentifier}
               collectionItems="programs" />
           } />
-          <Route exact path="/collection/ephemera/:shortIdentifier" component={({ match }) =>
-            <CollectionEphemeraPage
-              shortIdentifier={match.params.shortIdentifier}
-              collectionItems="ephemera" />
-          } />
+          {/*<Route exact path="/collection/ephemera/:shortIdentifier" component={({ match }) =>*/}
+            {/*<CollectionEphemeraGhostPage*/}
+              {/*shortIdentifier={match.params.shortIdentifier}*/}
+              {/*collectionItems="ephemera" />*/}
+          {/*} />*/}
+
           <Route exact
-            path="/collection/:collectionItems(films|filmmakers|programs|ephemera)/:itemId"
+            path="/collection/:collectionItems(films|filmmakers|programs)/:itemId"
             component={({match}) =>
               <CollectionPageItem
                 collectionItems={match.params.collectionItems}
                 itemId={match.params.itemId} />
             } />
+
+          <Route exact path="/collection/ephemera" component={({match}) =>
+              <CollectionPageEphemera />
+          } />
+          <Route exact path="/collection/ephemera/:slug" component={({match}) =>
+              <NewsDetail slug={match.params.slug} key={match.params.slug} type="ephemera" />
+          } />
           <Route path="/collection(/)?:collectionItems(films|filmmakers|programs|ephemera|films/|filmmakers/|programs/|ephemera/)?*" render={({match, location}) => {
             const searchedText = getQueryVal(location.search, 'search');
             const viewMode = getQueryVal(location.search, 'view') || 'grid';
