@@ -44,8 +44,11 @@ class HomeIntro extends Component {
   componentDidMount() {
     this.props.getGhostContent({
       limit: 1,
-      page: INTRO_TEXT_TAG
-    }, RECEIVED_GHOST_PAGE_INTRO_TEXT);
+      page: 1,
+      type: INTRO_TEXT_TAG
+    },
+    RECEIVED_GHOST_PAGE_INTRO_TEXT
+    );
   }
 
   render() {

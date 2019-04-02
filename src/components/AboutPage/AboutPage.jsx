@@ -6,17 +6,17 @@ import { Nav, NavItem, TabContent, TabPane } from 'reactstrap';
 import './AboutPage.css';
 
 import {
-	RECEIVED_GHOST_PAGE_ABOUT,
-	RECEIVED_GHOST_PAGE_SUPPORT_US,
-	RECEIVED_GHOST_PAGE_PRESS,
-	RECEIVED_GHOST_PAGE_TOUR
+    RECEIVED_GHOST_PAGE_ABOUT,
+    RECEIVED_GHOST_PAGE_SUPPORT_US,
+    RECEIVED_GHOST_PAGE_PRESS,
+    RECEIVED_GHOST_PAGE_TOUR, RECEIVED_GHOST_PAGE_INTRO_TEXT
 } from '../../actionTypes';
 import { getGhostContent } from '../../actions/ghost-actions';
 import {
-	ABOUT_PAGE_TAG,
-	SUPPORT_US_PAGE_TAG,
-	TOUR_PAGE_TAG,
-	PRESS_PAGE_TAG
+    ABOUT_PAGE_TAG,
+    SUPPORT_US_PAGE_TAG,
+    TOUR_PAGE_TAG,
+    PRESS_PAGE_TAG, INTRO_TEXT_TAG
 } from '../../config';
 
 import SecondaryPage from '../SecondaryPage/SecondaryPage';
@@ -90,11 +90,19 @@ class AboutPage extends Component {
 	componentDidMount() {
 		// PAGE HACK: to allow staff to edit these pages via Ghost,
 		// retrieve the one Ghost Post with the given page as ghost post tag
-		console.log(this.state.activeTab);
-		this.props.getGhostContent({
+		// console.log(this.state.activeTab);
+		// this.props.getGhostContent({
+		// 	limit: 1,
+		// 	page: tabLookup[this.state.activeTab].pageghostTag
+		// }, tabLookup[this.state.activeTab].newsPageActionType);
+
+        this.props.getGhostContent({
 			limit: 1,
-			page: tabLookup[this.state.activeTab].pageghostTag
-		}, tabLookup[this.state.activeTab].newsPageActionType);
+			page: 1,
+			type: tabLookup[this.state.activeTab].pageghostTag
+		},
+		tabLookup[this.state.activeTab].newsPageActionType
+		);
 	}
 
 	toggle = tabId => this.state.activeTab !== tabId && this.setState({ activeTab: tabId })

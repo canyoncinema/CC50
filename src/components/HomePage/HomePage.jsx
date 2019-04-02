@@ -40,11 +40,11 @@ class HomePage extends Component {
     });
     this.props.getGhostContent({
       limit: 3,
-      page: 'news'
+      type: 'news'
     });
     this.props.getGhostContent({
-        limit: 3,
-        page: 'news'
+      limit: 3,
+      type: 'news'
     });
   }
 

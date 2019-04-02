@@ -431,9 +431,14 @@ class Config {
 		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields
 		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
 			`limit=${limit}` +
-            `&page=${page}` +
 			`&include=tags,authors` +
 			`&order=published_at+desc` +
+			(
+				page ?
+					`&page=${page}`:
+					''
+
+			) +
 			(
                 type ?
 				`&filter=tag%3A${type}` :
