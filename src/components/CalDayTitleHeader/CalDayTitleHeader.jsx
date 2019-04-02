@@ -6,12 +6,12 @@ import Tags from '../Tags/Tags';
 import CalDay from '../CalDay/CalDay';
 import ClampedDescription from '../ClampedDescription/ClampedDescription';
 
-const CalDayTitleHeader = ({ startDateTime, tags, author, endDateTime, title, maxLines=2 }) =>
+const CalDayTitleHeader = ({ startDateTime, tags, author, endDateTime, title, maxLines=2, type }) =>
 	<div className="CalDayTitleHeader container-fluid">
 		<div className="container d-flex">
 			<div className="date-wrapper">
 				{
-					startDateTime ?
+					startDateTime && type !== "ephemera" ?
 					<CalDay className="white" dateTime={startDateTime} />
 					: null
 				}
