@@ -20,24 +20,27 @@ class NewsTile extends Component {
 	}
 
 	render() {
-		const { title, tags, publishedAt, slug, featureImage, author } = this.props;
+		const { title, tags, publishedAt, slug, featureImage, author, linkBase, type } = this.props;
 		const authorByline = author ? ` by ${author}` : null;
+		const link = linkBase ? linkBase : "/news";
 		return (
-			<Link to={`/news/${slug}`}>
+			<Link to={`${link}/${slug}`}>
 				<div className="NewsTile shadow-on-hover">
 					<PhotoFill src={featureImage} backgroundSize="cover" height="202px" />
 					<div className="content">
+						{ type === 'ephemera' ? <h6>EPHEMERA</h6> : null }
 						<h4 className="hover-effect" ref={this.newsNameRef}>
 							{title}
 						</h4>
-						<div className="by-line">
+						{type !== 'ephemera' &&
+							<div className="by-line">
 							<DateTimeString dateTime={publishedAt} format="long-date" />
-							{authorByline}
-						</div>
+							{/*{authorByline}*/}
+							</div>}
 						{ tags && <Tags isReadOnly={true} tags={tags} /> }
-						<div className="read-more">
-							Read More →
-						</div>
+						{/*<div className="read-more">*/}
+							{/*Read More →*/}
+						{/*</div>*/}
 					</div>
 				</div>
 			</Link>
