@@ -39,7 +39,11 @@ function failFilmmakers(error) {
 export function getFilmmakers(queryParams) {
 	return (dispatch) => {
 		dispatch(fetchFilmmakers());
-		return wrappedFetch(config.listFilmmakersUrl(queryParams))
+        return wrappedFetch(config.listFilmmakersUrl(Object.assign(queryParams, {
+            wf_deleted: false,
+            sortBy:'persons_common\:personTermGroupList/0/surName+ASC',
+            as: '\(persons_canyon:canyonDistributed+\=+1\)'
+        	})))
 			.then(response => {
 				if (response.status >= 400) {
 					dispatch(failFilmmakers("Bad response from server"));
