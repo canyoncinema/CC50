@@ -49,9 +49,9 @@ export const addEventFields = (item,filmRefNames) => {
 	// TODO: price string
 	item.price = null;
 	const showingGroup = parseExhibitionShowingGroup(item);
-	item.showingOpeningDate = item.showingOpeningDate || parseExhibitionOpeningDate(item, showingGroup);
+	item.showingOpeningDate ? item.showingOpeningDate = (item.showingOpeningDate).replace(/-/g, '\/') : parseExhibitionOpeningDate(item, showingGroup);
 	item.showingOpeningTime = item.showingOpeningTime || parseExhibitionOpeningTime(item, showingGroup);
-	item.showingClosingDate = item.showingClosingDate || parseExhibitionClosingDate(item, showingGroup);
+	item.showingClosingDate ? item.showingClosingDate =  (item.showingClosingDate).replace(/-/g, '\/') : parseExhibitionClosingDate(item, showingGroup);
 	item.showingClosingTime = item.showingClosingTime || parseExhibitionClosingTime(item, showingGroup);
 	item.showingTicketUrl = item.showingTicketUrl || parseExhibitionTicketUrl(item, showingGroup);
 	item.showingPrice = item.showingPrice || parseExhibitionPrice(item, showingGroup);
@@ -62,7 +62,13 @@ export const addEventFields = (item,filmRefNames) => {
 	if (filmRefNames) {
         item.films = getEventFilms(filmRefNames);
     }
-	return item;
+    // TODO such a hack.
+    if (item.title.length > 40) {
+        item.shortTitle = item.title.substring(0, 40) + '...';
+    } else {
+        item.shortTitle = item.title;
+    }
+    return item;
 }
 
 export const parseCreator = creatorRefName =>
@@ -212,7 +218,7 @@ export const toItemsData = (payload, skipTermDisplayName) => {
 		data = data.map(d => {
 			// added this for curated programs
 			if (d.title) {
-                d.termDisplayName = d.title
+                d.termDisplayName = d.title;
 			} else if (d.refName) {
             	 d.termDisplayName = toDisplayName(d.refName);
 			}
@@ -220,7 +226,14 @@ export const toItemsData = (payload, skipTermDisplayName) => {
 			if (d.scopeNote) {
 				d.scopeNote = d.scopeNote.substring(0, 160) + '...';
 			}
-			return d;
+			// TODO such a hack.
+			if (d.termDisplayName.length > 40) {
+                d.shortTitle = d.termDisplayName.substring(0, 40) + '...';
+			} else {
+                d.shortTitle = d.termDisplayName;
+            }
+
+            return d;
 		});
 	}
 	return data;
