@@ -35,6 +35,7 @@ class EventsPage extends Component {
             {
                 pgSz: PAGE_COUNT
             },
+			false,
             page,
         );
     }
