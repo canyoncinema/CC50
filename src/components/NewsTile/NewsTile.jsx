@@ -26,7 +26,7 @@ class NewsTile extends Component {
 		return (
 			<Link to={`${link}/${slug}`}>
 				<div className="NewsTile shadow-on-hover">
-					<PhotoFill src={featureImage} backgroundSize="cover" height="202px" />
+					<PhotoFill src={featureImage} backgroundColor="black" height="202px" />
 					<div className="content">
 						{ type === 'ephemera' ? <h6>EPHEMERA</h6> : null }
 						<h4 className="hover-effect" ref={this.newsNameRef}>
