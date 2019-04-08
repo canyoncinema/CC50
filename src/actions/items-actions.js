@@ -59,13 +59,24 @@ function failItems(error) {
 	}
 }
 
+function getAs(collectionItems) {
+	if (collectionItems === 'filmmakers') {
+		return '\(persons_canyon:canyonDistributed+\=+1\)';
+	} else if (collectionItems === 'films') {
+		return '\(works_canyon:canyonDistributed+\=+1\)';
+	} else {
+		return '';
+	}
+}
+
 export function getItems(collectionItems, queryParams, pageNum=0, shouldAddItems=false) {
 	return (dispatch) => {
 		if (!shouldAddItems) dispatch(fetchItems());
 		return config.fetchItems(collectionItems, Object.assign(queryParams, {
 				pgNum: pageNum,
 				wf_deleted: false,
-				sortBy: collectionItems === 'filmmakers'? 'persons_common\:personTermGroupList/0/surName+ASC' : ''
+				sortBy: collectionItems === 'filmmakers' ? 'persons_common\:personTermGroupList/0/surName+ASC' : '',
+				as: getAs(collectionItems)
 			}))
 			.then(response => {
 				if (response.status >= 400) {
