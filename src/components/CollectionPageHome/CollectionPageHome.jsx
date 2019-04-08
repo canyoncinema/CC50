@@ -82,7 +82,7 @@ class CollectionPageHome extends Component {
             <div>
                 <h3>Ephemera</h3>
                 <p>
-                    Ephemera description??
+                    Original writing, program notes, video, and artwork related to the Canyon Cinema collection
                 </p>
             </div>
             <Link className="ml-auto" to="/collection/ephemera">
