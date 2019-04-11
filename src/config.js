@@ -178,7 +178,7 @@ class Config {
 
 	// note: ephemera and event search are not yet there
 	// collectionItemTypes = ['films', 'filmmakers', 'ephemera', 'events']
-	collectionItemTypes = ['films', 'filmmakers']
+	collectionItemTypes = ['films', 'filmmakers', 'programs'];
 
 	fetchSearchedItems(collectionItems, queryParams) {
 		return wrappedFetch(encodeURI(this.getItemsUrl(collectionItems, new QueryParams(queryParams))));
