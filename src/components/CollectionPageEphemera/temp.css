@@ -1,0 +1,91 @@
+.CollectionPage header.search-sort {
+    /*padding-top: 63px;*/
+    background-color: var(--black);
+}
+
+.CollectionPage header.search-sort {
+    padding: 70px 70px 43px 70px;
+}
+
+.CollectionPage header.search-sort h1 {
+    padding-bottom: 40px;
+    margin: 0;
+}
+
+.CollectionPage .filters {
+    position: relative;
+    height: 50px;
+}
+
+.CollectionPage .ViewModeToggler {
+    position: absolute;
+    right: 0;
+}
+
+.CollectionPage .ViewModeButton {
+    border-top: solid 1px #6a6a6a;
+    border-bottom: solid 1px #6a6a6a;
+    border-left: solid 1px #6a6a6a;
+    border-top: solid 1px var(--dark-grey);
+    border-bottom: solid 1px var(--dark-grey);
+    border-left: solid 1px var(--dark-grey);
+}
+
+.CollectionPage .ViewModeButton:last-child {
+    border-right: solid 1px #6a6a6a;
+    border-right: solid 1px var(--dark-grey);
+}
+
+.CollectionPage .Search {
+    display: flex;
+    max-width: 755px;
+    margin-top: 40px;
+}
+
+.CollectionPage .SearchMenu {
+    width: 205px;
+    height: 50px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.CollectionPage .SearchMenuOptions {
+    margin-top: 50px;
+}
+
+.CollectionPage .SearchBar {
+    width: 561px;
+    position: absolute;
+    left: 204px;
+}
+
+.CollectionPage .SearchMenu .MenuItem {
+    margin-top: -1px;
+}
+
+.CollectionPage .SearchMenu:not(.open):hover + .SearchBar {
+    border-left-color: #ffffff;
+}
+
+/*  Contents  */
+.CollectionPage .section-header p {
+    margin-bottom: 0;
+}
+
+.CollectionPage .section-header {
+    margin-bottom: 35px;
+    padding-right: 6px;
+}
+
+.CollectionPage .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.CollectionPage .Sort {
+    padding: 60px 70px 0;
+}
+
+.CollectionPage .ResultSummaries {
+    display: inline;
+}

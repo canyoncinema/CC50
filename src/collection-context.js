@@ -6,7 +6,7 @@ export const FILMMAKERS_SEARCH_LABEL = 'Filmmakers';
 export const PROGRAMS_SEARCH_LABEL = 'Curated Programs';
 export const EPHEMERA_SEARCH_LABEL = 'Ephemera';
 
-export const ALL_SEARCH_PLACEHOLDER = 'Search films, filmmakers, curated programs, ephemera';
+export const ALL_SEARCH_PLACEHOLDER = 'Search curated programs, films, filmmakers';
 export const FILMS_SEARCH_PLACEHOLDER = 'Search films';
 export const FILMMAKERS_SEARCH_PLACEHOLDER = 'Search filmmakers';
 export const PROGRAMS_SEARCH_PLACEHOLDER = 'Search curated programs';
@@ -80,7 +80,7 @@ labelToSearchPlaceholder[EPHEMERA_SEARCH_LABEL] = EPHEMERA_SEARCH_PLACEHOLDER;
 
 
 const CollectionContext = React.createContext({
-	searchPlaceholder: 'Search films, filmmakers, curated programs, ephemera',
+	searchPlaceholder: 'Search curated programs, films, filmmakers',
 	searchText: '',
 	isCollapsedNav: false,
 	viewMode: 'grid',

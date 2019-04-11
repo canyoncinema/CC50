@@ -17,8 +17,9 @@ class Search extends Component {
 				onOptionSelect, submitSearch,
 				searchTextAutocompleted, searchText, setSearchText
 			} = context;
-				return [
-					<SearchMenu
+					// TODO: Temporary trying to make Ephemera look like it's a collection item page...hack...
+					const elements = collectionItems !== 'Ephemera' ? [
+						<SearchMenu
 						key={id + '-0'}
 						searchLabel={searchLabel}
 						onOptionSelect={onOptionSelect}
@@ -34,7 +35,14 @@ class Search extends Component {
 						submitSearch={submitSearch}
 						searchTextAutocompleted={searchTextAutocompleted}
 					/>
-				];
+				] :
+                 <SearchMenu
+					key={id + '-0'}
+					searchLabel={searchLabel}
+					onOptionSelect={onOptionSelect}
+				/>;
+				return elements;
+
 			}
 		}
 		</CollectionContext.Consumer>

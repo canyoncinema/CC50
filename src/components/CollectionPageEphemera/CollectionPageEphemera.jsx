@@ -11,6 +11,11 @@ import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import InfiniteScroll from "react-infinite-scroller";
 import throttle from '../../utils/throttle';
+import Search from "../Search/Search";
+import CollectionContext, { toCollectionSearchLabel } from '../../collection-context';
+import ViewModeToggler from "../ViewModeToggler/ViewModeToggler";
+import {withRouter} from "react-router-dom";
+import withScrollNav from "../withScrollNav/withScrollNav";
 
 
 const mapStateToProps = state => ({
@@ -74,12 +79,37 @@ class CollectionPageEphemera extends Component {
         });
     }
 
+    state = {
+        onOptionSelect: option => {
+            if (this.props.searchedText) {
+                this.submitSearch(this.props.searchedText, option.collectionItems);
+            } else {
+                // just push to history
+                const path = '/collection' + (option.collectionItems ? '/' + option.collectionItems : '');
+                this.props.history.push(path);
+            }
+        }
+    }
+
     render() {
         const { ephemera, ephemeraPageNum, finalPage, isLoading, error } = this.props;
         return (
-            <div className="NewsPage">
+            <CollectionContext.Provider value={this.state}>
+
+            <div className="NewsPage CollectionPage">
                 <ScrollToTopOnMount />
-                <PageHeader headline="Ephemera" />
+                {/*<PageHeader headline="Ephemera" />*/}
+                <header className="search-sort">
+                    <div className="container">
+                        <h1 className="white">Explore the collection</h1>
+                        <div className="filters">
+                            <Search id={0} collectionItems={"Ephemera"} />
+                            <ViewModeToggler
+                                activeMode={'grid'}
+                                onClick={this.setViewMode} />
+                        </div>
+                    </div>
+                </header>
                 <div className="container content">
                     <Row>
                         <Col sm={12}>
@@ -129,8 +159,11 @@ class CollectionPageEphemera extends Component {
                     </Row>
                 </div>
             </div>
+            </CollectionContext.Provider>
         );
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionPageEphemera);
+// export default connect(mapStateToProps, mapDispatchToProps)(CollectionPageEphemera);
+
+export default withRouter(withScrollNav(connect(mapStateToProps, mapDispatchToProps)(CollectionPageEphemera)))

@@ -19,19 +19,22 @@ class SearchMenu extends Component {
 	static options = [{
 		label: 'All',
 		collectionItems: null
-	}, {
+	},
+	{
+		label: 'Ephemera',
+		collectionItems: 'ephemera'
+	},
+	{
+		label: 'Curated Programs',
+		collectionItems: 'programs'
+	},
+	{
 		label: 'Films',
 		collectionItems: 'films'
 	}, {
 		label: 'Filmmakers',
 		collectionItems: 'filmmakers'
-	}, {
-		label: 'Curated Programs',
-		collectionItems: 'programs'
-	}, {
-		label: 'Ephemera',
-		collectionItems: 'ephemera'
-	}]
+	}];
 
 	componentDidMount() {
 		// TODO: make outside click handling reusable
