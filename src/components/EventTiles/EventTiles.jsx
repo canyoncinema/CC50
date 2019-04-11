@@ -46,7 +46,7 @@ class EventTiles extends React.Component {
 					hasMore={
 						this.props.paginate &&
 						totalCount &&
-						data.length <= totalCount
+						data.length < totalCount
 					}
 					useWindow={true}
 					threshold={500}

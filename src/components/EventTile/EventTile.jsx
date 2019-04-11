@@ -58,11 +58,12 @@ class EventTile extends Component {
 			showingPrice,
             mediaByRtSbj,
 			title,
+			shortTitle,
 			venueDisplayName,
 			location,
 			ticketNote,
 		} = this.props;
-		const openingDate = showingOpeningDate ? new Date(showingOpeningDate) : null;
+		const openingDate = showingOpeningDate ? showingOpeningDate : null;
         const listView = false;
         const itemType = 'events';
         return (
@@ -98,7 +99,7 @@ class EventTile extends Component {
 				<div className="content">
 					<h4 className="hover-effect" ref={this.eventNameRef}>
 						<ClampedDescription maxLines={2}>
-							<ReactMarkdown source={title} renderers={{
+							<ReactMarkdown source={shortTitle} renderers={{
 								'paragraph': ChildrenOnly,
 								'root': ChildrenOnly,
 								'listItem': ChildrenOnly

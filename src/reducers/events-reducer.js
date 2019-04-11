@@ -15,7 +15,9 @@ function sortEventsByDate(events) {
     const pastEvents = [];
     const futureEvents = [];
     const today = new Date();
+    today.setHours(0,0,0,0);
     events.forEach(e => {
+        e.showingOpeningDate = e.showingOpeningDate.replace(/-/g, '\/');
         new Date(e.showingOpeningDate) < today ? pastEvents.push(e) : futureEvents.push(e)
     });
     return {

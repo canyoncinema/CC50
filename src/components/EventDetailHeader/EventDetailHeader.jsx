@@ -17,7 +17,6 @@ class EventDetailHeader extends Component {
     render() {
     	const { media, ownProps, item, itemMediaByRtSbj, isCollapsed, startDateTime, endDateTime, title } = this.props;
         const hasSideComponent = itemMediaByRtSbj && itemMediaByRtSbj.length;
-
         return <div className="EventDetailHeader container-fluid d-flex">
             <div className="date-wrapper">
                 {

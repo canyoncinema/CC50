@@ -49,9 +49,10 @@ export const addEventFields = (item,filmRefNames) => {
 	// TODO: price string
 	item.price = null;
 	const showingGroup = parseExhibitionShowingGroup(item);
-	item.showingOpeningDate ? item.showingOpeningDate = (item.showingOpeningDate).replace(/-/g, '\/') : parseExhibitionOpeningDate(item, showingGroup);
+	// without these replaces, date conversion in JS is a day off...hack...
+    item.showingOpeningDate = item.showingOpeningDate || (parseExhibitionOpeningDate(item, showingGroup)).replace(/-/g, '\/').replace(/T.+/, '');
 	item.showingOpeningTime = item.showingOpeningTime || parseExhibitionOpeningTime(item, showingGroup);
-	item.showingClosingDate ? item.showingClosingDate =  (item.showingClosingDate).replace(/-/g, '\/') : parseExhibitionClosingDate(item, showingGroup);
+    item.showingClosingDate = item.showingClosingDate || parseExhibitionOpeningDate(item, showingGroup);
 	item.showingClosingTime = item.showingClosingTime || parseExhibitionClosingTime(item, showingGroup);
 	item.showingTicketUrl = item.showingTicketUrl || parseExhibitionTicketUrl(item, showingGroup);
 	item.showingPrice = item.showingPrice || parseExhibitionPrice(item, showingGroup);
@@ -136,8 +137,10 @@ export const parseExhibitionShowingGroup = exhibition =>
 	exhibition.showingGroupList.showingGroup &&
 	(exhibition.showingGroupList.showingGroup.length ? exhibition.showingGroupList.showingGroup[0] : exhibition.showingGroupList.showingGroup);
 
-export const parseExhibitionOpeningDate = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
-	showingGroup && showingGroup.showingOpeningDate;
+export const parseExhibitionOpeningDate = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) => {
+    return showingGroup && showingGroup.showingOpeningDate;
+}
+
 
 export const parseExhibitionOpeningTime = (exhibition, showingGroup=parseExhibitionShowingGroup(exhibition)) =>
 	showingGroup && showingGroup.showingOpeningTime;
