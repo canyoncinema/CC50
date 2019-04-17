@@ -67,7 +67,7 @@ class EventDetail extends Component {
 						{
                             event.films && event.films.length ?
 								<h3>Canyon Cinema distributed films in this event</h3> :
-                                <h3>No Films in this Event</h3>
+                                <h3>No Canyon Cinema distributed films in this Event</h3>
 						}
 						{
 							event.films && event.films.length ?
