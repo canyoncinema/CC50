@@ -19,3 +19,9 @@
 .EventDetailHeader .title-wrapper {
 	min-height: 105px;
 }
+
+@media (max-width: 880px) {
+	.EventDetailHeader .carousel-wrapper {
+		display: none;
+	}
+}

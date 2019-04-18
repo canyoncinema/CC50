@@ -27,22 +27,20 @@ class EventDetailHeader extends Component {
             </div>
             <div className="title-wrapper list-center-wrapper">
                 <div>
-                    <ClampedDescription maxLines={2}>
-                        <h1 title={title} className="white">
-                            {title}
-                        </h1>
-                    </ClampedDescription>
+                    <h1 title={title} className="white">
+                        {title}
+                    </h1>
                 </div>
             </div>
             {
                 hasSideComponent ?
-                    <Col sm={6}>
-                        <div className="d-flex">
-                            <ThumbnailCarousel
-                                isCollapsed={isCollapsed}
-                                className="ml-auto" media={itemMediaByRtSbj} />
-                        </div>
-                    </Col>
+                        <Col sm={6} className="carousel-wrapper">
+                            {/*<div className="d-flex">*/}
+                                <ThumbnailCarousel
+                                    isCollapsed={isCollapsed}
+                                    className="ml-auto" media={itemMediaByRtSbj} />
+                            {/*</div>*/}
+                        </Col>
                     : null
             }
         </div>

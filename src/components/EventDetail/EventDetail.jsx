@@ -50,10 +50,10 @@ class EventDetail extends Component {
 					rtSbj={csid}
 				/>
 				<Row className="content">
-					<Col md={3}>
+					<Col lg={3}>
 						<EventDetailSide event={event} />
 					</Col>
-					<Col md={9}>
+					<Col lg={9}>
 						{
 							event.boilerplateText ?
 							<section>
