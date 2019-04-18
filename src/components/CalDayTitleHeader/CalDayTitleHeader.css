@@ -20,6 +20,12 @@
 	margin-right: 45px;
 }
 
+@media (max-width: 1200px) {
+	.CalDayTitleHeader .date-wrapper {
+		display:none;
+	}
+}
+
 .CalDayTitleHeader h1 {
 	margin-bottom: 3px;
 }
