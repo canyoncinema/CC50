@@ -6,9 +6,8 @@
 }
 
 .MainNav .navbar {
-	height: 104px;
-  min-width: 1000px;
-	padding: 0;
+  /*height: 104px;*/
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   border-bottom: solid 1px #6a6a6a;
   border-bottom: solid 1px var(--dark-grey);
@@ -80,3 +79,44 @@
 .MainNav.collapsed .logo img {
   height: 57px;
 }
+
+
+.MainNav .navbar-toggler {
+  background: #9b9b9b url("/images/navbar-toggler.svg") no-repeat center;
+  text-align: center;
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: white;
+  float: right;
+}
+
+@media (max-width: 770px) {
+  .MainNav .navbar {
+    border: none;
+    padding: 15px;
+    background-color: white;
+  }
+  .MainNav .navbar .logo-nav-item {
+    display: none;
+  }
+  .MainNav .navbar ul, li {
+    display: block;
+  }
+
+  .MainNav .nav-item a, .MainNav .nav-item:last-child a {
+    color: var(--black)
+  }
+
+  .MainNav .nav-item a:hover,
+  .MainNav .nav-item a:active,
+  .MainNav .nav-item a:focus, .MainNav a {
+    opacity: 1;
+    color: #000;
+    text-decoration: none !important;
+  }
+
+
+
+}
+
+
+

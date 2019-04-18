@@ -14,6 +14,13 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 class EventDetailHeader extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    }
     render() {
     	const { media, ownProps, item, itemMediaByRtSbj, isCollapsed, startDateTime, endDateTime, title } = this.props;
         const hasSideComponent = itemMediaByRtSbj && itemMediaByRtSbj.length;
@@ -35,11 +42,11 @@ class EventDetailHeader extends Component {
             {
                 hasSideComponent ?
                         <Col sm={6} className="carousel-wrapper">
-                            {/*<div className="d-flex">*/}
+                            <div className={[this.state.width <= 880 ? null : "d-flex"]}>
                                 <ThumbnailCarousel
                                     isCollapsed={isCollapsed}
                                     className="ml-auto" media={itemMediaByRtSbj} />
-                            {/*</div>*/}
+                            </div>
                         </Col>
                     : null
             }
