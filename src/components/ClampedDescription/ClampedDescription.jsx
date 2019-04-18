@@ -11,23 +11,25 @@ class ClampedDescription extends Component {
 	browserHandler = {
 	  chrome: () => {
 	  	const { children, className, title, maxLines } = this.props;
-	  	return (
-	  		<Dotdotdot
-					title={title}
-					className={[
-						'ClampedDescription',
-						this.props.maxLines === 1 ? 'single-line-ellipsed' : '',
-						className
-					].join(' ')}
-					clamp={maxLines}>
-					{children}
-				</Dotdotdot>
+		  // console.log('browser detect chrome', children, title, maxLines);
+		  return (
+			<Dotdotdot
+				title={title}
+				className={[
+					'ClampedDescription',
+					this.props.maxLines === 1 ? 'single-line-ellipsed' : '',
+					className
+				].join(' ')}
+				clamp={maxLines}>
+				{children}
+			</Dotdotdot>
 	  	);
 	  },
 	  default: () => {
 	  	// at least on firefox, cannot take (any?) styles like pre-wrap
 	  	// -> omit classname entirely to be safe
 	  	const { children, title, maxLines } = this.props;
+	  	// console.log('browser detect default', children, title, maxLines);
 	  	if (this.props.maxLines === 1) {
 	  		return (
 	  			<div title={title} className="ClampedDescription single-line-ellipsed">
@@ -37,21 +39,23 @@ class ClampedDescription extends Component {
 	  	}
 	  	return (
 		  	<Dotdotdot
-					title={title}
-					className="ClampedDescription"
-					clamp={maxLines}>
-					{children}
-				</Dotdotdot>
+				title={title}
+				className="ClampedDescription"
+				clamp={maxLines}>
+				{children}
+			</Dotdotdot>
 			);
 		}
 	}
 
 	render() {
 		const { children, className, title, maxLines } = this.props;
-		if (!isNaN(maxLines)) {
-			return <div title={title} className={className}>{ children }</div>;
-		}
-		return (
+		// TODO @marlo I don't understand, this doesn't seem to do anything with the maxLines information.
+		// console.log('maxlines', maxLines)
+        // if (!isNaN(maxLines)) {
+        //     return <div title={title} className={className}>{ children }</div>;
+		// }
+        return (
 			<BrowserDetection>
 			{ this.browserHandler }
 			</BrowserDetection>
