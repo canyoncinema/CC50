@@ -44,22 +44,25 @@ class FilmContent extends Component {
 					}
 					<h4 className="d-flex">
 						<ClampedDescription
-							className="displayName"
+							className="displayName formatted-text"
 							maxLines={listView ? 1 : 2}
-							title={item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '')}>
+							>
 							<ReactMarkdown source={
-								listView && !isItemPageFilmCard ?
-								item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
-								item.termDisplayName
+                                item.termDisplayName
+                                // listView && !isItemPageFilmCard ?
+								// item.shortTitle + (item.creationYear ? ` (${item.creationYear})` : '') :
+								// item.shortTitle
+								// item.termDisplayName + (item.creationYear ? ` (${item.creationYear})` : '') :
+								// item.termDisplayName
 							} renderers={{
 								'paragraph': ChildrenOnly,
 								'root': ChildrenOnly
 							}} />
 						</ClampedDescription>
-						{
-							listView && !isItemPageFilmCard ? null :
-							<span className="year ml-auto">{item.creationYear}</span>
-						}
+						{/*{*/}
+							{/*listView && !isItemPageFilmCard ? null :*/}
+							{/*<span className="year ml-auto">{item.creationYear}</span>*/}
+						{/*}*/}
 					</h4>
 					{
 						item.creator && (showFilmFilmmaker || !isItemPageFilmCard) ?
