@@ -285,6 +285,22 @@
 	height: 185px;
 }
 
+@media (max-width: 700px) {
+	.SearchCard .filmmaker-film-still .media {
+		display: none;
+	}
+	.SearchCard.list.is-item-page-film-card .filmmaker-content {
+		/*width: 100%;*/
+	}
+}
+
+@media (max-width: 880px) {
+	.SearchCard.list.is-item-page-film-card .filmmaker-content {
+		width: 315px;
+		height: 185px;
+	}
+}
+
 .SearchCard .filmmaker-film-still .media {
 	width: 245px;
 	height: 185px;
