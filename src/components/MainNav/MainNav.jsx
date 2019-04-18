@@ -55,7 +55,6 @@ class MainNav extends Component {
                 (!location.pathname[pathname.length] || location.pathname[pathname.length] === '?' || location.pathname[pathname.length] === '/');
         };
         const isHomePageMainNav = location.pathname === '/';
-        console.log(this.state)
         return <div className={[
             'MainNav',
             isCollapsed ? 'collapsed' : null,
