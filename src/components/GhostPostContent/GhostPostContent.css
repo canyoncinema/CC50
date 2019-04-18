@@ -2,3 +2,11 @@
 	max-width: 768px;
 	margin: auto;
 }
+
+@media (max-width: 780px) {
+	.GhostPostContent .post-full-content {
+		padding: 0 20px;
+	}
+}
+
+
