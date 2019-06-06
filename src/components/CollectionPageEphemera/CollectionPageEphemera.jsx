@@ -148,7 +148,7 @@ class CollectionPageEphemera extends Component {
                                     ephemera.map((d, i) => {
                                         return (
                                             <Col sm={4} key={i}>
-                                                <NewsTile {...d} key={i} linkBase="/collection/ephemera"/>
+                                                <NewsTile {...d} key={i} type="ephemera" linkBase="/collection/ephemera"/>
                                             </Col>
                                         );
                                     })
