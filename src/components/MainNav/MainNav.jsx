@@ -87,7 +87,7 @@ class MainNav extends Component {
                             <NavLink href="/support">Support Us</NavLink>
                         </NavItem>
                         <NavItem className="ml-auto p-2">
-                            <a target="_blank" href="//canyoncinema.com">canyoncinema.com <IconNewWindow/></a>
+                            <a target="_blank" href="//canyoncinema.com">View complete catalog at canyoncinema.com<IconNewWindow/></a>
                         </NavItem>
                     </Nav>
                 </Collapse>
