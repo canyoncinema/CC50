@@ -77,7 +77,7 @@ class CollectionPageHome extends Component {
       <ScrollToTopOnMount />
       {
         ephemera && ephemera.length &&
-        <div className="CollectionSection col-xs-4">
+        <div className="CollectionSection">
         <header className="section-header d-flex">
             <div>
                 <h3>Ephemera</h3>
