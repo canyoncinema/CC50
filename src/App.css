@@ -311,6 +311,7 @@ h1 {
 h1.lead {
   margin-top: 50px;
   margin-bottom: 50px;
+  font-size: 3rem;
 }
 
 h1.discover, h1.discover * {
