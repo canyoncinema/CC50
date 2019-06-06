@@ -30,7 +30,7 @@ const Footer = ({className}) => {
 							<li><Link target="_blank" to="//www.canyoncinema.com/catalog">Catalog</Link></li>
 							<li><Link to="/news">News</Link></li>
 							<li><Link to="/about">About CC50</Link></li>
-							<li><Link to="/writings-and-essays">Writings & Essays</Link></li>
+							<li><Link to="/collection/ephemera">Writings & Essays</Link></li>
 							<li><Link to="/tour">Tour</Link></li>
 							<li><Link to="/press">Press</Link></li>
 							<li><Link to="/events">Events</Link></li>
