@@ -94,7 +94,6 @@ export function parseItemWorks(type, item) {
 	if (item &&
 		item[type + "WorkGroupList"] &&
 		item[type + "WorkGroupList"][type + "WorkGroup"]) {
-			console.log(item[type + "WorkGroupList"][type + "WorkGroup"] )
 		if (item[type + "WorkGroupList"][type + "WorkGroup"].length) {
             return item[type + "WorkGroupList"][type + "WorkGroup"].map(x => x[type + "Work"])
         }
