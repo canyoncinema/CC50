@@ -90,15 +90,27 @@ export const parseItemCreator = item =>
 	item.creatorGroupList.creatorGroup.creator &&
 	parseCreator(item.creatorGroupList.creatorGroup.creator);
 
-export const parseItemWorks = (type, item) =>
-    item &&
-    item[type + "WorkGroupList"] &&
-    item[type + "WorkGroupList"][type + "WorkGroup"] &&
-    item[type + "WorkGroupList"][type + "WorkGroup"].length ?
-        item[type + "WorkGroupList"][type + "WorkGroup"].map(x => x[type + "Work"]) :
-        null;
+export function parseItemWorks(type, item) {
+	if (item &&
+		item[type + "WorkGroupList"] &&
+		item[type + "WorkGroupList"][type + "WorkGroup"]) {
+			console.log(item[type + "WorkGroupList"][type + "WorkGroup"] )
+		if (item[type + "WorkGroupList"][type + "WorkGroup"].length) {
+            return item[type + "WorkGroupList"][type + "WorkGroup"].map(x => x[type + "Work"])
+        }
 
+        // CSpace API doesn't return an array if there's only 1 item -- need to convert as a workaround
+        if (item[type + "WorkGroupList"][type + "WorkGroup"][type + "Work"]) {
+        	let singleWork = item[type + "WorkGroupList"][type + "WorkGroup"][type + "Work"];
+        	if (typeof singleWork === "string") {
+        		return [singleWork];
+			}
+		}
+		return null;
+	}
+}
 
+//@marlo replaced this w above more general function
 export const parseItemExhibitionWorks = item =>
 	item &&
 	item.exhibitionWorkGroupList &&
