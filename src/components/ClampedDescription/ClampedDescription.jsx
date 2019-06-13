@@ -51,10 +51,9 @@ class ClampedDescription extends Component {
 	render() {
 		const { children, className, title, maxLines } = this.props;
 		// TODO @marlo I don't understand, this doesn't seem to do anything with the maxLines information.
-		// console.log('maxlines', maxLines)
-        // if (!isNaN(maxLines)) {
-        //     return <div title={title} className={className}>{ children }</div>;
-		// }
+        if (!isNaN(maxLines)) {
+            return <div title={title} className={className}>{ children }</div>;
+		}
         return (
 			<BrowserDetection>
 			{ this.browserHandler }
