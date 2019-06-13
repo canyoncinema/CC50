@@ -62,7 +62,12 @@ class CollectionItemHeader extends Component {
 									{
 										!isCollapsed &&
 										item.creationYear ?
-										<div className="year">{item.creationYear}</div>
+										<div className="year">
+											{item.creationYear}
+											{
+												item.duration ? <span className="duration">, {item.duration}</span> : null
+											}
+										</div>
 										: null
 									}
 									{
