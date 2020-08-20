@@ -16,7 +16,7 @@ const toRefNameUriVal = refName => refName.replace('#', '%23');
 const config = {
 	development: {
 		ghost: {
-			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+			apiUrl: 'https://ghost.cancf.com/ghost/api/v0.1',
 		},
 		baseUrl: 'http://dev-cs45-2.cancf.com:8180/cspace-services',
 		list: {
@@ -29,7 +29,7 @@ const config = {
 	},
     staging_local: {
         ghost: {
-            apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+            apiUrl: 'https://ghost.cancf.com/ghost/api/v0.1',
         },
         baseUrl: 'http://staging.canyoncinema50.org/cspace-services',
         list: {
@@ -42,7 +42,7 @@ const config = {
     },
     staging: {
         ghost: {
-            apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+            apiUrl: 'https://ghost.cancf.com/ghost/api/v0.1',
         },
         baseUrl: '/cspace-services',
         list: {
@@ -55,7 +55,7 @@ const config = {
     },
 	production: {
 		ghost: {
-			apiUrl: 'http://ghost.cancf.com/ghost/api/v0.1',
+			apiUrl: 'https://ghost.cancf.com/ghost/api/v0.1',
 		},
 		baseUrl: '/cspace-services',
 		list: {
@@ -429,7 +429,7 @@ class Config {
 
 	listGhostContent({ limit, filter, type, page }) {
 		// NOTE: Ghost Bug when listing fields including 'tags'; just show all fields
-		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
+		return fetch(`https://ghost.cancf.com/ghost/api/v0.1/posts/?client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&` +
 			`limit=${limit}` +
 			`&include=tags,authors` +
 			`&order=published_at+desc` +
@@ -448,7 +448,7 @@ class Config {
 	}
 
 	retrieveNewsDetail({ slug }) {
-		return fetch(`http://ghost.cancf.com/ghost/api/v0.1/posts/slug/${slug}/?` +
+		return fetch(`https://ghost.cancf.com/ghost/api/v0.1/posts/slug/${slug}/?` +
 			`client_id=ghost-frontend&client_secret=${this.GHOST_CLIENT_SECRET}&include=authors,tags`);
 	}
 

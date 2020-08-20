@@ -1,6 +1,6 @@
 function toGhostSrc(src) {
 	return src.match(/\:\/\//) ?
-		src : `http://ghost.cancf.com${src}`;
+		src : `https://ghost.cancf.com${src}`;
 }
 
 export function convertGhostHtml(ghostHtml) {
