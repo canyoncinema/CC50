@@ -10,7 +10,7 @@ import Head from './components/Head/Head';
 import registerServiceWorker from './registerServiceWorker';
 
 // polyfills
-import 'core-js/es6/map';
+import 'core-js/es/map';
 import 'object-fit-images'; // TODO
 
 ReactDOM.render(
