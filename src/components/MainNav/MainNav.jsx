@@ -23,7 +23,8 @@ class MainNav extends Component {
         this.state = {
             isOpen: false,
             width: window.innerWidth,
-            height: window.innerHeight
+            height: window.innerHeight,
+            navClass: window.innerWidth > 770 ? "d-flex" : ""
         };
     }
 
@@ -65,7 +66,7 @@ class MainNav extends Component {
             <Navbar expand="md" style={{backgroundColor: isTransparent ? 'transparent' : '#231f20'}}>
                 <NavbarToggler onClick={this.toggle}/>
                 <Collapse isOpen={this.state.isOpen} navbar className="navbar">
-                    <Nav className={["container-fluid", this.state.width <= 770 ? null : "d-flex"]}>
+                    <Nav className={`container-fluid ${this.state.navClass}`}>
                         <NavItem className="p-2 logo-nav-item">
                             <NavLink className="logo" href="/">
                                 <Logo/>
