@@ -17,11 +17,6 @@ With the correct credentials the scripts run are:
 
 Please contact Nima Khazaei at [nima@canyoncinema.com](mailto:nima@canyoncinema.com) or Marlo Longley at [marlo@codeandcursor.com](mailto:marlo@codeandcursor.com) for credentials.
 
-#### For staging: `yarn build:staging`
-#### for production: `yarn build:production`
-
-Please contact Amy Hua at [amy@canyoncinema.com](mailto:amy@canyoncinema.com) or Nima Khazaei at [nima@canyoncinema.com](mailto:nima@canyoncinema.com) for credentials.
-
 ## Data
 
 ```
