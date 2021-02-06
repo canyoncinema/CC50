@@ -6,7 +6,16 @@ To use for local development, run `yarn start:local`
 
 ## Build
 
-Update the deployment build. With the correct credentials,
+We use CodeShip for continuous integration. The `master` branch correlates to our staging site, and `production` to `canyoncinema50.org`.
+
+Staging can be viewed at: http://ec2-34-214-63-217.us-west-2.compute.amazonaws.com/
+
+With the correct credentials the scripts run are:
+
+#### For staging: `yarn build:staging`
+#### for production: `yarn build:production`
+
+Please contact Nima Khazaei at [nima@canyoncinema.com](mailto:nima@canyoncinema.com) or Marlo Longley at [marlo@codeandcursor.com](mailto:marlo@codeandcursor.com) for credentials.
 
 #### For staging: `yarn build:staging`
 #### for production: `yarn build:production`
